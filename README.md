@@ -1,2 +1,2 @@
-# datascouts
+# DataScouts
 Social Media Aggregator
