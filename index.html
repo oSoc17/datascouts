@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <title>Datascouts</title>
+    <link href="content\css\styles.css" rel="stylesheet" type="text/css"></link>
+    <script src="app\lib\angular.min.js"></script>
+    <script src="app\lib\angular-route.min.js"></script>
+    <script src="app\filtersApp.js"></script>
+  </head>
+  <body ng-app="filtersApp">
+    <div id="sidenav" class="sidenav" ng-controller="filtersCtrl">
+      <div class="content">
+        <img src="content/img/datascouts_logo.svg" alt="Datascouts Logo" style="width:200px;height:200px;" />
+        <h2>Filters:</h2>
+        <ul>
+          <li ng-repeat="filter in filtersList | orderBy: name">
+            <button ng-click="filter.active=!filter.active">{{filter.name}}</button>
+            <p>
+              {{filter.active}}
+            </p>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div id="main">
+      <div id="menu-bar">
+        <h1>Datascouts</h1>
+        <p>
+          EntitySelection
+        </p>
+      </div>
+      <div id="waterfall" class="content">
+        <p>
+          Waterfall display
+        </p>
+      </div>
+
+    </div>
+  </body>
+  </html>
