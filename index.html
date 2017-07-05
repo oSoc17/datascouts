@@ -5,45 +5,82 @@
     <title>Datascouts</title>
     <link href="content\css\styles.css" rel="stylesheet" type="text/css"></link>
   </head>
-  <body ng-app="mainApp" >
-    <div id="sidenav" class="sidenav" ng-controller="homeCtrl">
-      <div class="content">
-        <img src="content/img/datascouts_logo.svg" alt="Datascouts Logo" style="width:200px;height:200px;" />
-        <h2>Filters:</h2>
-        <ul>
-          <li ng-repeat="filter in filtersList | orderBy: name">
-            <button ng-click="filter.active=!filter.active">{{filter.name}}</button>
-            <p>
-              {{filter.active}}
-            </p>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <div id="main" >
+  <body ng-app="mainApp">
+      <!--SIDENAV-->
+      <div id="sidenav" class="sidenav" ng-controller="homeCtrl">
+        <div class="content">
+            <img src="content/img/datascouts_logo.svg" alt="Datascouts Logo"/>
+            <!--FILTERS-->
+            <h1>Filters</h1>
+            <hr>
+            <form action="" class="filter">
+                <h2>Social media</h2>
+                <label class="control control--checkbox">Twitter
+                    <input type="checkbox" checked="checked" name="twitter"/>
+                    <div class="control__indicator"></div>
+                </label>
+                <label class="control control--checkbox">Facebook
+                    <input type="checkbox" checked="checked" name="facebook"/>
+                    <div class="control__indicator"></div>
+                </label>
+            </form>
+            <form action="" class="filter">
+                <h2>Year</h2>
+                <label class="control control--checkbox">2017
+                    <input type="checkbox" name="2017"/>
+                    <div class="control__indicator"></div>
+                </label>
+                <label class="control control--checkbox">2016
+                    <input type="checkbox" name="2016"/>
+                    <div class="control__indicator"></div>
+                </label>
+            </form>
 
-      <div id="menu-bar" ng-controller="homeCtrl">
-        <h1>Datascouts</h1>
-        <form ng-submit="addEntity()">
-          <input type="text" placeholder="Enter entity to search for" ng-model="newEntity.name"/>
-          <input type="submit" value="Add new entity" />
-        </form>
-        <form ng-repeat="entity in entities | orderBy: name">
-          {{entity.name}}
-          <input type="checkbox" ng-model="entity.active" />
-          {{entity.active}}
-        </form>
-      </div>
-      <p>
-        Waterfall display
-      </p>
-
-      <!--<div id="waterfall" class="content" ng-controller="homeCtrl">
-        <div class="grid">
-          <div class="item" ng-repeat="handle in handles">{{handle.data}}</div>
+            <ul>
+                <li ng-repeat="filter in filtersList | orderBy: name">
+                  <button ng-click="filter.active=!filter.active">{{filter.name}}</button>
+                    <p>
+                      {{filter.active}}
+                    </p>
+                </li>
+            </ul>
         </div>
-      </div>-->
+    </div>
 
+    <div id="main">
+        <div class="content">
+            <p>Waterfall display</p>
+
+            <!--<div id="waterfall" class="content" ng-controller="homeCtrl">
+              <div class="grid">
+                <div class="item" ng-repeat="handle in handles">{{handle.data}}</div>
+              </div>
+            </div>-->
+        </div>
+    </div>
+
+    <div class="sidenav-right">
+      <div class="content">
+            <h1>Search for your entity</h1>
+            <form ng-submit="addEntity()">
+                <input type="text" placeholder="Enter entity to search for" ng-model="newEntity.name"/>
+                <button type="submit" value="Add new entity">Add entity</button>
+              </form>
+            <hr>
+            <ul class="entities">
+                <a href=""><li class="entity">datascouts</li></a>
+                <a href=""><li class="entity">oSoc17</li></a>
+            </ul>
+            <!--<div ng-controller="homeCtrl">
+              <h1>Datascouts</h1>
+              
+              <form ng-repeat="entity in entities | orderBy: name">
+                {{entity.name}}
+                <input type="checkbox" ng-model="entity.active" />
+                {{entity.active}}
+              </form>
+            </div>-->          
+        </div>
     </div>
 
     <script src="app\lib\angular.min.js"></script>
