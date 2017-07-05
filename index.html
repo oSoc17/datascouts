@@ -4,12 +4,9 @@
   <head>
     <title>Datascouts</title>
     <link href="content\css\styles.css" rel="stylesheet" type="text/css"></link>
-    <script src="app\lib\angular.min.js"></script>
-    <script src="app\lib\angular-route.min.js"></script>
-    <script src="app\filtersApp.js"></script>
   </head>
-  <body ng-app="filtersApp">
-    <div id="sidenav" class="sidenav" ng-controller="filtersCtrl">
+  <body ng-app="mainApp" >
+    <div id="sidenav" class="sidenav" ng-controller="homeCtrl">
       <div class="content">
         <img src="content/img/datascouts_logo.svg" alt="Datascouts Logo" style="width:200px;height:200px;" />
         <h2>Filters:</h2>
@@ -23,19 +20,35 @@
         </ul>
       </div>
     </div>
-    <div id="main">
-      <div id="menu-bar">
+    <div id="main" >
+
+      <div id="menu-bar" ng-controller="homeCtrl">
         <h1>Datascouts</h1>
-        <p>
-          EntitySelection
-        </p>
+        <form ng-submit="addEntity()">
+          <input type="text" placeholder="Enter entity to search for" ng-model="newEntity.name"/>
+          <input type="submit" value="Add new entity" />
+        </form>
+        <form ng-repeat="entity in entities | orderBy: name">
+          {{entity.name}}
+          <input type="checkbox" ng-model="entity.active" />
+          {{entity.active}}
+        </form>
       </div>
-      <div id="waterfall" class="content">
-        <p>
-          Waterfall display
-        </p>
-      </div>
+      <p>
+        Waterfall display
+      </p>
+
+      <!--<div id="waterfall" class="content" ng-controller="homeCtrl">
+        <div class="grid">
+          <div class="item" ng-repeat="handle in handles">{{handle.data}}</div>
+        </div>
+      </div>-->
 
     </div>
+
+    <script src="app\lib\angular.min.js"></script>
+    <script src="app\lib\angular-route.min.js"></script>
+    <script src="app\mainApp.js"></script>
+    <script src='node_modules/waterfalljs/waterfall.min.js'></script>
   </body>
   </html>

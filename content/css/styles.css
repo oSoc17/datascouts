@@ -35,18 +35,6 @@
   text-align: center;
 }
 
-#menu-bar ul{
-  float: right;
-  list-style-type: none;
-  padding: 0;
-  margin: 6px 0;
-}
-
-#menu-bar li{
-  float: right;
-  margin-left: 20px;
-}
-
 #menu-bar a{
   color: #fff
 }

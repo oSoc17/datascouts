@@ -1,0 +1,22 @@
+{
+  "name": "datascouts",
+  "version": "1.0.0",
+  "description": "a social media aggregator",
+  "main": "mainApp.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oSoc17/datascouts.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/oSoc17/datascouts/issues"
+  },
+  "homepage": "https://github.com/oSoc17/datascouts#readme",
+  "dependencies": {
+    "waterfall.js": "^1.1.0"
+  }
+}
