@@ -20,7 +20,7 @@
     "url": "https://github.com/oSoc17/datascouts/issues"
   },
   "homepage": "https://github.com/oSoc17/datascouts#readme",
-  "devDependencies": {
+  "dependencies": {
     "bluebird": "^3.5.0",
     "koa": "^2.3.0",
     "koa-logger": "^3.0.1",
