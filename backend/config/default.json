@@ -1,0 +1,37 @@
+{
+    "api": {
+        "port": 8080,
+        "token": "TOKEN_FOR_API",
+        "dirLogs": "./logs"
+    },
+    "db": {
+        "host": "127.0.0.1",
+        "port": 6379,
+        "password": "pwd",
+        "db": 0
+    },
+
+    "zen": [
+        "Two bytes meet. The first byte asks, 'Are you ill?' The second byte replies, 'No, just feeling a bit off.'",
+        "Old C programmers don't die, they're just cast into void.",
+        "Chuck Norris does not need to know about Class Factory Pattern. He can instantiate interfaces.",
+        "Why do Java programmers have to wear glasses? Because they don't see sharp.",
+        ".NET was named .NET so that it wouldn't show up in a Unix directory listing.",
+        "Optimist: The glass is half full. Pessimist: The glass is half empty. Programmer: The glass is twice as large as necessary.",
+        "Why did Microsoft name their search engine BING? Because It's Not Google.",
+        "Chuck Norris can solve the Towers of Hanoi in one move.",
+        "Your momma's so fat, the recursive function calculating her mass causes a stack overflow.",
+        "Your momma's so fat that not even Dijkstra is able to find a shortest path around her.",
+        "Chuck Norris writes directly in binary. He then writes the source code as documentation for other programmers.",
+        "Chuck Norris can retrieve anything from /dev/null.",
+        "Chuck Norris went out of an infinite loop.",
+        "Chuck Norris writes code that optimises itself.",
+        "Ubuntu users are apt to get this joke.",
+        "To understand recursion you must first understand recursion.",
+        "'Knock, knock.' 'Who's there?' ... very long pause ... 'Java.'",
+        "How many programmers does it take to change a light bulb? None, that's a hardware problem.",
+        "Chuck Norris doesn't use reflection, reflection asks politely for his help.",
+        "What's the object-oriented way to become wealthy? Inheritance.",
+        "How many programmers does it take to change a light bulb? None, they just make darkness a standard."
+    ]
+}
