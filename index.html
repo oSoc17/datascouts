@@ -15,14 +15,14 @@
             <hr>
             <form action="" class="filter">
                 <h2>Social media</h2>
-                <label class="control control--checkbox">Twitter
-                    <input type="checkbox" checked="checked" name="twitter"/>
+
+                <label class="control control--checkbox" ng-repeat="
+                filter in filtersList | orderBy: name">{{filter.name}}
+                    <input type="checkbox" checked="checked" name="filter.name"
+                    ng-model="filter.active"/>
                     <div class="control__indicator"></div>
                 </label>
-                <label class="control control--checkbox">Facebook
-                    <input type="checkbox" checked="checked" name="facebook"/>
-                    <div class="control__indicator"></div>
-                </label>
+
             </form>
             <form action="" class="filter">
                 <h2>Year</h2>
@@ -48,8 +48,9 @@
     </div>
 
     <div id="main">
-        <div class="content">
+        <div class="content" ng-controller="homeCtrl">
             <p>Waterfall display</p>
+            <pre>{{myData | json}}</pre>
 
             <!--<div id="waterfall" class="content" ng-controller="homeCtrl">
               <div class="grid">
@@ -59,7 +60,7 @@
         </div>
     </div>
 
-    <div class="sidenav-right">
+    <div class="sidenav-right" ng-controller="homeCtrl">
       <div class="content">
             <h1>Search for your entity</h1>
             <form ng-submit="addEntity()">
@@ -67,19 +68,26 @@
                 <button type="submit" value="Add new entity">Add entity</button>
               </form>
             <hr>
-            <ul class="entities">
-                <a href=""><li class="entity">datascouts</li></a>
-                <a href=""><li class="entity">oSoc17</li></a>
-            </ul>
+            <form action="" class="filter">
+                <h2>Entities</h2>
+<!--
+                <label class="control control--checkbox" ng-repeat="
+                entity in entities | orderBy: name">{{entity.name}}
+                    <input type="button" name="entity.name"
+                    ng-model="entity.active"/>
+                    <div class="control__indicator"></div>
+                </label>
+-->
+            </form>
             <!--<div ng-controller="homeCtrl">
               <h1>Datascouts</h1>
-              
+
               <form ng-repeat="entity in entities | orderBy: name">
                 {{entity.name}}
                 <input type="checkbox" ng-model="entity.active" />
                 {{entity.active}}
               </form>
-            </div>-->          
+            </div>-->
         </div>
     </div>
 
