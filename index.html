@@ -2,55 +2,59 @@
 <html lang="en">
 
   <head>
+    <meta charset="utf-8" />
     <title>Datascouts</title>
     <link href="content\css\styles.css" rel="stylesheet" type="text/css"></link>
+    <script src="https://unpkg.com/vue"></script>
   </head>
-  <body ng-app="mainApp">
+  <body>
       <!--SIDENAV-->
-      <div id="sidenav" class="sidenav" ng-controller="homeCtrl">
-        <div class="content">
+      <div id="sidenav" class="sidenav">
+        <div class="content" id="vue-app">
+            {{vueIsWorking}}
             <img src="content/img/datascouts_logo.svg" alt="Datascouts Logo"/>
+
             <!--FILTERS-->
             <h1>Filters</h1>
             <hr>
+
+            <!--list of social media filters, change bool with checkbox-->
             <form action="" class="filter">
                 <h2>Social media</h2>
-
-                <label class="control control--checkbox" ng-repeat="
-                filter in filtersList | orderBy: name">{{filter.name}}
-                    <input type="checkbox" checked="checked" name="filter.name"
-                    ng-model="filter.active"/>
-                    <div class="control__indicator"></div>
-                </label>
-
+                <template v-for="item in socialMediaFilters">
+                  <label class="control control--checkbox" >
+                      {{item.name}}
+                      <input type="checkbox" checked="checked" name="item.name"
+                      v-model="item.active"/>
+                      <div class="control__indicator"></div>
+                      {{item.active}}
+                  </label>
+                </template>
             </form>
+
+            <!--list of filters by date, change bool with checkbox-->
             <form action="" class="filter">
                 <h2>Year</h2>
-                <label class="control control--checkbox">2017
-                    <input type="checkbox" name="2017"/>
-                    <div class="control__indicator"></div>
-                </label>
-                <label class="control control--checkbox">2016
-                    <input type="checkbox" name="2016"/>
-                    <div class="control__indicator"></div>
-                </label>
+                <template v-for="item in dateFilters">
+                  <label class="control control--checkbox" >
+                      {{item.year}}
+                      <input type="checkbox" checked="checked" name="item.year"
+                      v-model="item.active"/>
+                      <div class="control__indicator"></div>
+                      {{item.active}}
+                  </label>
+                </template>
             </form>
 
-            <ul>
-                <li ng-repeat="filter in filtersList | orderBy: name">
-                  <button ng-click="filter.active=!filter.active">{{filter.name}}</button>
-                    <p>
-                      {{filter.active}}
-                    </p>
-                </li>
-            </ul>
         </div>
     </div>
 
     <div id="main">
-        <div class="content" ng-controller="homeCtrl">
+        <div class="content">
             <p>Waterfall display</p>
-            <pre>{{myData | json}}</pre>
+            <template v-for="item in items">
+                {{item}}
+            </template>
 
             <!--<div id="waterfall" class="content" ng-controller="homeCtrl">
               <div class="grid">
@@ -60,17 +64,18 @@
         </div>
     </div>
 
-    <div class="sidenav-right" ng-controller="homeCtrl">
+    <div class="sidenav-right">
       <div class="content">
             <h1>Search for your entity</h1>
-            <form ng-submit="addEntity()">
-                <input type="text" placeholder="Enter entity to search for" ng-model="newEntity.name"/>
-                <button type="submit" value="Add new entity">Add entity</button>
+            <form >
+                <input type="text" placeholder="Enter entity to search for" v-model="newEntity"/>
+                <button type="submit" value="Add new entity" v-on:click="fetchData">Add entity</button>
               </form>
             <hr>
             <form action="" class="filter">
                 <h2>Entities</h2>
-<!--
+
+                  <!--
                 <label class="control control--checkbox" ng-repeat="
                 entity in entities | orderBy: name">{{entity.name}}
                     <input type="button" name="entity.name"
@@ -91,9 +96,6 @@
         </div>
     </div>
 
-    <script src="app\lib\angular.min.js"></script>
-    <script src="app\lib\angular-route.min.js"></script>
-    <script src="app\mainApp.js"></script>
-    <script src='node_modules/waterfalljs/waterfall.min.js'></script>
+    <script src="app/app.js"></script>
   </body>
   </html>
