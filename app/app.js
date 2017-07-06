@@ -2,6 +2,7 @@ new Vue({
   el:'#vue-app',
   data: {
     items: [],
+    output: [],
     socialMediaFilters: [
       {name: 'Twitter',
       active: true},
@@ -14,21 +15,28 @@ new Vue({
       {year: 2016,
       active: false}
     ],
-    url: 'https://osoc-2017-datascouts-akad1070.c9users.io/twitter/q/',
+    url: 'https://osoc-2017-datascouts-akad1070.c9users.io/twitter/q/osoc',
     newEntity: '',
     entities: [
     ],
     vueIsWorking: 'Hurray, Vue is working!'
   },
   methods: {
-    fetchData: function(event) {
-      console.log("fetching data");
-      var self = this;
-      self.$http.get('https://osoc-2017-datascouts-akad1070.c9users.io/twitter/q/osoc', function( data ) {
-      self.items = data;
-      console.log(data);
-      });
-      this.newEntity = '';
-    }
+    fetchData: function () {
+      var xhr = new XMLHttpRequest()
+      var self = this
+      xhr.open('GET', 'https://osoc-2017-datascouts-akad1070.c9users.io/twitter/q/osoc')
+      xhr.onload = function () {
+        console.log(xhr.responseText)
+        self.items = JSON.parse(xhr.responseText)
+
+
+      }
+      xhr.send()
+    },
+  test: function(){
+    newEntity='working';
+    console.log('working');
+  }
   }
 })

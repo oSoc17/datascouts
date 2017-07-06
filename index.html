@@ -8,9 +8,10 @@
     <script src="https://unpkg.com/vue"></script>
   </head>
   <body>
+    <div id="vue-app">
       <!--SIDENAV-->
       <div id="sidenav" class="sidenav">
-        <div class="content" id="vue-app">
+        <div class="content">
             {{vueIsWorking}}
             <img src="content/img/datascouts_logo.svg" alt="Datascouts Logo"/>
 
@@ -47,14 +48,19 @@
             </form>
 
         </div>
-    </div>
+      </div>
 
-    <div id="main">
+      <div id="main">
         <div class="content">
             <p>Waterfall display</p>
-            <template v-for="item in items">
-                {{item}}
-            </template>
+            <button v-on:click="fetchData">{{newEntity}}</button>
+              <template v-for="item in items">
+                <p>
+                  <span class="body">{{item.body}}</span>
+                </p>
+              </template>
+
+
 
             <!--<div id="waterfall" class="content" ng-controller="homeCtrl">
               <div class="grid">
@@ -62,40 +68,40 @@
               </div>
             </div>-->
         </div>
-    </div>
+      </div>
 
-    <div class="sidenav-right">
-      <div class="content">
-            <h1>Search for your entity</h1>
-            <form >
-                <input type="text" placeholder="Enter entity to search for" v-model="newEntity"/>
-                <button type="submit" value="Add new entity" v-on:click="fetchData">Add entity</button>
+      <div class="sidenav-right">
+        <div class="content">
+              <h1>Search for your entity</h1>
+              <form >
+                  <input type="text" placeholder="Enter entity to search for" v-model="newEntity"/>
+                  <button type="submit" value="Add new entity" >Add entity</button>
+                </form>
+              <hr>
+              <form action="" class="filter">
+                  <h2>Entities</h2>
+
+                    <!--
+                  <label class="control control--checkbox" ng-repeat="
+                  entity in entities | orderBy: name">{{entity.name}}
+                      <input type="button" name="entity.name"
+                      ng-model="entity.active"/>
+                      <div class="control__indicator"></div>
+                  </label>
+  -->
               </form>
-            <hr>
-            <form action="" class="filter">
-                <h2>Entities</h2>
+              <!--<div ng-controller="homeCtrl">
+                <h1>Datascouts</h1>
 
-                  <!--
-                <label class="control control--checkbox" ng-repeat="
-                entity in entities | orderBy: name">{{entity.name}}
-                    <input type="button" name="entity.name"
-                    ng-model="entity.active"/>
-                    <div class="control__indicator"></div>
-                </label>
--->
-            </form>
-            <!--<div ng-controller="homeCtrl">
-              <h1>Datascouts</h1>
-
-              <form ng-repeat="entity in entities | orderBy: name">
-                {{entity.name}}
-                <input type="checkbox" ng-model="entity.active" />
-                {{entity.active}}
-              </form>
-            </div>-->
-        </div>
+                <form ng-repeat="entity in entities | orderBy: name">
+                  {{entity.name}}
+                  <input type="checkbox" ng-model="entity.active" />
+                  {{entity.active}}
+                </form>
+              </div>-->
+          </div>
+      </div>
     </div>
-
     <script src="app/app.js"></script>
   </body>
   </html>
