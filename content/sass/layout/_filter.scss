@@ -1,3 +1,12 @@
+.filter ul {
+    list-style: none;
+    padding: 0;
+    button {
+        width: calc(100% - 30px);
+        margin: 15px;
+    }
+}
+
 .control {
     display: block;
     position: relative;
@@ -9,7 +18,7 @@
 .control input {
     position: absolute;
     z-index: -1;
-opacity: 0;
+    opacity: 0;
 }
 .control__indicator {
     position: absolute;

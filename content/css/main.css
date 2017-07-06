@@ -81,15 +81,32 @@ form :-moz-placeholder {
   color: #ccc; }
 
 .tweets .tweet {
+  position: relative;
+  display: block;
+  float: left;
   margin-bottom: 15px;
   border: 1px solid #ccc;
   border-radius: 3px;
   padding: 10px 15px;
   width: calc(100% - 30px); }
-  .tweets .tweet img.profile_picture {
-    height: 70px;
+  .tweets .tweet:hover {
+    transition: 258ms all easy-in-out;
+    background: #eee; }
+  .tweets .tweet:hover a.tweet_url img {
+    transition: 258ms all easy-in-out;
+    opacity: 1; }
+  .tweets .tweet a.tweet_url img {
+    height: 35px;
     width: auto;
-    float: left; }
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    opacity: 0; }
+  .tweets .tweet img.profile_picture {
+    float: left;
+    height: 50px;
+    width: auto;
+    margin: 10px; }
   .tweets .tweet p {
     margin: 0; }
     .tweets .tweet p.body {
@@ -104,6 +121,9 @@ form :-moz-placeholder {
   .tweets .tweet .name {
     margin-top: 10px;
     float: left; }
+    .tweets .tweet .name .full_name {
+      font-weight: bold;
+      color: #515151; }
   .tweets .tweet small.created_at {
     color: #ccc; }
   .tweets .tweet .info .retweets {
@@ -116,7 +136,7 @@ form :-moz-placeholder {
       height: 50px;
       margin: 0 auto;
       display: block;
-      opacity: 0.7; }
+      opacity: 0.3; }
       .tweets .tweet .actions a.action svg:hover {
         cursor: pointer;
         opacity: 1;
@@ -125,8 +145,7 @@ form :-moz-placeholder {
 @media screen and (min-width: 1440px) {
   .tweets .tweet {
     width: calc(31.1% - 30px);
-    margin: 1%;
-    float: left; } }
+    margin: 1%; } }
 
 .sidenav {
   height: 100%;
@@ -138,7 +157,7 @@ form :-moz-placeholder {
   background-color: #fff;
   overflow-x: hidden;
   transition: 0.5s;
-  border-right: 1px solid #666; }
+  border-right: 1px solid #ccc; }
   .sidenav img {
     display: block;
     margin: 0 auto 30px;
@@ -159,7 +178,14 @@ form :-moz-placeholder {
   position: fixed;
   right: 0;
   top: 0;
-  border-left: 1px solid #666; }
+  border-left: 1px solid #ccc; }
+
+.filter ul {
+  list-style: none;
+  padding: 0; }
+  .filter ul button {
+    width: calc(100% - 30px);
+    margin: 15px; }
 
 .control {
   display: block;
