@@ -25,6 +25,7 @@
     "config": "^1.26.1",
     "koa": "^2.3.0",
     "koa-combine-routers": "^0.1.1",
+    "koa-cors": "0.0.16",
     "koa-logger": "^3.0.1",
     "koa-morgan": "^1.0.1",
     "koa-mount": "^3.0.0",
