@@ -18,5 +18,10 @@
   "homepage": "https://github.com/oSoc17/datascouts#readme",
   "dependencies": {
     "waterfall.js": "^1.1.0"
-  }
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-sass": "^3.1.0"
+  },
+  "keywords": []
 }

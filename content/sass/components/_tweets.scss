@@ -1,0 +1,64 @@
+.tweets {
+    .tweet {
+        margin-bottom: 15px;
+        border: 1px solid $lightgray;
+        border-radius: 3px;
+        padding: 10px 15px;
+        width: calc(100% - 30px);
+        img.profile_picture {
+            height: 70px;
+            width: auto;
+            float: left;
+        }
+        p {
+            margin: 0;
+            &.body { width: 100%; }
+        }
+        img.media {
+            width: calc(100% - 2px);
+            height: auto;
+            margin: 10px 0;
+            border: 1px solid $lightgray;
+        }
+        .user { height: 70px; }
+        .name {
+            margin-top: 10px;
+            float: left;
+        }
+        small.created_at {
+            color: $lightgray;
+        }
+        .info {
+            .retweets {
+                float: left;
+            }
+        }
+        .actions {
+            a.action {
+                height: 50px;
+                width: 33.33%;
+                float: left;
+                svg {
+                    height: 50px;
+                    margin: 0 auto;
+                    display: block;
+                    opacity: 0.7;
+                    &:hover {
+                        cursor: pointer;
+                        opacity: 1;
+                        transition: $transition;
+                    }
+                }
+            }
+        }
+    }
+}
+@media screen and (min-width: 1440px) {
+    .tweets {
+        .tweet {
+            width: calc(31.1% - 30px);
+            margin: 1%;
+            float: left;
+        }
+    }
+}
