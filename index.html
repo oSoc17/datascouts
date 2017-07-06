@@ -52,8 +52,6 @@
 
       <div id="main">
         <div class="content">
-            <button v-on:click="fetchData"> {{newEntity }}</button>
-
             <div class="tweets">
                 <template v-for="item in items">
                     <div class="tweet">
@@ -69,15 +67,15 @@
                         <div v-if="item.media != null">
                             <img v-bind:src="item.media" class="media" alt="">
                         </div>
-                        
+
                         <small class="created_at"> {{ item.created_at }} </small>
                         <hr>
                             <div class="info">
-                                <div class="retweets"> 
+                                <div class="retweets">
                                     <strong> {{ item.retweet_count }} </strong>
                                     retweets&nbsp;|&nbsp;
                                 </div>
-                                <div class="favorites"> 
+                                <div class="favorites">
                                     <strong> {{ item.favorite_count }} </strong>
                                     favorites </div>
                             </div>
@@ -120,11 +118,16 @@
               <h1>Search for your entity</h1>
               <form >
                   <input type="text" placeholder="Enter entity to search for" v-model="newEntity"/>
-                  <button type="submit" value="Add new entity" >Add entity</button>
+                  <button type="submit" value="Add new entity" v-on:click="addEntity">Add entity</button>
                 </form>
               <hr>
               <form action="" class="filter">
                   <h2>Entities</h2>
+                  <ul>
+                    <template v-for="item in entities">
+                      <button type="button" value="item" v-on:click="selectEntity(item,$event)">{{item}}</button>
+                    </template>
+                  </ul>
               </form>
           </div>
       </div>
