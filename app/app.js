@@ -20,6 +20,7 @@ new Vue({
     currentEntity: '',
     entities: [],
     waterfall: new Waterfall(),
+    waterfallIsCreated: false,
     limit: 20,
     vueIsWorking: 'Hurray, Vue is working!'
   },
@@ -75,7 +76,7 @@ new Vue({
     },
     updateWaterfall: _.debounce(
         function() {
-          waterfall = new Waterfall()
+          this.waterfall = new Waterfall()
         },
       600)
   }

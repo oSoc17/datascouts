@@ -83,6 +83,16 @@
       }
     };
 
+    Waterfall.prototype.deleteEmptyColumns = function() {
+      var columns = document.getElementsByClassName('wf-column')
+      for(var i=0;i<columns.length;i++){
+        if(columns[i].innerHTML===''){
+          columns[i].remove()
+        }
+
+      }
+    };
+
     // get the index of shortest column
     Waterfall.prototype.getMinHeightIndex = function() {
       if(this.columns && this.columns.length > 0) {
@@ -136,6 +146,7 @@
           this.addBox(box);
         }
       }
+      this.deleteEmptyColumns()
     };
 
     // add a new box to grid
