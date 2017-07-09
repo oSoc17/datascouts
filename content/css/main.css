@@ -144,7 +144,6 @@ form :-moz-placeholder {
 
 @media screen and (min-width: 1440px) {
   .tweets .tweet {
-    width: calc(31.1% - 30px);
     margin: 1%; } }
 
 .sidenav {

@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <title>Datascouts</title>
     <link href="content\css\main.css" rel="stylesheet" type="text/css"></link>
+    <link href="content\css\waterfall.css" rel="stylesheet" type="text/css"></link>
     <script src="https://unpkg.com/vue"></script>
   </head>
   <body>
@@ -52,10 +53,10 @@
 
       <div id="main">
         <div class="content">
-            <div class="tweets">
+            <div class="tweets wf-container">
                 <template v-for="item in items">
                     <!--TWEET-->
-                    <div class="tweet">
+                    <div class="tweet wf-box">
                         <a class="tweet_url" v-bind:href="item.link">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/8/81/Octicons-link-external.svg" alt="" title="visit tweet"> <!--temporary-->
                         </a>
@@ -138,6 +139,7 @@
           </div>
       </div>
     </div>
+    <script src="app/waterfall.js"></script>
     <script src="app/app.js"></script>
   </body>
   </html>
