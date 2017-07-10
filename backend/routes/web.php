@@ -15,6 +15,13 @@ $app->get('/', function () use ($app) {
     return $app->version();
 });
 
+// To generate the key for the .env
+// https://stackoverflow.com/questions/30344141/lumen-micro-framework-php-artisan-keygenerate
+$app->get('/key', function() {
+    return response()->json(str_random(32));
+});
+
+
 $app->get('/zen', function () use ($app) {
     return response()->json(['joke' => 'Waiting for the joke. It\' comming ....']);
 });
