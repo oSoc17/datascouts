@@ -23,9 +23,11 @@ $app = new Laravel\Lumen\Application(
     realpath(__DIR__.'/../')
 );
 
-// $app->withFacades();
+$app->withFacades();
 
-// $app->withEloquent();
+class_alias('Spatie\LaravelTwitterStreamingApi\TwitterStreamingApiFacade', 'TwitterStreamingApi');
+
+$app->withEloquent();
 
 /*
 |--------------------------------------------------------------------------
