@@ -16,7 +16,7 @@ class Entity extends Model {
     ];
 
     public static $rules = [
-        "name" => "unique|min:3",
+        "name" => "min:3|unique:entities",
     ];
 
 
