@@ -101,7 +101,8 @@ $app->group(['namespace' => 'App\Http\Controllers'], function ($app) {
 
 
 // To $app->configure() each file in config/folder
-$configFiles = array_diff(scandir('../config'), array('..', '.'));
+$configPath = realpath(__DIR__.'/../'.'/config');
+$configFiles = array_diff(scandir($configPath), array('..', '.'));
 foreach ($configFiles as $config) {
     $explod = explode('.', $config);
     array_pop($explod);
