@@ -27,7 +27,13 @@ class TwitterController extends Controller {
     
     
     public function show(Request $request, $q){
-        $data = $this->connection->get("search/tweets", ["q" => $q]);
+        $data = $this->connection->get("search/tweets", [
+            "q" => $q ." -filter:retweets",
+            'result_type' => 'mixed',   #['mixed', 'popular', 'recent']
+            'count' => 7,
+            'include_entities' => false
+            
+        ]);
         return response()->json(['data' => $data->statuses]);
     }
 
