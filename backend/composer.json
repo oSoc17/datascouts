@@ -10,7 +10,8 @@
         "vlucas/phpdotenv": "~2.2",
         "spatie/laravel-twitter-streaming-api": "^1.0",
         "abraham/twitteroauth": "^0.7.4",
-        "wn/lumen-generators": "^1.3"
+        "wn/lumen-generators": "^1.3",
+        "vluzrmos/lumen-cors": "2.1.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
