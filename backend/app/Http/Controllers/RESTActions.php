@@ -56,7 +56,7 @@ trait RESTActions
     protected function respond($status, $data = [])
     {
         if ($status == Response::HTTP_OK) {
-            return response()->json(compact('data'), $status);
+            return response()->json($data, $status);
         }
     }
 }
