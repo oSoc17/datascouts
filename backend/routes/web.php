@@ -1,3 +1,4 @@
+
 <?php
 
 /*
@@ -40,13 +41,15 @@ $app->group(['prefix' => 'api'], function ($app) {
             return response()->json(['joke' => 'Waiting for the joke. It\' comming ....']);
         });
         
-        // All routes related to Services 
-        $app->group(['prefix' => 'services'], function ($app) {
-        
-            $app->get('twitter/{q}/', 'TwitterController@show');
-            
-            
-        }); // prefix : services
+        // Routes for resource entities
+        $app->group(['prefix' => 'entities'], function ($app) {
+            $app->get('/', 'EntitiesController@all');
+            $app->get('/{id}', 'EntitiesController@get');
+            $app->post('/', 'EntitiesController@post');
+            $app->put('/{id}', 'EntitiesController@post');
+            $app->delete('/{id}', 'EntitiesController@remove');
+        }); // prefix : entities
+
 
     }); // prefix : v1
 });  // prefix : api
