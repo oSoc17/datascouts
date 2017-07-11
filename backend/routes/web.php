@@ -51,10 +51,10 @@ $app->group(['prefix' => 'api'], function ($app) {
         // Routes for resource entities
         $app->group(['prefix' => 'entities'], function ($app) {
             $app->get('/', 'EntitiesController@all');
-            $app->get('/{id}', 'EntitiesController@get');
+            $app->get('/{name}', 'EntitiesController@get');
             $app->post('/', 'EntitiesController@add');
-            $app->put('/{id}', 'EntitiesController@post');
-            $app->delete('/{id}', 'EntitiesController@remove');
+            $app->put('/{name}', 'EntitiesController@put');
+            $app->delete('/{name}', 'EntitiesController@remove');
         }); // prefix : entities
 
 
