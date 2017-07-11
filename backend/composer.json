@@ -13,7 +13,8 @@
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
-        "mockery/mockery": "~0.9"
+        "mockery/mockery": "~0.9",
+        "wn/lumen-generators": "^1.3"
     },
     "autoload": {
         "psr-4": {
