@@ -1,9 +1,19 @@
 <?php namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class Entity extends Model {
+    
+    // use SoftDeletes;
 
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $fillable = ["name", "image"];
 
     /**
@@ -16,7 +26,7 @@ class Entity extends Model {
     ];
 
     public static $rules = [
-        "name" => "unique|min:3",
+        "name" => "min:3|unique:entities",
     ];
 
 

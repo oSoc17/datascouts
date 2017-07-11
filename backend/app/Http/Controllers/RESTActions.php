@@ -26,7 +26,6 @@ trait RESTActions
     public function add(Request $request)
     {
         $m = self::MODEL;
-        // dd($request);
         $this->validate($request, $m::$rules);
         return $this->respond(Response::HTTP_CREATED, $m::create($request->all()));
     }
@@ -55,8 +54,8 @@ trait RESTActions
 
     protected function respond($status, $data = [])
     {
-        if ($status == Response::HTTP_OK) {
+        // if ($status == Response::HTTP_OK) {
             return response()->json($data, $status);
-        }
+        // }
     }
 }
