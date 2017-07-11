@@ -2,7 +2,7 @@
 
 /*
 |--------------------------------------------------------------------------
-| Application Routes
+| Application Routes : /
 |--------------------------------------------------------------------------
 |
 | Here is where you can register all of the routes for an application.
@@ -22,7 +22,32 @@ $app->get('/key', function() {
 });
 
 
-$app->get('/zen', function () use ($app) {
-    return response()->json(['joke' => 'Waiting for the joke. It\' comming ....']);
-});
+
+/*
+|--------------------------------------------------------------------------
+| Application Routes : /api/v1
+|--------------------------------------------------------------------------
+|
+| Those following routes must be prefixed 
+|
+*/
+
+$app->group(['prefix' => 'api'], function ($app) { 
+
+    $app->group(['prefix' => 'v1'], function ($app) { 
+
+        $app->get('/zen', function () use ($app) {
+            return response()->json(['joke' => 'Waiting for the joke. It\' comming ....']);
+        });
+        
+        // All routes related to Services 
+        $app->group(['prefix' => 'services'], function ($app) {
+        
+            $app->get('twitter/{q}/', 'TwitterController@show');
+            
+            
+        }); // prefix : services
+
+    }); // prefix : v1
+});  // prefix : api
 
