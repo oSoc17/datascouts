@@ -26,8 +26,18 @@ new Vue({
     selectedEntities: [],
     searchEntity: '',
     currentEntity: '',
-    handles: ['facebook/user1','facebook/user2','twitter/user'],
-    selected: false,
+    handles: [
+      {name: 'facebook/user1',
+      url: 'url1'},
+      {name: 'facebook/user2',
+      url: 'url2'}
+    ],
+    currentHandle: {
+      name: '',
+      url: ''
+    },
+    entitySelected: false,
+    handleSelected: false,
     waterfall: new Waterfall(200),
     waterfallIsCreated: false,
     isLoading: false,
@@ -86,22 +96,25 @@ new Vue({
     selectEntity: function (entity, e) {
       e.preventDefault()
       //console.log(entity)
-      if(!this.selected || this.currentEntity==entity){
-        this.selected = !this.selected
+      if(!this.entitySelected || this.currentEntity==entity){
+        this.entitySelected = !this.entitySelected
       }
       this.currentEntity = entity
-      if(this.selected){
+      if(this.entitySelected){
         document.getElementById("sidenav_handles").style.marginLeft = "250px"
       }
       else{
         document.getElementById("sidenav_handles").style.marginLeft = "0px"
+        this.discardHandle()
       }
+
+      this.loadHandles(entity)
     },
     editEntity: function(entity, newName, e) {
       e.preventDefault()
       console.log(entity)
       this.$http.put(this.url + '/entities', {"id:" : entity, "name" : newName}).then(function (response) {
-          console.log("Entity added")
+          console.log("Handle updated")
           //console.log(response)
         }, function (response) {
           console.log("Error Failed to edit entity")
@@ -122,12 +135,66 @@ new Vue({
     loadEntities: function() {
       this.$http.get(this.url + '/entities').then(function (response) {
         this.entities = response.data.map(e => e.name);
-        console.log("Entity added")
+        console.log("Entities loaded")
+          //console.log(response)
+        }, function (response) {
+          console.log("Error Failed to get data")
+          console.log(response)
+      })
+    },
+    loadHandles: function(entity) {
+      this.$http.get(this.url + '/' + entity).then(function (response) {
+        for(var i=0; i<response.data.length; i++){
+          this.handles[i] = response.data[i]
+        }
+        console.log("Handles loaded")
           //console.log(response)
         }, function (response) {
           console.log("Error Fail to get data")
           console.log(response)
       })
+    },
+    selectHandle: function(handle, e) {
+      e.preventDefault()
+      //console.log(entity)
+      if(!this.handleSelected || this.currentHandle.url==handle.url){
+        this.handleSelected = !this.handleSelected
+      }
+      this.currentHandle.name = handle.name
+      this.currentHandle.url = handle.url
+      if(this.handleSelected){
+        document.getElementById("sidenav_action").style.marginLeft = "500px"
+      }
+      else{
+        document.getElementById("sidenav_action").style.marginLeft = "0px"
+      }
+    },
+    editHandle: function(handle, newName, e) {
+      e.preventDefault()
+      console.log(handle)
+      this.$http.put(this.url + '/services', {"name:" : handle.name, "url" : handle.url}).then(function (response) {
+          console.log("Handle updated")
+          //console.log(response)
+        }, function (response) {
+          console.log("Error Failed to update handle")
+      })
+      this.loadEntities()
+    },
+    deleteHandle: function(handle, e) {
+      e.preventDefault()
+      console.log(handle)
+      this.$http.delete(this.url + '/services', {"name" : handle.name, "url" : handle.url}).then(function (response) {
+          console.log("Handle deleted")
+          //console.log(response)
+        }, function (response) {
+          console.log("Error Failed to delete handle")
+      })
+      this.loadEntities()
+    },
+    discardHandle: function(e) {
+      this.handleSelected = !this.handleSelected
+      document.getElementById("sidenav_action").style.marginLeft = "0px"
+      this.currentHandle.url = ""
     },
     updateWaterfall: _.debounce(
         function() {

@@ -24,10 +24,10 @@
 
               <div class="searchedEntities">
                 <template v-for="item in entities">
-                  <div type="button" v-on:click="selectEntity(item,$event)"
+                  <button type="button" v-on:click="selectEntity(item,$event)"
                   v-if=" (item.indexOf(searchEntity) !== -1 || searchEntity == '')">
                     {{item}}
-                  </div>
+                  </button>
                 </template>
                 <button type="button" v-on:click="addEntity(searchEntity, $event)" v-if="searchEntity != ''">create {{searchEntity}}</button>
               </div>
@@ -44,6 +44,28 @@
           <div class="content">
             <button type="button" v-on:click="editEntity(currentEntity, $event)">edit {{currentEntity}}</button>
             <button type="button" v-on:click="deleteEntity(currentEntity, $event)">delete {{currentEntity}}</button>
+            <p> Social media handles for {{currentEntity}} </p>
+            <template v-for="item in handles">
+              <button type="button" v-on:click="selectHandle(item,$event)">
+                {{item.name}}
+              </button>
+            </template>
+          </div>
+        </div>
+
+        <div id="sidenav_action" class="sidenav_action">
+          <div class="content">
+            <p> EDIT/DELETE {{currentHandle.name}} </p>
+            <form >
+                <input type="text" v-model="currentHandle.name"/>
+                <input type="text" v-model="currentHandle.url"/>
+                <button type="button" v-on:click="editHandle(currentHandle, $event)">update</button>
+                <button type="button" v-on:click="discardHandle($event)">discard</button>
+                <br />
+                <br />
+                <br />
+                <button type="button" v-on:click="deleteHandle(currentHandle, $event)">delete</button>
+            </form>
           </div>
         </div>
       </div>
