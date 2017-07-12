@@ -45,6 +45,20 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
+        $err = [
+            "message" => 'Some shift happened !',
+            "request" => [
+                "method" => $request->method(), 
+                "path" => $request->path(),
+                "parameters" => $request->input()
+            ],
+            "data" => compact($request->all())    
+        ];
+        if ($e instanceof ModelNotFoundException) {
+            $err['message'] = "The requested object is not valid";
+            return response()->json($err,404);
+        }
+
         return parent::render($request, $e);
     }
 }
