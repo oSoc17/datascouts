@@ -120,9 +120,9 @@ new Vue({
           console.log(response)
       })
     },
-    addEntity: function (entity, e) {
+    addEntity: function (name, e) {
       e.preventDefault()
-      this.$http.post(this.url + '/entities', {"name" : entity.name}).then(function (response) {
+      this.$http.post(this.url + '/entities', {"name" : name}).then(function (response) {
         this.loadEntities()
         console.log("Entity added")
         }, function (response) {
@@ -175,7 +175,7 @@ new Vue({
     },
     deleteEntity: function(entity, e) {
       e.preventDefault()
-      console.log(entity)
+      console.log(entity.name)
       this.$http.delete(this.url + '/entities/' + entity.url).then(function (response) {
           console.log("Entity deleted")
           //console.log(response)
