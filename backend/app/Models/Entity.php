@@ -1,10 +1,18 @@
-<?php namespace App;
+<?php namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class Entity extends Model {
 
-    protected $fillable = ["name", "image"];
+    use SoftDeletes;
+
+    protected $primaryKey = 'url';
+
+    public $incrementing = false;
+
+    protected $fillable = ["name", "url", "image"];
 
     /**
      * The attributes that should be mutated to dates.
@@ -16,7 +24,7 @@ class Entity extends Model {
     ];
 
     public static $rules = [
-        "name" => "unique|min:3",
+        "name" => "unique:entities|min:3",
     ];
 
 
@@ -32,7 +40,7 @@ class Entity extends Model {
      *
      * @var array
      */
-    protected $visible = ['name', 'image'];
+    protected $visible = ['name', 'url', 'image'];
 
     // Relationships
 

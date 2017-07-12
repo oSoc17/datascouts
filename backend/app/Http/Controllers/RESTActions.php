@@ -16,29 +16,28 @@ trait RESTActions
     public function get($id)
     {
         $m = self::MODEL;
-        $model = $m::find($id);
-        if (is_null($model)) {
-            return $this->respond(Response::HTTP_NOT_FOUND);
-        }
+        $model = $m::findOrFail($id);
+        // if (is_null($model)) {
+        //     return $this->respond(Response::HTTP_NOT_FOUND);
+        // }
         return $this->respond(Response::HTTP_OK, $model);
     }
 
     public function add(Request $request)
     {
         $m = self::MODEL;
-        // dd($request);
         $this->validate($request, $m::$rules);
-        return $this->respond(Response::HTTP_CREATED, $m::create($request->all()));
+        return $this->respond(Response::HTTP_CREATED, $m::firstOrCreate($request->all()));
     }
 
     public function put(Request $request, $id)
     {
         $m = self::MODEL;
         $this->validate($request, $m::$rules);
-        $model = $m::find($id);
-        if (is_null($model)) {
-            return $this->respond(Response::HTTP_NOT_FOUND);
-        }
+        $model = $m::findOrFail($id);
+        // if (is_null($model)) {
+        //     return $this->respond(Response::HTTP_NOT_FOUND);
+        // }
         $model->update($request->all());
         return $this->respond(Response::HTTP_OK, $model);
     }
@@ -46,17 +45,19 @@ trait RESTActions
     public function remove($id)
     {
         $m = self::MODEL;
-        if (is_null($m::find($id))) {
-            return $this->respond(Response::HTTP_NOT_FOUND);
-        }
-        $m::destroy($id);
+        $model = $m::findOrFail($id);
+        // if (is_null($m::find($id))) {
+        //     return $this->respond(Response::HTTP_NOT_FOUND);
+        // }
+        $model->destroy($id);
         return $this->respond(Response::HTTP_NO_CONTENT);
     }
 
     protected function respond($status, $data = [])
     {
-        if ($status == Response::HTTP_OK) {
+        // var_dump($data);
+        // if ($status == Response::HTTP_OK) {
             return response()->json(compact('data'), $status);
-        }
+        // }
     }
 }
