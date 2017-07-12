@@ -11,9 +11,27 @@
 |
 */
 
-$factory->define(App\User::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\User::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->email,
+    ];
+});
+
+/**
+ * Factory definition for model App\Models\Service.
+ */
+$factory->define(App\Models\Service::class, function ($faker) {
+    return [
+        // Fields here
+    ];
+});
+
+/**
+ * Factory definition for model App\Models\Service.
+ */
+$factory->define(App\Models\Service::class, function ($faker) {
+    return [
+        // Fields here
     ];
 });
