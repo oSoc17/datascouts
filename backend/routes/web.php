@@ -46,7 +46,7 @@ $app->group(['prefix' => 'api'], function ($app) {
             $app->get('/', 'EntitiesController@all');
             $app->get('/{id}', 'EntitiesController@get');
             $app->post('/', 'EntitiesController@add');
-            $app->put('/{id}', 'EntitiesController@post');
+            $app->put('/{id}', 'EntitiesController@put');
             $app->delete('/{id}', 'EntitiesController@remove');
         }); // prefix : entities
 
