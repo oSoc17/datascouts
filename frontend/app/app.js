@@ -22,10 +22,25 @@ new Vue({
     ],
     url: 'https://osoc-2017-datascouts-backend-akad1070.c9users.io/api/v1',
     mockDataTwitter: 'http://www.json-generator.com/api/json/get/ckwxgssyXm?indent=2',
-    entities: ['osoc','tesla','spacex', 'apple'],
+    entities: [
+      {name: 'osoc',
+      url: 'osoc.com',
+      image: ''},
+      {name: 'tesla',
+      url: 'tesla.com',
+      image: ''},
+      {name: 'spacex',
+      url: 'spacex.com',
+      image: ''},
+
+    ],
     selectedEntities: [],
     searchEntity: '',
-    currentEntity: '',
+    currentEntity: {
+      name: '',
+      url: '',
+      image: ''
+    },
     handles: [
       {name: 'facebook/user1',
       url: 'url1'},
@@ -36,6 +51,8 @@ new Vue({
       name: '',
       url: ''
     },
+    newName: '',
+    newUrl: '',
     entitySelected: false,
     handleSelected: false,
     waterfall: new Waterfall(200),
@@ -73,33 +90,55 @@ new Vue({
       });
 
       //now the real magic happens
-      /*this.$http.get(this.url + '/entities', JSON.stringify(entities)).then(function (response) {
-          this.items = JSON.parse(response.data)
+      /*this.$http.post(this.url + '/providers/fetch', ).then(function (response) {
+          this.items = response.data
           //console.log(response)
         }, function (response) {
           console.log("Error Fail to get data")
       });*/
 
     },
+    loadEntities: function() {
+      this.$http.get(this.url + '/entities').then(function (response) {
+        this.entities = response.data
+        console.log("Entities loaded")
+          //console.log(response)
+        }, function (response) {
+          console.log("Error Failed to get data")
+          console.log(response)
+      })
+    },
+    loadHandles: function(entity) {
+      this.$http.get(this.url + '/handles/'+entity.url).then(function (response) {
+        for(var i=0; i<response.data.length; i++){
+          this.handles[i] = response.data[i]
+        }
+        console.log("Handles loaded")
+          //console.log(response)
+        }, function (response) {
+          console.log("Error Fail to get data")
+          console.log(response)
+      })
+    },
     addEntity: function (entity, e) {
       e.preventDefault()
-      console.log(entity)
-      this.$http.post(this.url + '/entities', {"name" : entity}).then(function (response) {
-          console.log("Entity added")
-          //console.log(response)
+      this.$http.post(this.url + '/entities', {"name" : entity.name}).then(function (response) {
+        this.loadEntities()
+        console.log("Entity added")
         }, function (response) {
           console.log("Error Failed to add entity")
       })
       this.searchEntity=""
-      this.loadEntities()
     },
     selectEntity: function (entity, e) {
       e.preventDefault()
       //console.log(entity)
-      if(!this.entitySelected || this.currentEntity==entity){
+      if(!this.entitySelected || this.currentEntity.url==entity.url){
         this.entitySelected = !this.entitySelected
       }
-      this.currentEntity = entity
+      this.currentEntity.name = entity.name
+      this.currentEntity.url = entity.url
+      this.currentEntity.image = entity.image
       if(this.entitySelected){
         document.getElementById("sidenav_handles").style.marginLeft = "250px"
       }
@@ -110,49 +149,51 @@ new Vue({
 
       this.loadHandles(entity)
     },
+    confirmEditEntity: function(entity, e){
+      e.preventDefault()
+      var newName = prompt("Enter a new name for your entity", entity.name);
+      if(newName != null){
+        this.editEntity(entity, newName, e)
+      }
+    },
     editEntity: function(entity, newName, e) {
       e.preventDefault()
       console.log(entity)
-      this.$http.put(this.url + '/entities', {"id:" : entity, "name" : newName}).then(function (response) {
-          console.log("Handle updated")
+      this.$http.put(this.url + '/entities/'+ entity.url,
+      {"name": newName}).then(function (response) {
+          console.log("Entity updated")
           //console.log(response)
         }, function (response) {
           console.log("Error Failed to edit entity")
       })
       this.loadEntities()
     },
+    confirmDeleteEntity: function(entity, e) {
+      if(confirm("Are you sure you want to delete this entity?") == true){
+        this.deleteEntity(entity, e)
+      }
+    },
     deleteEntity: function(entity, e) {
       e.preventDefault()
       console.log(entity)
-      this.$http.delete(this.url + '/entities', {"name" : entity}).then(function (response) {
-          console.log("Entity added")
+      this.$http.delete(this.url + '/entities/' + entity.url).then(function (response) {
+          console.log("Entity deleted")
           //console.log(response)
         }, function (response) {
           console.log("Error Failed to delete entity")
       })
       this.loadEntities()
     },
-    loadEntities: function() {
-      this.$http.get(this.url + '/entities').then(function (response) {
-        this.entities = response.data.map(e => e.name);
-        console.log("Entities loaded")
-          //console.log(response)
+    addHandle: function (entity, handle, e) {
+      e.preventDefault()
+      this.$http.post(this.url + '/handles/'+ entity.url, {"name" : handle.name, "url" : handle.url,
+    "socialMedia" : handle.socialMedia}).then(function (response) {
+        this.loadHandles()
+        console.log("Handle added")
         }, function (response) {
-          console.log("Error Failed to get data")
-          console.log(response)
+          console.log("Error Failed to add handle")
       })
-    },
-    loadHandles: function(entity) {
-      this.$http.get(this.url + '/' + entity).then(function (response) {
-        for(var i=0; i<response.data.length; i++){
-          this.handles[i] = response.data[i]
-        }
-        console.log("Handles loaded")
-          //console.log(response)
-        }, function (response) {
-          console.log("Error Fail to get data")
-          console.log(response)
-      })
+      this.searchEntity=""
     },
     selectHandle: function(handle, e) {
       e.preventDefault()
@@ -169,21 +210,27 @@ new Vue({
         document.getElementById("sidenav_action").style.marginLeft = "0px"
       }
     },
-    editHandle: function(handle, newName, e) {
+    editHandle: function(handle, newName, newUrl, e) {
       e.preventDefault()
       console.log(handle)
-      this.$http.put(this.url + '/services', {"name:" : handle.name, "url" : handle.url}).then(function (response) {
+      this.$http.put(this.url + '/services/' + handle.url, {"name:" : newName, "url" : newUrl,
+    "socialMedia" : handle.socialMedia}).then(function (response) {
           console.log("Handle updated")
           //console.log(response)
         }, function (response) {
           console.log("Error Failed to update handle")
       })
-      this.loadEntities()
+      this.loadHandles()
+    },
+    confirmDeleteHandle: function(handle, e) {
+      if(confirm("Are you sure you want to delete this handle?") == true){
+        this.deleteEntity(handle, e)
+      }
     },
     deleteHandle: function(handle, e) {
       e.preventDefault()
       console.log(handle)
-      this.$http.delete(this.url + '/services', {"name" : handle.name, "url" : handle.url}).then(function (response) {
+      this.$http.delete(this.url + '/services'/ + handle.url).then(function (response) {
           console.log("Handle deleted")
           //console.log(response)
         }, function (response) {

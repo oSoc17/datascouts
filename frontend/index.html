@@ -25,8 +25,8 @@
               <div class="searchedEntities">
                 <template v-for="item in entities">
                   <button type="button" v-on:click="selectEntity(item,$event)"
-                  v-if=" (item.indexOf(searchEntity) !== -1 || searchEntity == '')">
-                    {{item}}
+                  v-if=" (item.name.indexOf(searchEntity) !== -1 || searchEntity == '')">
+                    {{item.name}}
                   </button>
                 </template>
                 <button type="button" v-on:click="addEntity(searchEntity, $event)" v-if="searchEntity != ''">create {{searchEntity}}</button>
@@ -42,9 +42,11 @@
         </div>
         <div id="sidenav_handles" class="sidenav_handles">
           <div class="content">
-            <button type="button" v-on:click="editEntity(currentEntity, $event)">edit {{currentEntity}}</button>
-            <button type="button" v-on:click="deleteEntity(currentEntity, $event)">delete {{currentEntity}}</button>
-            <p> Social media handles for {{currentEntity}} </p>
+            <input type="text" v-model="currentEntity.name"/>
+            <input type="text" v-model="currentEntity.url"/>
+            <button type="button" v-on:click="confirmEditEntity(currentEntity, $event)">edit {{currentEntity.name}}</button>
+            <button type="button" v-on:click="confirmDeleteEntity(currentEntity, $event)">delete {{currentEntity.name}}</button>
+            <p> Social media handles for {{currentEntity.name}} </p>
             <template v-for="item in handles">
               <button type="button" v-on:click="selectHandle(item,$event)">
                 {{item.name}}
@@ -57,14 +59,14 @@
           <div class="content">
             <p> EDIT/DELETE {{currentHandle.name}} </p>
             <form >
-                <input type="text" v-model="currentHandle.name"/>
-                <input type="text" v-model="currentHandle.url"/>
-                <button type="button" v-on:click="editHandle(currentHandle, $event)">update</button>
+                <input type="text" v-model="newName"/>
+                <input type="text" v-model="newUrl"/>
+                <button type="button" v-on:click="editHandle(currentHandle, newName, newUrl, $event)">update</button>
                 <button type="button" v-on:click="discardHandle($event)">discard</button>
                 <br />
                 <br />
                 <br />
-                <button type="button" v-on:click="deleteHandle(currentHandle, $event)">delete</button>
+                <button type="button" v-on:click="confirmDeleteHandle(currentHandle, $event)">delete</button>
             </form>
           </div>
         </div>
