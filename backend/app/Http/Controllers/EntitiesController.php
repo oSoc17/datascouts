@@ -20,5 +20,8 @@ class EntitiesController extends Controller {
         return $this->traitRestAdd($request);
     }
 
+    // What happens to the handlers when delete a  entitty
+    // CASCADE  or softDeletes ?
+
 
 }

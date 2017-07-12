@@ -27,7 +27,10 @@ trait RESTActions
     {
         $m = self::MODEL;
         $this->validate($request, $m::$rules);
-        return $this->respond(Response::HTTP_CREATED, $m::firstOrCreate($request->all()));
+        return $this->respond(
+            Response::HTTP_CREATED, 
+            $m::firstOrCreate($request->only(array_keys($m::$rules)))
+        );
     }
 
     public function put(Request $request, $id)
@@ -35,10 +38,11 @@ trait RESTActions
         $m = self::MODEL;
         $this->validate($request, $m::$rules);
         $model = $m::findOrFail($id);
+        $keep = array_intersect_key($m::$rules,$request->all());
         // if (is_null($model)) {
         //     return $this->respond(Response::HTTP_NOT_FOUND);
         // }
-        $model->update($request->all());
+        $model->update($request->only(\array_keys($keep)));
         return $this->respond(Response::HTTP_OK, $model);
     }
 
@@ -55,7 +59,7 @@ trait RESTActions
 
     protected function respond($status, $data = [])
     {
-        // var_dump($data);
+        // dd($data);
         // if ($status == Response::HTTP_OK) {
             return response()->json(compact('data'), $status);
         // }

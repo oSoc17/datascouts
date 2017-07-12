@@ -24,7 +24,9 @@ class Entity extends Model {
     ];
 
     public static $rules = [
-        "name" => "unique:entities|min:3",
+        "name" => "string|unique:entities|min:3",
+        "url" => "string|min:3",
+        "image" => "string|min:3"
     ];
 
 
@@ -40,7 +42,7 @@ class Entity extends Model {
      *
      * @var array
      */
-    protected $visible = ['name', 'url', 'image'];
+    public $visible = ['name', 'url', 'image'];
 
     // Relationships
 
