@@ -42,8 +42,6 @@
         </div>
         <div id="sidenav_handles" class="sidenav_handles">
           <div class="content">
-            <input type="text" v-model="currentEntity.name"/>
-            <input type="text" v-model="currentEntity.url"/>
             <button type="button" v-on:click="confirmEditEntity(currentEntity, $event)">edit {{currentEntity.name}}</button>
             <button type="button" v-on:click="confirmDeleteEntity(currentEntity, $event)">delete {{currentEntity.name}}</button>
             <p> Social media handles for {{currentEntity.name}} </p>
@@ -52,6 +50,7 @@
                 {{item.name}}
               </button>
             </template>
+            <button type="button" v-on:click="promptAddHandle(currentEntity, $event)">Add handle</button>
           </div>
         </div>
 

@@ -184,6 +184,17 @@ new Vue({
       })
       this.loadEntities()
     },
+    promptAddHandle: function(entity, e){
+      e.preventDefault()
+      var name = prompt("Enter a name for your handle", "");
+      if(name != null){
+        var url = prompt("Enter a url for your handle", "");
+        if(url != null){
+          var handle = {"name" : name, "url" : url, "socialMedia": 'twitter'}
+          this.addHandle(entity, handle, e)
+        }
+      }
+    },
     addHandle: function (entity, handle, e) {
       e.preventDefault()
       this.$http.post(this.url + '/handles/'+ entity.url, {"name" : handle.name, "url" : handle.url,
