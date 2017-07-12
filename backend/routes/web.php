@@ -37,6 +37,13 @@ $app->group(['prefix' => 'api'], function ($app) {
 
     $app->group(['prefix' => 'v1'], function ($app) { 
 
+        $app->get('/', function () use ($app) {
+            return response()->json([
+                'route'=>[
+                    'CRUD'  => 'entities/{name1,name2,name3}'
+                ] 
+            ]);
+        });
         $app->get('/zen', function () use ($app) {
             return response()->json(['joke' => 'Waiting for the joke. It\' comming ....']);
         });
@@ -44,10 +51,10 @@ $app->group(['prefix' => 'api'], function ($app) {
         // Routes for resource entities
         $app->group(['prefix' => 'entities'], function ($app) {
             $app->get('/', 'EntitiesController@all');
-            $app->get('/{id}', 'EntitiesController@get');
+            $app->get('/{name}', 'EntitiesController@get');
             $app->post('/', 'EntitiesController@add');
-            $app->put('/{id}', 'EntitiesController@post');
-            $app->delete('/{id}', 'EntitiesController@remove');
+            $app->put('/{name}', 'EntitiesController@put');
+            $app->delete('/{name}', 'EntitiesController@remove');
         }); // prefix : entities
 
 
