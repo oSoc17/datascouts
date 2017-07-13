@@ -14,6 +14,7 @@ class CreateHandlesTable extends Migration
             $table->string('name');
             $table->string('url')->unique();
             $table->uuid('provider_uuid');
+            $table->uuid('service_uuid');
             
             // Constraints declaration
             $table->timestamps();

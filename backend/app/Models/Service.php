@@ -11,7 +11,7 @@ class Service extends Model {
 
     public $incrementing = false;
 
-    protected $fillable = ["name", "url", "logo"];
+    protected $fillable = ["name", "url", "logo","color"];
 
     protected $dates = [];
 
@@ -21,7 +21,7 @@ class Service extends Model {
         "logo" => "string",
     ];
 
-    protected $visible = ["name", "url", "logo", "uuid"];
+    protected $visible = ["name", "url", "logo", "uuid", "color"];
 
 
     // Eloquent determines the foreign key of the relationship based on the model name. 
@@ -44,7 +44,7 @@ class Service extends Model {
      */
     public function providers()
     {
-        return $this->hasMany("App\Models\Providers" , 'provider_id', 'id');
+        return $this->hasMany("App\Models\Providers" , 'provider_uuid', 'uuid');
 
     }
 
