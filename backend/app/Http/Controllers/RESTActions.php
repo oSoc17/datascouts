@@ -16,7 +16,7 @@ trait RESTActions
     public function get($uuid)
     {
         $m = self::MODEL;
-        $model = $m::findOrFail($id);
+        $model = $m::findOrFail($uuid);
         // if (is_null($model)) {
         //     return $this->respond(Response::HTTP_NOT_FOUND);
         // }
@@ -37,23 +37,23 @@ trait RESTActions
     {
         $m = self::MODEL;
         $this->validate($request, $m::$rules);
-        $model = $m::findOrFail($id);
+        $model = $m::findOrFail($uuid);
         $keep = array_intersect_key($m::$rules,$request->all());
         // if (is_null($model)) {
         //     return $this->respond(Response::HTTP_NOT_FOUND);
         // }
-        $model->update($request->only(\array_keys($keep)));
+        $model->update($request->only(array_keys($keep)));
         return $this->respond(Response::HTTP_OK, $model);
     }
 
     public function remove($uuid)
     {
         $m = self::MODEL;
-        $model = $m::findOrFail($id);
-        // if (is_null($m::find($id))) {
+        $model = $m::findOrFail($uuid);
+        // if (is_null($m::find($uuid))) {
         //     return $this->respond(Response::HTTP_NOT_FOUND);
         // }
-        $model->destroy($id);
+        $model->destroy($uuid);
         return $this->respond(Response::HTTP_NO_CONTENT);
     }
 
@@ -61,7 +61,7 @@ trait RESTActions
     {
         // dd($data);
         // if ($status == Response::HTTP_OK) {
-            return response()->json(compact('data'), $status);
+            return response()->json($data, $status);
         // }
     }
 }
