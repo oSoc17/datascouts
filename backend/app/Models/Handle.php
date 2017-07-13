@@ -19,13 +19,26 @@ class Handle extends Model {
         "url" => "string|unique:handles"
     ];
 
-    protected $visible = ["name", "url", "logo" , "color" ,"uuid",'provider_uuid', "service_uuid"];
+
+    protected $visible = [
+        "name", "url", "logo" , "color" ,"uuid",
+        "entity_uuid", 'provider_uuid', "service_uuid"];
 
 
     public function provider()
     {
-        return $this->belongsTo("App\Models\Providers",'provider_uuid', 'uuid');
+        return $this->belongsTo("App\Models\Provider",'provider_uuid', 'uuid');
     }
 
+
+    public function entity()
+    {
+        return $this->belongsTo("App\Models\Entity",'entity_uuid', 'uuid');
+    }
+
+    public function service()
+    {
+        return $this->belongsTo("App\Models\Service",'service_uuid', 'uuid');
+    }
 
 }

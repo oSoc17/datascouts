@@ -13,6 +13,9 @@ class CreateHandlesTable extends Migration
             $table->uuid('uuid');
             $table->string('name');
             $table->string('url')->unique();
+
+            // F.K.
+            $table->uuid('entity_uuid');
             $table->uuid('provider_uuid');
             $table->uuid('service_uuid');
             

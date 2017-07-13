@@ -40,7 +40,7 @@ $app->group(['prefix' => 'api'], function ($app) {
         $app->get('/', function () use ($app) {
             return response()->json([
                 'route'=>[
-                    'CRUD'  => 'entities/{name1,name2,name3}'
+                    'CRUD'  => 'entities/{uuid1,uuid2,uuid3}'
                 ]
             ]);
         });
@@ -48,13 +48,14 @@ $app->group(['prefix' => 'api'], function ($app) {
             return response()->json(['joke' => 'Waiting for the joke. It\' comming ....']);
         });
         
-        // Routes for resource entities
+        // Routes for resource ENTITIES
         $app->group(['prefix' => 'entities'], function ($app) {
             $app->get('/', 'EntitiesController@all');
-            $app->get('/{name}', 'EntitiesController@get');
+            $app->get('/{uuid}', 'EntitiesController@get');
             $app->post('/', 'EntitiesController@add');
-            $app->put('/{name}', 'EntitiesController@put');
-            $app->delete('/{name}', 'EntitiesController@remove');
+            $app->put('/{id}', 'EntitiesController@put');
+            $app->delete('/{id}', 'EntitiesController@remove');
+            $app->get('/{uuid}/handles', 'EntitiesController@getHandles');
         }); // prefix : entities
 
 
@@ -72,7 +73,7 @@ $app->group(['prefix' => 'api'], function ($app) {
         $app->group(['prefix' => 'handles'], function ($app) {
             $app->get('', 'HandlesController@all');
             $app->get('/{uuid}', 'HandlesController@get');
-            $app->post('', 'HandlesController@add');
+            $app->post('/{uuid}', 'HandlesController@add');
             $app->put('/{uuid}', 'HandlesController@put');
             $app->delete('/{uuid}', 'HandlesController@remove');
         }); // prefix : handles
