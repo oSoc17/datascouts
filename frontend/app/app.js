@@ -22,21 +22,7 @@ var vue = new Vue({
     ],
     url: 'https://osoc-2017-datascouts-backend-akad1070.c9users.io/api/v1',
     mockDataTwitter: 'http://www.json-generator.com/api/json/get/ckwxgssyXm?indent=2',
-    entities: [
-      {name: 'osoc',
-      url: 'osoc.com',
-      uuid: '1',
-      image: ''},
-      {name: 'tesla',
-      url: 'tesla.com',
-      uuid: '2',
-      image: ''},
-      {name: 'spacex',
-      url: 'spacex.com',
-      image: '',
-      uuid: '3'},
-
-    ],
+    entities: [],
     selectedEntities: [],
     searchEntity: '',
     currentEntity: {
@@ -45,14 +31,7 @@ var vue = new Vue({
       image: '',
       uuid: '',
     },
-    handles: [
-      {name: 'facebook/user1',
-      url: 'url1',
-      uuid:'1'},
-      {name: 'facebook/user2',
-      url: 'url2',
-      uuid:'2'}
-    ],
+    handles: [],
     currentHandle: {
       name: '',
       url: ''
@@ -106,7 +85,24 @@ var vue = new Vue({
     },
     loadEntities: function() {
       this.$http.get(this.url + '/entities').then(function (response) {
-        this.entities = response.data
+        var newEntities = []
+        var bool
+        var index
+        // response.data.forEach(e => this.selectedEntities.push(e));
+        response.data.forEach(function(entity) {
+          bool = false
+          for(var i=0;i<this.entities.length;i++){
+            if(entity.uuid == this.entities[i].uuid){bool = true; index = i}
+          }
+          if(!bool){
+            newEntities.push({"entity" : entity, "active": true})
+          }
+          else{
+            newEntities.push({"entity" : entity, "active": this.entities[index].active})
+          }
+        });
+          this.entities = newEntities
+
         console.log("Entities loaded")
           //console.log(response)
         }, function (response) {
@@ -115,7 +111,7 @@ var vue = new Vue({
       })
     },
     loadHandles: function(entity) {
-      this.$http.get(this.url + '/handles/' + entity.uuid).then(function (response) {
+      this.$http.get(this.url + '/entities/' + entity.uuid + '/handles').then(function (response) {
         for(var i=0; i<response.data.length; i++){
           this.handles[i] = response.data[i]
         }
