@@ -61,10 +61,22 @@ $app->group(['prefix' => 'api'], function ($app) {
         // Routes for resource SERVICES
         $app->group(['prefix' => 'services'], function ($app) {
             $app->get('', 'ServicesController@all');
-            $app->get('/{id}', 'ServicesController@get');
+            $app->get('/{uuid}', 'ServicesController@get');
             $app->post('', 'ServicesController@add');
-            $app->put('/{id}', 'ServicesController@put');
-            $app->delete('/{id}', 'ServicesController@remove');
+            $app->put('/{uuid}', 'ServicesController@put');
+            $app->delete('/{uuid}', 'ServicesController@remove');
         }); // prefix : services
+
+
+        // Routes for resource HANDLES
+        $app->group(['prefix' => 'handles'], function ($app) {
+            $app->get('', 'HandlesController@all');
+            $app->get('/{uuid}', 'HandlesController@get');
+            $app->post('', 'HandlesController@add');
+            $app->put('/{uuid}', 'HandlesController@put');
+            $app->delete('/{uuid}', 'HandlesController@remove');
+        }); // prefix : handles
+
     }); // prefix : v1
 });  // prefix : api
+
