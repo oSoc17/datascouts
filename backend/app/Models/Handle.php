@@ -19,9 +19,9 @@ class Handle extends Model {
         "url" => "string|unique:handles"
     ];
 
+
     protected $visible = [
         "name", "url", "logo" , "color" ,"uuid",
-        
         "entity_uuid", 'provider_uuid', "service_uuid"];
 
 
