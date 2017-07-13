@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 use App\Models\Entity;
+use App\Models\Handle;
 
 class EntitiesController extends Controller {
 
@@ -26,11 +27,28 @@ class EntitiesController extends Controller {
     // CASCADE  or softDeletes ?
 
     public function getHandles(Entity $entity){
-        $entityHandles = $entity->handle;
-        if(is_null($entity->handle)){
-            $entityHandles = [];
+        $handles = $entity->handles;
+
+        if(is_null($handles)){
+            $handles = [];
         }
-        return $this->respond(Response::HTTP_OK, $entityHandles);
+
+        return $this->respond(Response::HTTP_OK, $handles);
+    }
+
+    public function addHandle(Request $request, $entity_uuid){
+        $this->validate($request, Handle::$rules);
+
+        $handleBody = $request->only(array_keys(Handle::$rules));
+        $handle = new Handle($handleBody);
+        $handle->uuid = Entity::generateUuid();
+
+        $entity = Entity::findOrFail($entity_uuid);
+
+        $handle->entity()->associate($entity);
+        $handle->save();
+        $entity->save();
+        return $this->respond(Response::HTTP_OK, $handle);
     }
 
 

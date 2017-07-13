@@ -17,8 +17,12 @@ trait UuidForKey
         // getKeyName’ will get the name of the primary key, 
         // Just in case, it is you changed into something else then ‘id’
         static::creating(function ($model) {
-            $model->{$model->getKeyName()} = (string) Uuid::uuid1();
+            $model->{$model->getKeyName()} = self::generateUuid();
         });
+    }
+
+    public static function generateUuid(){
+        return (string) Uuid::uuid1();
     }
 }
 
