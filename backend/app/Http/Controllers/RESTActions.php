@@ -13,10 +13,10 @@ trait RESTActions
         return $this->respond(Response::HTTP_OK, $m::all());
     }
 
-    public function get($id)
+    public function get($uuid)
     {
         $m = self::MODEL;
-        $model = $m::find($id);
+        $model = $m::find($uuid);
         if (is_null($model)) {
             return $this->respond(Response::HTTP_NOT_FOUND);
         }
@@ -30,11 +30,11 @@ trait RESTActions
         return $this->respond(Response::HTTP_CREATED, $m::create($request->all()));
     }
 
-    public function put(Request $request, $id)
+    public function put(Request $request, $uuid)
     {
         $m = self::MODEL;
         $this->validate($request, $m::$rules);
-        $model = $m::find($id);
+        $model = $m::find($uuid);
         if (is_null($model)) {
             return $this->respond(Response::HTTP_NOT_FOUND);
         }
@@ -42,13 +42,13 @@ trait RESTActions
         return $this->respond(Response::HTTP_OK, $model);
     }
 
-    public function remove($id)
+    public function remove($uuid)
     {
         $m = self::MODEL;
-        if (is_null($m::find($id))) {
+        if (is_null($m::find($uuid))) {
             return $this->respond(Response::HTTP_NOT_FOUND);
         }
-        $m::destroy($id);
+        $m::destroy($uuid);
         return $this->respond(Response::HTTP_NO_CONTENT);
     }
 
