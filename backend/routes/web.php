@@ -18,7 +18,7 @@ $app->get('/', function () use ($app) {
 
 // To generate the key for the .env
 // https://stackoverflow.com/questions/30344141/lumen-micro-framework-php-artisan-keygenerate
-$app->get('/key', function() {
+$app->get('/key', function () {
     return response()->json(str_random(32));
 });
 
@@ -33,15 +33,15 @@ $app->get('/key', function() {
 |
 */
 
-$app->group(['prefix' => 'api'], function ($app) { 
+$app->group(['prefix' => 'api'], function ($app) {
 
-    $app->group(['prefix' => 'v1'], function ($app) { 
+    $app->group(['prefix' => 'v1'], function ($app) {
 
         $app->get('/', function () use ($app) {
             return response()->json([
                 'route'=>[
                     'CRUD'  => 'entities/{name1,name2,name3}'
-                ] 
+                ]
             ]);
         });
         $app->get('/zen', function () use ($app) {
@@ -58,6 +58,13 @@ $app->group(['prefix' => 'api'], function ($app) {
         }); // prefix : entities
 
 
+        // Routes for resource SERVICES
+        $app->group(['prefix' => 'services'], function ($app) {
+            $app->get('', 'ServicesController@all');
+            $app->get('/{id}', 'ServicesController@get');
+            $app->post('', 'ServicesController@add');
+            $app->put('/{id}', 'ServicesController@put');
+            $app->delete('/{id}', 'ServicesController@remove');
+        }); // prefix : services
     }); // prefix : v1
 });  // prefix : api
-
