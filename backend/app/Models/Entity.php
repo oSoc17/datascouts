@@ -8,6 +8,9 @@ class Entity extends Model {
     
     use SoftDeletes;
 
+    use UuidForKey;
+    
+
     protected $primaryKey = 'uuid';
 
     public $incrementing = false;
