@@ -58,9 +58,9 @@
           <div class="content">
             <p> EDIT/DELETE {{currentHandle.name}} </p>
             <form >
-                <input type="text" v-model="newName"/>
-                <input type="text" v-model="newUrl"/>
-                <button type="button" v-on:click="editHandle(currentHandle, newName, newUrl, $event)">update</button>
+                <input type="text" v-model="currentHandle.name"/>
+                <input type="text" v-model="currentHandle.url"/>
+                <button type="button" v-on:click="editHandle(currentHandle, $event)">update</button>
                 <button type="button" v-on:click="discardHandle($event)">discard</button>
                 <br />
                 <br />
@@ -70,7 +70,6 @@
           </div>
         </div>
       </div>
-
 
       <div id="main">
         <div class="content">

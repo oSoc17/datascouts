@@ -1,4 +1,4 @@
-new Vue({
+var vue = new Vue({
   el:'#vue-app',
   /*http: {
     root: '/root',
@@ -25,13 +25,16 @@ new Vue({
     entities: [
       {name: 'osoc',
       url: 'osoc.com',
+      uuid: '1',
       image: ''},
       {name: 'tesla',
       url: 'tesla.com',
+      uuid: '2',
       image: ''},
       {name: 'spacex',
       url: 'spacex.com',
-      image: ''},
+      image: '',
+      uuid: '3'},
 
     ],
     selectedEntities: [],
@@ -39,13 +42,16 @@ new Vue({
     currentEntity: {
       name: '',
       url: '',
-      image: ''
+      image: '',
+      uuid: '',
     },
     handles: [
       {name: 'facebook/user1',
-      url: 'url1'},
+      url: 'url1',
+      uuid:'1'},
       {name: 'facebook/user2',
-      url: 'url2'}
+      url: 'url2',
+      uuid:'2'}
     ],
     currentHandle: {
       name: '',
@@ -53,7 +59,7 @@ new Vue({
     },
     newName: '',
     newUrl: '',
-    entitySelected: false,
+    isEntitySelected: false,
     handleSelected: false,
     waterfall: new Waterfall(200),
     waterfallIsCreated: false,
@@ -109,7 +115,7 @@ new Vue({
       })
     },
     loadHandles: function(entity) {
-      this.$http.get(this.url + '/handles/'+entity.url).then(function (response) {
+      this.$http.get(this.url + '/handles/' + entity.uuid).then(function (response) {
         for(var i=0; i<response.data.length; i++){
           this.handles[i] = response.data[i]
         }
@@ -133,13 +139,14 @@ new Vue({
     selectEntity: function (entity, e) {
       e.preventDefault()
       //console.log(entity)
-      if(!this.entitySelected || this.currentEntity.url==entity.url){
-        this.entitySelected = !this.entitySelected
+      if(!this.isEntitySelected || this.currentEntity.uuid==entity.uuid){
+        this.isEntitySelected = !this.isEntitySelected
       }
       this.currentEntity.name = entity.name
       this.currentEntity.url = entity.url
       this.currentEntity.image = entity.image
-      if(this.entitySelected){
+      this.currentEntity.uuid = entity.uuid
+      if(this.isEntitySelected){
         document.getElementById("sidenav_handles").style.marginLeft = "250px"
       }
       else{
@@ -159,7 +166,7 @@ new Vue({
     editEntity: function(entity, newName, e) {
       e.preventDefault()
       console.log(entity)
-      this.$http.put(this.url + '/entities/'+ entity.url,
+      this.$http.put(this.url + '/entities/'+ entity.uuid,
       {"name": newName}).then(function (response) {
           console.log("Entity updated")
           //console.log(response)
@@ -176,7 +183,7 @@ new Vue({
     deleteEntity: function(entity, e) {
       e.preventDefault()
       console.log(entity.name)
-      this.$http.delete(this.url + '/entities/' + entity.url).then(function (response) {
+      this.$http.delete(this.url + '/entities/' + entity.uuid).then(function (response) {
           console.log("Entity deleted")
           //console.log(response)
         }, function (response) {
@@ -197,7 +204,7 @@ new Vue({
     },
     addHandle: function (entity, handle, e) {
       e.preventDefault()
-      this.$http.post(this.url + '/handles/'+ entity.url, {"name" : handle.name, "url" : handle.url,
+      this.$http.post(this.url + '/handles/'+ entity.uuid, {"name" : handle.name, "url" : handle.uuid,
     "socialMedia" : handle.socialMedia}).then(function (response) {
         this.loadHandles()
         console.log("Handle added")
@@ -209,11 +216,12 @@ new Vue({
     selectHandle: function(handle, e) {
       e.preventDefault()
       //console.log(entity)
-      if(!this.handleSelected || this.currentHandle.url==handle.url){
+      if(!this.handleSelected || this.currentHandle.uuid==handle.uuid){
         this.handleSelected = !this.handleSelected
       }
       this.currentHandle.name = handle.name
       this.currentHandle.url = handle.url
+      this.currentHandle.uuid = handle.uuid
       if(this.handleSelected){
         document.getElementById("sidenav_action").style.marginLeft = "500px"
       }
@@ -221,17 +229,17 @@ new Vue({
         document.getElementById("sidenav_action").style.marginLeft = "0px"
       }
     },
-    editHandle: function(handle, newName, newUrl, e) {
+    editHandle: function(handle, e) {
       e.preventDefault()
-      console.log(handle)
-      this.$http.put(this.url + '/services/' + handle.url, {"name:" : newName, "url" : newUrl,
+      console.log(handle.uuid)
+      this.$http.put(this.url + '/services/' + handle.uuid, {"name:" : handle.name, "url" : handle.url,
     "socialMedia" : handle.socialMedia}).then(function (response) {
           console.log("Handle updated")
           //console.log(response)
         }, function (response) {
           console.log("Error Failed to update handle")
       })
-      this.loadHandles()
+      this.loadHandles(this.currentEntity)
     },
     confirmDeleteHandle: function(handle, e) {
       if(confirm("Are you sure you want to delete this handle?") == true){
@@ -241,7 +249,7 @@ new Vue({
     deleteHandle: function(handle, e) {
       e.preventDefault()
       console.log(handle)
-      this.$http.delete(this.url + '/services'/ + handle.url).then(function (response) {
+      this.$http.delete(this.url + '/services'/ + handle.uuid).then(function (response) {
           console.log("Handle deleted")
           //console.log(response)
         }, function (response) {
@@ -252,7 +260,7 @@ new Vue({
     discardHandle: function(e) {
       this.handleSelected = !this.handleSelected
       document.getElementById("sidenav_action").style.marginLeft = "0px"
-      this.currentHandle.url = ""
+      this.currentHandle.uuid = ""
     },
     updateWaterfall: _.debounce(
         function() {
