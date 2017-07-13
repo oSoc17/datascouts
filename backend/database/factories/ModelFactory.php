@@ -28,10 +28,10 @@ $factory->define(App\Models\Service::class, function ($faker) {
 });
 
 /**
- * Factory definition for model App\Models\Service.
+ * Factory definition for model App\Handle.
  */
-$factory->define(App\Models\Service::class, function ($faker) {
+$factory->define(App\Handle::class, function ($faker) {
     return [
-        // Fields here
+        'provider_id' => $faker->key,
     ];
 });
