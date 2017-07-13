@@ -74,13 +74,22 @@ var vue = new Vue({
           console.log("Error Fail to get data")
       });
 
-      //now the real magic happens
-      /*this.$http.post(this.url + '/providers/fetch', ).then(function (response) {
+      var entitiesUuids = []
+      for(item in this.entities){
+        entitiesUuids.push(item.entity.uuid)
+      }
+      var socialMedia
+      for(item in this.socialMediaFilters){
+        if(item.active){
+          socialMedia.push(item.name)
+        }
+      }
+      this.$http.post(this.url + '/providers/fetch', {entitiesUuids, socialMedia}).then(function (response) {
           this.items = response.data
           //console.log(response)
         }, function (response) {
           console.log("Error Fail to get data")
-      });*/
+      });
 
     },
     loadEntities: function() {
@@ -92,7 +101,7 @@ var vue = new Vue({
         response.data.forEach(function(entity) {
           bool = false
           for(var i=0;i<this.entities.length;i++){
-            if(entity.uuid == this.entities[i].uuid){bool = true; index = i}
+            if(entity.uuid == this.entities[i].uuid){bool = true; index = i; break;}
           }
           if(!bool){
             newEntities.push({"entity" : entity, "active": true})
