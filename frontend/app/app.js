@@ -1,5 +1,11 @@
 new Vue({
   el:'#vue-app',
+  /*http: {
+    root: '/root',
+    headers: {
+      Authorization: 'Basic YXBpOnBhc3N3b3Jk'
+    }
+  },*/
   data: {
     items: [],
     socialMediaFilters: [
@@ -14,70 +20,130 @@ new Vue({
       {year: 2016,
       active: false}
     ],
-    url: 'https://osoc-2017-datascouts-akad1070.c9users.io/',
+    url: 'https://osoc-2017-datascouts-backend-akad1070.c9users.io/api/v1',
     mockDataTwitter: 'http://www.json-generator.com/api/json/get/ckwxgssyXm?indent=2',
-    newEntity: '',
+    entities: ['osoc','tesla','spacex', 'apple'],
+    selectedEntities: [],
+    searchEntity: '',
     currentEntity: '',
-    entities: [],
-    waterfall: new Waterfall(),
+    handles: ['facebook/user1','facebook/user2','twitter/user'],
+    selected: false,
+    waterfall: new Waterfall(200),
     waterfallIsCreated: false,
-    limit: 20,
+    isLoading: false,
+    loadingTemplatesWidth: 'calc(33.33% - 30px)',
+    loadingTemplatesAmount: 3,
     vueIsWorking: 'Hurray, Vue is working!'
   },
   watch: {
     items: function(updatingWfContainer){
       this.updateWaterfall()
     }
-
+  },
+  mounted: function() {
+    this.loadEntities()
   },
   methods: {
-    fetchData: function (medium) {
-      var xhr = new XMLHttpRequest()
-      var self = this
-      var u = this.url + medium + '/q/' + this.currentEntity + '?limit=' + this.limit
-      if(self.currentEntity=='mockdata'){
-        u = self.mockDataTwitter
-      }
-      xhr.open('GET', u)
-      xhr.onload = function () {
-        //console.log(xhr.responseText)
-        self.items = JSON.parse(xhr.responseText)
+    fetchData: function(entities) {
+      //display load templates & adjust them to the screen, hide loading elements
+      this.isLoading = true
+      document.getElementById("wf-container").style.visibility = "hidden"
+      var boxes = document.getElementsByClassName("template_box")
+      this.$nextTick(function(){
+        for(var i=0;i<boxes.length;i++){
+          boxes[i].style.width = this.loadingTemplatesWidth
+        }
+      })
 
-      }
-      xhr.send()
-      /*xhr.onreadystatechange = function() {
-            if (xhr.readyState == 4){
-              storeData()
-            }
-      }*/
+      this.$http.get(this.mockDataTwitter).then(function (response) {
+          this.items = response.data
+          //console.log(response)
+        }, function (response) {
+          console.log("Error Fail to get data")
+      });
+
+      //now the real magic happens
+      /*this.$http.get(this.url + '/entities', JSON.stringify(entities)).then(function (response) {
+          this.items = JSON.parse(response.data)
+          //console.log(response)
+        }, function (response) {
+          console.log("Error Fail to get data")
+      });*/
+
     },
-    addEntity: function (e) {
+    addEntity: function (entity, e) {
       e.preventDefault()
-      if(this.newEntity==undefined || this.newEntity.length==0){
-        if(this.entities.indexOf('mockdata')==-1){
-          this.entities.push('mockdata')
-        }
-        this.currentEntity='mockdata'
-      }
-      else{
-        if(this.entities.indexOf(this.newEntity)==-1){
-          this.entities.push(this.newEntity)
-        }
-        this.currentEntity=this.newEntity
-      }
-      this.fetchData('twitter')
-      this.newEntity=''
+      console.log(entity)
+      this.$http.post(this.url + '/entities', {"name" : entity}).then(function (response) {
+          console.log("Entity added")
+          //console.log(response)
+        }, function (response) {
+          console.log("Error Failed to add entity")
+      })
+      this.searchEntity=""
+      this.loadEntities()
     },
     selectEntity: function (entity, e) {
       e.preventDefault()
       //console.log(entity)
+      if(!this.selected || this.currentEntity==entity){
+        this.selected = !this.selected
+      }
       this.currentEntity = entity
-      this.fetchData('twitter')
+      if(this.selected){
+        document.getElementById("sidenav_handles").style.marginLeft = "250px"
+      }
+      else{
+        document.getElementById("sidenav_handles").style.marginLeft = "0px"
+      }
+    },
+    editEntity: function(entity, newName, e) {
+      e.preventDefault()
+      console.log(entity)
+      this.$http.put(this.url + '/entities', {"id:" : entity, "name" : newName}).then(function (response) {
+          console.log("Entity added")
+          //console.log(response)
+        }, function (response) {
+          console.log("Error Failed to edit entity")
+      })
+      this.loadEntities()
+    },
+    deleteEntity: function(entity, e) {
+      e.preventDefault()
+      console.log(entity)
+      this.$http.delete(this.url + '/entities', {"name" : entity}).then(function (response) {
+          console.log("Entity added")
+          //console.log(response)
+        }, function (response) {
+          console.log("Error Failed to delete entity")
+      })
+      this.loadEntities()
+    },
+    loadEntities: function() {
+      this.$http.get(this.url + '/entities').then(function (response) {
+        this.entities = response.data.map(e => e.name);
+        console.log("Entity added")
+          //console.log(response)
+        }, function (response) {
+          console.log("Error Fail to get data")
+          console.log(response)
+      })
     },
     updateWaterfall: _.debounce(
         function() {
-          this.waterfall = new Waterfall()
+          this.waterfall.compose(true)
+          document.getElementById("wf-container").style.visibility = "visible"
+
+          //get waterfall variables to adjust loading templates.
+          //TO-DO(low-prior.): copy the width calc & columnsNum code from waterfall.js so
+          //that waterfall doesnt need to be rendered first to get the variables
+          var columns = document.getElementsByClassName("wf-column")
+          this.loadingTemplatesWidth = "calc("+columns[columns.length-1].style.width+" - 30px)"
+          //console.log(this.loadingTemplatesWidth)
+          this.loadingTemplatesAmount = this.waterfall.getColumnsNum()
+
+          this.isLoading = false
         },
-      600)
-  }
+      1)
+    }
 })

@@ -5,10 +5,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 
 class Entity extends Model {
-
+    
     use SoftDeletes;
 
-    protected $primaryKey = 'url';
+    protected $primaryKey = 'uuid';
 
     public $incrementing = false;
 
@@ -42,8 +42,20 @@ class Entity extends Model {
      *
      * @var array
      */
-    public $visible = ['name', 'url', 'image'];
+    public $visible = ['name', 'url', 'image', "uuid", "user_uuid"];
 
     // Relationships
+
+
+
+    public function creator()
+    {
+        return $this->belongsTo("App\Models\User",'user_uuid', 'uuid');
+    }
+
+    public function handles()
+    {
+        return $this->hasMany("App\Models\Handle", "entity_uuid", "uuid");
+    }
 
 }

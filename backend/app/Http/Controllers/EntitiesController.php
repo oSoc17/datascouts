@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 
 class EntitiesController extends Controller {
@@ -22,6 +23,7 @@ class EntitiesController extends Controller {
 
     // What happens to the handlers when delete a  entitty
     // CASCADE  or softDeletes ?
+
 
 
 }

@@ -13,13 +13,20 @@ trait RESTActions
         return $this->respond(Response::HTTP_OK, $m::all());
     }
 
-    public function get($id)
+    public function get($uuid)
     {
         $m = self::MODEL;
+<<<<<<< HEAD
         $model = $m::findOrFail($id);
         // if (is_null($model)) {
         //     return $this->respond(Response::HTTP_NOT_FOUND);
         // }
+=======
+        $model = $m::find($uuid);
+        if (is_null($model)) {
+            return $this->respond(Response::HTTP_NOT_FOUND);
+        }
+>>>>>>> develop
         return $this->respond(Response::HTTP_OK, $model);
     }
 
@@ -33,35 +40,55 @@ trait RESTActions
         );
     }
 
-    public function put(Request $request, $id)
+    public function put(Request $request, $uuid)
     {
         $m = self::MODEL;
         $this->validate($request, $m::$rules);
+<<<<<<< HEAD
         $model = $m::findOrFail($id);
         $keep = array_intersect_key($m::$rules,$request->all());
         // if (is_null($model)) {
         //     return $this->respond(Response::HTTP_NOT_FOUND);
         // }
         $model->update($request->only(\array_keys($keep)));
+=======
+        $model = $m::find($uuid);
+        if (is_null($model)) {
+            return $this->respond(Response::HTTP_NOT_FOUND);
+        }
+        $model->update($request->all());
+>>>>>>> develop
         return $this->respond(Response::HTTP_OK, $model);
     }
 
-    public function remove($id)
+    public function remove($uuid)
     {
         $m = self::MODEL;
+<<<<<<< HEAD
         $model = $m::findOrFail($id);
         // if (is_null($m::find($id))) {
         //     return $this->respond(Response::HTTP_NOT_FOUND);
         // }
         $model->destroy($id);
+=======
+        if (is_null($m::find($uuid))) {
+            return $this->respond(Response::HTTP_NOT_FOUND);
+        }
+        $m::destroy($uuid);
+>>>>>>> develop
         return $this->respond(Response::HTTP_NO_CONTENT);
     }
 
     protected function respond($status, $data = [])
     {
+<<<<<<< HEAD
         // dd($data);
         // if ($status == Response::HTTP_OK) {
             return response()->json(compact('data'), $status);
+=======
+        // if ($status == Response::HTTP_OK) {
+            return response()->json($data, $status);
+>>>>>>> develop
         // }
     }
 }

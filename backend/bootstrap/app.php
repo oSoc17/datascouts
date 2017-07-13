@@ -26,6 +26,7 @@ $app = new Laravel\Lumen\Application(
 $app->withFacades();
 
 class_alias('Spatie\LaravelTwitterStreamingApi\TwitterStreamingApiFacade', 'TwitterStreamingApi');
+class_alias('Ramsey\Uuid\Uuid', 'Uuid');
 
 $app->withEloquent();
 
@@ -61,9 +62,12 @@ $app->singleton(
 |
 */
 
-// $app->middleware([
-//    App\Http\Middleware\ExampleMiddleware::class
-// ]);
+$app->middleware([
+    App\Http\Middleware\ExampleMiddleware::class,
+    App\Http\Middleware\CorsMiddleware::class,
+    App\Http\Middleware\JsonRequestMiddleware::class
+
+]);
 
 $app->routeMiddleware([
     'auth' => App\Http\Middleware\Authenticate::class,
@@ -81,6 +85,8 @@ $app->routeMiddleware([
 */
 
 $app->register(App\Providers\AppServiceProvider::class);
+// $app->register('Ramsey\Uuid\Uuid');
+
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 
