@@ -162,7 +162,7 @@ form :-moz-placeholder {
   height: 100%;
   width: 250px;
   position: fixed;
-  z-index: 2;
+  z-index: 3;
   top: 0;
   left: 0;
   background-color: #fff;
@@ -171,6 +171,19 @@ form :-moz-placeholder {
   border-right: 1px solid #ccc; }
 
 .sidenav_handles {
+  height: 100%;
+  width: 250px;
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  margin-left: 0px;
+  background-color: #fff;
+  overflow-x: hidden;
+  transition: 0.5s;
+  border-right: 1px solid #ccc; }
+
+.sidenav_action {
   height: 100%;
   width: 250px;
   position: fixed;
