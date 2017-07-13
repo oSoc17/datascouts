@@ -67,13 +67,7 @@ var vue = new Vue({
         }
       })
 
-      this.$http.get(this.mockDataTwitter).then(function (response) {
-          this.items = response.data
-          //console.log(response)
-        }, function (response) {
-          console.log("Error Fail to get data")
-      });
-
+      //create variables for the body of the post request
       var entitiesUuids = []
       for(item in this.entities){
         entitiesUuids.push(item.entity.uuid)
@@ -84,11 +78,18 @@ var vue = new Vue({
           socialMedia.push(item.name)
         }
       }
+
       this.$http.post(this.url + '/providers/fetch', {entitiesUuids, socialMedia}).then(function (response) {
           this.items = response.data
           //console.log(response)
         }, function (response) {
-          console.log("Error Fail to get data")
+          console.log("Error Fail to get data from server. Loading mockdata instead.")
+          this.$http.get(this.mockDataTwitter).then(function (response) {
+              this.items = response.data
+              //console.log(response)
+            }, function (response) {
+              console.log("Error Fail to load mockdata")
+          });
       });
 
     },
@@ -111,25 +112,23 @@ var vue = new Vue({
           }
         });
           this.entities = newEntities
-
-        console.log("Entities loaded")
+          console.log("Entities loaded")
           //console.log(response)
         }, function (response) {
           console.log("Error Failed to get data")
           console.log(response)
       })
-    },
-    loadHandles: function(entity) {
-      this.$http.get(this.url + '/entities/' + entity.uuid + '/handles').then(function (response) {
-        for(var i=0; i<response.data.length; i++){
-          this.handles[i] = response.data[i]
+
+      //set all checkboxes to the appropriate state
+      this.$nextTick(function(){
+        var entitiesHTML = document.getElementsByClassName("entity")
+        for(var i=0;i<entitiesHTML.length;i++){
+          entitiesHTML[i].getElementsByClassName("checkbox")[0].checked = this.entities[i].active
         }
-        console.log("Handles loaded")
-          //console.log(response)
-        }, function (response) {
-          console.log("Error Fail to get data")
-          console.log(response)
       })
+    }
+    toggleEntity: function (entity, e){
+      _.debounce({},)
     },
     addEntity: function (name, e) {
       e.preventDefault()
@@ -195,6 +194,18 @@ var vue = new Vue({
           console.log("Error Failed to delete entity")
       })
       this.loadEntities()
+    },
+    loadHandles: function(entity) {
+      this.$http.get(this.url + '/entities/' + entity.uuid + '/handles').then(function (response) {
+        for(var i=0; i<response.data.length; i++){
+          this.handles[i] = response.data[i]
+        }
+        console.log("Handles loaded")
+          //console.log(response)
+        }, function (response) {
+          console.log("Error Fail to get data")
+          console.log(response)
+      })
     },
     promptAddHandle: function(entity, e){
       e.preventDefault()
