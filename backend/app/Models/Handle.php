@@ -4,7 +4,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Handle extends Model {
 
+    use UuidForKey;
+
     protected $primaryKey = "uuid";
+
+    public $incrementing = false;
 
     protected $fillable = ["name", "url"];
 
@@ -15,7 +19,7 @@ class Handle extends Model {
         "url" => "string|unique:handles"
     ];
 
-    protected $visible = ["name", "url", "logo"];
+    protected $visible = ["name", "url", "logo" , "uuid"];
 
 
     public function provider()

@@ -2,9 +2,14 @@
 
 use Illuminate\Database\Eloquent\Model;
 
+
 class Service extends Model {
+    
+    use UuidForKey;
 
     protected $primaryKey = "uuid";
+
+    public $incrementing = false;
 
     protected $fillable = ["name", "url", "logo"];
 
@@ -16,7 +21,7 @@ class Service extends Model {
         "logo" => "string",
     ];
 
-    protected $visible = ["name", "url", "logo"];
+    protected $visible = ["name", "url", "logo", "uuid"];
 
 
     // Eloquent determines the foreign key of the relationship based on the model name. 
