@@ -4,6 +4,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Service extends Model {
 
+    protected $primaryKey = "uuid";
+
     protected $fillable = ["name", "url", "logo"];
 
     protected $dates = [];
@@ -37,7 +39,8 @@ class Service extends Model {
      */
     public function providers()
     {
-        return $this->hasMany("App\Models\Provider");
+        return $this->hasMany("App\Models\Providers" , 'provider_id', 'id');
+
     }
 
 }
