@@ -56,6 +56,7 @@ $app->group(['prefix' => 'api'], function ($app) {
             $app->put('/{id}', 'EntitiesController@put');
             $app->delete('/{id}', 'EntitiesController@remove');
             $app->get('/{id}/handles', 'EntitiesController@getHandles');
+            $app->post('/{id}/handles', 'EntitiesController@addHandle');
         }); // prefix : entities
 
 
@@ -73,8 +74,7 @@ $app->group(['prefix' => 'api'], function ($app) {
         $app->group(['prefix' => 'handles'], function ($app) {
             $app->get('', 'HandlesController@all');
             $app->get('/{id}', 'HandlesController@get');
-            $app->post('/{id}', 'HandlesController@add');
-            // $app->post('/{id}', 'EntitiesController@addHandle');
+            $app->post('/{id}', 'EntitiesController@addHandle');
             $app->put('/{id}', 'HandlesController@put');
             $app->delete('/{id}', 'HandlesController@remove');
         }); // prefix : handles
