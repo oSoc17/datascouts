@@ -5,6 +5,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
+<<<<<<< HEAD
 use Carbon\Carbon;
 
 use App\Models\Handle;
@@ -12,6 +13,10 @@ use App\Models\Handle;
 // use Abraham\TwitterOAuth\TwitterOAuth;
 
 
+=======
+use App\Models\Handle;
+
+>>>>>>> Add Twitter to handle twitter data
 
 class TwitterJob extends Job implements ShouldQueue
 {
@@ -28,7 +33,10 @@ class TwitterJob extends Job implements ShouldQueue
     public function __construct(Handle $handle)
     {
         $this->handle = $handle;
+<<<<<<< HEAD
         print_r("New Twitter Job : Added\n");
+=======
+>>>>>>> Add Twitter to handle twitter data
     }
 
     /**
@@ -38,6 +46,7 @@ class TwitterJob extends Job implements ShouldQueue
      */
     public function handle()
     {
+<<<<<<< HEAD
         echo 'Exec-ing Twitter Job \n';
         // Now, lock this handle
         $this->handle->is_fetching = true;
@@ -58,5 +67,13 @@ class TwitterJob extends Job implements ShouldQueue
         $this->handle->is_fetching = false;
         $this->handle->save();
 
+=======
+        // Set to true $this->handle->isFetching
+        // Set the fetched_at $this->handle = now();
+        // Get all tweets, ....
+        // Store them in DB.
+        dd($this->handle->name);
+ 
+>>>>>>> Add Twitter to handle twitter data
     }
 }
