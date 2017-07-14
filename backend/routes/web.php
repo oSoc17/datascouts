@@ -51,21 +51,14 @@ $app->group(['prefix' => 'api'], function ($app) {
         // Routes for resource ENTITIES
         $app->group(['prefix' => 'entities'], function ($app) {
             $app->get('/', 'EntitiesController@all');
-<<<<<<< HEAD
             $app->get('/{id:[0-9]+}', 'EntitiesController@get');
             $app->get('/{url:[a-z-_]+}', 'EntitiesController@getByUrl');
             
-=======
-            $app->get('/{id}', 'EntitiesController@get');
->>>>>>> Correct routes & Controller to accept id
             $app->post('/', 'EntitiesController@add');
             $app->put('/{id}', 'EntitiesController@put');
             $app->delete('/{id}', 'EntitiesController@remove');
             $app->get('/{id}/handles', 'EntitiesController@getHandles');
-<<<<<<< HEAD
             $app->post('/{id}/handles', 'EntitiesController@addHandle');
-=======
->>>>>>> Correct routes & Controller to accept id
         }); // prefix : entities
 
 
@@ -93,20 +86,7 @@ $app->group(['prefix' => 'api'], function ($app) {
             $app->delete('/{id}', 'ServicesController@remove');
         }); // prefix : services
 
-<<<<<<< HEAD
-=======
 
-        // Routes for resource HANDLES
-        $app->group(['prefix' => 'handles'], function ($app) {
-            $app->get('', 'HandlesController@all');
-            $app->get('/{id}', 'HandlesController@get');
-            $app->post('/{id}', 'HandlesController@add');
-            // $app->post('/{id}', 'EntitiesController@addHandle');
-            $app->put('/{id}', 'HandlesController@put');
-            $app->delete('/{id}', 'HandlesController@remove');
-        }); // prefix : handles
-
->>>>>>> Correct routes & Controller to accept id
     }); // prefix : v1
 });  // prefix : api
 
