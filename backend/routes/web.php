@@ -40,7 +40,7 @@ $app->group(['prefix' => 'api'], function ($app) {
         $app->get('/', function () use ($app) {
             return response()->json([
                 'route'=>[
-                    'CRUD'  => 'entities/{uuid1,uuid2,uuid3}'
+                    'CRUD'  => 'entities/{id1,id2,id3}'
                 ]
             ]);
         });
@@ -51,31 +51,32 @@ $app->group(['prefix' => 'api'], function ($app) {
         // Routes for resource ENTITIES
         $app->group(['prefix' => 'entities'], function ($app) {
             $app->get('/', 'EntitiesController@all');
-            $app->get('/{uuid}', 'EntitiesController@get');
+            $app->get('/{id}', 'EntitiesController@get');
             $app->post('/', 'EntitiesController@add');
             $app->put('/{id}', 'EntitiesController@put');
             $app->delete('/{id}', 'EntitiesController@remove');
-            $app->get('/{uuid}/handles', 'EntitiesController@getHandles');
+            $app->get('/{id}/handles', 'EntitiesController@getHandles');
         }); // prefix : entities
 
 
         // Routes for resource SERVICES
         $app->group(['prefix' => 'services'], function ($app) {
             $app->get('', 'ServicesController@all');
-            $app->get('/{uuid}', 'ServicesController@get');
+            $app->get('/{id}', 'ServicesController@get');
             $app->post('', 'ServicesController@add');
-            $app->put('/{uuid}', 'ServicesController@put');
-            $app->delete('/{uuid}', 'ServicesController@remove');
+            $app->put('/{id}', 'ServicesController@put');
+            $app->delete('/{id}', 'ServicesController@remove');
         }); // prefix : services
 
 
         // Routes for resource HANDLES
         $app->group(['prefix' => 'handles'], function ($app) {
             $app->get('', 'HandlesController@all');
-            $app->get('/{uuid}', 'HandlesController@get');
-            $app->post('/{uuid}', 'HandlesController@add');
-            $app->put('/{uuid}', 'HandlesController@put');
-            $app->delete('/{uuid}', 'HandlesController@remove');
+            $app->get('/{id}', 'HandlesController@get');
+            $app->post('/{id}', 'HandlesController@add');
+            // $app->post('/{id}', 'EntitiesController@addHandle');
+            $app->put('/{id}', 'HandlesController@put');
+            $app->delete('/{id}', 'HandlesController@remove');
         }); // prefix : handles
 
     }); // prefix : v1

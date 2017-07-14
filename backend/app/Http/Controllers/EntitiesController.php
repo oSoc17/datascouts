@@ -25,12 +25,15 @@ class EntitiesController extends Controller {
     // What happens to the handlers when delete a  entitty
     // CASCADE  or softDeletes ?
 
-    public function getHandles(Entity $entity){
-        $entityHandles = $entity->handle;
-        if(is_null($entity->handle)){
-            $entityHandles = [];
+    public function getHandles($entity_id)
+    {
+        $handles = Entity::findOrFail($entity_id)->handles;
+
+        if (is_null($handles)) {
+            $handles = [];
         }
-        return $this->respond(Response::HTTP_OK, $entityHandles);
+
+        return $this->respond(Response::HTTP_OK, $handles);
     }
 
 
