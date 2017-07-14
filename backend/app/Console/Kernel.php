@@ -14,7 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\AddAdminUser::class,    
-    
+        Commands\WatchSocialMediaHandle::class
     ];
 
     /**
@@ -25,6 +25,6 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        //
+        // $schedule->exec('datascouts:fetch-handlers')->everyMinutes('5')
     }
 }
