@@ -17,7 +17,6 @@ class CreateServicesTable extends Migration
             // For the validation
             $table->string('color')->nullable();
 
-
             // Constraints declaration
             $table->timestamps();
         });
