@@ -6,6 +6,7 @@ class Handle extends Model
 {
 
 
+
     protected $fillable = ["name", "url"];
 
     protected $dates = [];
@@ -18,6 +19,7 @@ class Handle extends Model
     public $hidden = [ ];
 
     public $visible = [ ];
+
 
 
 
