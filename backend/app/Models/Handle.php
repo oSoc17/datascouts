@@ -4,9 +4,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Handle extends Model {
 
-    use UuidForKey;
-
-    protected $primaryKey = "uuid";
 
     public $incrementing = false;
 
@@ -21,24 +18,25 @@ class Handle extends Model {
 
 
     protected $visible = [
-        "name", "url", "logo" , "color" ,"uuid",
-        "entity_uuid", 'provider_uuid', "service_uuid"];
+        "id", "name", "url", "logo" , "color" ,
+        "entity_id", 'provider_id', "service_id"
+    ];
 
 
     public function provider()
     {
-        return $this->belongsTo("App\Models\Provider",'provider_uuid', 'uuid');
+        return $this->belongsTo("App\Models\Provider");
     }
 
 
     public function entity()
     {
-        return $this->belongsTo("App\Models\Entity",'entity_uuid', 'uuid');
+        return $this->belongsTo("App\Models\Entity");
     }
 
     public function service()
     {
-        return $this->belongsTo("App\Models\Service",'service_uuid', 'uuid');
+        return $this->belongsTo("App\Models\Service");
     }
 
 }
