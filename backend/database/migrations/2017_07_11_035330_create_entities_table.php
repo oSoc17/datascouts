@@ -11,12 +11,18 @@ class CreateEntitiesTable extends Migration
         Schema::create('entities', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            // $table->string('url');
-            // $table->string('description')->nullable();
+            $table->string('url')->unique();
             $table->string('image')->nullable();
+
             // Constraints declaration
             $table->timestamps();
+            $table->softDeletes();
+    
+            // F.K
+            
         });
+
+
     }
 
     public function down()

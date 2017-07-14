@@ -1,4 +1,4 @@
-<?php namespace App;
+<?php namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -6,15 +6,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Entity extends Model {
     
-    // use SoftDeletes;
+    use SoftDeletes;
+    
 
+    public $incrementing = false;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = ["name", "image"];
+    protected $fillable = ["name", "url", "image"];
 
     /**
      * The attributes that should be mutated to dates.
@@ -26,7 +23,9 @@ class Entity extends Model {
     ];
 
     public static $rules = [
-        "name" => "min:3|unique:entities",
+        "name" => "string|unique:entities|min:3",
+        "url" => "string|min:3",
+        "image" => "string|min:3"
     ];
 
 
@@ -42,8 +41,19 @@ class Entity extends Model {
      *
      * @var array
      */
-    protected $visible = ['name', 'image'];
+    public $visible = ["id",'name', 'url', 'image',  "user_id"];
+
 
     // Relationships
+
+    public function creator()
+    {
+        return $this->belongsTo("App\Models\User");
+    }
+
+    public function handles()
+    {
+        return $this->hasMany("App\Models\Handle");
+    }
 
 }

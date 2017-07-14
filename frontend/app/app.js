@@ -172,12 +172,14 @@ var vue = new Vue({
       console.log(entity)
       this.$http.put(this.url + '/entities/'+ entity.uuid,
       {"name": newName}).then(function (response) {
+          this.currentEntity = response.data
           console.log("Entity updated")
+          this.loadEntities()
           //console.log(response)
         }, function (response) {
           console.log("Error Failed to edit entity")
       })
-      this.loadEntities()
+
     },
     confirmDeleteEntity: function(entity, e) {
       if(confirm("Are you sure you want to delete this entity?") == true){
@@ -188,12 +190,14 @@ var vue = new Vue({
       e.preventDefault()
       console.log(entity.name)
       this.$http.delete(this.url + '/entities/' + entity.uuid).then(function (response) {
+          this.selectEntity(this.currentEntity, e)
           console.log("Entity deleted")
+          this.loadEntities()
           //console.log(response)
         }, function (response) {
           console.log("Error Failed to delete entity")
       })
-      this.loadEntities()
+
     },
     loadHandles: function(entity) {
       this.$http.get(this.url + '/entities/' + entity.uuid + '/handles').then(function (response) {
@@ -220,8 +224,7 @@ var vue = new Vue({
     },
     addHandle: function (entity, handle, e) {
       e.preventDefault()
-      this.$http.post(this.url + '/handles/'+ entity.uuid, {"name" : handle.name, "url" : handle.uuid,
-    "socialMedia" : handle.socialMedia}).then(function (response) {
+      this.$http.post(this.url + '/handles/'+ entity.uuid, {"name" : handle.name, "url" : handle.url}).then(function (response) {
         this.loadHandles()
         console.log("Handle added")
         }, function (response) {
@@ -248,14 +251,14 @@ var vue = new Vue({
     editHandle: function(handle, e) {
       e.preventDefault()
       console.log(handle.uuid)
-      this.$http.put(this.url + '/services/' + handle.uuid, {"name:" : handle.name, "url" : handle.url,
-    "socialMedia" : handle.socialMedia}).then(function (response) {
+      this.$http.put(this.url + '/entities/' + handle.uuid, {"name:" : handle.name, "url" : handle.url}).then(function (response) {
           console.log("Handle updated")
+          this.loadHandles(this.currentEntity)
           //console.log(response)
         }, function (response) {
           console.log("Error Failed to update handle")
       })
-      this.loadHandles(this.currentEntity)
+
     },
     confirmDeleteHandle: function(handle, e) {
       if(confirm("Are you sure you want to delete this handle?") == true){
@@ -267,11 +270,12 @@ var vue = new Vue({
       console.log(handle)
       this.$http.delete(this.url + '/services'/ + handle.uuid).then(function (response) {
           console.log("Handle deleted")
+          this.loadEntities()
           //console.log(response)
         }, function (response) {
           console.log("Error Failed to delete handle")
       })
-      this.loadEntities()
+
     },
     discardHandle: function(e) {
       this.handleSelected = !this.handleSelected
