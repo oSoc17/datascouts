@@ -13,7 +13,6 @@ class EntitiesController extends Controller {
     use RESTActions;
 
 
-
     public function getHandles($entity_id)
     {
         $handles = Entity::findOrFail($entity_id)->handles;
