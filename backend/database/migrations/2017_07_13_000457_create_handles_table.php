@@ -9,29 +9,23 @@ class CreateHandlesTable extends Migration
     public function up()
     {
         Schema::create('handles', function(Blueprint $table) {
-            // $table->increments('id');
-            $table->uuid('uuid');
+            $table->increments('id');
             $table->string('name');
             $table->string('url')->unique();
 
-            // F.K.
-            $table->uuid('entity_uuid');
-            $table->uuid('provider_uuid');
-            $table->uuid('service_uuid');
-            
             // Constraints declaration
             $table->timestamps();
-            $table->primary('uuid');
-        //     $table->foreign('provider_uuid')
-        //         ->references('uuid')
+
+            // F.K
+            $table->integer('entity_id')->unsigned()->index()->nullable();
+            $table->integer('provider_id')->unsigned()->index()->nullable();
+            $table->integer('service_id')->unsigned()->index()->nullable();
+        //     $table->foreign('provider_id')
+        //         ->references('id')
         //         ->on('providers');
         });
 
-        // Schema::tables('handles', function(Blueprint $table) {
-        //     $table->foreign('provider_uuid')
-        //         ->references('id')
-        //         ->on('providers');
-        // });
+
     }
 
     public function down()
