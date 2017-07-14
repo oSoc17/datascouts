@@ -2,10 +2,9 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class Handle extends Model {
+class Handle extends Model
+{
 
-
-    public $incrementing = false;
 
     protected $fillable = ["name", "url"];
 
@@ -16,18 +15,13 @@ class Handle extends Model {
         "url" => "string|unique:handles"
     ];
 
+    public $hidden = [ ];
 
-    protected $visible = [
-        "id", "name", "url", "logo" , "color" ,
-        "entity_id", 'provider_id', "service_id"
-    ];
+    public $visible = [ ];
 
 
-    public function provider()
-    {
-        return $this->belongsTo("App\Models\Provider");
-    }
 
+    // Relationships
 
     public function entity()
     {
@@ -39,4 +33,8 @@ class Handle extends Model {
         return $this->belongsTo("App\Models\Service");
     }
 
+    public function provider()
+    {
+        return $this->belongsTo("App\Models\Provider");
+    }
 }
