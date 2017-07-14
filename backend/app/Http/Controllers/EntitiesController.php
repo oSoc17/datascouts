@@ -6,6 +6,7 @@ use Illuminate\Http\Response;
 use App\Models\Entity;
 use App\Models\Handle;
 
+
 class EntitiesController extends Controller {
 
     const MODEL = "App\Models\Entity";
@@ -49,6 +50,7 @@ class EntitiesController extends Controller {
         $handle->save();
         $entity->save();
         return $this->respond(Response::HTTP_OK, $handle);
+
     }
 
 
