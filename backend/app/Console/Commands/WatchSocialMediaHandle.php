@@ -1,8 +1,10 @@
 <?php namespace App\Console\Commands;
 
-
+use Illuminate\Support\Facades\Queue;
 use Illuminate\Console\Command;
-use App\Models\Handles;
+
+use App\Models\Handle;
+use App\Jobs\TwitterJob;
 
 
 class WatchSocialMediaHandle extends Command
@@ -23,7 +25,6 @@ class WatchSocialMediaHandle extends Command
     protected $description = 'Fetch the social media data related to a specific handle';
 
 
-    protected $handles;
 
     /**
      * Create a new command instance.
@@ -33,11 +34,8 @@ class WatchSocialMediaHandle extends Command
     public function __construct()
     {
         parent::__construct();
+
     }
-
-
-
-
 
 
     /**
@@ -46,11 +44,15 @@ class WatchSocialMediaHandle extends Command
      * @return mixed
      */
     public function handle()
-    {
-        $this->handles = Handles::all();
+    {        
+        $handles = Handle::fetchable()->isOutDated()->get();
 
         foreach ($handles as $handle) {
-            dd($handle);
+            echo "Scheduler : Dispatch new Job for {$handle->service->name}Job \n";
+            $job = new TwitterJob($handle);
+            // if($handle->service->name  === 'Twitter'){
+                dispatch($job->onQueue($handle->service->name));
+            // }
         }
         
         

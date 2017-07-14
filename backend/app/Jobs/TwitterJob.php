@@ -5,7 +5,12 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
+use Carbon\Carbon;
+
 use App\Models\Handle;
+
+// use Abraham\TwitterOAuth\TwitterOAuth;
+
 
 
 class TwitterJob extends Job implements ShouldQueue
@@ -23,6 +28,7 @@ class TwitterJob extends Job implements ShouldQueue
     public function __construct(Handle $handle)
     {
         $this->handle = $handle;
+        print_r("New Twitter Job : Added\n");
     }
 
     /**
@@ -32,11 +38,22 @@ class TwitterJob extends Job implements ShouldQueue
      */
     public function handle()
     {
-        // Set to true $this->handle->isFetching
-        // Set the fetched_at $this->handle = now();
-        // Get all tweets, ....
+        // Now, lock this handle
+        $this->handle->is_fetching = true;
+        $this->handle->fetched_at = Carbon::now()->toDateTimeString();
+
+        $this->handle->save();
+        // $data = $this->connection->get("search/tweets", [
+        //     "q" => $q ." -filter:retweets",
+        //     'result_type' => 'mixed',   #['mixed', 'popular', 'recent']
+        //     'count' => 7,
+        //     'include_entities' => false
+            
+        // ]);
+
         // Store them in DB.
-        dd($this->handle->name);
- 
+
+        $this->handle->is_fetching = false;
+
     }
 }
