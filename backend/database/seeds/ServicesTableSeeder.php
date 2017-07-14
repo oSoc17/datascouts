@@ -12,15 +12,17 @@ class ServicesTableSeeder extends Seeder
     public function run()
     {
         $services = [
-            ['name' => 'Facebook', "url" => "https://facebook.com", "logo" => null, "logo_url" => "" ],
+            ['name' => 'Facebook', "url" => "https://facebook.com"],
             ['name' => 'Twitter', "url" => "https://twitter.com" ],
             ['name' => 'Youtube', "url" => "https://youtube.com" ],
-            ['name' => 'Github', "url" => "https://github.com" ],
+            ['name' => 'GitHub', "url" => "https://github.com" ],
         ];
 
+
         foreach ($services as $service) {
-            var_dump($service);
-            DB::table('services')->insert(compact($service));
+            DB::table('services')->insert(compact('service'));
         }
     }
 }
+
+
