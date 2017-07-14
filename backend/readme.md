@@ -4,8 +4,6 @@ API for Social Media Aggregator
 
 ## Introduction
 
----
-
 Hello, welcome onboard.
 
 This project design on [#oSoc17](2017.summerofcode.be/) is a little API to fetch data from different social media for specified entities. In short words, APi for Social Media Aggregator.
@@ -13,8 +11,6 @@ This project design on [#oSoc17](2017.summerofcode.be/) is a little API to fetch
 This purpose of this document is to give an orverview about this project and necessary steps before working on it.
 
 ## Table Of Contents
-
----
 
 - [Introduction](#introduction)
 - [Technologies](#Technologies)
@@ -33,8 +29,6 @@ This purpose of this document is to give an orverview about this project and nec
 
 ## Technologies
 
----
-
 This API exploits the following technologies :
 
 | **Name** | **Description**| **More infos**|
@@ -45,8 +39,6 @@ This API exploits the following technologies :
 
 ## Laravel Packages
 
----
-
 | **Name** | **Description**| **More infos**|
 |------------|----------------|---------------|
 | [Lumen v5.3](https://lumen.laravel.com/)| Fast micro-framework by Laravel |[Site web](https://lumen.laravel.com/docs/5.4)|
@@ -55,23 +47,17 @@ This API exploits the following technologies :
 
 ## Requirements
 
----
-
 - All tecnhologies listed before the are necessary.
 - This project was build with PHP v7.1, your PHP environnement must set to it.
 - A connection to a DB.
 
 ## Installation
 
----
-
 ### Before Started
 
 ### Get Started
 
 ## Routes
-
----
 
 **Base url** : `/api/v1`
 
@@ -92,8 +78,6 @@ This API exploits the following technologies :
 - **[`GET` handles/:id](./docs/endpoints/handles/GET_handles_id.md)**
 
 ## Development
-
----
 
 ### Documentation
 
