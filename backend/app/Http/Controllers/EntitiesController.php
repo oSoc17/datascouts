@@ -18,6 +18,7 @@ class EntitiesController extends Controller {
     {
         $handles = Entity::findOrFail($entity_id)->handles;
 
+
         if (is_null($handles)) {
             $handles = [];
         }
