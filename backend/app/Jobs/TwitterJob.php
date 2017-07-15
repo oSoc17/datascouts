@@ -38,6 +38,7 @@ class TwitterJob extends Job implements ShouldQueue
      */
     public function handle()
     {
+        echo 'Exec-ing Twitter Job \n';
         // Now, lock this handle
         $this->handle->is_fetching = true;
         $this->handle->fetched_at = Carbon::now()->toDateTimeString();
@@ -53,7 +54,9 @@ class TwitterJob extends Job implements ShouldQueue
 
         // Store them in DB.
 
+
         $this->handle->is_fetching = false;
+        $this->handle->save();
 
     }
 }

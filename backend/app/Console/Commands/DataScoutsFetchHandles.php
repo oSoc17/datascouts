@@ -7,15 +7,14 @@ use App\Models\Handle;
 use App\Jobs\TwitterJob;
 
 
-class WatchSocialMediaHandle extends Command
+class DataScoutsFetchHandles extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'datascouts:fetch-handlers
-    ';
+    protected $signature = 'datascouts:fetch-handlers';
 
     /**
      * The console command description.
@@ -44,12 +43,14 @@ class WatchSocialMediaHandle extends Command
      * @return mixed
      */
     public function handle()
-    {        
+    {   
         $handles = Handle::fetchable()->isOutDated()->get();
 
         foreach ($handles as $handle) {
-            echo "Scheduler : Dispatch new Job for {$handle->service->name}Job \n";
+            echo "Scheduler : Dispatch new Job for {$handle->service->name}\n";
             $job = new TwitterJob($handle);
+
+
             // if($handle->service->name  === 'Twitter'){
                 dispatch($job->onQueue($handle->service->name));
             // }

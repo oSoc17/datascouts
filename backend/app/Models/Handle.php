@@ -5,9 +5,9 @@ use Carbon\Carbon;
 
 class Handle extends Model
 {
+    // use BaseModel;
 
-
-    protected $fillable = ["name", "url"];
+    protected $fillable = ["name", "url", "entity_id"];
 
     /**
      * The attributes that should be mutated to dates.
@@ -32,21 +32,27 @@ class Handle extends Model
 
     // is Fetchable when is_Fetching === 0
     public function scopeFetchable($query)
-    {   
-        return $query->where('is_fetching', 0);
+    {
+        return $query
+                ->where('is_fetching', 0)
+                ->whereNotNull('service_id')
+                ->whereNotNull('provider_id');
     }
 
     // Check for the last fetch datetime in the last 5 min.
     public function scopeIsOutDated($query)
     {
-        return $query->where('fetched_at','<=', Carbon::now()->subMinute(5));
+        return $query->where('fetched_at', '<=', Carbon::now()->subMinute(5));
     }
+
 
     
 
     // Accessors & Mutators
 
-
+    public function setUrlAttribute($value){
+        $this->attributes['url'] = $this->getTable().'_'.str_slug($this->attributes['name']);
+    }
 
     // Relationships
 
