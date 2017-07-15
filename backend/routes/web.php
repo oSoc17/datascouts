@@ -51,7 +51,9 @@ $app->group(['prefix' => 'api'], function ($app) {
         // Routes for resource ENTITIES
         $app->group(['prefix' => 'entities'], function ($app) {
             $app->get('/', 'EntitiesController@all');
-            $app->get('/{id}', 'EntitiesController@get');
+            $app->get('/{id:[0-9]+}', 'EntitiesController@get');
+            $app->get('/{url:[a-z-_]+}', 'EntitiesController@getByUrl');
+            
             $app->post('/', 'EntitiesController@add');
             $app->put('/{id}', 'EntitiesController@put');
             $app->delete('/{id}', 'EntitiesController@remove');
@@ -63,7 +65,10 @@ $app->group(['prefix' => 'api'], function ($app) {
         // Routes for resource HANDLES
         $app->group(['prefix' => 'handles'], function ($app) {
             $app->get('', 'HandlesController@all');
-            $app->get('/{id}', 'HandlesController@get');
+
+            $app->get('/{id:[0-9]+}', 'HandlesController@get');
+            $app->get('/{url:[a-z-_]+}', 'HandlesController@getByUrl');
+
             $app->post('/{id}', 'EntitiesController@addHandle');
             $app->post('/{handle_id}/services/{service_id}', 'HandlesController@addService');
 
