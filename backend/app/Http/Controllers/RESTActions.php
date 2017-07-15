@@ -17,7 +17,13 @@ trait RESTActions
     {
         $m = self::MODEL;
         $model = $m::findOrFail($id);
+        return $this->respond(Response::HTTP_OK, $model);
+    }
 
+    public function getByURL($url)
+    {
+        $m = self::MODEL;
+        $model = $m::where('url', $url)->firstOrFail();
         return $this->respond(Response::HTTP_OK, $model);
     }
 
