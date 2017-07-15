@@ -12,10 +12,10 @@ class ServicesTableSeeder extends Seeder
     public function run()
     {
         $services = [
-            ['name' => 'Facebook', "url" => "https://facebook.com"],
-            ['name' => 'Twitter', "url" => "https://twitter.com" ],
-            ['name' => 'Youtube', "url" => "https://youtube.com" ],
-            ['name' => 'GitHub', "url" => "https://github.com" ],
+            ['name' => 'Facebook', "link" => "https://facebook.com"],
+            ['name' => 'Twitter', "link" => "https://twitter.com" ],
+            ['name' => 'Youtube', "link" => "https://youtube.com" ],
+            ['name' => 'GitHub', "link" => "https://github.com" ],
         ];
 
 
