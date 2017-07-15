@@ -25,6 +25,12 @@ class CreateHandlesTable extends Migration
         //         ->on('providers');
         });
 
+        Schema::table('handles', function (Blueprint $table){
+            $table->boolean('is_fetching')->default(false);
+            $table->timestamp('fetched_at')->useCurrent();	
+
+        });
+
 
     }
 
