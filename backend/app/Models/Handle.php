@@ -19,7 +19,7 @@ class Handle extends Model
     ];
 
     public static $rules = [
-        "name" => "string|required|min:3",
+        "name" => "string|min:3",
         "url" => "string|unique:handles"
     ];
 
