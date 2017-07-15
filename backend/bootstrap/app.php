@@ -26,7 +26,7 @@ $app = new Laravel\Lumen\Application(
 $app->withFacades();
 
 class_alias('Spatie\LaravelTwitterStreamingApi\TwitterStreamingApiFacade', 'TwitterStreamingApi');
-class_alias('Ramsey\Uuid\Uuid', 'Uuid');
+
 
 $app->withEloquent();
 
