@@ -60,16 +60,6 @@ $app->group(['prefix' => 'api'], function ($app) {
         }); // prefix : entities
 
 
-        // Routes for resource SERVICES
-        $app->group(['prefix' => 'services'], function ($app) {
-            $app->get('', 'ServicesController@all');
-            $app->get('/{id}', 'ServicesController@get');
-            $app->post('', 'ServicesController@add');
-            $app->put('/{id}', 'ServicesController@put');
-            $app->delete('/{id}', 'ServicesController@remove');
-        }); // prefix : services
-
-
         // Routes for resource HANDLES
         $app->group(['prefix' => 'handles'], function ($app) {
             $app->get('', 'HandlesController@all');
@@ -80,6 +70,16 @@ $app->group(['prefix' => 'api'], function ($app) {
             $app->put('/{id}', 'HandlesController@put');
             $app->delete('/{id}', 'HandlesController@remove');
         }); // prefix : handles
+
+
+        // Routes for resource SERVICES
+        $app->group(['prefix' => 'services'], function ($app) {
+            $app->get('', 'ServicesController@all');
+            $app->get('/{id}', 'ServicesController@get');
+            $app->post('', 'ServicesController@add');
+            $app->put('/{id}', 'ServicesController@put');
+            $app->delete('/{id}', 'ServicesController@remove');
+        }); // prefix : services
 
     }); // prefix : v1
 });  // prefix : api

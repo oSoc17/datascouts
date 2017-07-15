@@ -7,9 +7,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Entity extends Model {
     
     use SoftDeletes;
-    
+    use BaseModel;
 
-    public $incrementing = false;
 
     protected $fillable = ["name", "url", "image"];
 
@@ -41,7 +40,7 @@ class Entity extends Model {
      *
      * @var array
      */
-    public $visible = ["id",'name', 'url', 'image',  "user_id"];
+    public $visible = [];
 
 
     // Relationships

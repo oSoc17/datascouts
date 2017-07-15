@@ -10,18 +10,9 @@ class EntitiesController extends Controller {
 
     const MODEL = "App\Models\Entity";
 
-    use RESTActions {
-        RESTActions::add as traitRestAdd;
-    }
+    use RESTActions;
 
 
-
-    public function add(Request $request)
-    {
-        // Change the str_random for the real URL function
-        $request->request->add(['url' => str_random(32)]);
-        return $this->traitRestAdd($request);
-    }
 
     public function getHandles($entity_id)
     {

@@ -35,10 +35,10 @@ trait RESTActions
     {
         $m = self::MODEL;
         $this->validate($request, $m::$rules);
-
+        
         $model = $m::findOrFail($id);
 
-        // Only keeps the valueKey matching with those specified in $rules
+        // Only keeps the inputs[key] matching with those specified in $rules
         $keep = array_intersect_key($m::$rules, $request->all());
 
         $model->update($request->only(array_keys($keep)));
