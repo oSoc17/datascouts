@@ -25,7 +25,7 @@
               <div class="searchedEntities">
                 <template v-for="item in entities">
                   <div class="entity">
-                    <button type="button" v-on:click="selectEntity(item.entity,$event)"
+                    <button type="button" v-on:click="selectEntity(item,$event)"
                     v-if=" (item.entity.name.indexOf(searchEntity) !== -1 || searchEntity == '')">
                       {{item.entity.name}}
                     </button>
@@ -50,9 +50,9 @@
             <button type="button" v-on:click="confirmEditEntity(currentEntity, $event)">edit {{currentEntity.name}}</button>
             <button type="button" v-on:click="confirmDeleteEntity(currentEntity, $event)">delete {{currentEntity.name}}</button>
             <p> Social media handles for {{currentEntity.name}} </p>
-            <template v-for="item in handles">
+            <template v-for="item in currentHandles">
               <button type="button" v-on:click="selectHandle(item,$event)">
-                {{item.name}}
+                {{item.handle.name}}
               </button>
             </template>
             <button type="button" v-on:click="promptAddHandle(currentEntity, $event)">Add handle</button>
