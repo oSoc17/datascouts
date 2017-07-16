@@ -63,24 +63,24 @@ class ProvidersController extends Controller
                             ->stateless()
                             ->redirect()->getTargetUrl();
         
-
-        return $this->respond(Response::HTTP_OK, compact('link'));
+        return redirect($link.'&state='.$handle->url);
+        // return $this->respond(Response::HTTP_OK, compact('link'));
     }
 
-    public function handleCallback(Request $request, $handle)
+    public function handleCallback(Request $request, $service)
     {
-        $handle = strtolower($handle);
-        $handleDb = Handle::where('id', $handle)
-                            ->orWhere('url', $handle)
-                            ->firstOrFail();
-        dd($handle);
+        $handle = $request->input('state');
+        $handleDb = Handle::where('url', $handle)->firstOrFail();
         
-        // Create a JWT Token with the auth or provider created.
 
-        $user = Socialite::with(strtolower($service->name))->user();
+        $user = Socialite::with(strtolower($service))->stateless()->user();
         // Save this user with the oAuth code into Provider table
 
+        // Create a JWT Token with the auth or provider created.
         dd($user);
+
+        // Save the user info in Providers Table
+
         // Send HTTP_CREATED
     }
 
