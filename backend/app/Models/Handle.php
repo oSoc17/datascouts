@@ -45,7 +45,11 @@ class Handle extends Model
         return $query->where('fetched_at', '<=', Carbon::now()->subMinute(5));
     }
 
-
+    public function scopeListOfLastFetched($query, $list, $lastRequested = 0){
+        return $query->whereNotNull('service_id')
+                     ->whereIn('id', $list);
+        // Add another for $lastRequested for this handle
+    }
     
 
     // Accessors & Mutators
@@ -69,5 +73,10 @@ class Handle extends Model
     public function provider()
     {
         return $this->belongsTo("App\Models\Provider");
+    }
+
+    public function fetched()
+    {
+        return $this->hasMany("App\Models\Fetcher");
     }
 }
