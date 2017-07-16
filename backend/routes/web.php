@@ -94,7 +94,7 @@ $app->group(['prefix' => 'api'], function ($app) {
         // Routes for resource PROVIDERS
         $app->group(['prefix' => 'providers'], function ($app) {
             $app->get('/{handle}/login', 'ProvidersController@getLinkForLogin');
-            $app->get('/{handle}/callback', 'ProvidersController@handleCallback');
+            $app->post('/{handle}/callback', 'ProvidersController@handleCallback');
 
         }); // prefix : /providers
 
