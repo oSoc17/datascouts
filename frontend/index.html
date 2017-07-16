@@ -27,11 +27,11 @@
                   <div class="entity">
                     <button type="button" v-on:click="selectEntity(item.entity,$event)"
                     v-if=" (item.entity.name.indexOf(searchEntity) !== -1 || searchEntity == '')">
-                      {{item.name}}
+                      {{item.entity.name}}
                     </button>
                     <input type="checkbox" class="checkbox" name="checkbox" value=""
                     v-if=" (item.entity.name.indexOf(searchEntity) !== -1 || searchEntity == '')"
-                    v-on:click="toggleEntity(item, $event)">
+                    v-on:click="toggleEntity($event)">
                   </div>
                 </template>
                 <button type="button" v-on:click="addEntity(searchEntity, $event)" v-if="searchEntity != ''">create {{searchEntity}}</button>

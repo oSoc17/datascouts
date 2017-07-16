@@ -29,7 +29,7 @@ var vue = new Vue({
       name: '',
       url: '',
       image: '',
-      uuid: '',
+      id: '',
     },
     handles: [],
     currentHandle: {
@@ -50,6 +50,9 @@ var vue = new Vue({
   watch: {
     items: function(updatingWfContainer){
       this.updateWaterfall()
+    },
+    entities: function(updatingEntities){
+      this.updateSelectedEntities()
     }
   },
   mounted: function() {
@@ -57,6 +60,7 @@ var vue = new Vue({
   },
   methods: {
     fetchData: function(entities) {
+      var self = this
       //display load templates & adjust them to the screen, hide loading elements
       this.isLoading = true
       document.getElementById("wf-container").style.visibility = "hidden"
@@ -67,32 +71,46 @@ var vue = new Vue({
         }
       })
 
-      //create variables for the body of the post request
-      var entitiesUuids = []
-      for(item in this.entities){
-        entitiesUuids.push(item.entity.uuid)
-      }
+      //creating body of the post request
+      var entitiesIds = []
       var socialMedia
-      for(item in this.socialMediaFilters){
-        if(item.active){
-          socialMedia.push(item.name)
-        }
-      }
+      if(self.entities.length != 0 ){
+        for(var i=0;i<self.entities.length;i++){
+          if(self.entities[i].active){
+            entitiesIds.push(self.entities[i].entity.id)
+          }
 
-      this.$http.post(this.url + '/providers/fetch', {entitiesUuids, socialMedia}).then(function (response) {
-          this.items = response.data
-          //console.log(response)
-        }, function (response) {
-          console.log("Error Fail to get data from server. Loading mockdata instead.")
-          this.$http.get(this.mockDataTwitter).then(function (response) {
-              this.items = response.data
-              //console.log(response)
-            }, function (response) {
-              console.log("Error Fail to load mockdata")
-          });
-      });
+        }
+        for(item in self.socialMediaFilters){
+          if(item.active){
+            socialMedia.push(item.name)
+          }
+        }
+
+        this.$http.post(this.url + '/providers/fetch', {entitiesIds, socialMedia}).then(function (response) {
+            self.items = response.data
+            //console.log(response)
+          }, function (response) {
+            console.log("Error Fail to get data from server. Loading mockdata instead.")
+            this.$http.get(this.mockDataTwitter).then(function (response) {
+                self.items = response.data
+                //console.log(response)
+              }, function (response) {
+                console.log("Error Fail to load mockdata")
+            });
+        });
+      }
+      else{
+        this.$http.get(this.mockDataTwitter).then(function (response) {
+            self.items = response.data
+            //console.log(response)
+          }, function (response) {
+            console.log("Error Fail to load mockdata")
+        });
+      }
     },
     loadEntities: function() {
+      var self = this
       this.$http.get(this.url + '/entities').then(function (response) {
         var newEntities = []
         var bool
@@ -100,37 +118,42 @@ var vue = new Vue({
         // response.data.forEach(e => this.selectedEntities.push(e));
         response.data.forEach(function(entity) {
           bool = false
-          for(var i=0;i<this.entities.length;i++){
-            if(entity.uuid == this.entities[i].uuid){bool = true; index = i; break;}
-          }
-          if(!bool){
-            newEntities.push({"entity" : entity, "active": true})
+          if(self.entities.length != 0 ){
+            for(var i=0;i<self.entities.length;i++){
+              if(entity.id == self.entities[i].entity.id){bool = true; index = i; break;}
+            }
+            if(!bool){
+              newEntities.push({"entity" : entity, "active": true})
+            }
+            else{
+              newEntities.push({"entity" : entity, "active": self.entities[index].active})
+            }
           }
           else{
-            newEntities.push({"entity" : entity, "active": this.entities[index].active})
+            newEntities.push({"entity" : entity, "active": true})
           }
         });
-          this.entities = newEntities
-          console.log("Entities loaded")
+          self.entities = newEntities.slice()
           //console.log(response)
         }, function (response) {
           console.log("Error Failed to get data")
           console.log(response)
       })
-
+    },
+    updateSelectedEntities: _.debounce( function() {
       //set all checkboxes to the appropriate state
-      this.$nextTick(function(){
-        var entitiesHTML = document.getElementsByClassName("entity")
-        for(var i=0;i<entitiesHTML.length;i++){
-          entitiesHTML[i].getElementsByClassName("checkbox")[0].checked = this.entities[i].active
-        }
-      })
-    },
-    toggleEntity: function (entity, e){
-      _.debounce({
-        
-      },100)
-    },
+      var entitiesHTML = document.getElementsByClassName("entity")
+      for(var i=0;i<this.entities.length;i++){
+        entitiesHTML[i].getElementsByClassName("checkbox")[0].checked = this.entities[i].active
+      }
+    }, 1),
+    toggleEntity: _.debounce( function (e){
+      var entitiesHTML = document.getElementsByClassName("entity")
+      for(var i=0;i<this.entities.length;i++){
+        this.entities[i].active = entitiesHTML[i].getElementsByClassName("checkbox")[0].checked
+      }
+      this.fetchData()
+    }, 100),
     addEntity: function (name, e) {
       e.preventDefault()
       this.$http.post(this.url + '/entities', {"name" : name}).then(function (response) {
@@ -144,13 +167,13 @@ var vue = new Vue({
     selectEntity: function (entity, e) {
       e.preventDefault()
       //console.log(entity)
-      if(!this.isEntitySelected || this.currentEntity.uuid==entity.uuid){
+      if(!this.isEntitySelected || this.currentEntity.id==entity.id){
         this.isEntitySelected = !this.isEntitySelected
       }
       this.currentEntity.name = entity.name
       this.currentEntity.url = entity.url
       this.currentEntity.image = entity.image
-      this.currentEntity.uuid = entity.uuid
+      this.currentEntity.id = entity.id
       if(this.isEntitySelected){
         document.getElementById("sidenav_handles").style.marginLeft = "250px"
       }
@@ -171,7 +194,7 @@ var vue = new Vue({
     editEntity: function(entity, newName, e) {
       e.preventDefault()
       console.log(entity)
-      this.$http.put(this.url + '/entities/'+ entity.uuid,
+      this.$http.put(this.url + '/entities/'+ entity.id,
       {"name": newName}).then(function (response) {
           this.currentEntity = response.data
           console.log("Entity updated")
@@ -189,7 +212,7 @@ var vue = new Vue({
     deleteEntity: function(entity, e) {
       e.preventDefault()
       console.log(entity.name)
-      this.$http.delete(this.url + '/entities/' + entity.uuid).then(function (response) {
+      this.$http.delete(this.url + '/entities/' + entity.id).then(function (response) {
           this.selectEntity(this.currentEntity, e)
           console.log("Entity deleted")
           this.loadEntities()
@@ -200,7 +223,7 @@ var vue = new Vue({
 
     },
     loadHandles: function(entity) {
-      this.$http.get(this.url + '/entities/' + entity.uuid + '/handles').then(function (response) {
+      this.$http.get(this.url + '/entities/' + entity.id + '/handles').then(function (response) {
         for(var i=0; i<response.data.length; i++){
           this.handles[i] = response.data[i]
         }
@@ -224,7 +247,7 @@ var vue = new Vue({
     },
     addHandle: function (entity, handle, e) {
       e.preventDefault()
-      this.$http.post(this.url + '/handles/'+ entity.uuid, {"name" : handle.name, "url" : handle.url}).then(function (response) {
+      this.$http.post(this.url + '/handles/'+ entity.id, {"name" : handle.name, "url" : handle.url}).then(function (response) {
         this.loadHandles()
         console.log("Handle added")
         }, function (response) {
@@ -235,12 +258,12 @@ var vue = new Vue({
     selectHandle: function(handle, e) {
       e.preventDefault()
       //console.log(entity)
-      if(!this.handleSelected || this.currentHandle.uuid==handle.uuid){
+      if(!this.handleSelected || this.currentHandle.id==handle.id){
         this.handleSelected = !this.handleSelected
       }
       this.currentHandle.name = handle.name
       this.currentHandle.url = handle.url
-      this.currentHandle.uuid = handle.uuid
+      this.currentHandle.id = handle.id
       if(this.handleSelected){
         document.getElementById("sidenav_action").style.marginLeft = "500px"
       }
@@ -250,15 +273,14 @@ var vue = new Vue({
     },
     editHandle: function(handle, e) {
       e.preventDefault()
-      console.log(handle.uuid)
-      this.$http.put(this.url + '/entities/' + handle.uuid, {"name:" : handle.name, "url" : handle.url}).then(function (response) {
+      console.log(handle.id)
+      this.$http.put(this.url + '/entities/' + handle.id, {"name:" : handle.name, "url" : handle.url}).then(function (response) {
           console.log("Handle updated")
           this.loadHandles(this.currentEntity)
           //console.log(response)
         }, function (response) {
           console.log("Error Failed to update handle")
       })
-
     },
     confirmDeleteHandle: function(handle, e) {
       if(confirm("Are you sure you want to delete this handle?") == true){
@@ -268,7 +290,7 @@ var vue = new Vue({
     deleteHandle: function(handle, e) {
       e.preventDefault()
       console.log(handle)
-      this.$http.delete(this.url + '/services'/ + handle.uuid).then(function (response) {
+      this.$http.delete(this.url + '/services'/ + handle.id).then(function (response) {
           console.log("Handle deleted")
           this.loadEntities()
           //console.log(response)
@@ -280,7 +302,7 @@ var vue = new Vue({
     discardHandle: function(e) {
       this.handleSelected = !this.handleSelected
       document.getElementById("sidenav_action").style.marginLeft = "0px"
-      this.currentHandle.uuid = ""
+      this.currentHandle.id = ""
     },
     updateWaterfall: _.debounce(
         function() {
