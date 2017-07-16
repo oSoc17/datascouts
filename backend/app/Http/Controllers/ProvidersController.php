@@ -85,6 +85,7 @@ class ProvidersController extends Controller
     }
 
     public function fetch(Request $request){
+        // Check for request.body[handles] 
         if(!$request->has('handles')){
             return $this->respond(Response::HTTP_BAD_REQUEST, [
                 'message' => 'Missing the handles in the request',
@@ -92,16 +93,16 @@ class ProvidersController extends Controller
             ]);
         }
 
-        $handles = Handle::searchable($request->input('handles'))->get();
+        $requestHandles = $request->input('handles');
+        $handles = Handle::listOfLastFetched($requestHandles)->get();
+
         $res = [];
         foreach ($handles as $handle) {
-        // Retrieve the list of handles sent in the request. 
-            // res[handle.entitie.url] = [
-                // "handle.url" => handle->getFetchedData(datetimeLastFetch) 
-            // 
+            $res[$handle->entity->url] = [
+                $handle->url => $handle->fetched()
+            ];
         }
 
-        return $this->respond(Response::HTTP_OK, res);
-
+        return $this->respond(Response::HTTP_OK, $res);
     }
 }
