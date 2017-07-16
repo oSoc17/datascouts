@@ -91,6 +91,8 @@ $app->group(['prefix' => 'api'], function ($app) {
         $app->group(['prefix' => 'providers'], function ($app) {
             $app->get('/{handle}/login', 'ProvidersController@getLinkForLogin');
             $app->post('/{handle}/callback', 'ProvidersController@handleCallback');
+            
+            $app->post('/fetch', 'ProvidersController@fetch');
 
         }); // prefix : /providers
 
