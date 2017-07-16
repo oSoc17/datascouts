@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d32e1c90d301d3690efec6f085a16fba",
+    "content-hash": "2afc3a4caecd544c0e136aa23f710658",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -1548,23 +1548,23 @@
         },
         {
             "name": "laravel/socialite",
-            "version": "v2.0.21",
+            "version": "v3.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/socialite.git",
-                "reference": "c4e4337e5b70149fdbefbb95b2c9e93d0749c413"
+                "reference": "bca777a8526983e0ebdf3350f1b6e031923a473b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/socialite/zipball/c4e4337e5b70149fdbefbb95b2c9e93d0749c413",
-                "reference": "c4e4337e5b70149fdbefbb95b2c9e93d0749c413",
+                "url": "https://api.github.com/repos/laravel/socialite/zipball/bca777a8526983e0ebdf3350f1b6e031923a473b",
+                "reference": "bca777a8526983e0ebdf3350f1b6e031923a473b",
                 "shasum": ""
             },
             "require": {
-                "guzzlehttp/guzzle": "~5.0|~6.0",
-                "illuminate/contracts": "~5.0",
-                "illuminate/http": "~5.0",
-                "illuminate/support": "~5.0",
+                "guzzlehttp/guzzle": "~6.0",
+                "illuminate/contracts": "~5.4",
+                "illuminate/http": "~5.4",
+                "illuminate/support": "~5.4",
                 "league/oauth1-client": "~1.0",
                 "php": ">=5.4.0"
             },
@@ -1590,7 +1590,7 @@
             "authors": [
                 {
                     "name": "Taylor Otwell",
-                    "email": "taylorotwell@gmail.com"
+                    "email": "taylor@laravel.com"
                 }
             ],
             "description": "Laravel wrapper around OAuth 1 & OAuth 2 libraries.",
@@ -1598,7 +1598,7 @@
                 "laravel",
                 "oauth"
             ],
-            "time": "2017-03-27T21:32:28+00:00"
+            "time": "2017-05-05T14:17:11+00:00"
         },
         {
             "name": "league/oauth1-client",
@@ -2025,6 +2025,85 @@
                 "psr-3"
             ],
             "time": "2016-10-10T12:19:37+00:00"
+        },
+        {
+            "name": "socialiteproviders/manager",
+            "version": "v3.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SocialiteProviders/Manager.git",
+                "reference": "f57877e96c46f0f9157fcd8fa68a547f6d344ed5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SocialiteProviders/Manager/zipball/f57877e96c46f0f9157fcd8fa68a547f6d344ed5",
+                "reference": "f57877e96c46f0f9157fcd8fa68a547f6d344ed5",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/socialite": "~3.0",
+                "php": "^5.6 || ^7.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^0.9.4",
+                "phpunit/phpunit": "^5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "SocialiteProviders\\Manager\\": "src/",
+                    "SocialiteProviders\\Manager\\Test\\": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andy Wendt",
+                    "email": "andy@awendt.com"
+                }
+            ],
+            "description": "Easily add new or override built-in providers in Laravel Socialite.",
+            "time": "2017-02-07T07:26:42+00:00"
+        },
+        {
+            "name": "socialiteproviders/twitter",
+            "version": "v3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SocialiteProviders/Twitter.git",
+                "reference": "5ad2155d76b68b25cf8a6505ac36bff6bc0415f7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SocialiteProviders/Twitter/zipball/5ad2155d76b68b25cf8a6505ac36bff6bc0415f7",
+                "reference": "5ad2155d76b68b25cf8a6505ac36bff6bc0415f7",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.6 || ^7.0",
+                "socialiteproviders/manager": "~3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "SocialiteProviders\\Twitter\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Brian Faust",
+                    "email": "hello@brianfaust.de"
+                }
+            ],
+            "description": "Twitter OAuth1 Provider for Laravel Socialite",
+            "time": "2017-01-25T09:48:29+00:00"
         },
         {
             "name": "spatie/laravel-twitter-streaming-api",
