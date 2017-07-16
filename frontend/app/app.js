@@ -91,7 +91,6 @@ var vue = new Vue({
               console.log("Error Fail to load mockdata")
           });
       });
-
     },
     loadEntities: function() {
       this.$http.get(this.url + '/entities').then(function (response) {
@@ -126,9 +125,11 @@ var vue = new Vue({
           entitiesHTML[i].getElementsByClassName("checkbox")[0].checked = this.entities[i].active
         }
       })
-    }
+    },
     toggleEntity: function (entity, e){
-      _.debounce({},)
+      _.debounce({
+        
+      },100)
     },
     addEntity: function (name, e) {
       e.preventDefault()
@@ -179,7 +180,6 @@ var vue = new Vue({
         }, function (response) {
           console.log("Error Failed to edit entity")
       })
-
     },
     confirmDeleteEntity: function(entity, e) {
       if(confirm("Are you sure you want to delete this entity?") == true){
