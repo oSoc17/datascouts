@@ -59,7 +59,7 @@ $app->group(['prefix' => 'api'], function ($app) {
             $app->delete('/{id}', 'EntitiesController@remove');
             $app->get('/{id}/handles', 'EntitiesController@getHandles');
             $app->post('/{id}/handles', 'EntitiesController@addHandle');
-        }); // prefix : entities
+        }); // prefix : /entities
 
 
         // Routes for resource HANDLES
@@ -74,7 +74,7 @@ $app->group(['prefix' => 'api'], function ($app) {
 
             $app->put('/{id}', 'HandlesController@put');
             $app->delete('/{id}', 'HandlesController@remove');
-        }); // prefix : handles
+        }); // prefix : /handles
 
 
         // Routes for resource SERVICES
@@ -84,9 +84,21 @@ $app->group(['prefix' => 'api'], function ($app) {
             $app->post('', 'ServicesController@add');
             $app->put('/{id}', 'ServicesController@put');
             $app->delete('/{id}', 'ServicesController@remove');
-        }); // prefix : services
+        }); // prefix : /services
 
 
+<<<<<<< HEAD
     }); // prefix : v1
 });  // prefix : api
+=======
+        // Routes for resource PROVIDERS
+        $app->group(['prefix' => 'providers'], function ($app) {
+            $app->get('/{handle}/login', 'ProvidersController@getLinkForLogin');
+            $app->get('/{handle}/callback', 'ProvidersController@handleCallback');
+
+        }); // prefix : /providers
+
+    }); // prefix : /v1
+});  // prefix : /api
+>>>>>>> Add Provider Model && routes /providers
 
