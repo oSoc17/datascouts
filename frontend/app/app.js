@@ -154,6 +154,20 @@ var vue = new Vue({
       }
       this.fetchData()
     }, 100),
+    updateSelectedSocialMediaFilters: _.debounce( function() {
+      //set all checkboxes to the appropriate state
+      var mediaHTML = document.getElementsByClassName("socialMedia")
+      for(var i=0;i<this.entities.length;i++){
+        mediaHTML[i].getElementsByClassName("checkbox")[0].checked = this.socialMediaFilters[i].active
+      }
+    }, 1),
+    toggleSocialMediaFilter: _.debounce( function (e){
+      var mediaHTML = document.getElementsByClassName("socialMedia")
+      for(var i=0;i<this.socialMediaFilters.length;i++){
+        this.socialMediaFilters[i].active = entitiesHTML[i].getElementsByClassName("checkbox")[0].checked
+      }
+      this.fetchData()
+    }, 100),
     addEntity: function (name, e) {
       e.preventDefault()
       this.$http.post(this.url + '/entities', {"name" : name}).then(function (response) {
