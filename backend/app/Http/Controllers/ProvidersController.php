@@ -16,6 +16,7 @@ class ProvidersController extends Controller
 
     private $socialite;
 
+    const DELIMITER = '$$'; 
 
     /**
      * Create a new controller instance.
@@ -30,6 +31,13 @@ class ProvidersController extends Controller
 
     public function getLinkForLogin(Request $request, $handle)
     {
+        // Check if send a URI to redirect to.
+        if($request->has('redirect_uri')) {
+            return $this->respond(Response::HTTP_BAD_REQUEST, [
+                'message' => 'Missiing the redirect URI'
+            ]);
+        }
+
         $handle = Handle::where('id', $handle)
                             ->orWhere('url', strtolower($handle))
                             ->firstOrFail();
@@ -41,32 +49,50 @@ class ProvidersController extends Controller
             ]);
         }
 
-        // $link = $service->link;
+        // Retrieve the Target URL to the specific social media        
         $link = Socialite::with(strtolower($service->name))
                             ->stateless()
                             ->redirect()->getTargetUrl();
         
-        return redirect($link.'&state='.$handle->url);
-        // return $this->respond(Response::HTTP_OK, compact('link'));
+        // Add the redirect_uri into the state
+        $redirectLink = '&state=' . $handle->url . DELIMITER;
+        $redirectLink .= $request->input('redirect_uri');
+        return redirect(urlencode($redirectLink));
     }
 
     public function handleCallback(Request $request, $service)
     {
-        $handle = $request->input('state');
+        $state = explode(DELEIMITER,$request->input('state'));
+        dd($state);
+        // Explode the input(state)
+        $handle = $state[0];
+        $redirectURI = $state[1];
+
         $handleDb = Handle::where('url', $handle)->firstOrFail();
         
-
-        $user = Socialite::with(strtolower($service))
+        // Retrieve the user via Socialite
+        $providedUser = Socialite::with(strtolower($service))
                            ->stateless()
                            ->user();
-        dd($user);
-        // Save this user with the oAuth code into Provider table
+
+        // Check if already got this provider
+        $provider = Provider::where('social_id', $providedUser->id)->first();
+        if(!$provided){
+            // Create this proviser with the tokebn code into Provider table
+            $provider = Provider::firstOrNew($providedUser);
+            $provider->token = $providedUser->token;
+            $provider->handle()->associate($handleDb);
+
+            dd($providedUser, $provider);
+        }
 
         // Create a JWT Token with the auth or provider created.
 
         // Save the user info in Providers Table
+        $provider->save();
 
-        // Send HTTP_CREATED
+            // Send HTTP_CREATED with the token
+        // return redirect($redirectURI.'&state='.$handle->url);
         
     }
 
