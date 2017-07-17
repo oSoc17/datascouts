@@ -11,11 +11,11 @@ class CreateServicesTable extends Migration
         Schema::create('services', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('url');
-            $table->string('logo');
+            $table->string('link')->unique();
+            $table->string('logo')->nullable();
             // Find Better way to store instead of string 
             // For the validation
-            $table->string('color');
+            $table->string('color')->nullable();
 
             // Constraints declaration
             $table->timestamps();

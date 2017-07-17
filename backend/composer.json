@@ -10,13 +10,12 @@
         "vlucas/phpdotenv": "~2.2",
         "spatie/laravel-twitter-streaming-api": "^1.0",
         "abraham/twitteroauth": "^0.7.4",
-        "wn/lumen-generators": "^1.3",
-        "vluzrmos/lumen-cors": "2.1.*",
-        "ramsey/uuid": "^3.6"
+        "wn/lumen-generators": "^1.3"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
-        "mockery/mockery": "~0.9"
+        "mockery/mockery": "~0.9",
+        "laravel/tinker": "^1.0@dev"
     },
     "autoload": {
         "psr-4": {
