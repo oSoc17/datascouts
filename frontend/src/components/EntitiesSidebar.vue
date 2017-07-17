@@ -44,14 +44,13 @@ export default {
       return index
     },
     loadEntities: function() {
-      var self = this
       this.$http.get(this.url + '/entities').then(function (response) {
         var newEntities = []
         var index
-        if (self.entities.length !== 0) {
+        if (this.entities.length !== 0) {
           response.data.forEach(function(entity){
-            index = self.findIndex(entity, self.entities, 'entity', 'id')
-            newEntities.push({"entity" : entity, "active": (index == -1 ? true : self.entities[index].active) })
+            index = this.findIndex(entity, this.entities, 'entity', 'id')
+            newEntities.push({"entity" : entity, "active": (index == -1 ? true : this.entities[index].active) })
           })
         }
         else{
@@ -59,10 +58,10 @@ export default {
             newEntities.push({"entity" : entity, "active": true})
           })
         }
-        self.entities = newEntities.slice()
+        this.entities = newEntities.slice()
 
         //load handles for each entity
-        self.entities.forEach(entity => self.loadHandles(entity))
+        this.entities.forEach(entity => this.loadHandles(entity))
 
         }, function (response) {
           console.log("Error Failed to get data")
@@ -70,7 +69,6 @@ export default {
       })
     },
     loadHandles: function(entity) {
-      var self = this
       var index
       var newHandles = []
       this.$http.get(this.url + '/entities/' + entity.entity.id + '/handles').then(function (response) {
