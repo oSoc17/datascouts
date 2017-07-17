@@ -51,9 +51,13 @@
             <button type="button" v-on:click="confirmDeleteEntity(currentEntity, $event)">delete {{currentEntity.name}}</button>
             <p> Social media handles for {{currentEntity.name}} </p>
             <template v-for="item in currentHandles">
-              <button type="button" v-on:click="selectHandle(item,$event)">
-                {{item.handle.name}}
-              </button>
+              <div class="handle">
+                <button type="button" v-on:click="selectHandle(item,$event)">
+                  {{item.handle.name}}
+                </button>
+                <input type="checkbox" class="checkbox" name="checkbox" value=""
+                v-on:click="toggleHandle($event)">
+              </div>
             </template>
             <button type="button" v-on:click="promptAddHandle(currentEntity, $event)">Add handle</button>
           </div>

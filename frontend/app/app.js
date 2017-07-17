@@ -44,6 +44,9 @@ var vue = new Vue({
     },
     entities: function(updatingEntities){
       this.updateSelectedEntities()
+    },
+    currentEntity: function(updatingHandles){
+      this.updateSelectedHandles()
     }
   },
   mounted: function() {
@@ -63,12 +66,16 @@ var vue = new Vue({
       })
 
       //creating body of the post request
-      var entitiesIds = []
+      var handlesIds = []
       var socialMedia
       if(self.entities.length != 0 ){
         for(var i=0;i<self.entities.length;i++){
           if(self.entities[i].active){
-            entitiesIds.push(self.entities[i].entity.id)
+            for(var j=0;j<self.entities[i].handles.length;j++){
+              if(self.entities[i].handles[j].active){
+                handlesIds.push(self.entities[i].handles[j].handle.id)
+              }
+            }
           }
 
         }
@@ -125,11 +132,23 @@ var vue = new Vue({
           }
         });
           self.entities = newEntities.slice()
+          //load handles for each entity
+          for(var i=0;i<self.entities.length;i++){
+            self.loadHandles(self.entities[i])
+            console.log(self.entities[i])
+          }
           //console.log(response)
         }, function (response) {
           console.log("Error Failed to get data")
           console.log(response)
       })
+    },
+    getIndexCurrentEntity: function(){
+      var index = 0
+      for(var i=0;i<this.entities.length;i++){
+        if(this.entities[i].entity.id == this.currentEntity.id){index=i;break}
+      }
+      return index
     },
     updateSelectedEntities: _.debounce( function() {
       //set all checkboxes to the appropriate state
@@ -144,7 +163,23 @@ var vue = new Vue({
         this.entities[i].active = entitiesHTML[i].getElementsByClassName("checkbox")[0].checked
       }
       this.fetchData()
-    }, 500),
+    }, 1000),
+    updateSelectedHandles: _.debounce( function() {
+      //set all checkboxes to the appropriate state
+      var handlesHTML = document.getElementsByClassName("handle")
+      var index = this.getIndexCurrentEntity()
+      for(var i=0;i<this.entities[index].handles.length;i++){
+        handlesHTML[i].getElementsByClassName("checkbox")[0].checked = this.entities[index].handles[i].active
+      }
+    }, 1),
+    toggleHandle: _.debounce( function (e){
+      var handlesHTML = document.getElementsByClassName("handle")
+      var index = this.getIndexCurrentEntity()
+      for(var i=0;i<this.entities[index].handles.length;i++){
+        this.entities[index].handles[i].active = handlesHTML[i].getElementsByClassName("checkbox")[0].checked
+      }
+      this.fetchData()
+    }, 1000),
     updateSelectedSocialMediaFilters: _.debounce( function() {
       //set all checkboxes to the appropriate state
       var mediaHTML = document.getElementsByClassName("socialMedia")
@@ -218,10 +253,7 @@ var vue = new Vue({
       var self = this
       console.log(entity.name)
       this.$http.delete(this.url + '/entities/' + entity.id).then(function (response) {
-          var index
-          for(var i=0;i<self.entities;i++){
-            if(self.entities[i].entity.id == entity.id){index=i;break;}
-          }
+          var index = self.getIndexCurrentEntity()
           this.selectEntity(self.entities[i], e)
           console.log("Entity deleted")
           this.loadEntities()
@@ -238,10 +270,8 @@ var vue = new Vue({
       var newHandles = []
       this.$http.get(this.url + '/entities/' + item.entity.id + '/handles').then(function (response) {
         if(typeof(item.handles) == "undefined"){
-          console.log("making new handles list")
           item.handles = []
           for(var i=0; i<response.data.length; i++){
-            console.log(i)
             item.handles.push({"handle" : response.data[i], "active" : true})
           }
           this.currentHandles = item.handles.slice()
@@ -250,10 +280,9 @@ var vue = new Vue({
         else{
           console.log("updating handles")
           for(var i=0; i<response.data.length; i++){
-            console.log(i)
             bool = false
-            for(var i=0;i<item.handles.length;i++){
-              if(item.handles[i].id == response.data[i].id){bool = true; index = i; break;}
+            for(var j=0;j<item.handles.length;j++){
+              if(item.handles[j].handle.id == response.data[i].id){bool = true; index = j; break;}
             }
             if(!bool){
               newHandles.push({"handle" : response.data[i], "active": true})
@@ -262,7 +291,6 @@ var vue = new Vue({
               newHandles.push({"handle" : response.data[i], "active": item.handles[index].active})
             }
           }
-          console.log(newHandles.slice())
           item.handles = newHandles.slice()
           this.currentHandles = item.handles.slice()
         }
@@ -313,13 +341,7 @@ var vue = new Vue({
       var self = this
       this.$http.put(this.url + '/handles/' + handle.id, {"name" : handle.name, "url" : handle.url}).then(function (response) {
           console.log("Handle updated")
-          var index
-          console.log(currentEntity.id)
-          for(var i=0;i<self.entities;i++){
-            console.log(self.entities[i].entity.id)
-            if(self.entities[i].entity.id == currentEntity.id){index=i;break;}
-          }
-          console.log(self.entities[index])
+          var index = self.getIndexCurrentEntity()
           this.loadHandles(self.entities[index])
           //console.log(response)
         }, function (response) {
