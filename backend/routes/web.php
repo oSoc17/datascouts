@@ -100,4 +100,3 @@ $app->group(['prefix' => 'api'], function ($app) {
 
     }); // prefix : /v1
 });  // prefix : /api
-
