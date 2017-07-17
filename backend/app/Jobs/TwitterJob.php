@@ -5,7 +5,12 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
+use Carbon\Carbon;
+
 use App\Models\Handle;
+
+// use Abraham\TwitterOAuth\TwitterOAuth;
+
 
 
 class TwitterJob extends Job implements ShouldQueue
@@ -52,7 +57,6 @@ class TwitterJob extends Job implements ShouldQueue
 
         $this->handle->is_fetching = false;
         $this->handle->save();
-
 
     }
 }
