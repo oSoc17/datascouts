@@ -1,21 +1,34 @@
 <?php namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-
 
 class Provider extends Model {
-    
-    // use SoftDeletes;
 
-    protected $fillable = [];
+    protected $fillable = [
+
+    ];
 
     protected $dates = [];
 
     public static $rules = [
+        // Validation rules
     ];
 
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = ['token'];
+
+    /**
+     * The attributes that should be visible in arrays.
+     *
+     * @var array
+     */
     public $visible = [];
+
+
 
 
 
@@ -26,9 +39,9 @@ class Provider extends Model {
      */
     public function handle()
     {
-        return $this->belongs("App\Models\Handle");
+        return $this->hasOne("App\Models\Handle");
     }
-    
+
     /**
      * Get the service related to this provider.
      */
@@ -36,5 +49,6 @@ class Provider extends Model {
     {
         return $this->belongsTo("App\Models\Service");
     }
+
 
 }
