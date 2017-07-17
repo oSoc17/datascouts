@@ -1,8 +1,10 @@
 import Vue from 'vue'
 
-import Entities from './Entities.vue'
+import EntitiesSidebar from './EntitiesSidebar.vue'
+
+const bus = new Vue();
 
 new Vue({
-  el: '#EntitiesSidebar',
-  render: h => h(Entities)
+  el: '#Sidebar',
+  render: h => h(EntitiesSidebar)
 })

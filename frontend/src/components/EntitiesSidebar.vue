@@ -1,30 +1,42 @@
 <template>
   <div id="root-element">
-    <entitiesList entities="entities"></entitiesList>
+    <entitiesList entities="entities, currentEntity"></entitiesList>
     <addEntity></addEntity>
+    <handlesSidebar></handlesSidebar>
   </div>
 </template>
+
 
 <script>
 import EntitiesList from './EntitiesList.vue'
 import AddEntity from './AddEntity.vue'
+import HandlesSidebar from './HandlesSidebar.vue'
+import { bus } from '../main'
 
 export default {
   name: 'entities',
   components: {
     'entitiesList': EntitiesList,
-    'addEntity': AddEntity
+    'addEntity': AddEntity,
+    'handlesSidebar': HandlesSidebar
   },
   data () {
     return {
       entities: [],
+      currentEntity
     }
+  }
+  created () {
+    bus.$on('loadHandles', (entity) => {
+      this.loadHandles(entity)
+    }),
+    bus.$on('loadEntities', this.loadEntities())
   },
   mounted: function() {
     this.loadEntities()
   },
   methods: {
-    findIndexArray: function(object, array, objectType, objectIdentifier) {
+    findIndex: function(object, array, objectType, objectIdentifier) {
       var index = -1
       for(var i=0;i<array.length;i++){
         if(object.objectIdentifier == array[i].objectType.objectIdentifier){index = i; break;}
@@ -38,7 +50,7 @@ export default {
         var index
         if (self.entities.length !== 0) {
           response.data.forEach(function(entity){
-            index = self.findIndexArray(entity, self.entities, 'entity', 'id')
+            index = self.findIndex(entity, self.entities, 'entity', 'id')
             newEntities.push({"entity" : entity, "active": (index == -1 ? true : self.entities[index].active) })
           })
         }
@@ -64,7 +76,7 @@ export default {
       this.$http.get(this.url + '/entities/' + entity.entity.id + '/handles').then(function (response) {
         if(typeof(entity.handles) !== "undefined"){
           response.data.forEach(function(handle){
-            index = findIndexArray(handle, entity.handles, 'handle', 'id')
+            index = findIndex(handle, entity.handles, 'handle', 'id')
             newHandles.push({"handle" : handle, "active": (index == -1 ? true : entity.handles[index].active) })
           })
           entity.handles = newHandles.slice()
@@ -83,6 +95,7 @@ export default {
   }
 }
 </script>
+
 
 <style lang="scss">
 
