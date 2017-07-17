@@ -56,18 +56,18 @@ class ProvidersController extends Controller
         $handleDb = Handle::where('url', $handle)->firstOrFail();
         
 
-        $user = Socialite::with(strtolower($service->name))
+        $user = Socialite::with(strtolower($service))
                            ->stateless()
                            ->user();
         dd($user);
         // Save this user with the oAuth code into Provider table
 
         // Create a JWT Token with the auth or provider created.
-        dd($user);
 
         // Save the user info in Providers Table
 
         // Send HTTP_CREATED
+        
     }
 
     public function fetch(Request $request){
