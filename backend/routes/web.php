@@ -87,10 +87,6 @@ $app->group(['prefix' => 'api'], function ($app) {
         }); // prefix : /services
 
 
-<<<<<<< HEAD
-    }); // prefix : v1
-});  // prefix : api
-=======
         // Routes for resource PROVIDERS
         $app->group(['prefix' => 'providers'], function ($app) {
             $app->get('/{handle}/login', 'ProvidersController@getLinkForLogin');
@@ -104,5 +100,3 @@ $app->group(['prefix' => 'api'], function ($app) {
 
     }); // prefix : /v1
 });  // prefix : /api
->>>>>>> Add Provider Model && routes /providers
-
