@@ -12,7 +12,8 @@
         "abraham/twitteroauth": "^0.7.4",
         "wn/lumen-generators": "^1.3",
         "socialiteproviders/twitter": "^3.0",
-        "laravel/socialite": "^2.0"
+        "socialiteproviders/youtube": "^3.0",
+        "socialiteproviders/google": "^3.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
