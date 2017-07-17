@@ -18,7 +18,8 @@ class HandlesTableSeeder extends Seeder
                 'name' => $faker->unique()->sentence(4, TRUE),
                 'url' => $faker->unique()->url(),
                 'entity_id' => $i,
-                'service_id' => 2
+                'service_id' => 2,
+                'provider_id' => $i
             ]);
         }
 
