@@ -35,7 +35,6 @@ class TwitterJob extends Job
         $this->handle->is_fetching = true;
         $this->handle->fetched_at = Carbon::now()->toDateTimeString();
         $this->handle->save();
-        dd($this->twitterCtrler);
     }
 
     private function unlock() {
@@ -51,16 +50,11 @@ class TwitterJob extends Job
      */
     public function handle()
     {
-        var_dump('Exec-ing Twitter Job \n');
-        $data = $this->twitterFetcher->fetch($this->handle);
-        // dd($data[0]);
+        // Act like a  Mutex
+        $this->lockHandle();
 
+        $this->twitterFetcher->fetch($this->handle);
 
-        // Store them in DB.
-
-
-        // $this->handle->is_fetching = false;
-        // $this->handle->save();
-
+        $this->unlock();
     }
 }

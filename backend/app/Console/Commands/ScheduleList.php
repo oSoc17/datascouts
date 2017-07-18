@@ -36,14 +36,16 @@ class ScheduleList extends Command
     public function handle()
     {
         $events = array_map(function ($event) {
+            // dd(($event->description));
             return [
                 'cron' => $event->expression,
                 'command' => static::fixupCommand($event->command),
+                'description' => $event->description
             ];
         }, $this->schedule->events());
 
         $this->table(
-            ['Cron', 'Command'],
+            ['Cron', 'Command', 'Description'],
             $events
         );
     }

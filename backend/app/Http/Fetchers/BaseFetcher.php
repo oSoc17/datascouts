@@ -52,14 +52,13 @@ abstract class BaseFetcher
         if (strcasecmp($this->fetcherType, $handle->service->name) == 0) {
             $data = $this->handle($handle->entity);
             if($data && !empty($data)) {
-                return $this->store($data, $handle);
+                $this->store($data, $handle);
             }
         }else {
             if ($this->nextFetcher) {
-                return $this->nextFetcher->fetch($handle);
+                $this->nextFetcher->fetch($handle);
             }
         }
-        return null;
     }
 
 
@@ -74,6 +73,8 @@ abstract class BaseFetcher
             // 'data' => $data,
             // 'handler_id' => $handle->id;
         // ])
+        var_dump('Storing Data From fetching');
+        return true;
     }
 
 

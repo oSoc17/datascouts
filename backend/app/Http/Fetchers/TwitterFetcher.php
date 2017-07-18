@@ -31,14 +31,15 @@ class TwitterFetcher extends BaseFetcher {
     
 
     protected function handle(Entity $entity) {
-        $data = $this->connection->get("search/tweets", [
-            "q" => $entity->name ." -filter:retweets",
-            'result_type' => 'recent',   #['mixed', 'popular', 'recent']
-            'count' => 1,
-            'include_entities' => false
+        // $data = $this->connection->get("search/tweets", [
+        //     "q" => $entity->name ." -filter:retweets",
+        //     'result_type' => 'recent',   #['mixed', 'popular', 'recent']
+        //     'count' => 1,
+        //     'include_entities' => false
             
-        ]);
-        return $data->statuses;
+        // ]);
+        // return $data->statuses;
+        return ['a' => 'b'];
     }
 
     //
