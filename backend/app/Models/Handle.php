@@ -68,6 +68,7 @@ class Handle extends Model
     public function service()
     {
         return $this->belongsTo("App\Models\Service");
+<<<<<<< HEAD
     }
 
     public function provider()
@@ -78,5 +79,12 @@ class Handle extends Model
     public function fetched()
     {
         return $this->hasMany("App\Models\Fetcher");
+=======
+    }
+
+    public function provider()
+    {
+        return $this->belongsTo("App\Models\Provider");
+>>>>>>> feature/72-backend-crud-services
     }
 }

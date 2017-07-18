@@ -10,7 +10,6 @@ class Service extends Model {
 
     protected $fillable = ["name", "link", "logo","color"];
 
-
     protected $dates = [];
 
     public static $rules = [
@@ -24,7 +23,6 @@ class Service extends Model {
 
 
     // Relationships
-
 
 
     // Eloquent determines the foreign key of the relationship based on the model name. 
