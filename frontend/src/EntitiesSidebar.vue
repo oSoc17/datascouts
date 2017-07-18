@@ -13,7 +13,7 @@
 import EntitiesList from './components/EntitiesList.vue'
 //import AddEntity from './component/AddEntity.vue'
 import HandlesSidebar from './components/HandlesSidebar.vue'
-import { bus } from './main'
+import { bus } from './main.js'
 
 export default {
   name: 'entities',
@@ -26,7 +26,9 @@ export default {
     return {
       entities: [],
       currentEntity: [],
-      currentHandles: []
+      currentHandles: [],
+      url: 'https://osoc-2017-datascouts-backend-akad1070.c9users.io/api/v1',
+      mockDataTwitter: 'http://www.json-generator.com/api/json/get/ckwxgssyXm?indent=2',
     }
   },
   created () {
@@ -48,18 +50,19 @@ export default {
     findIndex: function(object, array, objectType) {
       var index = -1
       for(var i=0;i<array.length;i++){
-        if(object.id == array[i].objectType.id){index = i; break;}
+        if(object.id == array[i][objectType].id){index = i; break;}
       }
       return index
     },
     loadEntities: function() {
-      this.$http.get(this.url + '/entities').then(function (response) {
+      var self = this
+      Vue.http.get(self.url + '/entities').then(function (response) {
         var newEntities = []
         var index
-        if (this.entities.length !== 0) {
+        if (self.entities.length !== 0) {
           response.data.forEach((entity)=>{
-            index = this.findIndex(entity, this.entities, 'entity')
-            newEntities.push({"entity" : entity, "active": (index == -1 ? true : this.entities[index].active) })
+            index = self.findIndex(entity, self.entities, 'entity')
+            newEntities.push({"entity" : entity, "active": (index == -1 ? true : self.entities[index].active) })
           })
         }
         else{
@@ -67,10 +70,10 @@ export default {
             newEntities.push({"entity" : entity, "active": true})
           })
         }
-        this.entities = newEntities.slice()
+        self.entities = newEntities.slice()
 
         //load handles for each entity
-        this.entities.forEach(entity => this.loadHandles(entity))
+        self.entities.forEach(entity => self.loadHandles(entity))
 
         }, function (response) {
           console.log("Error Failed to get data")
@@ -80,19 +83,20 @@ export default {
     loadHandles: function(entity) {
       var index
       var newHandles = []
-      this.$http.get(this.url + '/entities/' + entity.entity.id + '/handles').then(function (response) {
+      var self = this
+      Vue.http.get(self.url + '/entities/' + entity.entity.id + '/handles').then(function (response) {
         if(typeof(entity.handles) !== "undefined"){
           response.data.forEach(function(handle){
             index = findIndex(handle, entity.handles, 'handle')
             newHandles.push({"handle" : handle, "active": (index == -1 ? true : entity.handles[index].active) })
           })
           entity.handles = newHandles.slice()
-          this.currentHandles = entity.handles.slice()
+          self.currentHandles = entity.handles.slice()
         }
         else{
           entity.handles = []
           response.data.forEach(handle => entity.handles.push({"handle" : handle, "active" : true}))
-          this.currentHandles = entity.handles.slice()
+          self.currentHandles = entity.handles.slice()
         }
         }, function (response) {
           console.log("Error Failed to get data")
