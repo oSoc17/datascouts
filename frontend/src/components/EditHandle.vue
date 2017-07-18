@@ -1,6 +1,18 @@
 <template>
-  <div id="root-element">
-
+  <div id="sidenav_action" class="sidenav_action">
+    <div class="content">
+      <p> EDIT/DELETE {{handle.handle.name}} </p>
+      <form >
+          <input type="text" v-model="handle.handle.name"/>
+          <input type="text" v-model="handle.handle.url"/>
+          <button type="button" v-on:click="editHandle(handle, $event)">update</button>
+          <button type="button" v-on:click="discardHandle($event)">discard</button>
+          <br />
+          <br />
+          <br />
+          <button type="button" v-on:click="confirmDeleteHandle(handle, $event)">delete</button>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -9,7 +21,7 @@
 import { bus } from '../main'
 
 export default {
-  props: ['entity', 'handle'],
+  props: ['entity', 'url', 'handle'],
   components: {
   },
   data () {
@@ -24,9 +36,9 @@ export default {
     editHandle: function(handle, e) {
       e.preventDefault()
       var self = this
-      this.$http.put(this.url + '/handles/' + handle.id, {"name" : handle.name, "url" : handle.url}).then(function (response) {
+      Vue.http.put(self.url + '/handles/' + handle.handle.id, {"name" : handle.handle.name, "url" : handle.handle.url}).then(function (response) {
           console.log("Handle updated")
-          this.loadHandles(this.entity)
+          bus.$emit('loadHandles', self.entity)
           //console.log(response)
         }, function (response) {
           console.log("Error Failed to update handle")
@@ -34,15 +46,16 @@ export default {
     },
     confirmDeleteHandle: function(handle, e) {
       if(confirm("Are you sure you want to delete this handle?") == true){
-        this.deleteEntity(handle, e)
+        this.deleteHandle(handle, e)
       }
     },
     deleteHandle: function(handle, e) {
+      var self = this
       e.preventDefault()
       console.log(handle)
-      this.$http.delete(this.url + '/services/' + handle.id).then(function (response) {
+      Vue.http.delete(self.url + '/services/' + handle.handle.id).then(function (response) {
           console.log("Handle deleted")
-          this.loadEntities()
+          bus.$emit('loadEntities')
           //console.log(response)
         }, function (response) {
           console.log("Error Failed to delete handle")
@@ -50,8 +63,7 @@ export default {
 
     },
     discardHandle: function(e) {
-      this.handleSelected = !this.handleSelected
-      document.getElementById("sidenav_action").style.marginLeft = "0px"
+      bus.$emit('handleSelected')
       this.handle.id = ""
     }
   }

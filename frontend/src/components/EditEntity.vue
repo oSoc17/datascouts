@@ -10,7 +10,7 @@
 import { bus } from '../main'
 
 export default {
-  props: ['entity'],
+  props: ['entity', 'url'],
   components: {
   },
   data () {
@@ -21,18 +21,20 @@ export default {
   methods: {
     confirmEditEntity: function(entity, e){
       e.preventDefault()
-      var newName = prompt("Enter a new name for your entity", entity.name);
+      var newName = prompt("Enter a new name for your entity", entity.entity.name);
       if(newName != null){
         this.editEntity(entity, newName, e)
       }
     },
     editEntity: function(entity, newName, e) {
+      var self = this
       e.preventDefault()
       console.log(entity)
-      this.$http.put(this.url + '/entities/'+ entity.id,
+      Vue.http.put(this.url + '/entities/'+ entity.entity.id,
       {"name": newName}).then(function (response) {
           console.log("Entity updated")
-          bus.$emit('loadHandles', entity)
+          bus.$emit('loadEntities')
+          self.entity.entity.name = newName
           //console.log(response)
         }, function (response) {
           console.log("Error Failed to edit entity")
@@ -46,9 +48,7 @@ export default {
     deleteEntity: function(entity, e) {
       e.preventDefault()
       console.log(entity.name)
-      this.$http.delete(this.url + '/entities/' + entity.id).then(function (response) {
-          var index = this.getIndexCurrentEntity()
-          bus.$emit('selectEntity', this.entities[i], e)
+      Vue.http.delete(this.url + '/entities/' + entity.entity.id).then(function (response) {
           console.log("Entity deleted")
           bus.$emit('loadEntities')
           //console.log(response)

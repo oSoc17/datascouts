@@ -1,52 +1,46 @@
 <template>
-  <div id="root-element">
-    <!--<editEntity v-bind:entity="entity"></editEntity>-->
-    <handlesList v-bind:entity="entity"></handlesList>
-    <!--<addHandle v-bind:entity="entity"></addHandle>-->
-    <!--<editHandle v-bind:entity="entity" v-bind:"handle"></editHandle>-->
+  <div id="sidenav_handles" class="sidenav_handles">
+    <div class="content">
+      <editEntity v-bind:entity="entity" v-bind:url="url"></editEntity>
+      <handlesList v-bind:entity="entity"></handlesList>
+      <addHandle v-bind:entity="entity" v-bind:url="url"></addHandle>
+      <editHandle v-bind:entity="entity" v-bind:url="url" v-bind:handle="currentHandle"></editHandle>
+    </div>
   </div>
 </template>
 
 
 <script>
-//import EditEntity from './EditEntity.vue'
+import EditEntity from './EditEntity.vue'
 import HandlesList from './HandlesList.vue'
-//import AddHandle from './AddHandle.vue'
-//import EditHandle from './EditHandle.vue'
+import AddHandle from './AddHandle.vue'
+import EditHandle from './EditHandle.vue'
 import { bus } from '../main'
 
 export default {
-  props: {
-    'entities':{
-      type: Array,
-      required: false
-    },
-    'entity': {
-      type: Array
-    },
-    'handle': {
-      type: Array
-    }
-  },
+  props: ['entity', 'url'],
   components: {
-    //'editEntity': EditEntity,
+    'editEntity': EditEntity,
     'handlesList': HandlesList,
-    //'addHandle': AddHandle,
-    //'editHandle': EditHandle
+    'addHandle': AddHandle,
+    'editHandle': EditHandle
   },
   data () {
     return {
-
+      currentHandle: {
+        handle: '',
+        active: false
+      }
     }
   },
   created () {
-    bus.$on('changeCurrentEntity', (entity) => {
-      this.changeCurrentEntity(entity)
+    bus.$on('changeCurrentHandle', (handle) => {
+      this.changeCurrentHandle(handle)
     })
   },
   methods: {
     changeCurrentHandle: function(handle){
-      this.handle = handle
+      this.currentHandle = handle
     }
   }
 }

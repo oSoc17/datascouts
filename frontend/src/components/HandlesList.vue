@@ -1,8 +1,8 @@
 <template>
-  <div id="root-element">
-    <template v-for="handle in entity.handles">
+  <div id="handles-list">
+    <template v-for="item in entity.handles">
       <div class="handle">
-        <button type="button" v-on:click="selectHandle(handle,$event)">
+        <button type="button" v-on:click="selectHandle(item,$event)">
           {{item.handle.name}}
         </button>
         <input type="checkbox" class="checkbox" name="checkbox" value=""
@@ -16,25 +16,24 @@
 import { bus } from '../main'
 
 export default {
-  props:{
-    'entity': {
-      type: Array
-    }
-  },
+  props:['entity'],
   components:{
 
   },
   data () {
     return {
-      isHandleSelected: false
+      isHandleSelected: false,
     }
   },
   created () {
     bus.$on('selectHandle', (handle, e) => {
       this.selectHandle(handle, e)
+    }),
+    bus.$on('handleSelected', () => {
+      this.handleSelected()
     })
   },
-  watch: {
+    watch: {
     entities: function(updatingEntities){
       this.updateSelectedEntities()
     },
@@ -45,9 +44,26 @@ export default {
   methods: {
     selectHandle: function(handle, e) {
       e.preventDefault()
-      //console.log(entity)
-      this.isHandleSelected = !this.isHandleSelected
       bus.$emit('changeCurrentHandle', handle)
+      this.handleSelected()
+    },
+    updateSelectedHandles: _.debounce( function() {
+      //set all checkboxes to the appropriate state
+      var handlesHTML = document.getElementsByClassName("handle")
+      for(var i=0;i<this.entity.handles.length;i++){
+        handlesHTML[i].getElementsByClassName("checkbox")[0].checked = this.entity.handles[i].active
+      }
+    }, 1),
+    toggleHandle: function (e){
+      var handlesHTML = document.getElementsByClassName("handle")
+      for(var i=0;i<this.entity.handles.length;i++){
+        this.entity.handles[i].active = handlesHTML[i].getElementsByClassName("checkbox")[0].checked
+      }
+      bus.$emit('updateHandles', this.entity)
+      this.fetchData()
+    },
+    handleSelected: function (){
+      this.isHandleSelected = !this.isHandleSelected
       if(this.isHandleSelected){
         document.getElementById("sidenav_action").style.marginLeft = "500px"
       }
@@ -55,22 +71,10 @@ export default {
         document.getElementById("sidenav_action").style.marginLeft = "0px"
       }
     },
-    updateSelectedHandles: _.debounce( function() {
-      //set all checkboxes to the appropriate state
-      var handlesHTML = document.getElementsByClassName("handle")
-      var index = this.getIndexCurrentEntity()
-      for(var i=0;i<this.entity.handles.length;i++){
-        handlesHTML[i].getElementsByClassName("checkbox")[0].checked = this.entity.handles[i].active
-      }
-    }, 1),
-    toggleHandle: _.debounce( function (e){
-      var handlesHTML = document.getElementsByClassName("handle")
-      var index = this.getIndexCurrentEntity()
-      for(var i=0;i<this.entity.handles.length;i++){
-        this.entity.handles[i].active = handlesHTML[i].getElementsByClassName("checkbox")[0].checked
-      }
-      this.fetchData()
-    }, 1000)
+    fetchData: _.debounce( function(){
+      console.log("fetching data")
+      bus.$emit('fetchData')
+    }, 750)
   }
 }
 </script>

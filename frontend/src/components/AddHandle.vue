@@ -1,5 +1,5 @@
 <template>
-  <div id="root-element">
+  <div id="add-handle">
     <button type="button" v-on:click="promptAddHandle(entity, $event)">Add handle</button>
   </div>
 </template>
@@ -8,11 +8,7 @@
 import { bus } from '../main'
 
 export default {
-  props:{
-    'entity': {
-      type: Array
-    }
-  },
+  props:['url','entity'],
   components:{
 
   },
@@ -34,9 +30,10 @@ export default {
       }
     },
     addHandle: function (entity, handle, e) {
+      var self = this
       e.preventDefault()
-      this.$http.post(this.url + '/handles/'+ entity.entity.id, {"name" : handle.name, "url" : handle.url}).then(function (response) {
-        this.loadHandles(entity)
+      Vue.http.post(this.url + '/handles/'+ entity.entity.id, {"name" : handle.name, "url" : handle.url}).then(function (response) {
+        bus.$emit('loadHandles', self.entity)
         console.log("Handle added")
         }, function (response) {
           console.log("Error Failed to add handle")

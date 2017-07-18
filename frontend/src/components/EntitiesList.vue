@@ -1,24 +1,23 @@
 <template>
-  <div id="root-element">
-    <div class="sidenav_entities">
-      <div class="content">
-        <img src="content/img/datascouts_logo.svg" alt="Datascouts Logo"/>
-        <form >
-            <input type="text" placeholder="Enter entity to search for" v-model="searchEntity"/>
-        </form>
-        <div class="searchedEntities">
-          <template v-for="item in entities">
-            <div class="entity">
-              <button type="button" v-on:click="selectEntity(item,$event)"
-              v-if=" (item.entity.name.indexOf(searchEntity) !== -1 || searchEntity == '')">
-                {{item.entity.name}}
-              </button>
-              <input type="checkbox" class="checkbox" name="checkbox" value=""
-              v-if=" (item.entity.name.indexOf(searchEntity) !== -1 || searchEntity == '')"
-              v-on:click="toggleEntity($event)">
-            </div>
-          </template>
-        </div>
+  <div class="sidenav_entities">
+    <div class="content">
+      <img src="content/img/datascouts_logo.svg" alt="Datascouts Logo"/>
+      <form >
+          <input type="text" placeholder="Enter entity to search for" v-model="searchEntity"/>
+      </form>
+      <div class="searchedEntities">
+        <template v-for="item in entities">
+          <div class="entity">
+            <button type="button" v-on:click="selectEntity(item,$event)"
+            v-if=" (item.entity.name.indexOf(searchEntity) !== -1 || searchEntity == '')">
+              {{item.entity.name}}
+            </button>
+            <input type="checkbox" class="checkbox" name="checkbox" value=""
+            v-if=" (item.entity.name.indexOf(searchEntity) !== -1 || searchEntity == '')"
+            v-on:click="toggleEntity($event)">
+          </div>
+        </template>
+        <button type="button" v-on:click="addEntity(searchEntity, $event)" v-if="searchEntity != ''">create {{searchEntity}}</button>
       </div>
     </div>
   </div>
@@ -28,15 +27,7 @@
 import { bus } from '../main'
 
 export default {
-  props:{
-    'entities':{
-      type: Array,
-      required: false
-    },
-    'entity': {
-      type: Array
-    }
-  },
+  props:['entities','entity'],
   components:{
 
   },
@@ -86,7 +77,13 @@ export default {
       for(var i=0;i<this.entities.length;i++){
         this.entities[i].active = entitiesHTML[i].getElementsByClassName("checkbox")[0].checked
       }
-    }, 1000)
+    }, 1000),
+    addEntity: function(name, e){
+      console.log('adding entity')
+      e.preventDefault()
+      bus.$emit('addEntity', name, e)
+      this.searchEntity = ""
+    }
   }
 }
 </script>
