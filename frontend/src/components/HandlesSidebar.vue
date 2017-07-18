@@ -1,5 +1,6 @@
 <template>
   <div id="root-element">
+    <editEntity></editEntity>
     <handlesList entity="entity"></handlesList>
     <addHandle></addHandle>
   </div>
@@ -7,6 +8,7 @@
 
 
 <script>
+import EditEntity from './EditEntity.vue'
 import HandlesList from './HandlesList.vue'
 import AddHandle from './AddHandle.vue'
 import { bus } from '../main'
@@ -16,6 +18,7 @@ export default {
     'entity': entity
   },
   components: {
+    'editEntity': EditEntity,
     'handlesList': HandlesList,
     'addHandle': AddHandle
   },
