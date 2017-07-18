@@ -10,9 +10,75 @@
     <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.3.4"></script>
   </head>
   <body>
-    <div id="old app div">
+    <div id="EntitiesSidebar">
       <!--SIDENAV-->
-      <div id="Sidebar"
+      <div id="sidenav" class="sidenav">
+        <div class="sidenav_entities">
+          <div class="content">
+              {{vueIsWorking}}
+              <img src="content/img/datascouts_logo.svg" alt="Datascouts Logo"/>
+
+              <form >
+                  <input type="text" placeholder="Enter entity to search for" v-model="searchEntity"/>
+              </form>
+
+              <div class="searchedEntities">
+                <template v-for="item in entities">
+                  <div class="entity">
+                    <button type="button" v-on:click="selectEntity(item,$event)"
+                    v-if=" (item.entity.name.indexOf(searchEntity) !== -1 || searchEntity == '')">
+                      {{item.entity.name}}
+                    </button>
+                    <input type="checkbox" class="checkbox" name="checkbox" value=""
+                    v-if=" (item.entity.name.indexOf(searchEntity) !== -1 || searchEntity == '')"
+                    v-on:click="toggleEntity($event)">
+                  </div>
+                </template>
+                <button type="button" v-on:click="addEntity(searchEntity, $event)" v-if="searchEntity != ''">create {{searchEntity}}</button>
+              </div>
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+
+          </div>
+        </div>
+        <div id="sidenav_handles" class="sidenav_handles">
+          <div class="content">
+            <button type="button" v-on:click="confirmEditEntity(currentEntity, $event)">edit {{currentEntity.name}}</button>
+            <button type="button" v-on:click="confirmDeleteEntity(currentEntity, $event)">delete {{currentEntity.name}}</button>
+            <p> Social media handles for {{currentEntity.name}} </p>
+            <template v-for="item in currentHandles">
+              <div class="handle">
+                <button type="button" v-on:click="selectHandle(item,$event)">
+                  {{item.handle.name}}
+                </button>
+                <input type="checkbox" class="checkbox" name="checkbox" value=""
+                v-on:click="toggleHandle($event)">
+              </div>
+            </template>
+            <button type="button" v-on:click="promptAddHandle(currentEntity, $event)">Add handle</button>
+          </div>
+        </div>
+
+        <div id="sidenav_action" class="sidenav_action">
+          <div class="content">
+            <p> EDIT/DELETE {{currentHandle.name}} </p>
+            <form >
+                <input type="text" v-model="currentHandle.name"/>
+                <input type="text" v-model="currentHandle.url"/>
+                <button type="button" v-on:click="editHandle(currentHandle, $event)">update</button>
+                <button type="button" v-on:click="discardHandle($event)">discard</button>
+                <br />
+                <br />
+                <br />
+                <button type="button" v-on:click="confirmDeleteHandle(currentHandle, $event)">delete</button>
+            </form>
+          </div>
+        </div>
+      </div>
 
       <div id="main">
         <div class="content">
@@ -95,9 +161,9 @@
       </div>
 
     </div>
-    <!--<script src="/dist/build.js"></script>-->
+    <script src="/dist/build.js"></script>
     <script src="app/waterfall.js"></script>
     <script src="app/lodash.min.js"></script>
-    <script src="src/main.js"></script>
+    <script src="app/app.js"></script>
   </body>
   </html>

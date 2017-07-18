@@ -37,7 +37,7 @@ export default {
   watch: {
     entities: function(updatingEntities){
       this.updateSelectedEntities()
-    }
+    },
     entity: function(updatingHandles){
       this.updateSelectedHandles()
     }
@@ -72,6 +72,7 @@ export default {
       this.fetchData()
     }, 1000)
   }
+}
 </script>
 
 <style lang="scss">

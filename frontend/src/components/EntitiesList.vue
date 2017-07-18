@@ -1,5 +1,8 @@
 <template>
   <div id="root-element">
+    <form >
+        <input type="text" placeholder="Enter entity to search for" v-model="searchEntity"/>
+    </form>
     <template v-for="item in entities">
       <div class="entity">
         <button type="button" v-on:click="selectEntity(item,$event)"
@@ -33,7 +36,7 @@ export default {
   data () {
     return {
       currentEntity: [],
-      isEntitySelected: false
+      isEntitySelected: false,
       searchEntity: '',
     }
   },
@@ -78,6 +81,7 @@ export default {
       }
     }, 1000)
   }
+}
 </script>
 
 <style lang="scss">

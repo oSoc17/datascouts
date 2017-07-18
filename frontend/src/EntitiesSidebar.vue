@@ -1,17 +1,17 @@
 <template>
   <div id="root-element">
     <entitiesList v-bind:entities="entities" v-bind:entity="currentEntity"></entitiesList>
-    <addEntity></addEntity>
+    <!--<addEntity></addEntity>-->
     <handlesSidebar></handlesSidebar>
   </div>
 </template>
 
 
 <script>
-import EntitiesList from './EntitiesList.vue'
-import AddEntity from './AddEntity.vue'
-import HandlesSidebar from './HandlesSidebar.vue'
-import { bus } from '../main'
+import EntitiesList from './components/EntitiesList.vue'
+//import AddEntity from './component/AddEntity.vue'
+import HandlesSidebar from './components/HandlesSidebar.vue'
+import { bus } from './main'
 
 export default {
   name: 'entities',
@@ -41,11 +41,11 @@ export default {
   methods: {
     changeCurrentEntity: function(entity){
       this.currentEntity = entity
-    }
-    findIndex: function(object, array, objectType, objectIdentifier) {
+    },
+    findIndex: function(object, array, objectType) {
       var index = -1
       for(var i=0;i<array.length;i++){
-        if(object.objectIdentifier == array[i].objectType.objectIdentifier){index = i; break;}
+        if(object.id == array[i].objectType.id){index = i; break;}
       }
       return index
     },
@@ -54,8 +54,8 @@ export default {
         var newEntities = []
         var index
         if (this.entities.length !== 0) {
-          response.data.forEach(entity)=>{
-            index = this.findIndex(entity, this.entities, 'entity', 'id')
+          response.data.forEach((entity)=>{
+            index = this.findIndex(entity, this.entities, 'entity')
             newEntities.push({"entity" : entity, "active": (index == -1 ? true : this.entities[index].active) })
           })
         }
@@ -80,7 +80,7 @@ export default {
       this.$http.get(this.url + '/entities/' + entity.entity.id + '/handles').then(function (response) {
         if(typeof(entity.handles) !== "undefined"){
           response.data.forEach(function(handle){
-            index = findIndex(handle, entity.handles, 'handle', 'id')
+            index = findIndex(handle, entity.handles, 'handle')
             newHandles.push({"handle" : handle, "active": (index == -1 ? true : entity.handles[index].active) })
           })
           entity.handles = newHandles.slice()

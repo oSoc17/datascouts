@@ -17,12 +17,6 @@ export default {
     return {
 
     }
-  }
-  created () {
-
-  },
-  mounted: function() {
-    this.loadEntities()
   },
   methods: {
     confirmEditEntity: function(entity, e){
