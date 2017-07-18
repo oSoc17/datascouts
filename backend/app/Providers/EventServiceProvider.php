@@ -15,9 +15,5 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\SomeEvent' => [
             'App\Listeners\EventListener',
         ],
-        'SocialiteProviders\Manager\SocialiteWasCalled' => [
-            // add your listeners (aka providers) here
-            'SocialiteProviders\YouTube\YouTubeExtendSocialite@handle',
-        ],
     ];
 }

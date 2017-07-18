@@ -17,13 +17,7 @@ trait RESTActions
     {
         $m = self::MODEL;
         $model = $m::findOrFail($id);
-        return $this->respond(Response::HTTP_OK, $model);
-    }
 
-    public function getByURL($url)
-    {
-        $m = self::MODEL;
-        $model = $m::where('url', $url)->firstOrFail();
         return $this->respond(Response::HTTP_OK, $model);
     }
 
@@ -41,10 +35,10 @@ trait RESTActions
     {
         $m = self::MODEL;
         $this->validate($request, $m::$rules);
-        
+
         $model = $m::findOrFail($id);
 
-        // Only keeps the inputs[key] matching with those specified in $rules
+        // Only keeps the valueKey matching with those specified in $rules
         $keep = array_intersect_key($m::$rules, $request->all());
 
         $model->update($request->only(array_keys($keep)));

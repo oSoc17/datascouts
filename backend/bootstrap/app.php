@@ -25,8 +25,8 @@ $app = new Laravel\Lumen\Application(
 
 $app->withFacades();
 
-class_alias(Laravel\Socialite\Facades\Socialite::class, 'Socialite');
-
+class_alias('Spatie\LaravelTwitterStreamingApi\TwitterStreamingApiFacade', 'TwitterStreamingApi');
+class_alias('Ramsey\Uuid\Uuid', 'Uuid');
 
 $app->withEloquent();
 
@@ -85,15 +85,10 @@ $app->routeMiddleware([
 */
 
 $app->register(App\Providers\AppServiceProvider::class);
-// $app->register(Laravel\Socialite\SocialiteServiceProvider::class);
-$app->register(SocialiteProviders\Manager\ServiceProvider::class);
+// $app->register('Ramsey\Uuid\Uuid');
 
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
-
-if (env('APP_DEBUG')) {
-    // $app->register(Barryvdh\Debugbar\LumenServiceProvider::class);
-}
 
 /*
 |--------------------------------------------------------------------------
