@@ -7,7 +7,7 @@ class Fetcher extends Model
 {
     // use BaseModel;
 
-    protected $fillable = ["data"];
+    protected $fillable = ["data", "handle_id"];
 
     /**
      * The attributes that should be mutated to dates.

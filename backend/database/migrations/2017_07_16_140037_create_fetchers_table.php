@@ -16,7 +16,7 @@ class CreateFetchersTable extends Migration
             $table->timestamps();
 
             // F.K
-            $table->integer('handle_id')->unsigned()->index()->nullable();
+            $table->integer('handle_id')->unsigned()->index();
         });
 
 
