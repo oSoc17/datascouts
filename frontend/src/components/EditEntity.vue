@@ -1,6 +1,7 @@
 <template>
   <div id="root-element">
-
+    <button type="button" v-on:click="confirmEditEntity(entity, $event)">edit {{entity.entity.name}}</button>
+    <button type="button" v-on:click="confirmDeleteEntity(entity, $event)">delete {{entity.entity.name}}</button>
   </div>
 </template>
 
@@ -9,6 +10,7 @@
 import { bus } from '../main'
 
 export default {
+  props: ['entity'],
   components: {
   },
   data () {
@@ -35,9 +37,8 @@ export default {
       console.log(entity)
       this.$http.put(this.url + '/entities/'+ entity.id,
       {"name": newName}).then(function (response) {
-          this.currentEntity = response.data
           console.log("Entity updated")
-          this.loadEntities()
+          bus.$emit('loadHandles', entity)
           //console.log(response)
         }, function (response) {
           console.log("Error Failed to edit entity")
@@ -50,13 +51,12 @@ export default {
     },
     deleteEntity: function(entity, e) {
       e.preventDefault()
-      var self = this
       console.log(entity.name)
       this.$http.delete(this.url + '/entities/' + entity.id).then(function (response) {
-          var index = self.getIndexCurrentEntity()
-          this.selectEntity(self.entities[i], e)
+          var index = this.getIndexCurrentEntity()
+          bus.$emit('selectEntity', this.entities[i], e)
           console.log("Entity deleted")
-          this.loadEntities()
+          bus.$emit('loadEntities')
           //console.log(response)
         }, function (response) {
           console.log("Error Failed to delete entity")

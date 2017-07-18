@@ -22,8 +22,10 @@ export default {
     'entities':{
       type: Array,
       required: false
+    },
+    'entity': {
+      type: Array
     }
-    'currentEntity'
   },
   components:{
 
@@ -34,6 +36,11 @@ export default {
       isEntitySelected: false
       searchEntity: '',
     }
+  },
+  created () {
+    bus.$on('selectEntity', (entity, e) => {
+      this.selectEntity(entity, e)
+    })
   },
   watch: {
     entities: function(updatingEntities){
@@ -47,10 +54,7 @@ export default {
       if(!this.isEntitySelected || this.currentEntity.id==entity.entity.id){
         this.isEntitySelected = !this.isEntitySelected
       }
-      this.currentEntity.name = entity.entity.name
-      this.currentEntity.url = entity.entity.url
-      this.currentEntity.image = entity.entity.image
-      this.currentEntity.id = entity.entity.id
+      bus.$emit('changeCurrentEntity', entity)
       if(this.isEntitySelected){
         document.getElementById("sidenav_handles").style.marginLeft = "250px"
       }

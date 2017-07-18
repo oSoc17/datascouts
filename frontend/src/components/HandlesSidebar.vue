@@ -1,8 +1,8 @@
 <template>
   <div id="root-element">
-    <editEntity></editEntity>
-    <handlesList entity="entity"></handlesList>
-    <addHandle></addHandle>
+    <editEntity v-bind:entity="entity"></editEntity>
+    <handlesList v-bind:entity="entity"></handlesList>
+    <addHandle v-bind:entity="entity"></addHandle>
   </div>
 </template>
 
@@ -14,8 +14,12 @@ import AddHandle from './AddHandle.vue'
 import { bus } from '../main'
 
 export default {
-  props: {
-    'entity': entity
+  props: 'entities':{
+    type: Array,
+    required: false
+  },
+  'entity': {
+    type: Array
   },
   components: {
     'editEntity': EditEntity,

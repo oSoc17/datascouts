@@ -1,6 +1,6 @@
 <template>
   <div id="root-element">
-    <entitiesList entities="entities, currentEntity"></entitiesList>
+    <entitiesList v-bind:entities="entities" v-bind:entity="currentEntity"></entitiesList>
     <addEntity></addEntity>
     <handlesSidebar></handlesSidebar>
   </div>
@@ -23,19 +23,25 @@ export default {
   data () {
     return {
       entities: [],
-      currentEntity
+      currentEntity: []
     }
-  }
+  },
   created () {
     bus.$on('loadHandles', (entity) => {
       this.loadHandles(entity)
     }),
-    bus.$on('loadEntities', this.loadEntities())
+    bus.$on('loadEntities', this.loadEntities()),
+    bus.$on('changeCurrentEntity', (entity) => {
+      this.changeCurrentEntity(entity)
+    })
   },
   mounted: function() {
     this.loadEntities()
   },
   methods: {
+    changeCurrentEntity: function(entity){
+      this.currentEntity = entity
+    }
     findIndex: function(object, array, objectType, objectIdentifier) {
       var index = -1
       for(var i=0;i<array.length;i++){
@@ -48,7 +54,7 @@ export default {
         var newEntities = []
         var index
         if (this.entities.length !== 0) {
-          response.data.forEach(function(entity){
+          response.data.forEach(entity)=>{
             index = this.findIndex(entity, this.entities, 'entity', 'id')
             newEntities.push({"entity" : entity, "active": (index == -1 ? true : this.entities[index].active) })
           })
