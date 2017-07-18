@@ -1,22 +1,26 @@
-<?php
+<?php namespace App\Http\Fetchers;
 
-namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+
+use App\Models\Handle;
+use App\Models\Entity;
+use App\Models\Provider;
 
 use Abraham\TwitterOAuth\TwitterOAuth;
 
 
-class TwitterController extends Controller {
+class TwitterFetcher extends BaseFetcher {
     
-    protected $connection;
+    private $connection;
     
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(){
+    public function __construct()
+    {    
+        parent::__construct('Twitter');
         $this->connection = new TwitterOAuth(
             config('abraham-twitteroauth.consumer_key'), 
             config('abraham-twitteroauth.consumer_secret'), 
@@ -25,16 +29,16 @@ class TwitterController extends Controller {
         );
     }
     
-    
-    public function show(Request $request, $q){
+
+    protected function handle(Entity $entity) {
         $data = $this->connection->get("search/tweets", [
-            "q" => $q ." -filter:retweets",
-            'result_type' => 'mixed',   #['mixed', 'popular', 'recent']
-            'count' => 7,
+            "q" => $entity->name ." -filter:retweets",
+            'result_type' => 'recent',   #['mixed', 'popular', 'recent']
+            'count' => 1,
             'include_entities' => false
             
         ]);
-        return response()->json(['data' => $data->statuses]);
+        return $data->statuses;
     }
 
     //
