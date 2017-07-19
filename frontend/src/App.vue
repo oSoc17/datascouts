@@ -177,7 +177,7 @@ export default {
         if(self.entities[i].active){
           for(var j=0;j<self.entities[i].handles.length;j++){
             if(self.entities[i].handles[j].active){
-              handles.push(self.entities[i].handles[j].handle)
+              handles.push(self.entities[i].handles[j].handle.id)
             }
           }
         }
@@ -192,7 +192,7 @@ export default {
       console.log("post body=")
       console.log({handles, socialMedia})
 
-      Vue.http.post(this.url + '/providers/fetch', {handles, socialMedia}).then(function (response) {
+      Vue.http.post(this.url + '/fetch', {handles/*, socialMedia*/}).then(function (response) {
           self.items = response.data
           //console.log(response)
         }, function (response) {
