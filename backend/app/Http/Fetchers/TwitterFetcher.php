@@ -50,9 +50,11 @@ class TwitterFetcher extends BaseFetcher
     private function filterData($tweet)
     {
         $res = [
+            'social_media' => 'twitter',
             'id' => $tweet->id_str,
             'created_at' => $tweet->created_at,
             'body' => $tweet->text,
+            'link' => 'https://twitter.com/statuses/'.$tweet->id_str,
             'user_full_name' => $tweet->user->name,
             'retweet_count' => $tweet->retweet_count,
             'favorite_count' => $tweet->favorite_count,

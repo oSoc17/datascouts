@@ -45,9 +45,7 @@ class FetchController extends Controller
 
         $res = [];
         foreach ($handles as $handle) {
-            $res[$handle->entity->url] = [
-                $handle->url => $handle->fetched
-            ];
+                array_push($res, $handle->fetched->pluck('data'));
         }
 
         return $this->respond(Response::HTTP_OK, $res);
