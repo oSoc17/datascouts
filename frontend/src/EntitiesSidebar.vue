@@ -14,6 +14,7 @@ import HandlesSidebar from './components/HandlesSidebar.vue'
 import { bus } from './main.js'
 
 export default {
+  props: ['url'],
   components: {
     'entitiesList': EntitiesList,
     'addEntity': AddEntity,
@@ -28,7 +29,6 @@ export default {
         handles: []
       },
       currentHandles: [],
-      url: 'https://osoc-2017-datascouts-backend-akad1070.c9users.io/api/v1',
       mockDataTwitter: 'http://www.json-generator.com/api/json/get/ckwxgssyXm?indent=2',
     }
   },
