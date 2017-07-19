@@ -34,6 +34,10 @@ class Fetch extends Model
 
     // Accessors & Mutators
 
+    public function getDataAttribute($data){
+        return json_decode($data);
+    }
+
 
     // Relationships
 
