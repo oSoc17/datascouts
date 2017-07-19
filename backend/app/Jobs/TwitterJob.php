@@ -9,16 +9,15 @@ use Carbon\Carbon;
 
 use App\Models\Handle;
 
-// use Abraham\TwitterOAuth\TwitterOAuth;
+use App\Http\Fetchers\TwitterFetcher;
 
 
 
-class TwitterJob extends Job implements ShouldQueue
+class TwitterJob extends Job
 {
-    use InteractsWithQueue, Queueable, SerializesModels;
+    protected $handle;
 
-
-    private $handle;
+    protected $twitterFetcher;
 
     /**
      * Create a new job instance.
@@ -28,8 +27,21 @@ class TwitterJob extends Job implements ShouldQueue
     public function __construct(Handle $handle)
     {
         $this->handle = $handle;
-        print_r("New Twitter Job : Added\n");
+        $this->twitterFetcher = new TwitterFetcher();
     }
+
+    private function lockHandle(){
+        // Now, lock this handle
+        $this->handle->is_fetching = true;
+        $this->handle->fetched_at = Carbon::now()->toDateTimeString();
+        $this->handle->save();
+    }
+
+    private function unlock() {
+        $this->handle->is_fetching = false;
+        $this->handle->save();
+    }
+
 
     /**
      * Execute the job.
@@ -38,25 +50,11 @@ class TwitterJob extends Job implements ShouldQueue
      */
     public function handle()
     {
-        echo 'Exec-ing Twitter Job \n';
-        // Now, lock this handle
-        $this->handle->is_fetching = true;
-        $this->handle->fetched_at = Carbon::now()->toDateTimeString();
+        // Act like a  Mutex
+        $this->lockHandle();
 
-        $this->handle->save();
-        // $data = $this->connection->get("search/tweets", [
-        //     "q" => $q ." -filter:retweets",
-        //     'result_type' => 'mixed',   #['mixed', 'popular', 'recent']
-        //     'count' => 7,
-        //     'include_entities' => false
-            
-        // ]);
+        $this->twitterFetcher->fetch($this->handle);
 
-        // Store them in DB.
-
-
-        $this->handle->is_fetching = false;
-        $this->handle->save();
-
+        $this->unlock();
     }
 }

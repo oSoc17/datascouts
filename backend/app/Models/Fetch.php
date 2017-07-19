@@ -3,11 +3,11 @@
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 
-class Fetcher extends Model
+class Fetch extends Model
 {
     // use BaseModel;
 
-    protected $fillable = ["data", "handle_id"];
+    protected $fillable = ["data", "handle_id", "medium_id"];
 
     /**
      * The attributes that should be mutated to dates.

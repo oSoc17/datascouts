@@ -26,9 +26,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->exec('datascouts:fetch-handlers')
+        $schedule->command('datascouts:fetch-handlers')
                  ->name('Process for Handlers\' fetching ')
-                 ->everyMinute('5')
+                 ->everyFiveMinutes()
                  ->withoutOverlapping() // No run if previous cmd still running
         ;
     }
