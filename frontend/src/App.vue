@@ -113,6 +113,10 @@ export default {
         active: false,
         handles: []
       },
+      currentHandle: {
+        handle: '',
+        active: false
+      },
       url: 'https://osoc-2017-datascouts-backend-akad1070.c9users.io/api/v1',
       mockDataTwitter: 'http://www.json-generator.com/api/json/get/ckwxgssyXm?indent=2',
       socialMediaFilters:[

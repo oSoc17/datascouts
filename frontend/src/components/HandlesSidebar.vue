@@ -24,10 +24,7 @@ export default {
   },
   data () {
     return {
-      currentHandle: {
-        handle: '',
-        active: false
-      }
+      
     }
   }
 }

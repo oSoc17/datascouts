@@ -35,7 +35,6 @@ export default {
     return {
       currentEntity: [],
       isEntitySelected: false,
-      searchEntity: '',
     }
   },
   created () {
