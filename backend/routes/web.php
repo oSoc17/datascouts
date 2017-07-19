@@ -96,6 +96,8 @@ $app->group(['prefix' => 'api'], function ($app) {
                         
         }); // prefix : /providers
 
+
+        // Routes for resource FETCH
         $app->group(['prefix' => 'fetch'], function ($app) {
             $app->post('/', 'FetchController@fetch');
 
