@@ -15,7 +15,7 @@ class DataScoutsFetchHandles extends Command
      *
      * @var string
      */
-    protected $signature = 'datascouts:fetch-handlers';
+    protected $signature = 'datascouts:fetch-handles';
 
     /**
      * The console command description.
