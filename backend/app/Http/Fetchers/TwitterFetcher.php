@@ -39,6 +39,15 @@ class TwitterFetcher extends BaseFetcher
         return array_map(array($this, 'filterData'), $data->statuses);
     }
 
+    public function getTrendsHashtags(){
+        $data =  $this->connection->get('trends/place', [
+            'id' => '23424757'  # Belgium  or for brussels : 968019
+        ]);
+
+        return $data;
+    }
+
+
     private function filterData($tweet)
     {
         $res = [

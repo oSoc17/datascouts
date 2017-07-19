@@ -96,6 +96,8 @@ $app->group(['prefix' => 'api'], function ($app) {
             
             $app->post('/fetch', 'ProvidersController@fetch');
 
+            $app->post('/{service}/trends', 'ProvidersController@fetch');
+            
         }); // prefix : /providers
 
     }); // prefix : /v1
