@@ -8,15 +8,22 @@ class CreateFetchersTable extends Migration
 
     public function up()
     {
-        Schema::create('fetchers', function(Blueprint $table) {
+        Schema::create('fetches', function(Blueprint $table) {
             $table->increments('id');
-            $table->json('data');
+            // No Support yet for type JSON
+            $table->mediumText('data');
+
+            $table->string('medium_id')
+                    ->index()
+                    ->nullable();
+
+            
+            // F.K
+            $table->integer('handle_id')->unsigned();
 
             // Constraints declaration
             $table->timestamps();
 
-            // F.K
-            $table->integer('handle_id')->unsigned()->index();
         });
 
 
@@ -24,6 +31,6 @@ class CreateFetchersTable extends Migration
 
     public function down()
     {
-        Schema::drop('fetchers');
+        Schema::drop('fetches');
     }
 }
