@@ -1,15 +1,18 @@
 <template>
-  <div id="handles-list">
+  <ul class="handles">
     <template v-for="item in entity.handles">
-      <div class="handle">
+      <li class="handle">
+        <div class="icon-handle">
+          <i class="icon-handle fa fa-twitter"></i>
+        </div>
         <button type="button" v-on:click="selectHandle(item,$event)">
           {{item.handle.name}}
         </button>
         <input type="checkbox" class="checkbox" name="checkbox" value=""
         v-on:click="toggleHandle($event)">
-      </div>
+      </li>
     </template>
-  </div>
+  </ul>
 </template>
 
 <script>

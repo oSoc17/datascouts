@@ -1,7 +1,17 @@
 <template>
-  <div id="add-handle">
-    <button type="button" v-on:click="promptAddHandle(entity, $event)">Add handle</button>
-  </div>
+  <form action="" class="slide-up" id="handle_form">
+    <div class="form-group hidden">
+      <button class="btn_primary social_media">Twitter</button>
+      <button class="btn_primary social_media">Facebook</button>
+      <button class="btn_primary social_media">YouTube</button>
+    </div>
+    <div class="form-group">
+      <button class="btn_primary action" id="handle_add">
+        <i class="plus">+</i>
+        Add a handle
+      </button>
+    </div>
+  </form>
 </template>
 
 <script>

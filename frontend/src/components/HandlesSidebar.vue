@@ -1,11 +1,9 @@
 <template>
-  <div id="sidenav_handles" class="sidenav_handles">
-    <div class="content">
-      <editEntity v-bind:entity="entity" v-bind:url="url"></editEntity>
-      <handlesList v-bind:entity="entity"></handlesList>
-      <addHandle v-bind:entity="entity" v-bind:url="url"></addHandle>
-      <editHandle v-bind:entity="entity" v-bind:url="url" v-bind:handle="currentHandle"></editHandle>
-    </div>
+  <div id="sidebar_handles">
+    <editEntity v-bind:entity="entity" v-bind:url="url"></editEntity>
+    <handlesList v-bind:entity="entity"></handlesList>
+    <addHandle v-bind:entity="entity" v-bind:url="url"></addHandle>
+    <editHandle v-bind:entity="entity" v-bind:url="url" v-bind:handle="currentHandle"></editHandle>
   </div>
 </template>
 

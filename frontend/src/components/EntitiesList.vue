@@ -1,32 +1,13 @@
 <template>
   <ul class="entities">
-    <form action="">
-      <div class="form-group">
-        <label class="hide" for="">Entity</label>
-        <div class="search-entity">
-          <input type="text" placeholder="Search for an entity" v-model="searchEntity"/>
-          <div class="input-icon">
-            <i class="fa fa-search"></i>
-          </div>
-        </div>
-        <div class="validation-error">
-          <div class="error-icon">
-            <i class="fa fa-exclamation "></i>
-          </div>
-          <ul>
-            <li>You need at least 3 characters.</li>
-          </ul>
-        </div>
-      </div>
-    </form>
-
     <template v-for="item in entities">
       <li class="entity" v-if=" (item.entity.name.indexOf(searchEntity) !== -1 || searchEntity == '')">
         <div class="image_entity">
-          <img src="item.entity.image" alt="">
+          <img v-bind:src="item.entity.image" alt="">
         </div>
-        <button type="button" v-on:click="selectEntity(item,$event)">
-        </button>
+        <p v-on:click="selectEntity(item,$event)">
+          {{item.entity.name}}
+        </p>
         <input type="checkbox" class="checkbox" name="checkbox" value="" v-on:click="toggleEntity($event)">
         <i class="fa fa-angle-right"></i>
       </li>
@@ -46,7 +27,7 @@
 import { bus } from '../main'
 
 export default {
-  props:['entities','entity'],
+  props:['entities','entity', 'searchEntity'],
   components:{
 
   },
@@ -76,10 +57,10 @@ export default {
       }
       bus.$emit('changeCurrentEntity', entity)
       if(this.isEntitySelected){
-        document.getElementById("sidenav_handles").style.marginLeft = "250px"
+        //document.getElementById("sidenav_handles").style.marginLeft = "250px"
       }
       else{
-        document.getElementById("sidenav_handles").style.marginLeft = "0px"
+        //document.getElementById("sidenav_handles").style.marginLeft = "0px"
         bus.$emit('discardHandle')
       }
       bus.$emit('loadHandles', entity)

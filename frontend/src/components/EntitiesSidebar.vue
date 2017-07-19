@@ -4,34 +4,51 @@
       <i class="fa fa-angle-left"></i>
     </button>
 
-    <entitiesList v-bind:entities="entities" v-bind:entity="currentEntity"></entitiesList>
+    <form action="">
+      <div class="form-group">
+        <label class="hide" for="">Entity</label>
+        <div class="search-entity">
+          <input type="text" placeholder="Search for an entity" v-model="searchEntity"/>
+          <div class="input-icon">
+            <i class="fa fa-search"></i>
+          </div>
+        </div>
+        <div class="validation-error">
+          <div class="error-icon">
+            <i class="fa fa-exclamation "></i>
+          </div>
+          <ul>
+            <li>You need at least 3 characters.</li>
+          </ul>
+        </div>
+      </div>
+    </form>
+
+    <entitiesList v-bind:entities="entities" v-bind:entity="currentEntity"
+    v-bind:searchEntity="searchEntity"></entitiesList>
+
     <addEntity v-bind:url="url"></addEntity>
-    <handlesSidebar v-bind:entity="currentEntity" v-bind:url="url"></handlesSidebar>
   </div>
 </template>
 
 
 <script>
-import EntitiesList from './components/EntitiesList.vue'
-import AddEntity from './components/AddEntity.vue'
-import HandlesSidebar from './components/HandlesSidebar.vue'
-import { bus } from './main.js'
+import EntitiesList from './EntitiesList.vue'
+import AddEntity from './AddEntity.vue'
+
+import { bus } from '../main.js'
 
 export default {
-  props: ['url'],
+  props: ['url', 'currentEntity'],
   components: {
     'entitiesList': EntitiesList,
     'addEntity': AddEntity,
-    'handlesSidebar': HandlesSidebar
+
   },
   data () {
     return {
       entities: [],
-      currentEntity: {
-        entity: '',
-        active: false,
-        handles: []
-      },
+      searchEntity: '',
       currentHandles: [],
       mockDataTwitter: 'http://www.json-generator.com/api/json/get/ckwxgssyXm?indent=2',
     }
@@ -41,9 +58,6 @@ export default {
       this.loadHandles(entity)
     }),
     bus.$on('loadEntities', () => {this.loadEntities()}),
-    bus.$on('changeCurrentEntity', (entity) => {
-      this.changeCurrentEntity(entity)
-    }),
     bus.$on('updateHandles', (entity) => {
       this.currentEntity.handles = entity.handles
       console.log("updatingHandles")
@@ -53,9 +67,6 @@ export default {
     this.loadEntities()
   },
   methods: {
-    changeCurrentEntity: function(entity){
-      this.currentEntity = entity
-    },
     findIndex: function(object, array, objectType) {
       var index = -1
       for(var i=0;i<array.length;i++){

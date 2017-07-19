@@ -1,7 +1,13 @@
 <template>
-  <div id="root-element">
-    <button type="button" v-on:click="confirmEditEntity(entity, $event)">edit {{entity.entity.name}}</button>
-    <button type="button" v-on:click="confirmDeleteEntity(entity, $event)">delete {{entity.entity.name}}</button>
+  <div id="edit-entity">
+    <button type="button" v-on:click="confirmEditEntity(entity, $event)">
+      <i class="fa fa-pencil"></i>
+      Edit
+    </button>
+    <button type="button" v-on:click="confirmDeleteEntity(entity, $event)">
+      <i class="fa fa-trash"></i>
+      Delete
+    </button>
   </div>
 </template>
 

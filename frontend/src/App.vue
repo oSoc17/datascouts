@@ -1,19 +1,23 @@
 <template>
   <div class="full-screen">
+
     <div class="header">
       <a href="https://www.datascouts.eu"  class="logo">
         <img src="../content/assets/img/datascouts-logo.svg" alt="datascouts-logo">
       </a>
     </div>
-      <!-- SIDEBAR-ENTITIES -->
-      <entitiesSidebar v-bind:url="url"></entitiesSidebar>
-    <div id="main">
-      <div class="content">
+
+    <div class="main">
+
+      <entitiesSidebar v-bind:url="url" v-bind:currentEntity="currentEntity"></entitiesSidebar>
+
+      <handlesSidebar v-bind:entity="currentEntity" v-bind:url="url"></handlesSidebar>
+
+      <div id="content">
         <button type="button" v-on:click="fetchData">fetch data (this button is only for testing)</button>
 
         <div class="template" v-if="isLoading">
             <h1>loading...</h1>
-
             <template v-for="item in loadingTemplatesAmount">
               <div class="template_box">
                   <div class="template_image"></div>
@@ -25,8 +29,8 @@
                   <div class="template_text"></div>
               </div>
             </template>
-
         </div>
+
         <div class="tweets wf-container" id="wf-container">
             <template v-for="item in items">
                 <!--TWEET-->
@@ -84,25 +88,34 @@
                 </div>
             </template>
         </div>
+
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import EntitiesSidebar from './EntitiesSidebar.vue'
+import EntitiesSidebar from './components/EntitiesSidebar.vue'
+import HandlesSidebar from './components/HandlesSidebar.vue'
+
 import { bus } from './main.js'
 
 export default {
   name: 'app',
   components: {
-    'entitiesSidebar': EntitiesSidebar
+    'entitiesSidebar': EntitiesSidebar,
+    'handlesSidebar': HandlesSidebar
   },
   data () {
     return {
       items: [],
       isLoading: false,
       entities: [],
+      currentEntity: {
+        entity: '',
+        active: false,
+        handles: []
+      },
       url: 'https://osoc-2017-datascouts-backend-akad1070.c9users.io/api/v1',
       mockDataTwitter: 'http://www.json-generator.com/api/json/get/ckwxgssyXm?indent=2',
       socialMediaFilters:[
@@ -121,6 +134,9 @@ export default {
   created () {
     bus.$on('entitiesLoaded', (entity) => {
       this.entities = entities
+    }),
+    bus.$on('changeCurrentEntity', (entity) =>{
+      this.changeCurrentEntity(entity)
     })
   },
   mounted() {
@@ -132,61 +148,64 @@ export default {
     }
   },
   methods: {
-  fetchData: function(entities) {
-    var self = this
-    //display load templates & adjust them to the screen, hide loading elements
-    this.isLoading = true
-    document.getElementById("wf-container").style.visibility = "hidden"
-    var boxes = document.getElementsByClassName("template_box")
-    this.$nextTick(function(){
-      for(var i=0;i<boxes.length;i++){
-        boxes[i].style.width = this.loadingTemplatesWidth
-      }
-    })
+    changeCurrentEntity(entity){
+      this.currentEntity = entity
+    },
+    fetchData: function(entities) {
+      var self = this
+      //display load templates & adjust them to the screen, hide loading elements
+      this.isLoading = true
+      document.getElementById("wf-container").style.visibility = "hidden"
+      var boxes = document.getElementsByClassName("template_box")
+      this.$nextTick(function(){
+        for(var i=0;i<boxes.length;i++){
+          boxes[i].style.width = this.loadingTemplatesWidth
+        }
+      })
 
-    //creating body of the post request
-    var handlesIds = []
-    var socialMedia
-    if(self.entities.length != 0 ){
-      for(var i=0;i<self.entities.length;i++){
-        if(self.entities[i].active){
-          for(var j=0;j<self.entities[i].handles.length;j++){
-            if(self.entities[i].handles[j].active){
-              handlesIds.push(self.entities[i].handles[j].handle.id)
+      //creating body of the post request
+      var handlesIds = []
+      var socialMedia
+      if(self.entities.length != 0 ){
+        for(var i=0;i<self.entities.length;i++){
+          if(self.entities[i].active){
+            for(var j=0;j<self.entities[i].handles.length;j++){
+              if(self.entities[i].handles[j].active){
+                handlesIds.push(self.entities[i].handles[j].handle.id)
+              }
             }
+          }
+
+        }
+        for(item in self.socialMediaFilters){
+          if(item.active){
+            socialMedia.push(item.name)
           }
         }
 
+        Vue.http.post(this.url + '/providers/fetch', {entitiesIds, socialMedia}).then(function (response) {
+            self.items = response.data
+            //console.log(response)
+          }, function (response) {
+            console.log("Error Fail to get data from server. Loading mockdata instead.")
+            this.$http.get(this.mockDataTwitter).then(function (response) {
+                self.items = response.data
+                //console.log(response)
+              }, function (response) {
+                console.log("Error Fail to load mockdata")
+            });
+        });
       }
-      for(item in self.socialMediaFilters){
-        if(item.active){
-          socialMedia.push(item.name)
-        }
+      else{
+        Vue.http.get(this.mockDataTwitter).then(function (response) {
+            self.items = response.data
+            //console.log(response)
+          }, function (response) {
+            console.log("Error Fail to load mockdata")
+        });
       }
-
-      Vue.http.post(this.url + '/providers/fetch', {entitiesIds, socialMedia}).then(function (response) {
-          self.items = response.data
-          //console.log(response)
-        }, function (response) {
-          console.log("Error Fail to get data from server. Loading mockdata instead.")
-          this.$http.get(this.mockDataTwitter).then(function (response) {
-              self.items = response.data
-              //console.log(response)
-            }, function (response) {
-              console.log("Error Fail to load mockdata")
-          });
-      });
-    }
-    else{
-      Vue.http.get(this.mockDataTwitter).then(function (response) {
-          self.items = response.data
-          //console.log(response)
-        }, function (response) {
-          console.log("Error Fail to load mockdata")
-      });
-    }
-  },
-  updateWaterfall: _.debounce(
+    },
+    updateWaterfall: _.debounce(
       function() {
         this.waterfall.compose(true)
         document.getElementById("wf-container").style.visibility = "visible"

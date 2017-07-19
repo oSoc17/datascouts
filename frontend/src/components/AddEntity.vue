@@ -1,9 +1,16 @@
 <template>
-  <div id="root">
-    <p>
-      add entity
-    </p>
-  </div>
+  <form action="" class="slide-up" id="entity_form">
+    <div class="form-group hidden">
+      <label for="">Name</label>
+      <input type="text" placeholder="Name">
+    </div>
+    <div class="form-group">
+      <button class="btn_primary action" id="entity_add">
+        <i class="plus">+</i>
+        Add an entity
+      </button>
+    </div>
+  </form>
 </template>
 
 <script>
