@@ -6,7 +6,7 @@ use App\Models\Handle;
 use App\Models\Entity;
 use App\Models\Provider;
 
-// use App\Models\Fetch;
+use App\Models\Fetch;
 
 
 abstract class BaseFetcher
@@ -47,18 +47,18 @@ abstract class BaseFetcher
 
     public function fetch($handle)
     {
-        var_dump($handle->entity->name);
         // ? Is the right Fetcher
         if (strcasecmp($this->fetcherType, $handle->service->name) == 0) {
             $data = $this->handle($handle->entity);
-            if($data && !empty($data)) {
-                $this->store($data, $handle);
+            if ($data && !empty($data)) {
+                return $this->store($data, $handle);
             }
-        }else {
+        } else {
             if ($this->nextFetcher) {
-                $this->nextFetcher->fetch($handle);
+                return $this->nextFetcher->fetch($handle);
             }
         }
+        return true;
     }
 
 
@@ -66,14 +66,35 @@ abstract class BaseFetcher
      * Store the Handle Fetchin' result
      *
      */
-    public function store($data, $handle)
+    public function store($datas, $handle)
     {
-        // Store the data into Fetch DB-Table
-        // Fetch::create([
-            // 'data' => $data,
-            // 'handler_id' => $handle->id;
-        // ])
-        var_dump('Storing Data From fetching');
+        // DB::enableQueryLog();
+        var_dump(array_keys($datas));
+        foreach ($datas as $data) {
+            var_dump($data['id'], $handle->id);
+
+            $fetcher = Fetch::where('medium_id', $data['id'])
+                                ->where('handle_id',$handle->id)
+                                ->first();
+
+            if(is_null($fetcher) || empty($fetcher)){
+                Fetch::create([
+                    'medium_id' => $data['id'],
+                    'data' => json_encode($data),
+                    'handle_id' => $handle->id
+                ]);
+            }
+            
+            
+            // [
+            //         'data' => json_encode($data),
+            //         'handler_id' => $handle->id
+            //     ]
+            // );
+            // $query = DB::getQueryLog();
+            
+        }
+
         return true;
     }
 

@@ -46,7 +46,8 @@ class DataScoutsFetchHandles extends Command
      */
     public function handle()
     {   
-        $handles = Handle::fetchable()->isOutDated()->get();
+        // $handles = Handle::fetchable()->isOutDated()->get();
+        $handles = Handle::all();
         
         foreach ($handles as $handle) {
             echo "Scheduler : Dispatch new Job for {$handle->service->name}\n";
