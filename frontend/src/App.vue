@@ -105,8 +105,8 @@ export default {
         {name: 'Facebook',
         active: false}
       ],
-      //waterfall: new Waterfall(200),
       waterfallIsCreated: false,
+      waterfall: '',
       isLoading: false,
       loadingTemplatesWidth: 'calc(33.33% - 30px)',
       loadingTemplatesAmount: 3
@@ -116,6 +116,9 @@ export default {
     bus.$on('entitiesLoaded', (entity) => {
       this.entities = entities
     })
+  },
+  mounted() {
+    this.waterfall = new Waterfall(200)
   },
   watch: {
     items: function(updatingWfContainer){
