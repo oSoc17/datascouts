@@ -51,15 +51,17 @@ export default {
     selectEntity: function (entity, e) {
       e.preventDefault()
       //console.log(entity)
-      if(!this.isEntitySelected || this.currentEntity.id==entity.entity.id){
+      //if(!this.isEntitySelected || this.currentEntity.entity.id==entity.entity.id){
         this.isEntitySelected = !this.isEntitySelected
-      }
+      //}
       bus.$emit('changeCurrentEntity', entity)
       if(this.isEntitySelected){
-        //document.getElementById("sidenav_handles").style.marginLeft = "250px"
+        document.getElementById("sidebar_handles").style.marginLeft = "0px"
+        document.getElementById("sidebar_handles").style.zIndex = 5
       }
       else{
-        //document.getElementById("sidenav_handles").style.marginLeft = "0px"
+        document.getElementById("sidebar_handles").style.marginLeft = "-301px"
+        document.getElementById("sidebar_handles").style.zIndex = -1
         bus.$emit('discardHandle')
       }
       bus.$emit('loadHandles', entity)

@@ -53,28 +53,29 @@
         </div>
 
         <div class="tweets wf-container" id="wf-container">
-            <template v-for="item in items">
+          <template v-for="entity in items">
+            <template v-for="handle in entity">
                 <!--TWEET-->
-                <div class="wf-box twitter">
+                <div class="wf-box twitter" v-if="handle.social_media === 'twitter'">
                   <!-- BODY -->
     							<div class="body">
     								<p>
-                      {{ item.body }}
+                      {{ handle.body }}
                     </p>
     							</div>
     							<!-- IMAGE -->
-    							<img v-bind:src="item.media" alt="" class="media">
+    							<img v-bind:src="handle.media" alt="" class="media">
 
     							<!-- METADATA - likes/comments/views -->
     							<div class="metadata_1">
-    								<i class="fa fa-retweet"></i> 53 | <i class="fa fa-heart"></i> 29
+    								<i class="fa fa-retweet"></i> {{handle.retweet_count}} | <i class="fa fa-heart"></i> {{handle.favorite_count}}
     								<a href="http://127.0.0.1/" target="_blank"><i class="fa fa-external-link"></i></a>
     							</div>
     							<div class="metadata_2">
     								<div class="image_avatar">
-    									<img src="" alt="" class="avatar">
+    									<img v-bind:src="handle.user.profile_image_url_https" alt="" class="avatar">
     								</div>
-    								<div class="name">{{item.name}}</div>
+    								<div class="name">{{handle.user_full_name}}</div>
     								<div class="social_media">
     									<i class="fa fa-twitter"></i>
     								</div>
@@ -82,6 +83,7 @@
 
                 </div>
             </template>
+          </template>
         </div>
 
       </div>
@@ -197,9 +199,11 @@ export default {
       console.log({handles, socialMedia})
 
       Vue.http.post(this.url + '/fetch', {handles/*, socialMedia*/}).then(function (response) {
+          console.log(response.data)
           self.items = response.data
           //console.log(response)
         }, function (response) {
+
           console.log("Error Fail to get data from server. Loading mockdata instead.")
           Vue.http.get(self.mockDataTwitter).then(function (response) {
               self.items = response.data
