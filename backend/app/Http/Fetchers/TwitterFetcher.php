@@ -1,7 +1,6 @@
 <?php namespace App\Http\Fetchers;
 
 use App\Models\Handle;
-use App\Models\Entity;
 use App\Models\Provider;
 
 use Abraham\TwitterOAuth\TwitterOAuth;
@@ -27,10 +26,10 @@ class TwitterFetcher extends BaseFetcher
         );
     }
     
-    protected function handle(Entity $entity)
+    protected function handle(Handle $handle)
     {
         $data = $this->connection->get("search/tweets", [
-            "q" => $entity->name ." -filter:retweets",
+            "q" => $handle->name ." -filter:retweets",
             'result_type' => 'recent',   #['mixed', 'popular', 'recent']
             'count' => 100,
             'include_entities' => true
