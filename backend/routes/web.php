@@ -93,12 +93,16 @@ $app->group(['prefix' => 'api'], function ($app) {
             
             $app->get('/{service}/callback', 'ProvidersController@handleCallback');
             // $app->post('/{handle}/callback', 'ProvidersController@handleCallback');
-            
-            $app->post('/fetch', 'ProvidersController@fetch');
-
-            $app->post('/{service}/trends', 'ProvidersController@fetch');
-            
+                        
         }); // prefix : /providers
+
+        $app->group(['prefix' => 'fetch'], function ($app) {
+            $app->post('/', 'FetchController@fetch');
+
+            $app->get('/{service}/trends', 'FetchController@getTrendsHashtags');
+
+        });
+
 
     }); // prefix : /v1
 });  // prefix : /api
