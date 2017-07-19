@@ -19,10 +19,10 @@ class TwitterFetcher extends BaseFetcher
     {
         parent::__construct('Twitter');
         $this->connection = new TwitterOAuth(
-            config('abraham-twitteroauth.consumer_key'),
-            config('abraham-twitteroauth.consumer_secret'),
-            config('abraham-twitteroauth.access_token'),
-            config('abraham-twitteroauth.access_token_secret')
+            config('services.twitter.client_id'),
+            config('services.twitter.client_secret'),
+            config('services.twitter.access_token'),
+            config('services.twitter.access_token_secret')
         );
     }
     
