@@ -3,7 +3,7 @@
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 
-class Fetcher extends Model
+class Fetch extends Model
 {
     // use BaseModel;
 

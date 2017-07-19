@@ -32,7 +32,7 @@ class TwitterFetcher extends BaseFetcher
         $data = $this->connection->get("search/tweets", [
             "q" => $entity->name ." -filter:retweets",
             'result_type' => 'recent',   #['mixed', 'popular', 'recent']
-            'count' => 3,
+            'count' => 100,
             'include_entities' => true
             
         ]);
@@ -63,11 +63,6 @@ class TwitterFetcher extends BaseFetcher
             'profile_image_url_https' => $tweet->user->profile_image_url_https,
         ];
 
-        // if ($tweet->entities) {
-        //     $res['media'] = $tweet->entities->media[0]->url;
-        // }
-
-        // dd($res);
         return $res;
     }
 }

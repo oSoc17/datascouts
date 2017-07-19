@@ -68,11 +68,7 @@ abstract class BaseFetcher
      */
     public function store($datas, $handle)
     {
-        // DB::enableQueryLog();
-        var_dump(array_keys($datas));
         foreach ($datas as $data) {
-            var_dump($data['id'], $handle->id);
-
             $fetcher = Fetch::where('medium_id', $data['id'])
                                 ->where('handle_id',$handle->id)
                                 ->first();
@@ -83,16 +79,7 @@ abstract class BaseFetcher
                     'data' => json_encode($data),
                     'handle_id' => $handle->id
                 ]);
-            }
-            
-            
-            // [
-            //         'data' => json_encode($data),
-            //         'handler_id' => $handle->id
-            //     ]
-            // );
-            // $query = DB::getQueryLog();
-            
+            }           
         }
 
         return true;
