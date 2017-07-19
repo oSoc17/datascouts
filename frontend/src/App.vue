@@ -1,6 +1,12 @@
 <template>
-  <div id="app">
-    <entitiesSidebar v-bind:url="url"></entitiesSidebar>
+  <div class="full-screen">
+    <div class="header">
+      <a href="https://www.datascouts.eu"  class="logo">
+        <img src="../content/assets/img/datascouts-logo.svg" alt="datascouts-logo">
+      </a>
+    </div>
+      <!-- SIDEBAR-ENTITIES -->
+      <entitiesSidebar v-bind:url="url"></entitiesSidebar>
     <div id="main">
       <div class="content">
         <button type="button" v-on:click="fetchData">fetch data (this button is only for testing)</button>

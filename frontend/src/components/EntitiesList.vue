@@ -1,26 +1,45 @@
 <template>
-  <div class="sidenav_entities">
-    <div class="content">
-      <img src="content/img/datascouts_logo.svg" alt="Datascouts Logo"/>
-      <form >
-          <input type="text" placeholder="Enter entity to search for" v-model="searchEntity"/>
-      </form>
-      <div class="searchedEntities">
-        <template v-for="item in entities">
-          <div class="entity">
-            <button type="button" v-on:click="selectEntity(item,$event)"
-            v-if=" (item.entity.name.indexOf(searchEntity) !== -1 || searchEntity == '')">
-              {{item.entity.name}}
-            </button>
-            <input type="checkbox" class="checkbox" name="checkbox" value=""
-            v-if=" (item.entity.name.indexOf(searchEntity) !== -1 || searchEntity == '')"
-            v-on:click="toggleEntity($event)">
+  <ul class="entities">
+    <form action="">
+      <div class="form-group">
+        <label class="hide" for="">Entity</label>
+        <div class="search-entity">
+          <input type="text" placeholder="Search for an entity" v-model="searchEntity"/>
+          <div class="input-icon">
+            <i class="fa fa-search"></i>
           </div>
-        </template>
-        <button type="button" v-on:click="addEntity(searchEntity, $event)" v-if="searchEntity != ''">create {{searchEntity}}</button>
+        </div>
+        <div class="validation-error">
+          <div class="error-icon">
+            <i class="fa fa-exclamation "></i>
+          </div>
+          <ul>
+            <li>You need at least 3 characters.</li>
+          </ul>
+        </div>
       </div>
-    </div>
-  </div>
+    </form>
+
+    <template v-for="item in entities">
+      <li class="entity" v-if=" (item.entity.name.indexOf(searchEntity) !== -1 || searchEntity == '')">
+        <div class="image_entity">
+          <img src="item.entity.image" alt="">
+        </div>
+        <button type="button" v-on:click="selectEntity(item,$event)">
+        </button>
+        <input type="checkbox" class="checkbox" name="checkbox" value="" v-on:click="toggleEntity($event)">
+        <i class="fa fa-angle-right"></i>
+      </li>
+      <!--<button type="button" v-on:click="selectEntity(item,$event)"
+      v-if=" (item.entity.name.indexOf(searchEntity) !== -1 || searchEntity == '')">
+        {{item.entity.name}}
+      </button>
+      <input type="checkbox" class="checkbox" name="checkbox" value=""
+      v-if=" (item.entity.name.indexOf(searchEntity) !== -1 || searchEntity == '')"
+      v-on:click="toggleEntity($event)">-->
+    </template>
+    <button type="button" v-on:click="addEntity(searchEntity, $event)" v-if="searchEntity != ''">create {{searchEntity}}</button>
+  </ul>
 </template>
 
 <script>

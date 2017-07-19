@@ -1,5 +1,9 @@
 <template>
-  <div id="EntitiesSidebar" class="EntitiesSidebar">
+  <div id="sidebar_entities">
+    <button class="collapse">
+      <i class="fa fa-angle-left"></i>
+    </button>
+
     <entitiesList v-bind:entities="entities" v-bind:entity="currentEntity"></entitiesList>
     <addEntity v-bind:url="url"></addEntity>
     <handlesSidebar v-bind:entity="currentEntity" v-bind:url="url"></handlesSidebar>
