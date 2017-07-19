@@ -69,7 +69,7 @@
     							<!-- METADATA - likes/comments/views -->
     							<div class="metadata_1">
     								<i class="fa fa-retweet"></i> {{handle.retweet_count}} | <i class="fa fa-heart"></i> {{handle.favorite_count}}
-    								<a href="http://127.0.0.1/" target="_blank"><i class="fa fa-external-link"></i></a>
+    								<a v-bind:href="handle.link" target="_blank"><i class="fa fa-external-link"></i></a>
     							</div>
     							<div class="metadata_2">
     								<div class="image_avatar">
@@ -143,10 +143,14 @@ export default {
     }),
     bus.$on('changeCurrentHandle', (handle) => {
       this.changeCurrentHandle(handle)
+    }),
+    bus.$on('fetchData', () => {
+      this.fetchData()
     })
   },
   mounted() {
-    this.waterfall = new Waterfall(200)
+    this.waterfall = new Waterfall(200),
+    this.fetchData()
   },
   watch: {
     items: function(updatingWfContainer){

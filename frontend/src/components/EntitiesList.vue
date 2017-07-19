@@ -50,10 +50,9 @@ export default {
   methods: {
     selectEntity: function (entity, e) {
       e.preventDefault()
-      //console.log(entity)
-      //if(!this.isEntitySelected || this.currentEntity.entity.id==entity.entity.id){
+      if(!this.isEntitySelected || this.entity.entity.id==entity.entity.id){
         this.isEntitySelected = !this.isEntitySelected
-      //}
+      }
       bus.$emit('changeCurrentEntity', entity)
       if(this.isEntitySelected){
         document.getElementById("sidebar_handles").style.marginLeft = "0px"
@@ -73,18 +72,23 @@ export default {
         entitiesHTML[i].getElementsByClassName("checkbox")[0].checked = this.entities[i].active
       }
     }, 1),
-    toggleEntity: _.debounce( function (e){
+    toggleEntity: function (e){
       var entitiesHTML = document.getElementsByClassName("entity")
       for(var i=0;i<this.entities.length;i++){
         this.entities[i].active = entitiesHTML[i].getElementsByClassName("checkbox")[0].checked
       }
-    }, 1000),
+      this.fetchData()
+    },
     addEntity: function(name, e){
       console.log('adding entity')
       e.preventDefault()
       bus.$emit('addEntity', name, e)
       this.searchEntity = ""
-    }
+    },
+    fetchData: _.debounce( function(){
+      console.log("fetching data")
+      bus.$emit('fetchData')
+    }, 750)
   }
 }
 </script>
