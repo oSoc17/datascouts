@@ -14,7 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\ScheduleList::class,    
-        Commands\AddAdminUser::class,    
+        Commands\DataScoutsAddAdminUser::class,    
         Commands\DataScoutsFetchHandles::class
     ];
 
