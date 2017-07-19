@@ -59,19 +59,26 @@ class TwitterFetcher extends BaseFetcher
             'retweet_count' => $tweet->retweet_count,
             'favorite_count' => $tweet->favorite_count,
         ];
-        $res['hastags'] = array_map(function ($hashtag) {
-            return $hashtag->text;
-        }, $tweet->entities->hashtags);
         
         $res['user'] = [
             'id' => $tweet->user->id_str,
             'screen_name' => $tweet->user->screen_name,
-            'created_at' => $tweet->user->created_at,
+            'since' => $tweet->user->created_at,
             'friends_count' => $tweet->user->friends_count,
             'followers_count' => $tweet->user->followers_count,
             'statuses_count' => $tweet->user->statuses_count,
             'profile_image_url_https' => $tweet->user->profile_image_url_https,
         ];
+        
+        if(isset($tweet->entities->hashtags)) {
+            $res['hastags'] = array_map(function ($hashtag) {
+                return $hashtag->text;
+            }, $tweet->entities->hashtags);
+        }
+        
+        if(isset($tweet->entities->media)) {
+            $res['media'] = $tweet->entities->media[0]->media_url_https;
+        }
 
         return $res;
     }
