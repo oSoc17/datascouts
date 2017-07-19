@@ -13,8 +13,9 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\AddAdminUser::class,    
-    
+        Commands\ScheduleList::class,    
+        Commands\DataScoutsAddAdminUser::class,    
+        Commands\DataScoutsFetchHandles::class
     ];
 
     /**
@@ -25,6 +26,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        //
+        $schedule->command('datascouts:fetch-handlers')
+                 ->name('Process for Handlers\' fetching ')
+                 ->everyFiveMinutes()
+                 ->withoutOverlapping() // No run if previous cmd still running
+        ;
     }
 }
