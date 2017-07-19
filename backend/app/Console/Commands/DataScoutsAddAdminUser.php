@@ -5,14 +5,14 @@ use Illuminate\Console\Command;
 use App\User;
 
 
-class AddAdminUser extends Command
+class DataScoutsAddAdminUser extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'user:add-admin 
+    protected $signature = 'datascouts:add-admin 
                                 {name=R00t : The user fullname, by default \'R00t\'} 
                                 {--M|email= : The user email} 
                                 {--P|password=  : If empty can be auto-generated}';
