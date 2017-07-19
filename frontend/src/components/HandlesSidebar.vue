@@ -1,9 +1,9 @@
 <template>
   <div id="sidebar_handles">
     <editEntity v-bind:entity="entity" v-bind:url="url"></editEntity>
+    <h1>Social media handles for {{entity.entity.name}}</h1>
     <handlesList v-bind:entity="entity"></handlesList>
     <addHandle v-bind:entity="entity" v-bind:url="url"></addHandle>
-    <editHandle v-bind:entity="entity" v-bind:url="url" v-bind:handle="currentHandle"></editHandle>
   </div>
 </template>
 
@@ -12,7 +12,7 @@
 import EditEntity from './EditEntity.vue'
 import HandlesList from './HandlesList.vue'
 import AddHandle from './AddHandle.vue'
-import EditHandle from './EditHandle.vue'
+
 import { bus } from '../main'
 
 export default {
@@ -20,8 +20,7 @@ export default {
   components: {
     'editEntity': EditEntity,
     'handlesList': HandlesList,
-    'addHandle': AddHandle,
-    'editHandle': EditHandle
+    'addHandle': AddHandle
   },
   data () {
     return {
@@ -29,16 +28,6 @@ export default {
         handle: '',
         active: false
       }
-    }
-  },
-  created () {
-    bus.$on('changeCurrentHandle', (handle) => {
-      this.changeCurrentHandle(handle)
-    })
-  },
-  methods: {
-    changeCurrentHandle: function(handle){
-      this.currentHandle = handle
     }
   }
 }

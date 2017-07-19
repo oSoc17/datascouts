@@ -1,0 +1,72 @@
+button {
+    font-family: 'sofia_prolight', Arial, Helvetica, sans-serif;
+    line-height: 30px;
+    padding: 4px 15px;
+    font-size: 16px;
+    &.btn_primary {
+        border: 1px solid $blue-whale;
+        background: $blue-whale;
+        color: $white;
+        margin: 15px;
+        text-transform: uppercase;
+        i {
+            font-size: 24px !important;
+            color: $primary;
+            font-style: normal;
+        }
+        &:hover {
+            transition: $trans;
+            background-color: $primary;
+            color: $blue-whale;
+            font-weight: 700;
+            i {
+                color: $blue-whale;
+            }
+        }
+    }
+    &.btn_secondary {
+        border: 1px solid $gray;
+        background: $white;
+        margin: 15px;
+        font-weight: 700;
+        color: $gray;
+        &:hover {
+            transition: $trans;
+            color: $white;
+            background: $gray;
+        }
+    }
+    &.btn_crud {
+        border: none;
+        width: calc(100% - 2px);
+        margin-bottom: 5px;
+        background-color: $gray;
+        color: $white;
+        font-weight: 700;
+        i {
+            color: $white;
+        }
+        &.delete {
+            background-color: $error-light;
+            &:hover {
+                transition: $trans;
+                background-color: $error;
+            }
+        }
+        &.disabled {
+            background-color: $gray-lightest;
+            color: $gray-light;
+            i {
+                color: $gray-light;
+            }
+            &:hover {
+                cursor: not-allowed;
+            }
+        }
+    }
+    &:hover {
+        transition: $trans;
+        background-color: $gray-dark;
+        cursor: pointer;
+    }
+}

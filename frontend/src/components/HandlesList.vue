@@ -5,9 +5,9 @@
         <div class="icon-handle">
           <i class="icon-handle fa fa-twitter"></i>
         </div>
-        <button type="button" v-on:click="selectHandle(item,$event)">
+        <p v-on:click="selectHandle(item,$event)">
           {{item.handle.name}}
-        </button>
+        </p>
         <input type="checkbox" class="checkbox" name="checkbox" value=""
         v-on:click="toggleHandle($event)">
       </li>

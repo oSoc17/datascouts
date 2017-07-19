@@ -66,7 +66,15 @@ export default {
   mounted: function() {
     this.loadEntities()
   },
+  watch: {
+    entities: function(updatingEntities){
+      this.updateEntities()
+    }
+  },
   methods: {
+    updateEntities: _.debounce(function() {
+      bus.$emit('entitiesLoaded', this.entities)
+    },1),
     findIndex: function(object, array, objectType) {
       var index = -1
       for(var i=0;i<array.length;i++){

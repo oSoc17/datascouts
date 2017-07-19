@@ -1,0 +1,51 @@
+$duration: 5s;
+.flashmessage {
+    opacity: 0;
+    position: absolute;
+    text-align: center;
+    width: calc(100% - 66px - 200px - 15px);
+    padding: 15px 0;
+    margin: 15px;
+    color: $white;
+    z-index: -999;
+    &.succeed {
+        -webkit-animation: flashmessage $duration ease-in; /* Safari 4+ */
+        -moz-animation: flashmessage $duration ease-in; /* Fx 5+ */
+        -o-animation: flashmessage $duration ease-in; /* Opera 12+ */
+        animation: flashmessage $duration ease-in; /* IE 10+, Fx 29+ */
+    }
+    &.succeed { background-color: $sub; }
+}
+
+@-webkit-keyframes flashmessage {
+  0%    { opacity: 0;
+          z-index: 999; }
+  30%   { opacity: 1; }
+  85%   { opacity: 1; }
+  100%  { opacity: 0;
+          z-index: -999; }
+}
+@-moz-keyframes flashmessage {
+  0%    { opacity: 0;
+          z-index: 999; }
+  30%   { opacity: 1; }
+  85%   { opacity: 1; }
+  100%  { opacity: 0;
+          z-index: -999; }
+}
+@-o-keyframes flashmessage {
+  0%    { opacity: 0;
+          z-index: 999; }
+  30%   { opacity: 1; }
+  85%   { opacity: 1; }
+  100%  { opacity: 0;
+          z-index: -999; }
+}
+@keyframes flashmessage {
+  0%    { opacity: 0;
+          z-index: 999; }
+  30%   { opacity: 1; }
+  85%   { opacity: 1; }
+  100%  { opacity: 0;
+          z-index: -999; }
+}

@@ -1,0 +1,13 @@
+figure#featured-media {
+    min-height: 200px;
+}
+#featured-video {
+    transition: $trans;
+    &.is-sticky {
+        position: fixed;
+        z-index: 999;
+        top: 15px;
+        right: 15px;
+        max-width: 350px;
+    }
+}

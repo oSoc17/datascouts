@@ -1,18 +1,35 @@
 <template>
-  <div id="sidenav_action" class="sidenav_action">
-    <div class="content">
-      <p> EDIT/DELETE {{handle.handle.name}} </p>
-      <form >
-          <input type="text" v-model="handle.handle.name"/>
-          <input type="text" v-model="handle.handle.url"/>
-          <button type="button" v-on:click="editHandle(handle, $event)">update</button>
-          <button type="button" v-on:click="discardHandle($event)">discard</button>
-          <br />
-          <br />
-          <br />
-          <button type="button" v-on:click="confirmDeleteHandle(handle, $event)">delete</button>
-      </form>
-    </div>
+  <div id="sidebar_actions">
+    <h1>Edit/delete {{handle.handle.name}}</h1>
+    <form >
+      <div class="form-group">
+        <label for="">Name</label>
+        <input type="text" v-model="handle.handle.name"/>
+        <div class="validation-error">
+          <div class="error-icon">
+            <i class="fa fa-exclamation "></i>
+          </div>
+          <ul>
+            <li>The name should be unique.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <button class="btn_crud disabled" v-on:click="editHandle(handle, $event)">
+          <i class="fa fa-wrench"></i>
+          Update
+        </button>
+        <button class="btn_crud" v-on:click="discardHandle($event)">
+          <i class="fa fa-ban"></i>
+          Discard
+        </button>
+        <button class="btn_crud delete" v-on:click="confirmDeleteHandle(handle, $event)">
+          <i class="fa fa-trash"></i>
+          Delete
+        </button>
+      </div>
+    </form>
   </div>
 </template>
 
