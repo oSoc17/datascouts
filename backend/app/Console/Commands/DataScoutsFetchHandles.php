@@ -15,7 +15,7 @@ class DataScoutsFetchHandles extends Command
      *
      * @var string
      */
-    protected $signature = 'datascouts:fetch-handles';
+    protected $signature = 'datascouts:fetch-handles {--only= : Only for this handle}';
 
     /**
      * The console command description.
@@ -46,13 +46,17 @@ class DataScoutsFetchHandles extends Command
      */
     public function handle()
     {   
-        $handles = Handle::fetchable()->isOutDated()->get();
-        // $handles = Handle::all();
+        if($this->option('only')) {
+            $handles = [Handle::findOrFail(intval($this->option('only')))];
+        }else{
+            // $handles = Handle::fetchable()->isOutDated()->get();
+            $handles = Handle::all();
+        }
         
         foreach ($handles as $handle) {
-            echo "Scheduler : Dispatch new Job for {$handle->service->name}\n";
+            // echo "Scheduler : Dispatch new Job for {$handle->service->name}\n";
             $fetcherJob = null;
-            // Replace that ugly switch by a better design (~CoR)
+
             switch (strtolower($handle->service->name)) {
                 case 'twitter':
                     $fetcherJob = new TwitterJob($handle);

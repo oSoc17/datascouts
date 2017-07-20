@@ -28,14 +28,13 @@ class TwitterFetcher extends BaseFetcher
     
     protected function handle(Handle $handle)
     {
-        $data = $this->connection->get("search/tweets", [
-            "q" => $handle->name ." -filter:retweets",
-            'result_type' => 'recent',   #['mixed', 'popular', 'recent']
-            'count' => 100,
-            'include_entities' => true
-            
+        $data = $this->connection->get("statuses/user_timeline", [
+            "screen_name" => $handle->name,
+            'exclude_replies' => true,
+            'include_rts' => false
         ]);
-        return array_map(array($this, 'filterData'), $data->statuses);
+
+        return array_map(array($this, 'filterData'), $data);
     }
 
     public function getTrendsHashtags(){
@@ -62,6 +61,8 @@ class TwitterFetcher extends BaseFetcher
         
         $res['user'] = [
             'id' => $tweet->user->id_str,
+            'location' => $tweet->user->location,
+            'full_name' =>  $tweet->user->name,
             'screen_name' => $tweet->user->screen_name,
             'since' => $tweet->user->created_at,
             'friends_count' => $tweet->user->friends_count,

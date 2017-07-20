@@ -88,5 +88,5 @@ abstract class BaseFetcher
      * Handle the fetch
      *
      */
-    abstract protected function handle(Handle $entity);
+    abstract protected function handle(Handle $handle);
 }
