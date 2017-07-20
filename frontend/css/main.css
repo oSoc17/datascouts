@@ -68,13 +68,6 @@ input {
   font-style: italic;
   font-weight: 300; }
 
-.wf-box {
-  margin: 16px 8px;
-  width: calc(100% - 20px); }
-
-.wf-column {
-  float: left; }
-
 button {
   font-family: 'sofia_prolight', Arial, Helvetica, sans-serif;
   line-height: 30px;
@@ -366,15 +359,23 @@ figure#featured-media {
   .full-screen .header {
     height: 40px;
     background: #303240;
-    color: white; }
+    color: white;
+    position: fixed;
+    width: 100%;
+    z-index: 999; }
   .full-screen .main {
     flex: 1 1 auto;
     display: flex;
-    overflow: hidden; }
+    overflow: hidden;
+    margin-top: 40px; }
     .full-screen .main * {
       flex: 0 0 auto; }
-    .full-screen .main .content {
-      flex: 1 1 auto; }
+    .full-screen .main #content {
+      flex: 1 1 auto;
+      background: url(../assets/img/globe.png);
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-color: white; }
 
 ul.entities, ul.handles {
   list-style: none;
@@ -630,6 +631,14 @@ ul li.handle .icon-handle {
             background: #a11918; }
           .overlay .login form button.btn-youtube .social-media-icon {
             background: #a11918; }
+
+.wf-container {
+  padding: 8px; }
+  .wf-container .wf-column {
+    float: left; }
+    .wf-container .wf-column .wf-box {
+      margin: 10px 8px;
+      width: calc(100% - 20px); }
 
 /*!
  *  Font Awesome 4.7.0 by @davegandy - http://fontawesome.io - @fontawesome
