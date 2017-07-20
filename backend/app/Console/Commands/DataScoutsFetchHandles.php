@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 use App\Models\Handle;
 use App\Jobs\ExampleJob;
 use App\Jobs\TwitterJob;
+use App\Jobs\YoutubeJob;
 
 
 class DataScoutsFetchHandles extends Command
@@ -64,6 +65,10 @@ class DataScoutsFetchHandles extends Command
 
                 case 'facebook':
                     //  $fetcherJob = new FacebookJob($handle);
+                    break;
+                    
+                case 'youtube' :
+                    $fetcherJob = new YoutubeJob($handle);
                     break;
                 
                 default:
