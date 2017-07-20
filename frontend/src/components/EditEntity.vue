@@ -1,10 +1,10 @@
 <template>
   <div id="edit-entity">
-    <button type="btn_secondary action" v-on:click="confirmEditEntity(entity, $event)">
+    <button class="btn_secondary action" v-on:click="confirmEditEntity(entity, $event)">
       <i class="fa fa-pencil"></i>
       Edit
     </button>
-    <button type="btn_secondary action" v-on:click="confirmDeleteEntity(entity, $event)">
+    <button class="btn_secondary action" v-on:click="confirmDeleteEntity(entity, $event)">
       <i class="fa fa-trash"></i>
       Delete
     </button>
@@ -57,6 +57,7 @@ export default {
       Vue.http.delete(this.url + '/entities/' + entity.entity.id).then(function (response) {
           console.log("Entity deleted")
           bus.$emit('loadEntities')
+          bus.$emit('closeSideBars')
           //console.log(response)
         }, function (response) {
           console.log("Error Failed to delete entity")

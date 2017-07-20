@@ -92,8 +92,7 @@ export default {
           response.data.forEach((entity)=>{
             index = self.findIndex(entity, self.entities, 'entity')
             if(index == -1){
-              newHandlesEntity = {"entity" : entity, "active": true }
-              self.loadHandles(entity)
+              newEntity = {"entity" : entity, "active": true }
             }
             else{
               newEntity = {"entity" : entity, "handles": self.entities[index].handles, "active": self.entities[index].active}
@@ -109,8 +108,12 @@ export default {
         }
         self.entities = newEntities.slice()
 
+        self.entities.forEach((entity)=>{
+          self.loadHandles(entity)
+        })
+
         //load handles for each entity
-        self.entities.forEach(entity => self.loadHandles(entity))
+
 
         }, function (response) {
           console.log("Error Failed to get data")

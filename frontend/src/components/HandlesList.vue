@@ -34,6 +34,9 @@ export default {
     }),
     bus.$on('handleSelected', () => {
       this.handleSelected()
+    }),
+    bus.$on('handleNotSelected', () => {
+      this.handleNotSelected()
     })
   },
     watch: {
@@ -67,12 +70,23 @@ export default {
     },
     handleSelected: function (){
       this.isHandleSelected = !this.isHandleSelected
+      var handle = document.querySelector('.handle');
+      var sidebar_action = document.getElementById('sidebar_actions')
       if(this.isHandleSelected){
-        document.getElementById("sidenav_action").style.marginLeft = "500px"
+        sidebar_actions.style.marginLeft = "-1px";
+        sidebar_actions.style.transition = "all .25s ease";
+        sidebar_actions.style.zIndex = 3;
+        handle.classList.add("active");
       }
       else{
-        document.getElementById("sidenav_action").style.marginLeft = "0px"
+        sidebar_actions.style.marginLeft = "-201px";
+        sidebar_actions.style.transition = "all .25s ease";
+        sidebar_actions.style.zIndex = -2;
+        handle.classList.remove("active");
       }
+    },
+    handleNotSelected: function(){
+      this.isHandleSelected = true
     },
     fetchData: _.debounce( function(){
       console.log("fetching data")

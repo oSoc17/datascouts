@@ -40,6 +40,9 @@ export default {
   created () {
     bus.$on('selectEntity', (entity, e) => {
       this.selectEntity(entity, e)
+    }),
+    bus.$on('closeSideBars', () => {
+      this.closeSideBars()
     })
   },
   watch: {
@@ -56,14 +59,22 @@ export default {
       bus.$emit('changeCurrentEntity', entity)
       if(this.isEntitySelected){
         document.getElementById("sidebar_handles").style.marginLeft = "0px"
-        document.getElementById("sidebar_handles").style.zIndex = 5
+        document.getElementById("sidebar_handles").style.transition = "all .25s ease"
+        document.getElementById("sidebar_handles").style.zIndex = 2
+        //document.querySelector('.entity').classList.add("active")
       }
       else{
-        document.getElementById("sidebar_handles").style.marginLeft = "-301px"
-        document.getElementById("sidebar_handles").style.zIndex = -1
-        bus.$emit('discardHandle')
+        this.closeSideBars()
       }
       bus.$emit('loadHandles', entity)
+    },
+    closeSideBars:function(){
+      bus.$emit('handleNotSelected')
+      bus.$emit('discardHandle')
+      document.getElementById("sidebar_handles").style.marginLeft = "-301px"
+      document.getElementById("sidebar_handles").style.transition = "all .25s ease"
+      document.getElementById("sidebar_handles").style.zIndex = -1
+      //document.querySelector('.entity').classList.remove("active")
     },
     updateSelectedEntities: _.debounce( function() {
       //set all checkboxes to the appropriate state

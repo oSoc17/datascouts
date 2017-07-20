@@ -1,11 +1,11 @@
 <template>
   <form action="" class="slide-up" id="entity_form">
-    <div class="form-group hidden">
-      <label for="">Name</label>
-      <input type="text" placeholder="Name">
+    <div class="form-group">
+      <label for="">{{name}}</label>
+      <input type="text" placeholder="Name" v-model="name">
     </div>
     <div class="form-group">
-      <button class="btn_primary action" id="entity_add">
+      <button class="btn_primary action" id="entity_add" v-on:click="addEntity($event)">
         <i class="plus">+</i>
         Add an entity
       </button>
@@ -23,6 +23,7 @@ export default {
   },
   data () {
     return {
+      name
     }
   },
   created () {
@@ -31,12 +32,14 @@ export default {
     })
   },
   methods: {
-    addEntity: function (name, e) {
+    addEntity: function (e) {
       e.preventDefault()
+      var self = this
       bus.$emit('loadEntities')
-      Vue.http.post(this.url + '/entities', {"name" : name}).then(function (response) {
+      Vue.http.post(this.url + '/entities', {"name" : self.name}).then(function (response) {
         bus.$emit('loadEntities')
         console.log("Entity added")
+        self.name = ""
         }, function (response) {
           console.log("Error Failed to add entity")
       })

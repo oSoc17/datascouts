@@ -47,7 +47,9 @@ export default {
     }
   },
   created () {
-    bus.$on('discardHandle')
+    bus.$on('discardHandle', ()=>{
+      this.discardHandle()
+    })
   },
   methods: {
     editHandle: function(handle, e) {

@@ -11,7 +11,7 @@
 
       <entitiesSidebar v-bind:url="url" v-bind:currentEntity="currentEntity"></entitiesSidebar>
 
-      <handlesSidebar v-bind:entity="currentEntity" v-bind:url="url"></handlesSidebar>
+      <handlesSidebar v-bind:entity="currentEntity" v-bind:url="url" v-bind:socialMedia="socialMedia"></handlesSidebar>
 
       <editHandle v-bind:entity="entity" v-bind:url="url" v-bind:handle="currentHandle"></editHandle>
 
@@ -21,7 +21,7 @@
         <div class="filters">
           <form action="">
             <div class="form-group">
-              <input type="checkbox">
+              <input type="checkbox" checked>
               <label for="">Twitter</label>
             </div>
             <div class="form-group">
@@ -35,7 +35,7 @@
           </form>
         </div>
 
-        <button type="button" v-on:click="fetchData">fetch data (this button is only for testing)</button>
+        <!--<button type="button" v-on:click="fetchData">fetch data (this button is only for testing)</button>-->
 
         <div class="template" v-if="isLoading">
             <h1>loading...</h1>
@@ -121,12 +121,7 @@ export default {
       },
       url: 'https://osoc-2017-datascouts-backend-akad1070.c9users.io/api/v1',
       mockDataTwitter: 'http://www.json-generator.com/api/json/get/ckwxgssyXm?indent=2',
-      socialMediaFilters:[
-        {name: 'Twitter',
-        active: true},
-        {name: 'Facebook',
-        active: false}
-      ],
+      socialMedia:[],
       waterfallIsCreated: false,
       waterfall: '',
       isLoading: false,
@@ -149,7 +144,8 @@ export default {
     })
   },
   mounted() {
-    this.waterfall = new Waterfall(200),
+    this.loadSocialMedia()
+    this.waterfall = new Waterfall(200)
     this.fetchData()
   },
   watch: {
@@ -158,8 +154,32 @@ export default {
     }
   },
   methods: {
+    updateCurrentEntity(){
+      for(var i=0;i<this.entities;i++){
+        if(this.currentEntity.entity.id == this.entities[i].entity.id){
+          changeCurrentEntity(this.entities[i])
+          console.log('update current entity')
+          console.log(this.entities[i])
+        }
+      }
+    },
+    loadSocialMedia(){
+      var self = this
+      Vue.http.get(self.url + '/services').then(function (response) {
+        self.socialMedia = []
+        response.data.forEach(item => self.socialMedia.push(item))
+        }, function (response) {
+          console.log("Error Failed to get socialMedia")
+          console.log(response)
+      })
+    },
     updateEntities(entities){
+      var self = this
       this.entities = entities
+      setTimeout(function(){
+        self.fetchData()
+        this.updateCurrentEntity()
+     }, 1000);
     },
     changeCurrentEntity(entity){
       this.currentEntity = entity
@@ -167,7 +187,8 @@ export default {
     changeCurrentHandle: function(handle){
       this.currentHandle = handle
     },
-    fetchData: function(entities) {
+    fetchData: function() {
+      console.log('fetching data')
       var self = this
       //display load templates & adjust them to the screen, hide loading elements
       this.isLoading = true
@@ -193,9 +214,9 @@ export default {
         }
 
       }
-      for(var i=0;i<self.socialMediaFilters.length;i++){
-        if(self.socialMediaFilters[i].active){
-          socialMedia.push(self.socialMediaFilters[i].name)
+      for(var i=0;i<self.socialMedia.length;i++){
+        if(self.socialMedia[i].active){
+          socialMedia.push(self.socialMedia[i].name)
         }
       }
 
@@ -228,7 +249,7 @@ export default {
           }
 
         }
-        for(item in self.socialMediaFilters){
+        for(item in self.socialMedia){
           if(item.active){
             socialMedia.push(item.name)
           }
