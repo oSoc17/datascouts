@@ -1,0 +1,16 @@
+.header {
+    a.logo {
+        img {
+            height: 19px;
+            width: auto;
+            padding: 10px 15px;
+
+            -webkit-filter: grayscale(100%);
+            filter: grayscale(100%);
+            &:hover {
+                filter: none;
+                cursor: pointer;
+            }
+        }
+    }
+}

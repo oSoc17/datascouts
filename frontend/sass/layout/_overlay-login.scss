@@ -1,0 +1,52 @@
+.overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100vh;
+	width: 100vw;
+	background: $blue-whale-o;
+    z-index: -999;
+    .login {
+        position: absolute;
+        margin: 0 auto;
+        width: calc(100% - 40%);
+        margin: 20%;
+        min-width: 500px;
+        background: $white;
+        z-index: 9999;
+        h1 {
+            text-align: center;
+            font-size: 24px;
+
+        }
+        form {
+            margin: 8px auto;
+            width: 500px;
+            button {
+                width: calc(100% - 30px);
+                margin: 8px 15px;
+                padding: 10px 0;
+                color: $white;
+                border: none;
+                position: relative;
+                .social-media-icon {
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    height: 50px;
+                    width: 50px;
+                    i { line-height: 50px; }
+                }
+                &.btn-facebook { background: $facebook;
+                    &:hover { transition: $trans; background: darken($facebook,10%); }
+                    .social-media-icon { background: darken($facebook,10%); }}
+                &.btn-twitter { background: $twitter;
+                    &:hover { transition: $trans; background: darken($twitter,10%); }
+                    .social-media-icon { background: darken($twitter,10%); }}
+                &.btn-youtube { background: $youtube;
+                    &:hover { transition: $trans; background: darken($youtube,10%); }
+                    .social-media-icon { background: darken($youtube,10%); }}
+            }
+        }
+    }
+}

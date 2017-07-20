@@ -1,0 +1,88 @@
+#sidebar_entities,
+#sidebar_handles,
+#sidebar_actions {
+    position: relative;
+    border-right: 1px solid $gray-lightest;
+    min-height: calc(100vh - 40px);
+    .hidden {
+        display: none;
+    }
+}
+
+#sidebar_entities { 
+    width: 250px; 
+    background-color: $white;
+    z-index: 10;
+    // overflow-y: scroll;
+    button.collapse {
+        position: absolute;
+        top: 0;
+        right: -15px;
+        width: 15px;
+        padding: 5px 0;
+        border: 1px solid $gray-lightest;
+        background-color: $white;
+        &:hover {
+            transition: $trans;
+            background-color: $gray-lightest;
+        }
+    }
+    form {
+        .form-group {
+            .input-icon {
+                position: absolute;
+                right: 30px;
+                top: 18px;
+                line-height: 35px;
+            }
+        }
+    }
+    form.slide-up#entity_form {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: calc(300px - 50px);
+        border-top: 1px solid $gray-lightest;
+        .form-group:nth-of-type(2) { padding: 0; }
+        button.btn_primary.action {
+            position: relative;
+            top: 0;     
+            width: calc(100% - 30px);
+        }
+    }
+}
+#sidebar_handles { 
+    width: 300px; 
+    background-color: $gray-lightest; 
+    z-index: -1;
+    margin-left: -301px;
+    /*overflow-y: scroll;*/
+    form.slide-up#handle_form {
+        position: fixed;
+        bottom: 0;
+        left: 250px;
+        width: calc(300px);
+        border-top: 1px solid $white;
+        .form-group:nth-of-type(2) { padding: 0; }
+        .form-group {
+            button.btn_primary.social_media {
+                width: calc(100% - 30px);
+                margin: 5px 15px;
+            }
+        }
+        button.btn_primary.action {
+            position: relative;
+            top: 0;
+            width: calc(100% - 30px);
+        }
+    }
+    button.btn_secondary.action {
+        width: calc(50% - 33px);
+    }
+}
+#sidebar_actions { 
+    z-index: -2;
+    width: 200px; 
+    background-color: $white;
+    margin-left: -201px;
+}

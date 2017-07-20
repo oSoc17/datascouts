@@ -1,0 +1,14 @@
+.filters {
+    position: relative;
+    height: 51px;
+    width: calc(100% - 51px);
+    border-bottom: 1px solid $gray-lightest;
+    form {
+        position: absolute;
+        right: 8px;
+        top: 0;
+        .form-group {
+            float: left;
+        }
+    }
+}
