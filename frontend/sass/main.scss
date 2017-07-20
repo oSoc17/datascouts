@@ -1,4 +1,4 @@
-@import 'variables';
+@import 'abstracts/variables';
 
 @import 'base/base';
 
@@ -15,6 +15,7 @@
 @import 'layout/sidebar';
 @import 'layout/filter';
 @import 'layout/overlay-login';
+@import 'layout/waterfall';
 
 @import 'vendors/font-awesome/font-awesome';
 @import 'vendors/sofiaprolight/sofiaprolight';

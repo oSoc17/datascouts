@@ -25,7 +25,7 @@
     .body {
         width: 100%;
         position: relative;
-        p { margin: 0; }
+        p { margin: 8px; }
         .text { 
             width: calc(100% - 50px);
             margin-right: 50px;
@@ -70,7 +70,11 @@
             top: 4px;
             left: 8px;
             border-radius: 50%;
-            img.avatar {}
+            img.avatar {
+                height: 30px;
+                width: 30px;
+                border-radius: 50%;
+            }
         }
         .name {
             margin-left: 38px;

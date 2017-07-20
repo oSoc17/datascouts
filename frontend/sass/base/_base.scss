@@ -6,7 +6,7 @@ body {
 	font-size: 14px;
 	line-height: 1.5em;
 	color: $gray-dark;
-	letter-spacing: 1px;
+	letter-spacing: 0.2px;
 	overflow-x: hidden;
 }
 * { outline: none; }
@@ -19,14 +19,15 @@ h1 {
 	font-size: 16px;
 	letter-spacing: 2px;
 	padding: 15px;
-	margin-top: -1px; /*TEMPORARY*/
+	margin-top: -1px;
 	font-weight: bold;
+	text-align: center;
 }
 i {	
 	font-size: 16px !important;
 }
 figure { margin: 0; }
-#content { /*height: 300vh;*/ width: calc(100% - 247px); background: $white; }
+#content { width: calc(100% - 247px); background: $white; }
 
 // INPUT
 input {
@@ -56,11 +57,4 @@ input {
   	font-family: 'Fira Sans', Arial, Helvetica, sans-serif;
 	font-style: italic;
 	font-weight: 300;
-}
-.wf-box {
-	margin: 16px 8px;
-	width: calc(100% - 20px);
-}
-.wf-column {
-	float: left;
 }
