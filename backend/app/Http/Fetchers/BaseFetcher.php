@@ -3,8 +3,6 @@
 use Illuminate\Http\Request;
 
 use App\Models\Handle;
-use App\Models\Entity;
-use App\Models\Provider;
 
 use App\Models\Fetch;
 
@@ -49,7 +47,7 @@ abstract class BaseFetcher
     {
         // ? Is the right Fetcher
         if (strcasecmp($this->fetcherType, $handle->service->name) == 0) {
-            $data = $this->handle($handle->entity);
+            $data = $this->handle($handle);
             if ($data && !empty($data)) {
                 return $this->store($data, $handle);
             }
@@ -90,5 +88,5 @@ abstract class BaseFetcher
      * Handle the fetch
      *
      */
-    abstract protected function handle(Entity $entity);
+    abstract protected function handle(Handle $entity);
 }

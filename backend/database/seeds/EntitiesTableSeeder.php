@@ -13,11 +13,11 @@ class EntitiesTableSeeder extends Seeder
     {
         $entities = [
             [
-                'name' => 'osoc17', "url" => "entities-osoc",
+                'name' => 'Osoc keywords', "url" => "entities-osoc",
                 "image" => "http://2017.summerofcode.be/images/squarelogo-LI.png"
             ],
-            ['name' => 'crypto blockchain', "url" => "entities-crypto-blockchain" ],
-            ['name' => 'starbucks', "url" => "entities-starbucks" ],
+            ['name' => 'crypto Set', "url" => "entities-crypto-blockchain" ],
+            ['name' => 'Startsucks', "url" => "entities-starbucks" ],
         ];
 
         foreach ($entities as $entity) {

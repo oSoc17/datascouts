@@ -48,7 +48,6 @@ class Handle extends Model
     public function scopeListOfLastFetched($query, $list, $lastRequested = 0){
         return $query->whereNotNull('service_id')
                      ->whereIn('id', $list);
-        // Add another for $lastRequested for this handle
     }
     
 
@@ -77,6 +76,6 @@ class Handle extends Model
 
     public function fetched()
     {
-        return $this->hasMany("App\Models\Fetcher");
+        return $this->hasMany("App\Models\Fetch");
     }
 }

@@ -93,10 +93,18 @@ $app->group(['prefix' => 'api'], function ($app) {
             
             $app->get('/{service}/callback', 'ProvidersController@handleCallback');
             // $app->post('/{handle}/callback', 'ProvidersController@handleCallback');
-            
-            $app->post('/fetch', 'ProvidersController@fetch');
-
+                        
         }); // prefix : /providers
+
+
+        // Routes for resource FETCH
+        $app->group(['prefix' => 'fetch'], function ($app) {
+            $app->post('/', 'FetchController@fetch');
+
+            $app->get('/{service}/trends', 'FetchController@getTrendsHashtags');
+
+        });
+
 
     }); // prefix : /v1
 });  // prefix : /api

@@ -16,7 +16,7 @@ class ProvidersController extends Controller
 
     private $socialite;
 
-    const DELIMITER = '$$'; 
+    const DELIMITER = '$$';
 
     /**
      * Create a new controller instance.
@@ -32,7 +32,7 @@ class ProvidersController extends Controller
     public function getLinkForLogin(Request $request, $handle)
     {
         // Check if send a URI to redirect to.
-        if($request->has('redirect_uri')) {
+        if ($request->has('redirect_uri')) {
             return $this->respond(Response::HTTP_BAD_REQUEST, [
                 'message' => 'Missiing the redirect URI'
             ]);
@@ -43,13 +43,13 @@ class ProvidersController extends Controller
                             ->firstOrFail();
 
         // Get the service attached to this handle
-        if(($service = $handle->service) == null){
+        if (($service = $handle->service) == null) {
             return $this->respond(Response::HTTP_NOT_FOUND, [
                 'message' => 'This handle isn\'t attached to any service'
             ]);
         }
 
-        // Retrieve the Target URL to the specific social media        
+        // Retrieve the Target URL to the specific social media
         $link = Socialite::with(strtolower($service->name))
                             ->stateless()
                             ->redirect()->getTargetUrl();
@@ -62,7 +62,7 @@ class ProvidersController extends Controller
 
     public function handleCallback(Request $request, $service)
     {
-        $state = explode(DELEIMITER,$request->input('state'));
+        $state = explode(DELEIMITER, $request->input('state'));
         dd($state);
         // Explode the input(state)
         $handle = $state[0];
@@ -77,7 +77,7 @@ class ProvidersController extends Controller
 
         // Check if already got this provider
         $provider = Provider::where('social_id', $providedUser->id)->first();
-        if(!$provided){
+        if (!$provided) {
             // Create this proviser with the tokebn code into Provider table
             $provider = Provider::firstOrNew($providedUser);
             $provider->token = $providedUser->token;
@@ -93,28 +93,5 @@ class ProvidersController extends Controller
 
             // Send HTTP_CREATED with the token
         // return redirect($redirectURI.'&state='.$handle->url);
-        
-    }
-
-    public function fetch(Request $request){
-        // Check for request.body[handles] 
-        if(!$request->has('handles')){
-            return $this->respond(Response::HTTP_BAD_REQUEST, [
-                'message' => 'Missing the handles in the request',
-                "input" => $request->input()
-            ]);
-        }
-
-        $requestHandles = $request->input('handles');
-        $handles = Handle::listOfLastFetched($requestHandles)->get();
-
-        $res = [];
-        foreach ($handles as $handle) {
-            $res[$handle->entity->url] = [
-                $handle->url => $handle->fetched()
-            ];
-        }
-
-        return $this->respond(Response::HTTP_OK, $res);
     }
 }
