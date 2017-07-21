@@ -1,0 +1,6 @@
+.DS_Store
+.vscode
+test/e2e/mock-template-build
+*.log*
+dist/
+node_modules/
