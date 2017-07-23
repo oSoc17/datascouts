@@ -2,7 +2,7 @@
   <ul class="entities">
 
     <template v-for="item in computedEntities">
-      <input type="checkbox" class="checkbox" name="checkbox" 
+      <input type="checkbox" class="checkbox" name="checkbox"
         :click="toggleEntity()"
         :value="item.id" v-model="activedEntities">
       <i class="fa fa-angle-right"></i>
@@ -14,8 +14,8 @@
       </li>
     </template>
     <transition name="slide-fade">
-      <button type="button" 
-              v-on:click.prevent="addEntityFromSearch(searchEntity)" 
+      <button type="button" class="btn_primary action"
+              v-on:click.prevent="addEntityFromSearch(searchEntity)"
               v-show="searchNotFound"
       >
         Create {{searchEntity}}
@@ -26,7 +26,7 @@
 
 <script>
   import { bus } from '../../main'
-  
+
   export default {
     props: {
       entities : Array,
@@ -57,11 +57,11 @@
           const name = entity.name.toLowerCase()
           return name.indexOf(this.searchEntity.toLowerCase()) !== -1
         });
-        this.searchNotFound = found.length === 0;
+        this.searchNotFound = (found.length === 0) && (this.searchEntity.length !== 0);
         return found
       },
-      
-      
+
+
     },
     methods: {
       selectEntity: function (e,item) {
@@ -69,7 +69,7 @@
         bus.$emit('CHANGE_CURRENT_ENTITY', item)
       },
       toggleEntity: function () { },
-      
+
       addEntityFromSearch: function(name){
         console.log('[EntitiesList] Add new entity from button create')
         bus.$emit('ADD_NEW_ENTITY_FROM_SEARCH', name)
