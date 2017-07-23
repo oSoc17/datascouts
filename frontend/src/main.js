@@ -3,11 +3,18 @@
 // This is done with the browser options. For the config, see package.json
 import Vue from 'vue'
 import VueResource from 'vue-resource'
+
 import App from './App.vue'
+
 
 export const bus = new Vue();
 
+
+Vue.use(VueResource);
+Vue.http.options.root = 'https://osoc-2017-datascouts-backend-akad1070.c9users.io/api/v1/';
+
 new Vue({ // eslint-disable-line no-new
   el: '#app',
-  render: (h) => h(App)
+  render: (h) => h(App),
+  
 })
