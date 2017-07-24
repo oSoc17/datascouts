@@ -21,7 +21,7 @@ import handlesList from './handles/handlesList.vue'
 import addHandle from './handles/addHandle.vue'
 import editHandle from './handles/editHandle.vue'
 
-import fetchResults from './results/fetchResultList.vue'
+//import fetchResults from './results/fetchResultList.vue'
 import waterfallDisplay from './results/waterfallDisplay.vue'
 
 
@@ -64,6 +64,7 @@ export const Components = {
     'flashMsg' : flashMessage
 
     'results' : {
+        //fetchResults,
         waterfallDisplay
     }
 

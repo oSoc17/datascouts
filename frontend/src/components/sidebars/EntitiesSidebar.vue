@@ -78,13 +78,13 @@
                 res.data.forEach(entity => {
                   const foundEntity = this.findEntity(entity)
                   if(!foundEntity){
-                    foundEntity['active'] = true;
+                    foundEntity['active'] = false;
                   }
                 })
               }else{ // My Entities List is empty
                 this.list = res.data.map(({id,name,url})=>{
                   return {id, name, url,
-                    active : true
+                    active : false
                   }
                 })
 

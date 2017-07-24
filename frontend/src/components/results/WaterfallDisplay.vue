@@ -73,7 +73,8 @@
 
 <script>
   import { bus } from '../../main'
-  //import EntitiesSidebar  from './components/sidebars/EntitiesSidebar.vue'
+
+  import _debounce  from 'lodash.debounce'
 
   export default {
     components : {
@@ -82,20 +83,76 @@
     data () {
       return {
         entitiesIsEmpty: false,
-        handlesIsEmpty: false,
+        items: [],
+        isLoading: false
       }
     },
     created () {
       bus.$on('ENTITIES_IS_EMPTY', (bool) => this.entitiesIsEmpty = bool)
-      bus.$on('HANDLES_IS_EMPTY', (bool) => this.handlesIsEmpty = bool)
+      bus.$on('FETCH_DATA', (entities) => this.fetchData)
     },
     mounted() {
-
+      this.waterfall = new Waterfall(200)
+    },
+    watch: {
+      items: function(updatingWfContainer){
+        this.updateWaterfall()
+      }
     },
     methods: {
+      fetchData: function(entities/*, socialMedia*/){
+        console.log('fetching data')
 
+        //display load templates & adjust them to the screen, hide loading elements
+        this.isLoading = true
+        document.getElementById("wf-container").style.visibility = "hidden"
+        var boxes = document.getElementsByClassName("template_box")
+        this.$nextTick(function(){
+          for(var i=0;i<boxes.length;i++){
+            boxes[i].style.width = this.loadingTemplatesWidth
+          }
+        })
 
+        var handles = []
+        var socialMedia = []
 
+        for(var i=0;i<entities.length;i++){
+          if(entities[i].active){
+            for(var j=0;j<entities[i].handles.length;j++){
+              if(entities[i].handles[j].active){
+                handles.push(entities[i].handles[j].handle.id)
+              }
+            }
+          }
+
+        }
+        /*for(var i=0;i<socialMedia.length;i++){
+          if(socialMedia[i].active){
+            socialMedia.push(socialMedia[i].object.id)
+          }
+        }*/
+
+        Vue.http.post(this.url + '/fetch', {"handles" : handles/*,"socialMedia" : socialMedia*/}).then(res => {
+          items = res.data}).catch(console.log)
+
+      },
+      updateWaterfall: _debounce(
+        function() {
+          console.log(this.items)
+          this.waterfall.compose(true)
+          document.getElementById("wf-container").style.visibility = "visible"
+
+          //get waterfall variables to adjust loading templates.
+          //TO-DO(low-prior.): copy the width calc & columnsNum code from waterfall.js so
+          //that waterfall doesnt need to be rendered first to get the variables
+          var columns = document.getElementsByClassName("wf-column")
+          this.loadingTemplatesWidth = "calc("+columns[columns.length-1].style.width+" - 30px)"
+          //console.log(this.loadingTemplatesWidth)
+          this.loadingTemplatesAmount = this.waterfall.getColumnsNum()
+
+          this.isLoading = false
+        },
+      1)
     }
   }
 </script>
