@@ -3,12 +3,12 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFetchersTable extends Migration
+class CreateFeedsTable extends Migration
 {
 
     public function up()
     {
-        Schema::create('fetches', function(Blueprint $table) {
+        Schema::create('feeds', function(Blueprint $table) {
             $table->increments('id');
             // No Support yet for type JSON
             $table->mediumText('data');
@@ -19,7 +19,7 @@ class CreateFetchersTable extends Migration
 
             
             // F.K
-            $table->integer('handle_id')->unsigned();
+            $table->unsignedInteger('handle_id');
 
             // Constraints declaration
             $table->timestamps();
@@ -31,6 +31,6 @@ class CreateFetchersTable extends Migration
 
     public function down()
     {
-        Schema::drop('fetches');
+        Schema::drop('feeds');
     }
 }

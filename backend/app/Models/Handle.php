@@ -35,8 +35,7 @@ class Handle extends Model
     {
         return $query
                 ->where('is_fetching', 0)
-                ->whereNotNull('service_id')
-                ->whereNotNull('provider_id');
+                ->whereNotNull('service_id');
     }
 
     // Check for the last fetch datetime in the last 5 min.
@@ -69,13 +68,8 @@ class Handle extends Model
         return $this->belongsTo("App\Models\Service");
     }
 
-    public function provider()
-    {
-        return $this->belongsTo("App\Models\Provider");
-    }
-
     public function fetched()
     {
-        return $this->hasMany("App\Models\Fetch");
+        return $this->hasMany("App\Models\Feed");
     }
 }

@@ -16,7 +16,6 @@ class CreateEntitiesTable extends Migration
 
             // Constraints declaration
             $table->timestamps();
-            $table->softDeletes();
     
             // F.K
             

@@ -18,9 +18,9 @@ class CreateProvidersTable extends Migration
             $table->string('avatar')->nullable();
             
             // F.K
-            $table->integer('user_id')->unsigned()->nullable();
-            $table->integer('handle_id')->unsigned();
-            $table->integer('service_id')->unsigned();
+            $table->unsignedInteger('user_id')->nullable();
+            $table->unsignedInteger('handle_id');
+            $table->unsignedInteger('service_id');
             
             // Constraints declaration
             $table->timestamps();

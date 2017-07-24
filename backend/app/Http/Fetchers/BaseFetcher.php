@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Handle;
 
-use App\Models\Fetch;
+use App\Models\Feed;
 
 
 abstract class BaseFetcher
@@ -67,12 +67,12 @@ abstract class BaseFetcher
     public function store($datas, $handle)
     {
         foreach ($datas as $data) {
-            $fetcher = Fetch::where('medium_id', $data['id'])
+            $fetcher = Feed::where('medium_id', $data['id'])
                                 ->where('handle_id',$handle->id)
                                 ->first();
 
             if(is_null($fetcher) || empty($fetcher)){
-                Fetch::create([
+                Feed::create([
                     'medium_id' => $data['id'],
                     'data' => json_encode($data),
                     'handle_id' => $handle->id

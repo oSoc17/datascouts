@@ -17,9 +17,8 @@ class CreateHandlesTable extends Migration
             $table->timestamps();
 
             // F.K
-            $table->integer('entity_id')->unsigned()->index()->nullable();
-            $table->integer('provider_id')->unsigned()->index()->nullable();
-            $table->integer('service_id')->unsigned()->index()->nullable();
+            $table->unsignedInteger('entity_id')->index()->nullable();
+            $table->unsignedInteger('service_id')->index()->nullable();
         //     $table->foreign('provider_id')
         //         ->references('id')
         //         ->on('providers');
