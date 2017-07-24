@@ -34,7 +34,7 @@ class EntitiesController extends Controller {
         // dd($request->only(array_keys(Handle::$rules)));
         $handle = new Handle($handleBody);
         
-        $service = Service::findOrFail($request->input('social_media'));
+        $service = Service::findOrFail($request->input('service'));
         $entity = Entity::findOrFail($entity_id);
         
         $handle->entity()->associate($entity);

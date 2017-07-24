@@ -9,7 +9,7 @@ trait BaseModel
         parent::boot();
         
         static::creating(function ($model) {
-            if (array_key_exists('url', $model->getAttributes())) {
+            if (array_key_exists('url', $model->getAttributes()) && !isset($model->url)) {
                 $slug = str_slug($model->name, '_');
                 $model->url = $model->getTable().'-'.$slug;
             }
