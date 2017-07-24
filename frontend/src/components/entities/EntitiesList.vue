@@ -1,16 +1,21 @@
 <template>
   <ul class="entities">
+    <div class="empty-state empty-state-entities" v-show="entitiesIsEmpty">
+      <li>You don't have any entitites yet. You can follow the steps on the right side to add one.</li>
+    </div>
 
     <template v-for="item in computedEntities">
-      <input type="checkbox" class="checkbox" name="checkbox"
-        :click="toggleEntity()"
-        :value="item.id" v-model="activedEntities">
-      <i class="fa fa-angle-right"></i>
-      <li class="entity" v-on:click.prevent="selectEntity($event,item)">
+
+      <li class="entity" v-on:click="selectEntity($event,item)">
         <div class="image_entity">
           <img v-bind:src="item.image" alt="Entity avatar">
         </div>
-        <p>{{item.active}}</p>
+        <p>{{item.name}}</p>
+        <input type="checkbox" class="checkbox" name="checkbox"
+          :click="toggleEntity()"
+          :value="item.id" v-model="activeEntities">
+          <i class="fa fa-angle-right"></i>
+
       </li>
     </template>
     <transition name="slide-fade">
@@ -35,20 +40,22 @@
     components:{},
     data () {
       return {
-        activedEntities : [],
+        activeEntities : [],
         isEntitySelected: false,
         searchNotFound : false,
+        entitiesIsEmpty: false,
       }
     },
     created () {
+      bus.$on('ENTITIES_IS_EMPTY', (bool) => this.entitiesIsEmpty = bool)
     },
     watch: {
       entities : function () {
-        this.activedEntities = this.entities.filter(e => e.active).map(e => e.id)
+        this.activeEntities = this.entities.filter(e => e.active).map(e => e.id)
       },
-      activedEntities : function(){
-        console.log('Active entities IDs :',this.activedEntities);
-        bus.$emit('UPDATE_ACTIVE_HANDLES', this.activedHandles)
+      activeEntities : function(){
+        console.log('Active entities IDs :',this.activeEntities);
+        bus.$emit('UPDATE_ACTIVE_HANDLES', this.activeHandles)
       }
     },
     computed: {
@@ -68,8 +75,12 @@
         console.log(e.target)
         bus.$emit('CHANGE_CURRENT_ENTITY', item)
       },
-      toggleEntity: function () { },
+      toggleEntity: function () {
 
+      },
+      updateEntities: function() {
+        bus.$emit('UPDATE_ENTITIES')
+      },
       addEntityFromSearch: function(name){
         console.log('[EntitiesList] Add new entity from button create')
         bus.$emit('ADD_NEW_ENTITY_FROM_SEARCH', name)

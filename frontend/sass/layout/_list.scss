@@ -8,27 +8,26 @@ ul {
     li.entity,
     li.handle {     
         border-left: none;
-        padding: 15px 20px;
+        position: relative;
         p {
             margin: 0 0 0 45px;
+            padding: 15px 20px;
             line-height: 30px;            
-            i {
-                display: none;
-                position: absolute;
-                line-height: 30px;
-                right: 15px;
-            }
-            input[type="checkbox"] {
-                position: absolute;
-                right: 40px;
-                line-height: 30px;
-                height: 30px;
-                font-size: 30px;
-            }
         }
         &:hover i {
             transition: $trans;
             display: initial;
+        }
+        i {
+            position: absolute;
+            line-height: 60px;
+        }
+        input[type="checkbox"] {
+            position: absolute;
+            right: 40px;
+            top: 0;
+            height: 53px;
+            font-size: 30px;
         }
     }
 
@@ -36,18 +35,25 @@ ul {
         &.active {
             border-left: 5px solid $primary;
             background-color: $gray-lightest;
-            padding: 15px 15px;
         }       
         &:hover {
             background-color: $gray-lightest;
             cursor: pointer;
         }
+        i {
+            display: none;
+            right: 15px;
+            top: 0px;
+        }
         .image_entity {
-            float: left;
+            float: left;    
+            padding: 15px;
+            height: 30px;
+            width: 30px;
             img {
                 height: 30px;
                 width: 30px;
-                background-color: $gray-dark;
+                border: 1px solid $gray-light;
                 border-radius: 50%;
             }
         }
@@ -56,7 +62,6 @@ ul {
         &.active {
             border-left: 5px solid $primary;
             background-color: $white;
-            padding: 15px 15px;
             i {                
                 transition: $trans;
                 &.fa-twitter { background-color: $twitter ; color: $white; }
@@ -79,10 +84,16 @@ ul {
             height: 30px;
             width: 30px;
             border-radius: 50%;
-            float: left;
+            position: absolute;
+            left: 10px;
+            top: 15px;
             i {
                 line-height: 30px;
                 text-align: center;
+                position: absolute;
+                background: none;
+                top: 0;
+                left: 0;
             }
         }
     }

@@ -4,27 +4,29 @@
     position: relative;
     border-right: 1px solid $gray-lightest;
     min-height: calc(100vh - 40px);
-    .hidden {
-        display: none;
-    }
+    transition: $trans;    
 }
 
 #sidebar_entities { 
     width: 250px; 
     background-color: $white;
     z-index: 10;
-    // overflow-y: scroll;
+    &:hover button.collapse {
+        display: initial;
+        transition: $trans;
+    }
     button.collapse {
+        display: none;
         position: absolute;
         top: 0;
         right: -15px;
         width: 15px;
-        padding: 5px 0;
+        padding: 10px 0;
         border: 1px solid $gray-lightest;
         background-color: $white;
         &:hover {
             transition: $trans;
-            background-color: $gray-lightest;
+            background-color: $gray-light;
         }
     }
     form {

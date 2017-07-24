@@ -28,18 +28,18 @@
 
 
     <addEntity></addEntity>
-    
+
   </div>
 </template>
 
 
 <script>
   import _debounce  from 'lodash.debounce'
-  
+
   import { bus } from '../../main'
   import EntitiesList from '../entities/EntitiesList.vue'
   import AddEntity from '../entities/AddEntity.vue'
-  
+
   export default {
     props : ['currentEntity'],
     components: {
@@ -59,9 +59,10 @@
       bus.$on('ADD_NEW_ENTITY',this.insertNewEntity)
       bus.$on('ADD_ENTITY_FROM_SEARCH',this.insertNewEntity)
       bus.$on('DELETE_LISTED_ENTITY',this.deleteEntity)
+      bus.$on('UPDATE_ENTITIES',this.updateEntities)
     },
     watch: {
-  
+
     },
     methods: {
       findEntity : function (entity) {
@@ -70,6 +71,8 @@
       loadEntities: function() {
         this.$http.get('entities?fields=id,name,url')
             .then(res => {
+              bus.$emit('ENTITIES_IS_EMPTY', res.data.length === 0)
+
               // Already got a bunch of entities
               if(this.list.length !== 0){
                 res.data.forEach(entity => {
@@ -80,16 +83,16 @@
                 })
               }else{ // My Entities List is empty
                 this.list = res.data.map(({id,name,url})=>{
-                  return {id, name,url,
+                  return {id, name, url,
                     active : true
                   }
                 })
 
               }
             }).catch(console.log)
-            
+
       },
-      
+
       insertNewEntity : function(name){
         this.$http.post('entities', {"name" : name || this.name})
           .then(({data}) => {
@@ -104,16 +107,16 @@
           })
           .catch((err) => console.log("[EntitySidebar] Error Failed to add entity"))
       },
-      
+
       deleteEntity : function (id){
         const i = this.list.findIndex(e => e.id === id)
         this.list.splice(i,1)
       },
-      
+
       updateEntities: _debounce(function() {
-  
+
       },1),
-      
+
     }
   }
 </script>

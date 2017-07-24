@@ -22,12 +22,13 @@ import addHandle from './handles/addHandle.vue'
 import editHandle from './handles/editHandle.vue'
 
 import fetchResults from './results/fetchResultList.vue'
+import waterfallDisplay from './results/waterfallDisplay.vue'
 
 
 
 /**
  * PARTIALS
- * 
+ *
  */
 
 
@@ -37,49 +38,52 @@ import fetchResults from './results/fetchResultList.vue'
 
 /**
  * EXPORTS
- * 
+ *
  */
 
 // List of compenents with the corresponding tag for it.
 export const Components = {
-    
+
     'sidebars' : {
-        entitiesSidebar, 
+        entitiesSidebar,
         handlesSidebar
     },
-    
+
     'entities' : {
         entitiesList,
         addEntity,
         editEntity
     },
-    
+
     'handles' : {
         handlesList,
         addHandle,
         editHandle
     },
-    
+
     'flashMsg' : flashMessage
-    
+
+    'results' : {
+        waterfallDisplay
+    }
+
 }
 
 
 
-// Each components, in-case 
+// Each components, in-case
 export {
     bus,
-    
+
     // entitiesSidebar,
     // handlesSidebar,
-    
+
     // entitiesList,
     // addEntity,
     // editEntity,
-    
+
     // handlesList,
     // addHandle,
     // editHandle,
     // fetchResults
-} 
- 
+}

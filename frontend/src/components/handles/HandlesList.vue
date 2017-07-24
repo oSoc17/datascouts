@@ -1,9 +1,12 @@
 <template>
-  
   <ul class="handles">
+    <div class="empty-state empty-state-handles" v-show="handlesIsEmpty">
+      <li>You don't have any handles yet. You can add them by clicking on '+ ADD A HANDLE' beneath.</li>
+    </div>
+
     <template v-for="handle in handles">
-      <input type="checkbox" class="checkbox" name="checkbox" 
-        :value="handle.id" v-model="activedHandles">
+      <input type="checkbox" class="checkbox" name="checkbox"
+        :value="handle.id" v-model="activeHandles">
       <li v-bind:class="[{ active: isSelected && select.id == handle.id }, 'handle']"
           v-on:click.stop="selectHandle(handle)">
         <div class="icon-handle">
@@ -21,13 +24,14 @@
   export default {
     props:['handles'],
     components:{
-      
+
     },
     data () {
       return {
-        activedHandles : [],
+        activeHandles : [],
         select : {},
         isSelected: false,
+        handlesIsEmpty: false,
       }
     },
     created () {
@@ -39,17 +43,18 @@
       }),
       bus.$on('handleNotSelected', () => {
         this.handleNotSelected()
-      })
+      }),
+      bus.$on('HANDLES_IS_EMPTY', (bool) => this.handlesIsEmpty = bool)
     },
     watch : {
       handles : function (){
-        this.activedHandles = this.handles.filter(h => h.active).map(h => h.id)
+        this.activeHandles = this.handles.filter(h => h.active).map(h => h.id)
       },
-      activedHandles : function () {
-        console.log('Active handles IDs :', this.activedHandles);
-        // bus.$emit('FETCH_DATA', this.activedHandles)
+      activeHandles : function () {
+        console.log('Active handles IDs :', this.activeHandles);
+        // bus.$emit('FETCH_DATA', this.activeHandles)
       }
-      
+
     },
     methods: {
       selectHandle: function(handle, e) {
@@ -63,11 +68,11 @@
         bus.$emit('CHANGE_CURRENT_HANDLE', this.select)
         this.isSelected = true
       },
-      
+
       // updateSelectedHandles: _debounce( function() {
       //   this.fetchData()
       // }, 1),
-      
+
     }
   }
 </script>

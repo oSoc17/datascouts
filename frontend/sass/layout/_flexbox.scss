@@ -19,17 +19,24 @@
 		height: 40px;
 		background: $blue-whale;
 		color: white;
+		position: fixed;
+		width: 100%;
+		z-index: 999;
 	}
 	.main {
 		flex: 1 1 auto;
 		display: flex;
 		overflow: hidden;
+		margin-top: 40px;
 		* {
 			flex: 0 0 auto;
 		}
-		.content {
+		#content {
 			flex: 1 1 auto;
-			// overflow-y: scroll;
+			background: url(../assets/img/globe.png);
+			background-repeat: no-repeat;
+			background-position: 100px 50px;
+			background-color: white;		
 		}
 	}
 }

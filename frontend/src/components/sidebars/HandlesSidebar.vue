@@ -2,10 +2,10 @@
 <transition name="slide-handles" @enter="openSidebar" @leave="closeSideBar">
   <div id="sidebar_handles">
     <editEntity v-bind:entity.sync="entity" v-cloak></editEntity>
-    
+
     <h1>Social media handles for {{entity.name}}</h1>
     <handlesList v-bind:handles="list"></handlesList>
-    
+
     <addHandle :services="services" v-cloak></addHandle>
   </div>
   </transition>
@@ -47,13 +47,14 @@
       // bus.$on('LOAD_HANDLES', this.loadHandlesForSelectedEntity)
       bus.$on('UPDATE_ENTITY', this.updateEntity)
       bus.$on('DELETE_ENTITY', this.deleteEntity)
-      
+
       bus.$on('INSERT_NEW_HANDLE', this.insertNewHandle)
       bus.$on('DELETE_LISTED_HANDLE', this.deleteHandle)
-      
+
       bus.$on('FETCH_DATA', this.fetchData)
+
     },
-    
+
     methods : {
       openSidebar : function() {
         const $elt = document.getElementById("sidebar_handles");
@@ -61,18 +62,20 @@
         $elt.style.marginLeft = "0px"
         $elt.style.zIndex = 2
       },
-      
+
       closeSideBar : function (){
         const $elt = document.getElementById("sidebar_handles");
         $elt.style.marginLeft = "-301px"
         $elt.style.transition = "all .5s ease"
         $elt.style.zIndex = -1
-        
+
     },
-    
+
       loadHandlesForSelectedEntity : function () {
         this.$http.get(`entities/${this.entity.id}/handles`)
             .then(res => {
+              bus.$emit('HANDLES_IS_EMPTY', res.data.length === 0)
+
               this.list = res.data.map(h => {
                 const {id, name, url, service_id, fetched_at} = h
                 const service = this.services[service_id].name;
@@ -85,7 +88,7 @@
             })
             .catch(console.error)
       },
-      
+
       loadServices : function (){
         if(localStorage.getItem('services')){
           this.services = JSON.parse(localStorage.getItem('services'))
@@ -101,21 +104,21 @@
               .catch(console.error)
         }
       },
-      
+
       updateEntity: function(name) {
         if(name && name !== this.entity.name){
           this.$http.put('entities/' + this.entity.id,{name})
               .then(res => bus.$emit('UPDATE_CURRENT_ENTITY', name))
               .catch(response => console.error)
         }
-      },      
-      
+      },
+
       deleteEntity: function() {
         this.$http.delete('entities/' + this.entity.id)
             .then(res => bus.$emit('DELETE_CURRENT_ENTITY'))
             .catch(console.error)
       },
-      
+
       insertNewHandle : function (handle) {
         this.$http.post('handles/'+ this.entity.id, handle)
           .then(({data}) => {
@@ -130,19 +133,19 @@
           })
           .catch(err => console.error("[HandleSidebar] Failed to add handle\n",err))
       },
-      
+
       deleteHandle : function (id){
         this.list.splice(this.list.findIndex(e => e.id == id), 1)
       },
-      
+
       fetchData : /*_debounce(*/function(handles){
         console.log("fetching data")
         // bus.$emit('FETCH_DATA')
       }/*, 750)*/
-      
+
     }
-    
-    
+
+
   }
 </script>
 
