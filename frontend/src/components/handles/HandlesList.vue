@@ -20,6 +20,7 @@
 
 <script>
   import { bus } from '../../main'
+  import { saveActiveHandles, getActiveHandles } from '../../utils/storageService'
 
   export default {
     props:['handles'],
@@ -28,7 +29,7 @@
     },
     data () {
       return {
-        activeHandles : [],
+        activeHandles : getActiveHandles(handle.url),
         select : {},
         isSelected: false,
         handlesIsEmpty: false,
@@ -52,6 +53,7 @@
       },
       activeHandles : function () {
         console.log('Active handles IDs :', this.activeHandles);
+        saveActiveHandles(this.activeHandles, handle.url)
         // bus.$emit('FETCH_DATA', this.activeHandles)
       }
 

@@ -31,7 +31,9 @@
 
 <script>
   import { bus } from '../../main'
-
+  import { saveActiveEntities, getActiveEntities } from '../../utils/storageService'
+  
+  
   export default {
     props: {
       entities : Array,
@@ -40,7 +42,7 @@
     components:{},
     data () {
       return {
-        activeEntities : [],
+        activeEntities : getActiveEntities(),
         isEntitySelected: false,
         searchNotFound : false,
         entitiesIsEmpty: false,
@@ -48,13 +50,15 @@
     },
     created () {
       bus.$on('ENTITIES_IS_EMPTY', (bool) => this.entitiesIsEmpty = bool)
+      this.loadStoredActiveEntities()
     },
     watch: {
       entities : function () {
-        this.activeEntities = this.entities.filter(e => e.active).map(e => e.id)
+        // this.activeEntities = this.entities.filter(e => e.active).map(e => e.id)
       },
       activeEntities : function(){
         console.log('Active entities IDs :',this.activeEntities);
+        saveActiveEntities(this.activeEntities);
         bus.$emit('UPDATE_ACTIVE_HANDLES', this.activeHandles)
       }
     },
@@ -85,6 +89,9 @@
         console.log('[EntitiesList] Add new entity from button create')
         bus.$emit('ADD_NEW_ENTITY_FROM_SEARCH', name)
       },
+      loadStoredActiveEntities : function () {
+        this.activeEntities = getActiveEntities();
+      }
       // updateSelectedEntities: _debounce( function() {
         // var entitiesHTML = document.getElementsByClassName("entity")
         // for(var i=0;i<this.entities.length;i++){
