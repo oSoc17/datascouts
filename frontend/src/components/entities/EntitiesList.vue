@@ -6,16 +6,21 @@
 
     <template v-for="item in computedEntities">
 
-      <input type="checkbox" class="checkbox" name="checkbox"
-        :click="toggleEntity()"
-        :value="item.id" v-model="activeEntities">
-        <i class="fa fa-angle-right"></i>
 
-      <li class="entity" v-on:click="selectEntity($event,item)">
-        <div class="image_entity">
-          <img v-bind:src="item.image" alt="Entity avatar">
+
+      <li class="entity" >
+        <div v-on:click="selectEntity($event,item)">
+          <div class="image_entity">
+            <img v-bind:src="item.image" alt="Entity avatar">
+          </div>
+          <p>{{item.name}}</p>
         </div>
-        <p>{{item.name}}</p>
+        <input type="checkbox" class="checkbox" name="checkbox"
+          :click="toggleEntity()"
+          :value="item.id" v-model="activeEntities">
+          <i class="fa fa-angle-right"></i>
+
+
 
 
       </li>
@@ -34,8 +39,8 @@
 <script>
   import { bus } from '../../main'
   import { saveActiveEntities, getActiveEntities } from '../../utils/storageService'
-  
-  
+
+
   export default {
     props: {
       entities : Array,
