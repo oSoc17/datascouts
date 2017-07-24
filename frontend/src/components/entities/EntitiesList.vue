@@ -6,15 +6,17 @@
 
     <template v-for="item in computedEntities">
 
+      <input type="checkbox" class="checkbox" name="checkbox"
+        :click="toggleEntity()"
+        :value="item.id" v-model="activeEntities">
+        <i class="fa fa-angle-right"></i>
+
       <li class="entity" v-on:click="selectEntity($event,item)">
         <div class="image_entity">
           <img v-bind:src="item.image" alt="Entity avatar">
         </div>
         <p>{{item.name}}</p>
-        <input type="checkbox" class="checkbox" name="checkbox"
-          :click="toggleEntity()"
-          :value="item.id" v-model="activeEntities">
-          <i class="fa fa-angle-right"></i>
+
 
       </li>
     </template>
@@ -35,7 +37,8 @@
   export default {
     props: {
       entities : Array,
-      searchEntity : String
+      searchEntity : String,
+      currentEntity: Object,
     },
     components:{},
     data () {
@@ -74,6 +77,9 @@
       selectEntity: function (e,item) {
         console.log(e.target)
         bus.$emit('CHANGE_CURRENT_ENTITY', item)
+      },
+      closeSideBar: function () {
+        bus.$emit('CLOSE_HANDLES_SIDEBAR')
       },
       toggleEntity: function () {
 
