@@ -85,8 +85,7 @@ $app->routeMiddleware([
 */
 
 $app->register(App\Providers\AppServiceProvider::class);
-// $app->register(Laravel\Socialite\SocialiteServiceProvider::class);
-$app->register(SocialiteProviders\Manager\ServiceProvider::class);
+// $app->register(Madcoda\Youtube\YoutubeServiceProviderLaravel5::class);
 
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
