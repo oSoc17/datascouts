@@ -3,7 +3,7 @@
   <div id="sidebar_handles">
     <editEntity v-bind:entity.sync="entity" v-cloak></editEntity>
 
-    <h1>Social media handles for {{entity.name}}</h1>
+    <h1>Social media accounts for {{entity.name}}</h1>
     <handlesList v-bind:handles="list"></handlesList>
 
     <addHandle :services="services" :actives="activeHandles" v-cloak></addHandle>
@@ -44,7 +44,9 @@
     watch :{
       entity : function (nEntity){
         this.entity = nEntity;
-        this.loadHandlesForSelectedEntity();
+        if(typeof(this.entity.id) !== 'undefined'){
+          this.loadHandlesForSelectedEntity();
+        }
       }
     },
     created () {

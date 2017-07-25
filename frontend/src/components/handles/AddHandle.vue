@@ -4,8 +4,8 @@
     <transition-group  class="form-group hidden"
       name='popup' tag="div"
     >
-    
-      <button class="btn_primary social_media" 
+
+      <button class="btn_primary social_media"
           v-bind:key="service.id"
           v-for="service in services"
           v-on:click.prevent="openAddModal(service)">
@@ -17,17 +17,17 @@
     <div class="form-group">
       <button class="btn_primary action" id="handle_add" v-on:click.prevent="showHandlePopup()">
         <i class="plus">+</i>
-        Add a handle
+        Add account
       </button>
     </div>
   </form>
-  
+
   <addHandleModal
     :service="selectService"
     :services="services"
     :show.sync="showAddBox" :onClose="closeAddModal"
     ></addHandleModal>
-    
+
   </div>
 </template>
 

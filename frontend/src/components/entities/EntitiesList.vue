@@ -1,7 +1,7 @@
 <template>
   <ul class="entities">
     <div class="empty-state empty-state-entities" v-show="entitiesIsEmpty">
-      <li>You don't have any entitites yet. You can follow the steps on the right side to add one.</li>
+      <li>You don't have any members yet. You can follow the steps on the right side to add one.</li>
     </div>
 
     <template v-for="item in computedEntities">
@@ -11,18 +11,16 @@
       <li class="entity" >
         <div v-on:click="selectEntity($event,item)">
           <div class="image_entity">
-            <img v-bind:src="item.image" alt="Entity avatar">
+            <img v-bind:src="item.image" alt="">
           </div>
           <p>{{item.name}}</p>
         </div>
-        <input type="checkbox" class="checkbox" name="checkbox"
+        <input class="styled-checkbox checkbox" type="checkbox" :id="['styled-checkbox-entities-' + item.id]"
           :click="toggleEntity()"
           :value="item.id" v-model="activeEntities">
+          <label :for="['styled-checkbox-entities-' + item.id]"></label>
           <i class="fa fa-angle-right"></i>
-
-
-
-
+        
       </li>
     </template>
     <transition name="slide-fade">
@@ -76,7 +74,12 @@
           const name = entity.name.toLowerCase()
           return name.indexOf(this.searchEntity.toLowerCase()) !== -1
         });
-        this.searchNotFound = (found.length === 0) && (this.searchEntity.length !== 0);
+        this.searchNotFound = /*(found.length === 0) &&*/ (this.searchEntity.length !== 0);
+        for(var i=0;i<found.length;i++){
+          if(found[i].name===this.searchEntity){
+            this.searchNotFound = false
+          }
+        }
         return found
       },
 
