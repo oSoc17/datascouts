@@ -7,7 +7,7 @@
     <div class="form-group">
       <button class="btn_primary action" id="entity_add" v-on:click.prevent="addEntity()">
         <i class="plus">+</i>
-        Add an entity
+        Add member
       </button>
     </div>
   </form>

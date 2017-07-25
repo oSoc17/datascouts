@@ -9,7 +9,7 @@
       <div class="form-group">
         <label class="hide" for="">Entity</label>
         <div class="search-entity">
-          <input type="text" placeholder="Search for an entity" v-model="searchEntity"/>
+          <input type="text" placeholder="Search for a member" v-model="searchEntity"/>
           <div class="input-icon">
             <i class="fa fa-search"></i>
           </div>
