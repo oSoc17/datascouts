@@ -15,19 +15,18 @@ body {
 *:hover {
   transition: all 0.25s ease; }
 
-h1, h2, h3, select {
-  font-family: 'sofia_prolight', Arial, Helvetica, sans-serif; }
+h1, h2, h3, button {
+  font-family: 'sofia_prolight', Arial, Helvetica, sans-serif;
+  letter-spacing: 2px; }
 
 h1 {
   line-height: 1.3em;
   text-transform: uppercase;
   font-weight: 400;
   font-size: 16px;
-  letter-spacing: 2px;
   padding: 15px;
   margin-top: -1px;
-  font-weight: bold;
-  text-align: center; }
+  font-weight: bold; }
 
 i {
   font-size: 16px !important; }
@@ -71,7 +70,6 @@ input {
   font-weight: 300; }
 
 button {
-  font-family: 'sofia_prolight', Arial, Helvetica, sans-serif;
   line-height: 30px;
   padding: 4px 15px;
   font-size: 16px; }
@@ -126,7 +124,8 @@ button {
   button.btn_filter {
     border: none;
     background: #303240;
-    color: #ffffff; }
+    color: #ffffff;
+    width: 105px; }
     button.btn_filter img {
       height: 20px; }
     button.btn_filter:hover {
@@ -654,7 +653,7 @@ ul li.handle .icon-handle {
 
 #sidebar_entities,
 #sidebar_handles,
-#sidebar_actions {
+#sidebar_handle_actions {
   position: relative;
   border-right: 1px solid #eeeeee;
   min-height: calc(100vh - 40px);
@@ -723,11 +722,9 @@ ul li.handle .icon-handle {
   #sidebar_handles button.btn_secondary.action {
     width: calc(50% - 33px); }
 
-#sidebar_actions {
-  z-index: -2;
+#sidebar_handle_actions {
   width: 200px;
-  background-color: #ffffff;
-  margin-left: -201px; }
+  background-color: #ffffff; }
 
 @keyframes slideUp {
   0% {

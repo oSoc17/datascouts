@@ -1,6 +1,6 @@
 #sidebar_entities,
 #sidebar_handles,
-#sidebar_actions {
+#sidebar_handle_actions {
     position: relative;
     border-right: 1px solid $gray-lightest;
     min-height: calc(100vh - 40px);
@@ -85,11 +85,9 @@
         width: calc(50% - 33px);
     }
 }
-#sidebar_actions { 
-    z-index: -2;
+#sidebar_handle_actions {
     width: 200px; 
     background-color: $white;
-    margin-left: -201px;
 }
 @keyframes slideUp {
     0% {

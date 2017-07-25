@@ -1,5 +1,4 @@
 button {
-    font-family: 'sofia_prolight', Arial, Helvetica, sans-serif;
     line-height: 30px;
     padding: 4px 15px;
     font-size: 16px;
@@ -68,6 +67,7 @@ button {
         border: none;
         background: $blue-whale;
         color: $white;
+        width: 105px;
         img {
             height: 20px;
         }
