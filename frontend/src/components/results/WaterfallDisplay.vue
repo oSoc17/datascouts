@@ -190,13 +190,13 @@
             boxes[i].style.width = this.loadingTemplatesWidth
           }
         })
-        
+
         const handles = this.getAllActiveHandles()
-        
+
         this.$http.post('providers/fetch', {handles})
             .then(res => {this.items = res.data})
             .catch(console.error)
-
+        console.log(this.items)
       },
       updateWaterfall: _debounce(
         function() {
