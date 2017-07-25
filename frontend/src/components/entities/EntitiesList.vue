@@ -11,11 +11,10 @@
       <li class="entity" >
         <div v-on:click="selectEntity($event,item)">
           <div class="image_entity">
-            <img v-bind:src="item.image" alt="Entity avatar">
+            <img v-bind:src="item.image" alt="">
           </div>
           <p>{{item.name}}</p>
         </div>
-        <p>{{item.name}}</p>
         <input class="styled-checkbox checkbox" type="checkbox" :id="['styled-checkbox-entities-' + item.id]"
           :click="toggleEntity()"
           :value="item.id" v-model="activeEntities">
