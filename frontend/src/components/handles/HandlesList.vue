@@ -5,14 +5,16 @@
     </div>
 
     <template v-for="handle in handles">
-      <input type="checkbox" class="checkbox" name="checkbox"
-        :value="handle.id" v-model="activeHandles">
-      <li v-bind:class="[{ active: isSelected && select.id == handle.id }, 'handle']"
-          v-on:click.stop="selectHandle(handle)">
-        <div class="icon-handle">
-          <i v-bind:class="['icon-handle', 'fa', 'fa-'+handle.service]"></i>
-        </div>
-        <p >{{handle.name}}</p>
+      
+      <li v-bind:class="[{ active: isSelected && select.id == handle.id }, 'handle']">
+          <div v-on:click="selectHandle(handle)">
+            <div class="icon-handle">
+              <i v-bind:class="['icon-handle', 'fa', 'fa-'+handle.service]"></i>
+            </div>
+            <p >{{handle.name}}</p>
+          </div>
+          <input type="checkbox" class="checkbox" name="checkbox"
+            :value="handle.id" v-model="activeHandles">
       </li>
     </template>
   </ul>

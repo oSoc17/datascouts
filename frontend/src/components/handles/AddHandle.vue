@@ -5,17 +5,17 @@
       name='popup' tag="div"
     >
 
-      <button class="btn_primary social_media"
+      <!--<button class="btn_primary social_media"
           v-bind:key="service.id"
           v-for="service in services"
           v-on:click.prevent="openAddModal(service)">
                 <div class="icon-handle">
           <i v-bind:class="['icon-handle', 'fa', 'fa-'+service.name]"></i> {{service.name}}
         </div>
-      </button>
+      </button>-->
     </transition-group>
     <div class="form-group">
-      <button class="btn_primary action" id="handle_add" v-on:click.prevent="showHandlePopup()">
+      <button class="btn_primary action" id="handle_add" v-on:click.prevent="openAddModal(services[0])">
         <i class="plus">+</i>
         Add account
       </button>
@@ -58,7 +58,14 @@ export default {
       document.querySelector('form.slide-up#handle_form .form-group').classList.toggle('hidden');
     },
     openAddModal : function (service){
-      this.selectService = service
+      console.log(this.services)
+      if(typeof(service)==="undefined"){
+        this.selectService = this.services[1]
+      }
+      else{
+        this.selectService = service
+      }
+      console.log(this.selectService)
       this.showAddBox = true
     },
     closeAddModal : function () {
