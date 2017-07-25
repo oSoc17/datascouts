@@ -20,16 +20,15 @@
 
 <script>
   import { bus } from '../../main'
-  import { saveActiveHandles, getActiveHandles } from '../../utils/storageService'
 
   export default {
-    props:['handles'],
+    props:['handles', 'actives'],
     components:{
 
     },
     data () {
       return {
-        activeHandles : getActiveHandles(handle.url),
+        activeHandles : [],
         select : {},
         isSelected: false,
         handlesIsEmpty: false,
@@ -51,9 +50,12 @@
       handles : function (){
         this.activeHandles = this.handles.filter(h => h.active).map(h => h.id)
       },
+      actives : function () {
+        this.activeHandles = this.actives
+      },
       activeHandles : function () {
-        console.log('Active handles IDs :', this.activeHandles);
-        saveActiveHandles(this.activeHandles, handle.url)
+        bus.$emit('CHANGE_ACTIVE_HANDLES', this.activeHandles)
+        // saveActiveHandles(this.activeHandles, handle.url)
         // bus.$emit('FETCH_DATA', this.activeHandles)
       }
 

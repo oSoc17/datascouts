@@ -6,7 +6,7 @@
     <h1>Social media handles for {{entity.name}}</h1>
     <handlesList v-bind:handles="list"></handlesList>
 
-    <addHandle :services="services" v-cloak></addHandle>
+    <addHandle :services="services" :actives="activeHandles" v-cloak></addHandle>
   </div>
   </transition>
 </template>
@@ -14,6 +14,13 @@
 
 <script>
   import _debounce  from 'lodash.debounce'
+  
+  import { 
+    saveActiveHandles, 
+    getActiveHandles, 
+    removeActiveHandles,
+
+  } from '../../utils/storageService'
   import { bus } from '../../main'
   import EditEntity from '../entities/EditEntity.vue'
   import HandlesList from '../handles/HandlesList.vue'
@@ -30,6 +37,7 @@
     data () {
       return {
         list : [],
+        activeHandles : [],
         services : []
       }
     },
@@ -41,6 +49,7 @@
     },
     created () {
         this.loadServices()
+        this.loadActiveHandles();
     },
     mounted () {
       // No need for this event, replace by the wath on entity
@@ -50,6 +59,8 @@
 
       bus.$on('INSERT_NEW_HANDLE', this.insertNewHandle)
       bus.$on('DELETE_LISTED_HANDLE', this.deleteHandle)
+      
+      bus.$on('CHANGE_ACTIVE_HANDLES', this.changeActiveHandles)
 
       bus.$on('FETCH_DATA', this.fetchData)
 
@@ -87,6 +98,10 @@
               })
             })
             .catch(console.error)
+      },
+      
+      loadActiveHandles : function (){
+        this.activeHandles = getActiveHandles(this.entity.id);
       },
 
       loadServices : function (){
@@ -136,6 +151,23 @@
 
       deleteHandle : function (id){
         this.list.splice(this.list.findIndex(e => e.id == id), 1)
+        
+        // Also need to delete this handles from the active handles 
+        // Get that list of active handles
+        const actives = getActiveHandles(this.entity.id)
+        // Get the position of the specified handle on that list
+        const pos = actives.findIndex(h_id => h_id == id)
+        
+        // Check if that handle was active
+        if(pos > -1) {
+          actives.split(pos, 1); // Remove that handle
+          saveActiveHandles(this.entity.id, actives); // Store the new list
+        }
+        
+      },
+      
+      changeActiveHandles : function (list) {
+        saveActiveHandles(this.entity.id, list);
       },
 
       fetchData : /*_debounce(*/function(handles){
