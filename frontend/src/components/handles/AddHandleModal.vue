@@ -4,14 +4,14 @@
 
         <div slot="body">
           <label class="form-label">
-              Account name : <input v-model.trim="name" class="form-control" placeholder="Insert new account name" autofocus>
+              Select source:
+              <div>          
+                  <button :class="'btn_sm ' + serv.name" v-for="serv in services" :value="serv.id"><i :class="'fa fa-' + serv.name"></i></button>
+              </div>
           </label>
 
           <label class="form-label">
-              Select source :
-              <select name="service" v-model='selectedService.id'>
-                <option v-for="serv in services" :value="serv.id">{{serv.name}}</option>
-              </select>
+              Account name: <input v-model.trim="name" class="form-control" placeholder="Insert new account name" autofocus>
           </label>
 
         </div>

@@ -10,7 +10,7 @@
 #sidebar_entities { 
     width: 250px; 
     background-color: $white;
-    z-index: 10;
+    z-index: 2;
     &:hover button.collapse {
         display: initial;
         transition: $trans;

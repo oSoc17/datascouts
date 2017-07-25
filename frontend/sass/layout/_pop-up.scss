@@ -7,14 +7,18 @@
             width: 100%; /*TEMPORARY*/
             padding: 0.5em 1em;
         }
+        button.btn_sm {
+            margin: 5px;
+            width: calc(33% - 10px);
+        }
     }
-    .model-footer {
-        background-color: $white;
-        border: none;
-        padding: 0;
-        button {
-            margin: 0;
+    .modal-footer {
+        .text-right {
             width: 100%;
+            button {
+                margin: 0;
+                width: 100%;
+            }
         }
     }
 }

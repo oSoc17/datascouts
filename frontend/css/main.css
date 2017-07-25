@@ -15,11 +15,11 @@ body {
 *:hover {
   transition: all 0.25s ease; }
 
-h1, h2, h3 {
+h1, h2, h3, select {
   font-family: 'sofia_prolight', Arial, Helvetica, sans-serif; }
 
 h1 {
-  line-height: 1em;
+  line-height: 1.3em;
   text-transform: uppercase;
   font-weight: 400;
   font-size: 16px;
@@ -131,6 +131,21 @@ button {
       height: 20px; }
     button.btn_filter:hover {
       background: #46495d; }
+  button.btn_sm {
+    color: #ffffff;
+    border: none; }
+    button.btn_sm.twitter {
+      background-color: #1DA1F2; }
+      button.btn_sm.twitter:hover {
+        background-color: #0c85d0; }
+    button.btn_sm.youtube {
+      background-color: #cd201f; }
+      button.btn_sm.youtube:hover {
+        background-color: #a11918; }
+    button.btn_sm.vimeo {
+      background-color: #4EBBFF; }
+      button.btn_sm.vimeo:hover {
+        background-color: #a11918; }
   button:hover {
     transition: all 0.25s ease;
     cursor: pointer; }
@@ -638,7 +653,7 @@ ul li.handle .icon-handle {
 #sidebar_entities {
   width: 250px;
   background-color: #ffffff;
-  z-index: 10; }
+  z-index: 2; }
   #sidebar_entities:hover button.collapse {
     display: initial;
     transition: all 0.25s ease; }
@@ -847,11 +862,13 @@ ul li.handle .icon-handle {
   /*TEMPORARY*/
   padding: 0.5em 1em; }
 
-.modal-mask .model-footer {
-  background-color: #ffffff;
-  border: none;
-  padding: 0; }
-  .modal-mask .model-footer button {
+.modal-mask .modal-body button.btn_sm {
+  margin: 5px;
+  width: calc(33% - 10px); }
+
+.modal-mask .modal-footer .text-right {
+  width: 100%; }
+  .modal-mask .modal-footer .text-right button {
     margin: 0;
     width: 100%; }
 

@@ -75,6 +75,13 @@ button {
             background: lighten($blue-whale,10%);
         }
     }
+    &.btn_sm {        
+        color: $white;
+        border: none;
+        &.twitter { background-color: $twitter; &:hover { background-color: darken($twitter,10%); }}
+        &.youtube { background-color: $youtube; &:hover { background-color: darken($youtube,10%); }}        
+        &.vimeo { background-color: $vimeo; &:hover { background-color: darken($youtube,10%); }}
+    }
     &:hover {
         transition: $trans;
         cursor: pointer;

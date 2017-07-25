@@ -43,7 +43,7 @@
 .modal-mask {
   position: fixed;
   z-index: 9998;
-  top: 0;<
+  top: 0;
   left: 0;
   width: 100%;
   height: 100%;
@@ -89,15 +89,10 @@
 }
 
 .modal-footer {
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    border-top: 1px solid #dbdbdb;
     align-items: center;
-    background-color: whitesmoke;
     display: flex;
     flex-shrink: 0;
     justify-content: flex-start;
-    padding: 20px;
     position: relative;
 }
 
