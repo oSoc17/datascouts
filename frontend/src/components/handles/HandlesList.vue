@@ -5,7 +5,7 @@
     </div>
 
     <template v-for="handle in handles">
-      
+
       <li v-bind:class="[{ active: isSelected && select.id == handle.id }, 'handle']">
           <div v-on:click="selectHandle(handle)">
             <div class="icon-handle">
@@ -40,13 +40,14 @@
       bus.$on('selectHandle', (handle, e) => {
         this.selectHandle(handle, e)
       }),
-      bus.$on('handleSelected', () => {
+      /*bus.$on('handleSelected', () => {
         this.handleSelected()
       }),
       bus.$on('handleNotSelected', () => {
         this.handleNotSelected()
-      }),
+      }),*/
       bus.$on('HANDLES_IS_EMPTY', (bool) => this.handlesIsEmpty = bool)
+      bus.$on('DESELECT_HANDLE', () => {console.log("nope")})
     },
     watch : {
       handles : function (){
@@ -63,6 +64,10 @@
 
     },
     methods: {
+      deselectHandle: function(){
+        this.isSelected = false
+        console.log(this.isSelected)
+      },
       selectHandle: function(handle, e) {
         if(this.isSelected){ // Already, select a handle
           if(handle.id == this.select.id) {

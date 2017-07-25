@@ -726,16 +726,16 @@ ul li.handle .icon-handle {
     margin: 7px 0; }
     .filters button.btn_filter img {
       margin-bottom: -5px; }
-    .filters button.btn_filter:hover + form#filter {
-      opacity: 1;
-      animation: filter 300ms cubic-bezier(0.07, 0.73, 0.87, 0.54); }
   .filters form#filter {
-    opacity: 0;
+    display: none;
     position: absolute;
     right: 16px;
     top: 60px;
     background: #303240;
     color: #ffffff; }
+    .filters form#filter.display-filter {
+      display: initial;
+      animation: filter 300ms cubic-bezier(0.07, 0.73, 0.87, 0.54); }
     .filters form#filter .arrow {
       position: absolute;
       right: 20px;
