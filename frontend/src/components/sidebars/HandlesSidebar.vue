@@ -64,8 +64,6 @@
 
       bus.$on('CHANGE_ACTIVE_HANDLES', this.changeActiveHandles)
 
-      bus.$on('FETCH_DATA', this.fetchData)
-
     },
 
     methods : {
@@ -142,14 +140,15 @@
         this.$http.post('handles/'+ this.entity.id, handle)
           .then(({data}) => {
             const {id, name, url, service_id, fetched_at} = data
+            const service = data.service || {}
             // Add on the top of the list
             this.list.unshift({
               id, name, url, service_id, fetched_at,
-              'service' : data.service.name,
+              'service' : service.name,
               'active' : true
             })
             console.log("[HandleSidebar] New Entity added")
-          })
+          }).then(_ => bus.$emit('FETCH_DATA'))
           .catch(err => console.error("[HandleSidebar] Failed to add handle\n",err))
       },
 
@@ -173,11 +172,6 @@
       changeActiveHandles : function (list) {
         saveActiveHandles(this.entity.id, list);
       },
-
-      fetchData : /*_debounce(*/function(handles){
-        console.log("fetching data")
-        // bus.$emit('FETCH_DATA')
-      }/*, 750)*/
 
     }
 

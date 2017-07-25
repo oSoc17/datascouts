@@ -63,9 +63,9 @@
         // this.activeEntities = this.entities.filter(e => e.active).map(e => e.id)
       },
       activeEntities : function(){
-        console.log('Active entities IDs :',this.activeEntities);
         saveActiveEntities(this.activeEntities);
         bus.$emit('UPDATE_ACTIVE_HANDLES', this.activeHandles)
+        bus.$emit('FETCH_DATA')
       }
     },
     computed: {

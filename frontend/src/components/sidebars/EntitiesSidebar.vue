@@ -55,6 +55,7 @@
     },
     created () {
       this.loadEntities()
+      
     },
     mounted () {
       bus.$on('ADD_NEW_ENTITY',this.insertNewEntity)
@@ -70,10 +71,11 @@
         return this.list.find(e => e.id === entity.id);
       },
       loadEntities: function() {
-        this.$http.get('entities?fields=id,name,url')
+        return this.$http.get('entities?fields=id,name,url')
             .then(res => {
+            
               bus.$emit('ENTITIES_IS_EMPTY', res.data.length === 0)
-
+              bus.$emit('FETCH_DATA', true)
               // Already got a bunch of entities
               if(this.list.length !== 0){
                 res.data.forEach(entity => {
@@ -90,7 +92,8 @@
                 })
 
               }
-            }).catch(console.log)
+            })
+            .catch(console.log)
 
       },
       closeSideBar: function() {

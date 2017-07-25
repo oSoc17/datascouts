@@ -59,14 +59,10 @@ export default {
       document.querySelector('form.slide-up#handle_form .form-group').classList.toggle('hidden');
     },
     openAddModal : function (service){
-      console.log(this.services)
-      if(typeof(service)==="undefined"){
+      this.selectService = service
+      if(!service){
         this.selectService = this.services[2]
       }
-      else{
-        this.selectService = service
-      }
-      console.log(this.selectService)
       this.showAddBox = true
     },
     closeAddModal : function () {

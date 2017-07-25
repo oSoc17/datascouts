@@ -111,9 +111,15 @@
 </template>
 
 <script>
-  import { bus } from '../../main'
-
   import _debounce  from 'lodash.debounce'
+
+  import { bus } from '../../main'
+  import {
+    getActiveEntities,
+    getActiveHandles,
+
+  } from '../../utils/storageService'
+
 
   export default {
     components : {
@@ -127,11 +133,12 @@
       }
     },
     created () {
-      bus.$on('ENTITIES_IS_EMPTY', (bool) => this.entitiesIsEmpty = bool)
-      bus.$on('FETCH_DATA', (entities) => this.fetchData)
+      console.log('Created WaterDisplay')
     },
     mounted() {
       this.waterfall = new Waterfall(200)
+      bus.$on('ENTITIES_IS_EMPTY', (bool) => this.entitiesIsEmpty = bool)
+      bus.$on('FETCH_DATA', this.fetchData)
     },
     watch: {
       items: function(updatingWfContainer){
@@ -143,7 +150,16 @@
         var el = document.getElementById("filter")
         el.style.display = el.style.display === 'none' ? '' : 'none';
       },
-      fetchData: function(entities/*, socialMedia*/){
+      getAllActiveHandles : function (){
+        const handles = [];
+        getActiveEntities().forEach(ent_id => {
+          const activeHandles = getActiveHandles(ent_id);
+          handles.push(... activeHandles);
+        })
+        console.log('Active Handles to fetch : ',handles);
+        return handles;
+      },
+      fetchData: function(){
         console.log('fetching data')
 
         //display load templates & adjust them to the screen, hide loading elements
@@ -155,28 +171,12 @@
             boxes[i].style.width = this.loadingTemplatesWidth
           }
         })
-
-        var handles = []
-        var socialMedia = []
-
-        for(var i=0;i<entities.length;i++){
-          if(entities[i].active){
-            for(var j=0;j<entities[i].handles.length;j++){
-              if(entities[i].handles[j].active){
-                handles.push(entities[i].handles[j].handle.id)
-              }
-            }
-          }
-
-        }
-        /*for(var i=0;i<socialMedia.length;i++){
-          if(socialMedia[i].active){
-            socialMedia.push(socialMedia[i].object.id)
-          }
-        }*/
-
-        Vue.http.post(this.url + '/fetch', {"handles" : handles/*,"socialMedia" : socialMedia*/}).then(res => {
-          items = res.data}).catch(console.log)
+        
+        const handles = this.getAllActiveHandles()
+        
+        this.$http.post('providers/fetch', {handles})
+            .then(res => {this.items = res.data})
+            .catch(console.error)
 
       },
       updateWaterfall: _debounce(

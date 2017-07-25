@@ -57,8 +57,8 @@
       },
       activeHandles : function () {
         bus.$emit('CHANGE_ACTIVE_HANDLES', this.activeHandles)
-        // saveActiveHandles(this.activeHandles, handle.url)
-        // bus.$emit('FETCH_DATA', this.activeHandles)
+        bus.$emit('FETCH_DATA')
+        
       }
 
     },
