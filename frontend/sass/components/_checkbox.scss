@@ -22,7 +22,7 @@ opacity: 0; // hide it
 
 	// Box hover
 	&:hover + label:before {
-		background: url('../assets/font-awesome-svg/eye.svg');
+		background: url('../assets/font-awesome-svg/eye-hover.svg');
 		background-size: 20px;
 		transition: $trans;
 	}

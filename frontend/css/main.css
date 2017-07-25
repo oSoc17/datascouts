@@ -386,7 +386,7 @@ figure#featured-media {
     background: url("../assets/font-awesome-svg/eye-slash.svg");
     background-size: 20px; }
   .styled-checkbox:hover + label:before {
-    background: url("../assets/font-awesome-svg/eye.svg");
+    background: url("../assets/font-awesome-svg/eye-hover.svg");
     background-size: 20px;
     transition: all 0.25s ease; }
   .styled-checkbox:checked + label:before {
@@ -494,8 +494,7 @@ ul li.entity .image_entity {
   width: 30px; }
   ul li.entity .image_entity img {
     height: 30px;
-    width: 30px;
-    border-radius: 50%; }
+    width: 30px; }
 
 ul li.handle.active {
   border-left: 5px solid #1fdcb8;

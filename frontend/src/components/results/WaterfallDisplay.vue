@@ -16,16 +16,16 @@
 			<div class="filter-socialmedia">
 				<h2>Social media</h2>
 				<div class="form-group">
-					<input class="styled-checkbox" id="styled-checkbox-1" type="checkbox" value="twitter" checked>
-					<label for="styled-checkbox-1">Twitter</label>
+					<input class="styled-checkbox" id="styled-checkbox-sm-1" type="checkbox" value="twitter" checked>
+					<label for="styled-checkbox-sm-1">Twitter</label>
 				</div>
 				<div class="form-group">
-					<input class="styled-checkbox" id="styled-checkbox-2" type="checkbox" value="youtube">
-					<label for="styled-checkbox-2">YouTube</label>
+					<input class="styled-checkbox" id="styled-checkbox-sm-2" type="checkbox" value="youtube">
+					<label for="styled-checkbox-sm-2">YouTube</label>
 				</div>
 				<div class="form-group">
-					<input class="styled-checkbox" id="styled-checkbox-3" type="checkbox" value="vimeo">
-					<label for="styled-checkbox-3">Vimeo</label>
+					<input class="styled-checkbox" id="styled-checkbox-sm-3" type="checkbox" value="vimeo">
+					<label for="styled-checkbox-sm-3">Vimeo</label>
 				</div>
 			</div>
 			<div class="filter-keywords">
