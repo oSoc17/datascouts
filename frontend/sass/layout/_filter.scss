@@ -3,12 +3,52 @@
     height: 51px;
     width: 100%;
     border-bottom: 1px solid $gray-lightest;
-    form {
+    button.btn_filter {
         position: absolute;
-        right: 8px;
-        top: 0;
-        .form-group {
+        right: 16px;
+        top: 0;       
+        margin: 7px 0;
+        img {            
+            margin-bottom: -5px;
+        }
+    }
+    form#filter {        
+        // display: none;
+        position: absolute;
+        right: 16px;
+        top: 60px;
+        background: $blue-whale;
+        color: $white;
+        .arrow {
+            position: absolute;
+            right: 20px;
+            top: -10px;
+            height: 20px;
+            width: 20px;
+            background: $blue-whale;
+            transform: rotate(45deg);
+        }
+        .filter-keywords,
+        .filter-socialmedia {
             float: left;
+            padding: 0 16px;
+            margin: 16px 0;
+            h2 {
+                font-size: 16px;
+                color: $primary;
+            }
+        }
+        .filter-keywords {
+            min-width: 300px;
+            border-left: 1px solid $primary;
+            .form-group {
+                padding: 16px 0;
+            }
+        }
+        .filter-socialmedia {
+            .form-group {
+                padding: 8px 16px;
+            }
         }
     }
 }

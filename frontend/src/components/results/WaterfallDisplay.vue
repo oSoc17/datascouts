@@ -1,8 +1,47 @@
 <template>
   <div id="content">
-    <!--<div class="flashmessage">You succesfully created an entity called {{ entity }}</div>-->
+    <div class="flashmessage">You succesfully created an entity called {{ entity }}</div>
 
-    <!--<button type="button" v-on:click="fetchData">fetch data (this button is only for testing)</button>-->
+    <div class="filters">
+		<button class="btn_filter">
+			<!-- This source should be replaced with filtered.svg 
+					IF any checkboxes are check 
+					OR any keyword is added -->
+			<!--<img src="assets/font-awesome-svg/filtered.svg" alt="">-->
+			<img src="assets/font-awesome-svg/unfiltered.svg" alt="">
+			Filter
+		</button>
+		<form action="" id="filter">
+			<div class="arrow"></div>
+			<div class="filter-socialmedia">
+				<h2>Social media</h2>
+				<div class="form-group">
+					<input class="styled-checkbox" id="styled-checkbox-1" type="checkbox" value="twitter" checked>
+					<label for="styled-checkbox-1">Twitter</label>
+				</div>
+				<div class="form-group">
+					<input class="styled-checkbox" id="styled-checkbox-2" type="checkbox" value="youtube">
+					<label for="styled-checkbox-2">YouTube</label>
+				</div>
+				<div class="form-group">
+					<input class="styled-checkbox" id="styled-checkbox-3" type="checkbox" value="vimeo">
+					<label for="styled-checkbox-3">Vimeo</label>
+				</div>
+			</div>
+			<div class="filter-keywords">
+				<h2>Keywords</h2>
+				<div class="form-group">
+					<input type="text" placeholder="Keyword">
+				</div>
+				<div class="form-group">
+					<!-- You can add any html tag for vue, not styled yet, I'll do it afterwards -->
+					<div class="keyword">Keyword1</div>
+					<div class="keyword">Keyword2</div>
+					<div class="keyword">Keyword3</div>
+				</div>
+			</div>
+		</form>
+	</div>
 
     <div class="template" v-if="isLoading">
         <h1>loading...</h1>

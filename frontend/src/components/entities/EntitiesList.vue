@@ -11,11 +11,12 @@
           <img v-bind:src="item.image" alt="Entity avatar">
         </div>
         <p>{{item.name}}</p>
-        <input type="checkbox" class="checkbox" name="checkbox"
+        <input class="styled-checkbox checkbox" type="checkbox" :id="['styled-checkbox-entities-' + item.id]"
           :click="toggleEntity()"
           :value="item.id" v-model="activeEntities">
+          <label :for="['styled-checkbox-entities-' + item.id]"></label>
           <i class="fa fa-angle-right"></i>
-
+        
       </li>
     </template>
     <transition name="slide-fade">
