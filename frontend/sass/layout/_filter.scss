@@ -11,18 +11,18 @@
         img {            
             margin-bottom: -5px;
         }
-        &:hover + form#filter {
-            opacity: 1;
-            animation:filter 300ms cubic-bezier(.07,.73,.87,.54);
-        }
     }
     form#filter {
-        opacity: 0;
+        display: none;
         position: absolute;
         right: 16px;
         top: 60px;
         background: $blue-whale;
-        color: $white;
+        color: $white;        
+        &.display-filter {
+            display: initial;
+            animation:filter 300ms cubic-bezier(.07,.73,.87,.54);
+        }
         .arrow {
             position: absolute;
             right: 20px;

@@ -11,7 +11,7 @@
 			<img src="assets/font-awesome-svg/unfiltered.svg" alt="">
 			Filter
 		</button>
-		<form action="" id="filter">
+		<form action="" id="filter" style="display: none;" class="">
 			<div class="arrow"></div>
 			<div class="filter-socialmedia">
 				<h2>Social media</h2>
@@ -141,7 +141,8 @@
     methods: {
       showFilters: function(e){
         var el = document.getElementById("filter")
-        el.style.display = el.style.display === 'none' ? '' : 'none';
+        el.style.display = el.style.display === 'none' ? 'initial' : 'none';
+        el.classList.toggle("display-filter");
       },
       fetchData: function(entities/*, socialMedia*/){
         console.log('fetching data')
