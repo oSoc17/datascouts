@@ -42,6 +42,11 @@ ul {
             background-color: $gray-lightest;
             cursor: pointer;
         }
+        @for $i from 1 through 20 {
+            &:nth-child(#{$i}) {
+                animation: list 300ms * $i ease-in-out forwards;
+            }
+        }
         i {
             display: none;
             right: 15px;
@@ -98,5 +103,15 @@ ul {
                 left: 0;
             }
         }
+    }
+}
+@keyframes list {
+    0% {
+        opacity: 0;
+        transform: rotateY(-90deg) translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: rotateY(0deg) translateY(0);
     }
 }
