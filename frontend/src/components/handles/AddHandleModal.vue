@@ -1,19 +1,19 @@
 <template>
     <modal :show.sync="show" :on-close="close">
-        <template slot="header">Add new Handle for {{service.name}}</template>
+        <template slot="header">Add new account</template>
 
         <div slot="body">
           <label class="form-label">
-              Handle name : <input v-model.trim="name" class="form-control" autofocus>
+              Account name : <input v-model.trim="name" class="form-control" placeholder="Insert new account name" autofocus>
           </label>
-          
+
           <label class="form-label">
-              Service name : 
+              Select source :
               <select name="service" v-model='selectedService.id'>
                 <option v-for="serv in services" :value="serv.id">{{serv.name}}</option>
               </select>
           </label>
-          
+
         </div>
 
         <div slot="footer" class="text-right">
@@ -31,7 +31,7 @@
 
   export default {
     props: ['show', 'service', 'services'],
-    components: { 
+    components: {
       Modal
     },
     data () {
@@ -52,10 +52,11 @@
       addHandle: function () {
         if(this.name){
           bus.$emit('INSERT_NEW_HANDLE', { // Send to AddHandle Component
-            'name':this.name, 
+            'name':this.name,
             'service' : this.selectedService.id
           })
         }
+        this.name = ""
         this.close()
       }
     }

@@ -14,10 +14,10 @@
 
 <script>
   import _debounce  from 'lodash.debounce'
-  
-  import { 
-    saveActiveHandles, 
-    getActiveHandles, 
+
+  import {
+    saveActiveHandles,
+    getActiveHandles,
     removeActiveHandles,
 
   } from '../../utils/storageService'
@@ -61,7 +61,7 @@
 
       bus.$on('INSERT_NEW_HANDLE', this.insertNewHandle)
       bus.$on('DELETE_LISTED_HANDLE', this.deleteHandle)
-      
+
       bus.$on('CHANGE_ACTIVE_HANDLES', this.changeActiveHandles)
 
       bus.$on('FETCH_DATA', this.fetchData)
@@ -101,7 +101,7 @@
             })
             .catch(console.error)
       },
-      
+
       loadActiveHandles : function (){
         this.activeHandles = getActiveHandles(this.entity.id);
       },
@@ -137,6 +137,8 @@
       },
 
       insertNewHandle : function (handle) {
+        console.log("adding ",handle.name," to ",this.entity.name )
+        console.log(handle)
         this.$http.post('handles/'+ this.entity.id, handle)
           .then(({data}) => {
             const {id, name, url, service_id, fetched_at} = data
@@ -153,21 +155,21 @@
 
       deleteHandle : function (id){
         this.list.splice(this.list.findIndex(e => e.id == id), 1)
-        
-        // Also need to delete this handles from the active handles 
+
+        // Also need to delete this handles from the active handles
         // Get that list of active handles
         const actives = getActiveHandles(this.entity.id)
         // Get the position of the specified handle on that list
         const pos = actives.findIndex(h_id => h_id == id)
-        
+
         // Check if that handle was active
         if(pos > -1) {
           actives.split(pos, 1); // Remove that handle
           saveActiveHandles(this.entity.id, actives); // Store the new list
         }
-        
+
       },
-      
+
       changeActiveHandles : function (list) {
         saveActiveHandles(this.entity.id, list);
       },

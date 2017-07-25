@@ -49,6 +49,7 @@ export default {
   created () {
     // Modal want to be closed
     bus.$on('CLOSE_ADDHANDLE_MODAL', this.closeAddModal)
+    //bus.$on('CHANGE_SERVICE', (service) => this.selectService = service)
     // Modal want to add a new handle
     // bus.$on('ADD_HANDLE', this.addHandle)
 
@@ -60,7 +61,7 @@ export default {
     openAddModal : function (service){
       console.log(this.services)
       if(typeof(service)==="undefined"){
-        this.selectService = this.services[1]
+        this.selectService = this.services[2]
       }
       else{
         this.selectService = service
