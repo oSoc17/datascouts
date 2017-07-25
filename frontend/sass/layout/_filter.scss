@@ -6,9 +6,9 @@
     button.btn_filter {
         position: absolute;
         right: 16px;
-        top: 0;       
+        top: 0;
         margin: 7px 0;
-        img {            
+        img {
             margin-bottom: -5px;
         }
     }
@@ -18,7 +18,8 @@
         right: 16px;
         top: 60px;
         background: $blue-whale;
-        color: $white;        
+        color: $white;
+        z-index: 20;       
         &.display-filter {
             display: initial;
             animation:filter 300ms cubic-bezier(.07,.73,.87,.54);
@@ -57,15 +58,15 @@
     }
 }
 @keyframes filter {
-    0%   { 
+    0%   {
         opacity: 0;
         transform: rotateY(-50deg);
     }
     80% {
         transform: rotateY(20deg);
     }
-    100% { 
+    100% {
         opacity: 1;
-        transform: rotateY(0deg); 
+        transform: rotateY(0deg);
     }
 }
