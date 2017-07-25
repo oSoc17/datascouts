@@ -1,6 +1,7 @@
 <template>
   <div id="sidebar_entities">
-    <button class="collapse">
+    <button class="collapse"
+      v-on:click="closeSideBar()">
       <i class="fa fa-angle-left" ></i>
     </button>
 
@@ -24,7 +25,7 @@
       </div>
     </form>
 
-    <entitiesList v-bind:entities="list" v-bind:entity="currentEntity" v-bind:searchEntity="searchEntity"></entitiesList>
+    <entitiesList v-bind:entities="list" v-bind:currentEntity="currentEntity" v-bind:searchEntity="searchEntity"></entitiesList>
 
 
     <addEntity></addEntity>
@@ -92,7 +93,9 @@
             }).catch(console.log)
 
       },
-
+      closeSideBar: function() {
+        bus.$emit('CLOSE_HANDLES_SIDEBAR')
+      },
       insertNewEntity : function(name){
         this.$http.post('entities', {"name" : name || this.name})
           .then(({data}) => {

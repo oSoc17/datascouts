@@ -93,6 +93,10 @@
           this.current.entity = select
           this.showHandles = true
         }
+        else{
+          this.closeHandlesSidebar()
+          this.current.entity = {}
+        }
       },
 
       updateCurrentEntity : function (newName) {
@@ -105,7 +109,6 @@
         this.current.entity = {}
 
       },
-
 
       changeCurrentHandle : function (select) {
         if(!this.current.handle || select.id !== this.current.handle.id){
