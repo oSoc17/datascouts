@@ -8,10 +8,10 @@
 
 
 
-      <li class="entity" >
+      <li v-bind:class="[{ active: isSelected && currentEntity.id == item.id }, 'entity']">
         <div v-on:click="selectEntity($event,item)">
           <div class="image_entity">
-            <img v-bind:src="item.image" alt="">
+            <img v-bind:src="item.image" alt="Entity avatar">
           </div>
           <p>{{item.name}}</p>
         </div>
@@ -20,7 +20,7 @@
           :value="item.id" v-model="activeEntities">
           <label :for="['styled-checkbox-entities-' + item.id]"></label>
           <i class="fa fa-angle-right"></i>
-        
+
       </li>
     </template>
     <transition name="slide-fade">
@@ -49,7 +49,7 @@
     data () {
       return {
         activeEntities : getActiveEntities(),
-        isEntitySelected: false,
+        isSelected: false,
         searchNotFound : false,
         entitiesIsEmpty: false,
       }
@@ -88,6 +88,14 @@
     methods: {
       selectEntity: function (e,item) {
         console.log(e.target)
+        if(this.isSelected){ // Already, select a handle
+          if(this.currentEntity.id == item.id) {
+            this.isSelected = false
+          }
+        }
+        else{
+          this.isSelected = true
+        }
         bus.$emit('CHANGE_CURRENT_ENTITY', item)
       },
       closeSideBar: function () {

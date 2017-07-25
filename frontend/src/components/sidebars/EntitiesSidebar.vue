@@ -58,7 +58,7 @@
     },
     mounted () {
       bus.$on('ADD_NEW_ENTITY',this.insertNewEntity)
-      bus.$on('ADD_ENTITY_FROM_SEARCH',this.insertNewEntity)
+      bus.$on('ADD_NEW_ENTITY_FROM_SEARCH',this.insertNewEntity)
       bus.$on('DELETE_LISTED_ENTITY',this.deleteEntity)
       bus.$on('UPDATE_ENTITIES',this.updateEntities)
     },
@@ -97,6 +97,8 @@
         bus.$emit('CLOSE_HANDLES_SIDEBAR')
       },
       insertNewEntity : function(name){
+        this.searchEntity = ""
+        console.log("adding entity ",name)
         this.$http.post('entities', {"name" : name || this.name})
           .then(({data}) => {
             this.searchEntity = ''
@@ -111,8 +113,8 @@
           .catch((err) => console.log("[EntitySidebar] Error Failed to add entity"))
       },
 
-      deleteEntity : function (id){
-        const i = this.list.findIndex(e => e.id === id)
+      deleteEntity : function (){
+        const i = this.list.findIndex(e => e.id === this.currentEntity.id)
         this.list.splice(i,1)
       },
 
