@@ -35,7 +35,7 @@ ul {
 
     li.entity {
         &.active {
-            border-left: 5px solid $primary;
+            box-shadow: inset 5px 0 $primary;
             background-color: $gray-lightest;
         }
         &:hover {
@@ -67,7 +67,7 @@ ul {
     }
     li.handle {
         &.active {
-            border-left: 5px solid $primary;
+            box-shadow: inset 5px 0 $primary;
             background-color: $white;
             i {
                 transition: $trans;
