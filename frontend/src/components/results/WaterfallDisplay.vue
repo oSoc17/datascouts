@@ -77,7 +77,7 @@
       <template v-for="entity in items">
         <template v-for="handle in entity">
             <!--TWEET-->
-            <div class="wf-box twitter">
+            <div class="wf-box twitter" v-if="handle.social_media === 'twitter'">
               <!-- BODY -->
               <div class="body">
                 <p>
