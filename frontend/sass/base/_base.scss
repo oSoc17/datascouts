@@ -2,7 +2,7 @@
 
 body {
 	margin: 0;
-	font-family: 'Fira Sans', Arial, Helvetica, sans-serif;
+	font-family: 'Fira Sans', sans-serif;
 	font-size: 14px;
 	line-height: 1.5em;
 	color: $gray-dark;
@@ -11,7 +11,7 @@ body {
 }
 * { outline: none; }
 *:hover { transition: $trans; }
-h1, h2, h3 { font-family: 'sofia_prolight', Arial, Helvetica, sans-serif; }
+h1, h2, h3 { font-family: 'sofia_prolight', sans-serif; }
 h1 {
 	line-height: 1em;
 	text-transform: uppercase;
@@ -23,7 +23,7 @@ h1 {
 	font-weight: bold;
 	text-align: center;
 }
-i {	
+i {
 	font-size: 16px !important;
 }
 figure { margin: 0; }
@@ -31,7 +31,7 @@ figure { margin: 0; }
 
 // INPUT
 input {
-	font-family: 'Fira Sans', Arial, Helvetica, sans-serif;
+	font-family: 'Fira Sans', sans-serif;
 	border: 1px solid $gray-light;
 	&:focus {
 		border-color: $primary;
@@ -39,22 +39,22 @@ input {
 	}
 }
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-  	font-family: 'Fira Sans', Arial, Helvetica, sans-serif;
+  	font-family: 'Fira Sans', sans-serif;
 	font-style: italic;
 	font-weight: 300;
 }
 ::-moz-placeholder { /* Firefox 19+ */
-  	font-family: 'Fira Sans', Arial, Helvetica, sans-serif;
+  	font-family: 'Fira Sans', sans-serif;
 	font-style: italic;
 	font-weight: 300;
 }
 :-ms-input-placeholder { /* IE 10+ */
-  	font-family: 'Fira Sans', Arial, Helvetica, sans-serif;
+  	font-family: 'Fira Sans', sans-serif;
 	font-style: italic;
 	font-weight: 300;
 }
 :-moz-placeholder { /* Firefox 18- */
-  	font-family: 'Fira Sans', Arial, Helvetica, sans-serif;
+  	font-family: 'Fira Sans', sans-serif;
 	font-style: italic;
 	font-weight: 300;
 }
