@@ -2,10 +2,10 @@
   <div id="content">
     <div class="flashmessage">You succesfully created an entity called {{ entity }}</div>
 
-    <div class="filters">
+    <div class="filters" v-on:click="showFilters()">
 		<button class="btn_filter">
-			<!-- This source should be replaced with filtered.svg 
-					IF any checkboxes are check 
+			<!-- This source should be replaced with filtered.svg
+					IF any checkboxes are check
 					OR any keyword is added -->
 			<!--<img src="assets/font-awesome-svg/filtered.svg" alt="">-->
 			<img src="assets/font-awesome-svg/unfiltered.svg" alt="">
@@ -139,6 +139,10 @@
       }
     },
     methods: {
+      showFilters: function(e){
+        var el = document.getElementById("filter")
+        el.style.display = el.style.display === 'none' ? '' : 'none';
+      },
       fetchData: function(entities/*, socialMedia*/){
         console.log('fetching data')
 
