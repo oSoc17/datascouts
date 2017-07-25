@@ -6,7 +6,8 @@ ul {
     }
 
     li.entity,
-    li.handle {     
+    li.handle {
+        height: 60px;    
         border-left: none;
         position: relative;
         p {
@@ -22,10 +23,11 @@ ul {
             position: absolute;
             line-height: 60px;
         }
-        input[type="checkbox"] {
+        input[type="checkbox"],
+        label {
             position: absolute;
             right: 40px;
-            top: 0;
+            top: 20px;
             height: 53px;
             font-size: 30px;
         }
@@ -53,7 +55,7 @@ ul {
             img {
                 height: 30px;
                 width: 30px;
-                border: 1px solid $gray-light;
+                // border: 1px solid $gray-light;
                 border-radius: 50%;
             }
         }
