@@ -3,9 +3,9 @@
         <template slot="header">Delete Entity</template>
 
         <article slot="body">
-          <p>This action will <b>DELETE</b> the selected entity. Are you sure ?</p>
-          <button @click="close">Cancel</button> 
-          <button @click="deleteEntity">OK</button>
+          <p>This action will <strong>DELETE</strong> the selected entity. Are you sure ?</p>
+          <button class="btn_primary" @click="close">Cancel</button> 
+          <button class="btn_primary" @click="deleteEntity">OK</button>
         </article>
 
     </modal>

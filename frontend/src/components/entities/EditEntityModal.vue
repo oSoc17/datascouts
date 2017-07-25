@@ -4,12 +4,12 @@
 
         <div slot="body">
           <label class="form-label">
-              New Name : <input v-model="newName" class="form-control" autofocus>
+              New member name: <input v-model="newName" class="form-control" autofocus>
           </label>
         </div>
 
         <div slot="footer" class="text-right">
-            <button class="modal-default-button" @click="updateEntity">
+            <button class="btn_primary modal-default-button" @click="updateEntity">
                 Save
             </button>
         </div>

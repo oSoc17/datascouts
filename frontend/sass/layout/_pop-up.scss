@@ -1,4 +1,7 @@
 .modal-mask {
+    .modal-container {
+        position: relative;
+    }
     .modal-body {
         input {
             width: calc(100% - 29px);

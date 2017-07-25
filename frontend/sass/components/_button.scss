@@ -82,6 +82,18 @@ button {
         &.youtube { background-color: $youtube; &:hover { background-color: darken($youtube,10%); }}        
         &.vimeo { background-color: $vimeo; &:hover { background-color: darken($youtube,10%); }}
     }
+    &.btn_close {
+        border: none;
+        background: none;
+        padding: 0;
+        position: absolute;
+        top: 0;
+        right: 8px;
+        i:hover {
+            transition: $trans;
+            color: $primary;
+        }
+    }
     &:hover {
         transition: $trans;
         cursor: pointer;

@@ -14,8 +14,8 @@
           
           <footer class="modal-footer">
             <slot name="footer">
-              <button class="modal-default-button" @click="close" >
-                Close
+              <button class="btn_close modal-default-button" @click="close" >
+                <i class="fa fa-close"></i>
               </button>
             </slot>
           </footer>
@@ -93,7 +93,7 @@
     display: flex;
     flex-shrink: 0;
     justify-content: flex-start;
-    position: relative;
+    /*position: relative;*/
 }
 
 

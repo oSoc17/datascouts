@@ -146,6 +146,16 @@ button {
       background-color: #4EBBFF; }
       button.btn_sm.vimeo:hover {
         background-color: #a11918; }
+  button.btn_close {
+    border: none;
+    background: none;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    right: 8px; }
+    button.btn_close i:hover {
+      transition: all 0.25s ease;
+      color: #1fdcb8; }
   button:hover {
     transition: all 0.25s ease;
     cursor: pointer; }
@@ -853,6 +863,9 @@ ul li.handle .icon-handle {
     .wf-container .wf-column .wf-box {
       margin: 10px 8px;
       width: calc(100% - 20px); }
+
+.modal-mask .modal-container {
+  position: relative; }
 
 .modal-mask .modal-body input {
   width: calc(100% - 29px); }
