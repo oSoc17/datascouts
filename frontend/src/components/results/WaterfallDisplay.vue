@@ -1,9 +1,9 @@
 <template>
-  <div id="content">
+  <div id="content" v-on:click="hideFilters($event)">
     <div class="flashmessage">You succesfully created an entity called {{ entity }}</div>
 
-    <div class="filters" v-on:click="showFilters()">
-		<button class="btn_filter">
+    <div class="filters" id="filters">
+		<button class="btn_filter" v-on:click="showFilters()">
 			<!-- This source should be replaced with filtered.svg
 					IF any checkboxes are check
 					OR any keyword is added -->
@@ -139,6 +139,24 @@
       }
     },
     methods: {
+      hideFilters: function(e){
+        var el = document.getElementById("filter")
+        var filters = document.getElementById("filters")
+        if(el.style.display !== 'none' && !this.isDescendant(filters, e.target)){
+          el.style.display = 'none';
+          el.classList.toggle("display-filter")
+        }
+      },
+      isDescendant: function (parent, child) {
+       var node = child.parentNode;
+       while (node != null) {
+           if (node == parent) {
+               return true;
+           }
+           node = node.parentNode;
+       }
+       return false;
+      },
       showFilters: function(e){
         var el = document.getElementById("filter")
         el.style.display = el.style.display === 'none' ? 'initial' : 'none';

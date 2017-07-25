@@ -142,10 +142,11 @@
         this.$http.post('handles/'+ this.entity.id, handle)
           .then(({data}) => {
             const {id, name, url, service_id, fetched_at} = data
+            const service = data.service | {}
             // Add on the top of the list
             this.list.unshift({
               id, name, url, service_id, fetched_at,
-              'service' : data.service.name,
+              'service' : service.name,
               'active' : true
             })
             console.log("[HandleSidebar] New Entity added")
