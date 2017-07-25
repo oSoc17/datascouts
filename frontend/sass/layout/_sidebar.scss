@@ -41,7 +41,7 @@
     }
     form.slide-up#entity_form {
         position: fixed;
-        bottom: 0;
+        bottom: 15px;
         left: 0;
         width: calc(300px - 50px);
         border-top: 1px solid $gray-lightest;

@@ -17,7 +17,7 @@
         </div>
 
         <div slot="footer" class="text-right">
-            <button class="modal-default-button" @click="addHandle()">
+            <button class="btn_primary modal-default-button" @click="addHandle()">
                 Save
             </button>
         </div>

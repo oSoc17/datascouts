@@ -128,7 +128,7 @@ button {
     background: #303240;
     color: #ffffff; }
     button.btn_filter img {
-      height: 22px; }
+      height: 20px; }
     button.btn_filter:hover {
       background: #46495d; }
   button:hover {
@@ -661,7 +661,7 @@ ul li.handle .icon-handle {
     line-height: 35px; }
   #sidebar_entities form.slide-up#entity_form {
     position: fixed;
-    bottom: 0;
+    bottom: 15px;
     left: 0;
     width: calc(300px - 50px);
     border-top: 1px solid #eeeeee; }
@@ -838,6 +838,22 @@ ul li.handle .icon-handle {
     .wf-container .wf-column .wf-box {
       margin: 10px 8px;
       width: calc(100% - 20px); }
+
+.modal-mask .modal-body input {
+  width: calc(100% - 29px); }
+
+.modal-mask .modal-body select {
+  width: 100%;
+  /*TEMPORARY*/
+  padding: 0.5em 1em; }
+
+.modal-mask .model-footer {
+  background-color: #ffffff;
+  border: none;
+  padding: 0; }
+  .modal-mask .model-footer button {
+    margin: 0;
+    width: 100%; }
 
 /*!
  *  Font Awesome 4.7.0 by @davegandy - http://fontawesome.io - @fontawesome
