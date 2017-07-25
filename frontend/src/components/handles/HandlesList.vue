@@ -1,7 +1,7 @@
 <template>
   <ul class="handles">
     <div class="empty-state empty-state-handles" v-show="handlesIsEmpty">
-      <li>You don't have any handles yet. You can add them by clicking on '+ ADD A HANDLE' beneath.</li>
+      <li>You don't have any accounts yet. You can add them by clicking on '+ ADD ACCOUNT' beneath.</li>
     </div>
 
     <template v-for="handle in handles">

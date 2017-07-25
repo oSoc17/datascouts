@@ -20,7 +20,7 @@
     </div>
 
     <div class="empty-state empty-state-feed" v-show="entitiesIsEmpty">
-				<h2>What is an entity?</h2>
+				<h2>What is a member?</h2>
 				<p>
 					Curabitur aliquet quam id dui posuere blandit.
 					Lorem ipsum dolor sit amet, consectetur adipiscing elit.
