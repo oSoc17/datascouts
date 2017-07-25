@@ -11,9 +11,9 @@ const KEY_FOR_LAST_ENTITY     = 'LAST_ENTITY';
 const KEY_FOR_CURRENT_ENTITY  = 'CURRENT_ENTITY';
 const KEY_FOR_ACTIVE_ENTITIES = 'ACTIVE_ENTITIES';
 
-const KEY_FOR_LAST_HANDLE    = 'LAST_HANDLES';
-const KEY_FOR_ACTIVE_HANDLES = 'ACTIVE_HANDLE';
-const KEY_FOR_CURRENT_HANDLE = 'CURRENT_HANDLE';
+const KEY_FOR_LAST_HANDLE    = 'LAST_HANDLES_FOR_ENTITY_';
+const KEY_FOR_ACTIVE_HANDLES = 'ACTIVE_HANDLE_FOR_ENTITY_';
+const KEY_FOR_CURRENT_HANDLE = 'CURRENT_HANDLE_FOR_ENTITY_';
 
 
  /**
@@ -21,63 +21,48 @@ const KEY_FOR_CURRENT_HANDLE = 'CURRENT_HANDLE';
   *
   */
 
+/**
+ * Same process to cache/retrieve some object into/from the localStorage
+ *
+ */
+const marshall = (key, value) => localStorage.setItem(key, JSON.stringify(value));
 
-export function saveCurrentEntity(entity) {
-    localStorage.setItem(KEY_FOR_CURRENT_ENTITY, JSON.stringify(entity))
-}
+const unmarshall = (key) => JSON.parse(localStorage.getItem(key));
 
-export function getCurrentEntity() {
-    const current = localStorage.getItem(KEY_FOR_CURRENT_ENTITY)
-    return JSON.parse(current);
-}
 
-export function setLastEntity(entity) {
-    localStorage.setItem(KEY_FOR_LAST_ENTITY, JSON.stringify(entity))
-}
 
-export function getLastEntity() {
-    const last = localStorage.getItem(KEY_FOR_LAST_ENTITY)
-    return JSON.parse(last);
-}
+export const saveCurrentEntity = v => marshall(KEY_FOR_CURRENT_ENTITY, v)
 
-export function saveActiveEntities(list) {
-    localStorage.setItem(KEY_FOR_ACTIVE_ENTITIES, JSON.stringify(list))
-}
+export const getCurrentEntity = _ => unmarshall(KEY_FOR_CURRENT_ENTITY)
 
-export function getActiveEntities() {
-    const list = localStorage.getItem(KEY_FOR_ACTIVE_ENTITIES)
-    return JSON.parse(list) || []
-}
+export const setLastEntity = v => marshall(KEY_FOR_LAST_ENTITY, v)
+
+export const getLastEntity = _ => unmarshall(KEY_FOR_LAST_ENTITY)
+
+export const saveActiveEntities = l => marshall(KEY_FOR_ACTIVE_ENTITIES, l)
+
+export const getActiveEntities = _ => unmarshall(KEY_FOR_ACTIVE_ENTITIES) || []
+
 
  /**
   * HANDLES 
   *
   */
 
-export function saveCurrentHandle(handle,entity_id) {
-    localStorage.setItem(KEY_FOR_CURRENT_HANDLE+entity_id, JSON.stringify(handle))
+export const saveCurrentHandle = (id, handle) => {
+    return marshall(KEY_FOR_CURRENT_HANDLE + id, handle)
 }
 
-export function getCurrentHandle() {
-    const current = localStorage.getItem(KEY_FOR_CURRENT_HANDLE)
-    return JSON.parse(current);
+export const getCurrentHandle = _ => unmarshall(KEY_FOR_CURRENT_HANDLE)
+
+export const setLastHandle = (id, h) => marshall(KEY_FOR_LAST_HANDLE + id, h)
+
+export const getLastHandle = id => unmarshall(KEY_FOR_LAST_HANDLE)
+
+export const saveActiveHandles = (id, list) => {
+    return marshall(KEY_FOR_ACTIVE_HANDLES + id, list)
 }
 
-export function setLastHandle(handle) {
-    localStorage.setItem(KEY_FOR_LAST_HANDLE, JSON.stringify(handle))
-}
+export const getActiveHandles = id => unmarshall(KEY_FOR_ACTIVE_HANDLES + id) || []
 
-export function getLastHandle() {
-    const last = localStorage.getItem(KEY_FOR_LAST_HANDLE)
-    return JSON.parse(last);
-}
-
-export function saveActiveHandles(list, entity_id) {
-    localStorage.setItem(KEY_FOR_ACTIVE_HANDLES+entity_id, JSON.stringify(list))
-}
-
-export function getActiveHandles(entity_id) {
-    const list = localStorage.getItem(KEY_FOR_ACTIVE_HANDLES+entity_id)
-    return JSON.parse(list)  || [];
-}
 
