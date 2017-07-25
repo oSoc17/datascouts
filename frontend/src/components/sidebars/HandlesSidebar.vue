@@ -91,10 +91,10 @@
 
               this.list = res.data.map(h => {
                 const {id, name, url, service_id, fetched_at} = h
-                const service = this.services[service_id].name;
+                const service = this.services[service_id] || {};
                 return {
                     id, name, url, service_id, fetched_at,
-                    service,
+                    'service' : service.name,
                     'active' : true
                   }
               })
