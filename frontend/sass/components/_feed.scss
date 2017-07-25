@@ -3,6 +3,7 @@
     letter-spacing: 0;
     float: left;
     margin: 8px;
+    background: $white;
     &.facebook {
         box-shadow: 0 0 5px 0 lighten($facebook,35%); 
         .metadata_2 .social_media { background-color: $facebook; }

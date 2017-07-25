@@ -64,9 +64,19 @@ button {
             }
         }
     }
+    &.btn_filter {
+        border: none;
+        background: $blue-whale;
+        color: $white;
+        img {
+            height: 22px;
+        }
+        &:hover {
+            background: lighten($blue-whale,10%);
+        }
+    }
     &:hover {
         transition: $trans;
-        background-color: $gray-dark;
         cursor: pointer;
     }
 }

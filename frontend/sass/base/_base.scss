@@ -11,8 +11,8 @@ body {
 }
 * { outline: none; }
 *:hover { transition: $trans; }
+h1, h2, h3 { font-family: 'sofia_prolight', Arial, Helvetica, sans-serif; }
 h1 {
-	font-family: 'sofia_prolight', Arial, Helvetica, sans-serif;
 	line-height: 1em;
 	text-transform: uppercase;
 	font-weight: 400;

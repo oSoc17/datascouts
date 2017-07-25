@@ -45,6 +45,9 @@
         left: 0;
         width: calc(300px - 50px);
         border-top: 1px solid $gray-lightest;
+        * {
+            animation: slideUp 1s ease-in-out forwards;
+        }
         .form-group:nth-of-type(2) { padding: 0; }
         button.btn_primary.action {
             position: relative;
@@ -87,4 +90,16 @@
     width: 200px; 
     background-color: $white;
     margin-left: -201px;
+}
+@keyframes slideUp {
+    0% {
+        opacity: 0;
+        margin-bottom: -144px;
+        transform: rotateY(90deg) translateY(144px);
+    }
+    100% {
+        opacity: 1;
+        margin-bottom: 0;
+        transform: rotateY(0deg) translateY(0);
+    }
 }
