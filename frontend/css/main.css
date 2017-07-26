@@ -2791,12 +2791,12 @@ figure#featured-media {
   margin-top: calc(50vh - (260px));
   margin-left: 16px;
   width: 100%;
-  max-width: 500px; }
+  max-width: 720px; }
   .empty-state.empty-state-feed h2 {
     text-transform: uppercase;
     font-weight: 400; }
   .empty-state.empty-state-feed p, .empty-state.empty-state-feed li {
-    padding-left: 40px; }
+    padding-left: 10px; }
 
 .empty-state.empty-state-entities li, .empty-state.empty-state-handles li {
   padding-left: 15px;
