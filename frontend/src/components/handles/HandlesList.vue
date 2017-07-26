@@ -51,7 +51,7 @@
     },
     watch : {
       handles : function (){
-        this.activeHandles = this.handles.filter(h => h.active).map(h => h.id)
+        //this.activeHandles = this.handles.filter(h => h.active).map(h => h.id)
       },
       actives : function () {
         this.activeHandles = this.actives

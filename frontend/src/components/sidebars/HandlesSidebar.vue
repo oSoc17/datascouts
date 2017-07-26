@@ -4,7 +4,7 @@
     <editEntity v-bind:entity.sync="entity" v-cloak></editEntity>
 
     <h1>Social media accounts for {{entity.name}}</h1>
-    <handlesList v-bind:handles="list"></handlesList>
+    <handlesList v-bind:handles="list" v-bind:actives="activeHandles"></handlesList>
 
     <addHandle :services="services" :actives="activeHandles" v-cloak></addHandle>
   </div>
@@ -45,11 +45,12 @@
         this.entity = nEntity;
         if(typeof(this.entity.id) !== 'undefined'){
           this.loadHandlesForSelectedEntity();
+          this.loadActiveHandles()
         }
       }
     },
     created () {
-        this.loadActiveHandles();
+      this.loadActiveHandles();
     },
     mounted () {
       // No need for this event, replace by the wath on entity
@@ -61,6 +62,7 @@
       bus.$on('DELETE_LISTED_HANDLE', this.deleteHandle)
 
       bus.$on('CHANGE_ACTIVE_HANDLES', this.changeActiveHandles)
+
 
     },
 
@@ -100,6 +102,7 @@
 
       loadActiveHandles : function (){
         this.activeHandles = getActiveHandles(this.entity.id);
+        console.log("actives:",this.activeHandles)
       },
 
       updateEntity: function(name) {

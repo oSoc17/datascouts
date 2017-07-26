@@ -37,12 +37,7 @@
 
 
   export default {
-    props: {
-      entities : Array,
-      searchEntity : String,
-      currentEntity: Object,
-      services: Object,
-    },
+    props: ['entities', 'searchEntity', 'currentEntity', 'services'],
     components:{},
     data () {
       return {
@@ -84,24 +79,17 @@
     },
     methods: {
       updateLocalStorage: function() {
+        console.log("updating local storage")
         var self = this
         this.activeEntities.forEach(function(entityID){
-          var list = []
+          var handlesIDs = []
           console.log("entity", entityID)
           self.$http.get(`entities/${entityID}/handles`)
               .then(res => {
                 bus.$emit('HANDLES_IS_EMPTY', res.data.length === 0)
-
-                list = res.data.map(h => {
-                  const {id, name, url, service_id, fetched_at} = h
-                  const service = self.services[service_id] || {};
-                  return {
-                      id, name, url, service_id, fetched_at,
-                      'service' : service.name,
-                      'active' : true
-                    }
-                })
-                saveActiveHandles(entityID, list)
+                res.data.forEach(function({id}){handlesIDs.push(id)})
+                saveActiveHandles(entityID, handlesIDs)
+                console.log(handlesIDs)
                 bus.$emit('FETCH_DATA')
               })
               .catch(console.error)
@@ -132,7 +120,6 @@
       },
       loadStoredActiveEntities : function () {
         this.activeEntities = getActiveEntities();
-        this.updateActiveHandles()
       }
       // updateSelectedEntities: _debounce( function() {
         // var entitiesHTML = document.getElementsByClassName("entity")
