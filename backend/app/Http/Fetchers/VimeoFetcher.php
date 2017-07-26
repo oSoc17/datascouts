@@ -17,7 +17,7 @@ class VimeoFetcher extends BaseFetcher
      */
     public function __construct()
     {
-        parent::__construct('Vimeo');
+        parent::__construct('vimeo');
         $this->vimeoConnection = new Vimeo(
             config('services.vimeo.client_id'),
             config('services.vimeo.client_secret'),
