@@ -1,9 +1,9 @@
 <template>
     <modal :show.sync="show" :on-close="close">
-        <template slot="header">Delete Entity</template>
+        <template slot="header">Delete member</template>
 
         <article slot="body">
-          <p>This action will <strong>DELETE</strong> the selected entity. Are you sure ?</p>
+          <p>This action will <strong>DELETE</strong> the selected member. Are you sure ?</p>
           <button class="btn_primary" @click="close">Cancel</button> 
           <button class="btn_primary" @click="deleteEntity">OK</button>
         </article>

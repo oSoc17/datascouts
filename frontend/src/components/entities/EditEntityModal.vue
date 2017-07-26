@@ -1,6 +1,6 @@
 <template>
     <modal :show.sync="show" :on-close="close">
-        <template slot="header">Edit Entity</template>
+        <template slot="header">Edit member</template>
 
         <div slot="body">
           <label class="form-label">

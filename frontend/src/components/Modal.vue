@@ -14,7 +14,7 @@
           
           <footer class="modal-footer">
             <slot name="footer">
-              <button class="btn_close modal-default-button" @click="close" >
+              <button class="btn_crud btn_close modal-default-button" @click="close" >
                 <i class="fa fa-close"></i>
               </button>
             </slot>
