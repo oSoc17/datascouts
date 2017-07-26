@@ -132,9 +132,15 @@ button {
         background-color: #f00;
     }
     &:hover {
-        &.twitter { background-color: $twitter; &:hover { background-color: $twitter; }}
-        &.youtube { background-color: $youtube; &:hover { background-color: $youtube }}        
-        &.vimeo { background-color: $vimeo; &:hover { background-color: $vimeo }}
+        &.twitter { 
+            background-color: $twitter;
+        }
+        &.youtube { 
+            background-color: $youtube;  
+        }     
+        &.vimeo { 
+            background-color: $vimeo;
+        }
     }
     &:hover .fa-active:after {
         border-color: $primary;

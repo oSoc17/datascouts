@@ -59,19 +59,14 @@
 		</div>
 
 		<div class="empty-state empty-state-feed" v-show="entitiesIsEmpty">
-					<h2>What is a member?</h2>
-					<p>
-						Curabitur aliquet quam id dui posuere blandit.
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-						Curabitur aliquet quam id dui posuere blandit. Proin eget tortor risus.
-					</p>
-					<h2>How to add one?</h2>
-					<ul>
-						<li>Step 1</li>
-						<li>Step 2</li>
-						<li>Step 3</li>
-					</ul>
-				</div>
+			<h2>Visualise what your colleagues, friends, companies and competitors are talking about.</h2>
+			<ul>
+				<li>Add the name of your first company or person you want to follow. We call this a member.</li>
+				<li>Click on the member and add all social media channels for this member.</li>
+				<li>All done!</li>
+			</ul>
+					
+		</div>
 
 		<div class="tweets wf-container" id="wf-container">
 			<template v-for="entity in items">
@@ -130,7 +125,7 @@
 						<!-- VIDEO-IFRAME -->
 						<!-- <figure class="content-media content-media--video" id="featured-media">
 							<iframe class="content-media__object media" id="featured-video" v-bind:src='handle.link + "?enablejsapi=1&rel=0&showinfo=0&controls=0"' frameborder="0"></iframe>
-						</figure> -->
+						</figure>
 
 						<!-- METADATA - likes/comments/views -->
 						<div class="metadata_1">
@@ -139,7 +134,7 @@
 						</div>
 						<div class="metadata_2">
 							<div class="image_avatar">
-								<img src="handle.user.profile_image_url_https" alt="" class="avatar">
+								<img src="" alt="" class="avatar">
 							</div>
 							<div class="name">{{handle.channel}}</div>
 								<div class="social_media">

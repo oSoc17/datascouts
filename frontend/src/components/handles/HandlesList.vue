@@ -52,6 +52,7 @@
     watch : {
       handles : function (){
         this.activeHandles = this.handles.filter(h => h.active).map(h => h.id)
+        this.handlesIsEmpty = this.handles.length==0
       },
       actives : function () {
         this.activeHandles = this.actives
