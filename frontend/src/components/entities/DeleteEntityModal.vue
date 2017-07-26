@@ -4,8 +4,8 @@
 
         <article slot="body">
           <p>This action will <strong>DELETE</strong> the selected member. Are you sure ?</p>
-          <button class="btn_primary" @click="close">Cancel</button> 
-          <button class="btn_primary" @click="deleteEntity">OK</button>
+          <button class="btn_primary cancel-ok" @click="close">Cancel</button> 
+          <button class="btn_primary cancel-ok" @click="deleteEntity">OK</button>
         </article>
 
     </modal>
