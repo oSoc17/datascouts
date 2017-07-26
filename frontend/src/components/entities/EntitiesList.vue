@@ -82,19 +82,20 @@
         console.log("updating local storage")
         var self = this
         var handlesIDs = []
+        const currentActives = getActiveEntities()
         this.activeEntities.forEach(function(entityID){
-          if(findIndex(this.getActiveEntities(), entityID)==-1){
+          if(self.findIndex(currentActives, entityID)==-1){
             self.$http.get(`entities/${entityID}/handles`)
                 .then(res => {
                   bus.$emit('HANDLES_IS_EMPTY', res.data.length === 0)
                   res.data.forEach(function({id}){handlesIDs.push(id)})
                   saveActiveHandles(entityID, handlesIDs)
-                  console.log(handlesIDs)
+                  console.log(getActiveHandles())
                   bus.$emit('FETCH_DATA')
                 }).catch(console.error)
           }
         })
-        
+
       },
       findIndex: function(array, id) {
         var index = -1
