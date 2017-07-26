@@ -2,26 +2,6 @@
 
 return [
 
-    'github' => [
-        'client_id' => env('GITHUB_APP_ID'),
-        'client_secret' => env('GITHUB_APP_SECRET'),
-        'redirect' => env('GITHUB_APP_CALLBACK'),
-    ],
-
-    'facebook' => [
-        'client_id' => env('FACEBOOK_APP_ID'),
-        'client_secret' => env('FACEBOOK_APP_SECRET'),
-        'redirect' => env('FACEBOOK_APP_CALLBACK'),
-        'defaulft' => [
-            'public_profile',
-            'user_events',
-            'user_likes',
-            'user_posts',
-            'user_videos'
-        ]
-     ],
-
-
     /**
      *
      * If you don't have credentials yet, head over to https://apps.twitter.com/
@@ -45,8 +25,14 @@ return [
     
     'youtube' => [
         'api_key' => env('YOUTUBE_API_KEY'),
-        'client_id' => env('YOUTUBE_APP_ID'),
-        'client_secret' => env('YOUTUBE_APP_SECRET'),
-        'redirect' => env('YOUTUBE_APP_CALLBACK'),
     ],
+
+    'vimeo' => [
+        'client_id' => env('VIMEO_APP_ID'),
+        'client_secret' => env('VIMEO_APP_SECRET'),
+        'access_token' => env('VIMEO_APP_ACCESS_TOKEN'),
+        'default_scope' => ['public', 'private'],
+        'redirect' => env('VIMEO_APP_CALLBACK'),
+    ],
+
 ];

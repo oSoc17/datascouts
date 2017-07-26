@@ -52,6 +52,7 @@
     watch : {
       handles : function (){
         this.activeHandles = this.handles.filter(h => h.active).map(h => h.id)
+        this.handlesIsEmpty = this.handles.length == 0
       },
       actives : function () {
         this.activeHandles = this.actives
@@ -59,7 +60,7 @@
       activeHandles : function () {
         bus.$emit('CHANGE_ACTIVE_HANDLES', this.activeHandles)
         bus.$emit('FETCH_DATA')
-        
+
       }
 
     },
@@ -88,6 +89,6 @@
   }
 </script>
 
-<style lang="scss">
+<style >
 
 </style>
