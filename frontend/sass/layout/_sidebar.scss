@@ -85,8 +85,9 @@
         width: calc(50% - 33px);
     }
 }
-#sidebar_actions {
-    z-index: -2;
+#sidebar_handle_actions {
+    z-index: 2;
     width: 200px;
+    margin-left: -1px;
     background-color: $white;
 }
