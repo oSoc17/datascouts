@@ -88,6 +88,6 @@
   }
 </script>
 
-<style lang="scss">
+<style >
 
 </style>

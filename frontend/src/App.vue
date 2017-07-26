@@ -104,8 +104,9 @@
       },
 
       deleteCurrentEntity : function (newName) {
-        this.showHandles = false
-        bus.$emit('DELETE_LISTED_ENTITY')
+        this.showHandles = false // Hide the HandleSidebar
+        bus.$emit('DELETE_LISTED_ENTITY') // Send Event to delete Entity from the list
+        
         this.current.entity = {}
 
       },
