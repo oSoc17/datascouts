@@ -2547,18 +2547,45 @@ button {
 .btn_sm {
   color: #ffffff;
   border: none; }
-  .btn_sm.twitter {
+  .btn_sm.fa-active {
+    position: relative; }
+    .btn_sm.fa-active.twitter {
+      background-color: #1DA1F2; }
+      .btn_sm.fa-active.twitter:hover {
+        background-color: #0c85d0; }
+    .btn_sm.fa-active.youtube {
+      background-color: #cd201f; }
+      .btn_sm.fa-active.youtube:hover {
+        background-color: #a11918; }
+    .btn_sm.fa-active.vimeo {
+      background-color: #4EBBFF; }
+      .btn_sm.fa-active.vimeo:hover {
+        background-color: #1ba7ff; }
+  .btn_sm.fa-active:after {
+    display: block;
+    content: "";
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    width: 7px;
+    height: 7px;
+    border-radius: 100%;
+    border: 2px solid #303240;
+    background-color: #f00; }
+  .btn_sm:hover.twitter {
     background-color: #1DA1F2; }
-    .btn_sm.twitter:hover {
-      background-color: #0c85d0; }
-  .btn_sm.youtube {
+    .btn_sm:hover.twitter:hover {
+      background-color: #1DA1F2; }
+  .btn_sm:hover.youtube {
     background-color: #cd201f; }
-    .btn_sm.youtube:hover {
-      background-color: #a11918; }
-  .btn_sm.vimeo {
+    .btn_sm:hover.youtube:hover {
+      background-color: #cd201f; }
+  .btn_sm:hover.vimeo {
     background-color: #4EBBFF; }
-    .btn_sm.vimeo:hover {
-      background-color: #1ba7ff; }
+    .btn_sm:hover.vimeo:hover {
+      background-color: #4EBBFF; }
+  .btn_sm:hover .fa-active:after {
+    border-color: #1fdcb8; }
 
 .btn_filter.fa-active {
   position: relative; }
@@ -3214,19 +3241,21 @@ ul li.handle .icon-handle {
   position: relative; }
 
 .modal-mask .modal-header h2 {
+  font-family: 'Fira Sans', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
   border-bottom: 1px solid #cecece;
   padding: 20px;
-  margin: 0; }
+  margin: 0;
+  font-weight: 300; }
 
 .modal-mask .modal-body input {
   height: 24.69px;
   width: calc(100% - 70px);
   margin: 0 auto; }
 
-.modal-mask .modal-body select {
-  width: 100%;
-  /*TEMPORARY*/
-  padding: 0.5em 1em; }
+.modal-mask .modal-body p {
+  padding: 0 20px; }
 
 .modal-mask .modal-body button.btn_sm {
   margin: 5px;
@@ -3237,8 +3266,8 @@ ul li.handle .icon-handle {
     margin-right: 20px; }
 
 .modal-mask .modal-body button.btn_primary.cancel-ok {
-  margin: 0;
-  width: calc(50% - 2px); }
+  margin: 20px;
+  width: calc(50% - 42px); }
 
 .modal-mask .modal-body label.form-label {
   line-height: 2em;
