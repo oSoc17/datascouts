@@ -52,9 +52,6 @@ class Handle extends Model
 
     // Accessors & Mutators
 
-    public function setUrlAttribute($value){
-        $this->attributes['url'] = $this->getTable().'_'.str_slug($this->attributes['name']);
-    }
 
     // Relationships
 

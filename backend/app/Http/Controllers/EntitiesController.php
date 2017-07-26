@@ -31,12 +31,16 @@ class EntitiesController extends Controller {
     public function addHandle(Request $request, $entity_id)
     {
         $handleBody = $request->only(array_keys(Handle::$rules));
-        // dd($request->only(array_keys(Handle::$rules)));
         $handle = new Handle($handleBody);
         
         $service = Service::findOrFail($request->input('service'));
         $entity = Entity::findOrFail($entity_id);
         
+        if(empty($handle->url)) {
+            $handle->url = $entity->id;
+            $handle->url .= '_' . str_slug($service->name, '-');
+            $handle->url .= '_' . str_slug($handle->name, '-');
+        }
         $handle->entity()->associate($entity);
         $handle->service()->associate($service);
         

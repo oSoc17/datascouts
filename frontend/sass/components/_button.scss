@@ -1,63 +1,78 @@
 button {
+    font-family: 'sofia_prolight', sans-serif;
     line-height: 30px;
     padding: 4px 15px;
     font-size: 16px;
-    &.btn_primary {
-        border: 1px solid $blue-whale;
-        background: $blue-whale;
-        color: $white;
-        margin: 15px;
-        text-transform: uppercase;
+    border: none;
+
+    &:hover {
+        transition: $trans;
+    }
+}
+
+.btn_primary {
+    border: 1px solid $blue-whale;
+    background: $blue-whale;
+    color: $white;
+    margin: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+    i {
+        font-size: 24px !important;
+        color: $primary;
+        font-style: normal;
+    }
+
+    &:hover {
+        background-color: $primary;
+        border-color: $primary;
+        color: $blue-whale;
+
         i {
-            font-size: 24px !important;
-            color: $primary;
-            font-style: normal;
-        }
-        &:hover {
-            transition: $trans;
-            background-color: $primary;
             color: $blue-whale;
-            font-weight: 700;
-            i {
-                color: $blue-whale;
-            }
         }
     }
-    &.btn_secondary {
-        border: 1px solid $gray;
-        background: $white;
-        margin: 15px;
-        font-weight: 700;
-        color: $gray;
-        &:hover {
-            transition: $trans;
-            color: $white;
-            background: $gray;
-        }
-    }
-    &.btn_crud {
-        border: none;
-        width: calc(100% - 2px);
-        margin-bottom: 5px;
-        background-color: $gray;
+}
+
+.btn_secondary {
+    border: 1px solid $gray;
+    background: $white;
+    margin: 15px;
+    font-weight: 700;
+    color: $gray;
+
+    &:hover {
         color: $white;
-        font-weight: 700;
+        background: $gray;
+    }
+}
+
+.btn_crud {
+    width: calc(100% - 2px);
+    margin-bottom: 5px;
+    background-color: $gray;
+    color: $white;
+    font-weight: 700;
+
+    i {
+        color: $white;
+    }
+
+    &.delete {
+        background-color: $error-light;
+
+        &:hover {
+            background-color: $error;
+        }
+    }
+
+    &.disabled {
+        background-color: $gray-lightest;
+        color: $gray-light;
+
         i {
-            color: $white;
-        }
-        &.delete {
-            background-color: $error-light;
-            &:hover {
-                transition: $trans;
-                background-color: $error;
-            }
-        }
-        &.disabled {
-            background-color: $gray-lightest;
             color: $gray-light;
-            i {
-                color: $gray-light;
-            }
             &:hover {
                 cursor: not-allowed;
             }
@@ -71,8 +86,9 @@ button {
         img {
             height: 20px;
         }
+
         &:hover {
-            background: lighten($blue-whale,10%);
+            cursor: not-allowed;
         }
     }
     &.btn_sm {        
@@ -99,3 +115,26 @@ button {
         cursor: pointer;
     }
 }
+
+// .btn_filter {
+//     .fa-active {
+//         position: relative;
+//     }
+
+//     .fa-active:after {
+//         display: block;
+//         content: "";
+//         position: absolute;
+//         top: -2px;
+//         right: -2px;
+//         width: 7px;
+//         height: 7px;
+//         border-radius: 100%;
+//         border: 2px solid $blue-whale;
+//         background-color: #f00;
+//     }
+
+//     &:hover .fa-active:after {
+//         border-color: $primary;
+//     }
+// }

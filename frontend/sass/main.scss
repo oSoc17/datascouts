@@ -1,6 +1,28 @@
+/**
+ * Variables
+ * ---
+ * You should always import these first
+ */
+
 @import 'abstracts/variables';
 
+/**
+ * Code from third party vendors
+ */
+
+@import 'vendors/font-awesome/font-awesome';
+@import 'vendors/sofiaprolight/sofiaprolight';
+
+/**
+ * Base style
+ */
+
 @import 'base/base';
+@import 'base/animation';
+
+/**
+ * Components
+ */
 
 @import 'components/button';
 @import 'components/form';
@@ -11,6 +33,10 @@
 @import 'components/emptystate';
 @import 'components/checkbox';
 
+/**
+ * Layouts
+ */
+
 @import 'layout/flexbox';
 @import 'layout/list';
 @import 'layout/header';
@@ -19,6 +45,3 @@
 @import 'layout/overlay-login';
 @import 'layout/waterfall';
 @import 'layout/pop-up';
-
-@import 'vendors/font-awesome/font-awesome';
-@import 'vendors/sofiaprolight/sofiaprolight';

@@ -41,6 +41,8 @@
   import EntitiesList from '../entities/EntitiesList.vue'
   import AddEntity from '../entities/AddEntity.vue'
 
+  import { saveActiveEntities, getActiveEntities } from '../../utils/storageService'
+
   export default {
     props : ['currentEntity'],
     components: {
@@ -55,7 +57,7 @@
     },
     created () {
       this.loadEntities()
-      
+
     },
     mounted () {
       bus.$on('ADD_NEW_ENTITY',this.insertNewEntity)
@@ -73,7 +75,7 @@
       loadEntities: function() {
         return this.$http.get('entities?fields=id,name,url')
             .then(res => {
-            
+
               bus.$emit('ENTITIES_IS_EMPTY', res.data.length === 0)
               bus.$emit('FETCH_DATA', true)
               // Already got a bunch of entities
@@ -119,6 +121,22 @@
       deleteEntity : function (){
         const i = this.list.findIndex(e => e.id === this.currentEntity.id)
         this.list.splice(i,1)
+
+        // Also need to delete this entity
+        // Get that list of active entities
+        const actives = getActiveEntities()
+        console.log("saved entities")
+        console.log(getActiveEntities())
+        // Get the position of the specified entity on that list
+        const pos = actives.findIndex(h_id => h_id == this.currentEntity.id)
+
+        // Check if that handle was active
+        if(pos > -1) {
+          actives.splice(pos, 1); // Remove that entity
+          saveActiveEntities(actives); // Store the new list
+        }
+        console.log("saved entities")
+        console.log(getActiveEntities())
       },
 
       updateEntities: _debounce(function() {
