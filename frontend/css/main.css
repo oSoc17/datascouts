@@ -3091,10 +3091,12 @@ ul li.handle .icon-handle {
     line-height: 35px; }
   #sidebar_entities form.slide-up#entity_form {
     position: fixed;
-    bottom: 15px;
+    bottom: 0;
     left: 0;
+    padding-bottom: 15px;
     width: calc(300px - 50px);
-    border-top: 1px solid #eeeeee; }
+    border-top: 1px solid #eeeeee;
+    background-color: #ffffff; }
     #sidebar_entities form.slide-up#entity_form * {
       animation: slideUp 1s ease-in-out forwards; }
     #sidebar_entities form.slide-up#entity_form .form-group:nth-of-type(2) {
@@ -3108,8 +3110,7 @@ ul li.handle .icon-handle {
   width: 300px;
   background-color: #eeeeee;
   z-index: -1;
-  margin-left: -301px;
-  /*overflow-y: scroll;*/ }
+  margin-left: -301px; }
   #sidebar_handles form.slide-up#handle_form {
     position: fixed;
     bottom: 0;

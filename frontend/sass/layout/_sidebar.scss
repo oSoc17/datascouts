@@ -41,10 +41,12 @@
     }
     form.slide-up#entity_form {
         position: fixed;
-        bottom: 15px;
+        bottom: 0;
         left: 0;
+        padding-bottom: 15px;
         width: calc(300px - 50px);
         border-top: 1px solid $gray-lightest;
+        background-color: $white;
         * {
             animation: slideUp 1s ease-in-out forwards;
         }
@@ -61,7 +63,6 @@
     background-color: $gray-lightest;
     z-index: -1;
     margin-left: -301px;
-    /*overflow-y: scroll;*/
     form.slide-up#handle_form {
         position: fixed;
         bottom: 0;
