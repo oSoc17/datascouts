@@ -17,7 +17,6 @@
           <p>{{item.name}}</p>
         </div>
         <input class="styled-checkbox checkbox" type="checkbox" :id="['styled-checkbox-entities-' + item.id]"
-          :click="toggleEntity()"
           :value="item.id" v-model="activeEntities">
           <label :for="['styled-checkbox-entities-' + item.id]"></label>
           <i class="fa fa-angle-right"></i>
@@ -101,9 +100,6 @@
       },
       closeSideBar: function () {
         bus.$emit('CLOSE_HANDLES_SIDEBAR')
-      },
-      toggleEntity: function () {
-
       },
       updateEntities: function() {
         bus.$emit('UPDATE_ENTITIES')
