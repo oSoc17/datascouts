@@ -13,8 +13,12 @@
             </div>
             <p >{{handle.name}}</p>
           </div>
-          <input type="checkbox" class="checkbox" name="checkbox"
+          <input class="styled-checkbox checkbox" type="checkbox"
+            :id="['styled-checkbox-handles-' + handle.id]"
             :value="handle.id" v-model="activeHandles">
+            <label :for="['styled-checkbox-handles-' + handle.id]"></label>
+          <!-- <input type="checkbox" class="checkbox" name="checkbox"
+            :value="handle.id" v-model="activeHandles"> -->
       </li>
     </template>
   </ul>
