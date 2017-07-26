@@ -31,7 +31,7 @@
 			<div class="filter-keywords">
 				<h2>Keywords</h2>
 				<div class="form-group">
-					<input type="text" placeholder="Keyword">
+					<input type="text" placeholder="Keyword" v-model="keyword">
 				</div>
 				<div class="form-group">
 					<!-- You can add any html tag for vue, not styled yet, I'll do it afterwards -->
@@ -75,7 +75,7 @@
 
     <div class="tweets wf-container" id="wf-container">
       <template v-for="entity in items">
-        <template v-for="handle in entity">
+        <template v-for="handle in entity.filter(hasKeyword)">
             <!--TWEET-->
             <div class="wf-box twitter" v-if="handle.social_media === 'twitter'">
               <!-- BODY -->
@@ -129,6 +129,8 @@
       return {
         entitiesIsEmpty: false,
         items: [],
+        filteredItems: [],
+        keyword: '',
         isLoading: false
       }
     },
@@ -146,6 +148,11 @@
       }
     },
     methods: {
+      hasKeyword: function(item){
+        return item.body.indexOf(this.keyword)!==-1
+        
+        this.updateWaterfall()
+      },
       hideFilters: function(e){
         var el = document.getElementById("filter")
         var filters = document.getElementById("filters")
