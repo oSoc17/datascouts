@@ -28,25 +28,30 @@
 					<label for="styled-checkbox-sm-3">Vimeo</label>
 				</div>
 			</div>
+
 			<div class="filter-keywords">
-				<h2>Keywords</h2>
+				<h2>Keyword</h2>
 				<div class="form-group">
           <form>
-            <input type="text" placeholder="Keyword" v-model="keyword">
+            <input type="text" placeholder="Keyword" v-model="newKeyword">
             <button type="submit" class="btn_primary action" id="entity_add" v-on:click.prevent="addKeyword()">
               <i class="plus">+</i>
               Add keyword
             </button>
           </form>
-
 				</div>
 				<div class="form-group">
 					<!-- You can add any html tag for vue, not styled yet, I'll do it afterwards -->
+          <input type="radio" id="noFilter" value="" v-model="selectedKeyword">
+          <label for="noFilter">no filter</label>
           <template v-for="keyword in keywords">
-            <div class="keyword">{{keyword}}</div>
+            <input type="radio" :id="keyword" :value="keyword" v-model="selectedKeyword">
+            <label :for="keyword">{{keyword}}</label>
+            <button v-on:click.prevent="deleteKeyword(keyword)">x</button>
           </template>
 				</div>
 			</div>
+
 		</form>
 	</div>
 
@@ -137,7 +142,8 @@
         entitiesIsEmpty: false,
         items: [],
         filteredItems: [],
-        keyword: '',
+        selectedKeyword: '',
+        newKeyword: '',
         keywords: [],
         isLoading: false
       }
@@ -157,23 +163,25 @@
     },
     methods: {
       addKeyword: function(){
-        this.keywords.push(this.keyword)
-        this.keyword = ""
+        if(this.keywords.indexOf(this.newKeyword)==-1 && this.newKeyword!==''){
+          this.keywords.push(this.newKeyword)
+        }
+        this.selectedKeyword = this.newKeyword
+        this.newKeyword = ""
       },
       hasKeyword: function(item){
-        var bool = false
-        if(typeof(item.body)!=='undefined' && this.keywords.length!==0){
-          this.keywords.forEach(function(keyword){
-            if(item.body.indexOf(keyword)!==-1){bool=true}
-          })
+        if(typeof(item.body)!=='undefined'){
+          return item.body.indexOf(keyword)!==-1
         }
         else{
-          bool = true
+          return false
         }
-        return bool
         setTimeout(function(){this.updateWaterfall()},10)
-        setTimeout(function(){this.updateWaterfall()},500)
-
+      },
+      deleteKeyword: function(keyword){
+        const i = this.keywords.findIndex(k => k === keyword)
+        this.selectedKeyword = ''
+        this.keywords.splice(i,1)
       },
       hideFilters: function(e){
         var el = document.getElementById("filter")
