@@ -1,4 +1,7 @@
 ul {
+    max-height: calc(100vh - 300px);
+    overflow: hidden;
+    overflow-y: scroll;
     &.entities,
     &.handles {
         list-style: none;
