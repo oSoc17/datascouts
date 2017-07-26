@@ -31,13 +31,20 @@
 			<div class="filter-keywords">
 				<h2>Keywords</h2>
 				<div class="form-group">
-					<input type="text" placeholder="Keyword" v-model="keyword">
+          <form>
+            <input type="text" placeholder="Keyword" v-model="keyword">
+            <button type="submit" class="btn_primary action" id="entity_add" v-on:click.prevent="addKeyword()">
+              <i class="plus">+</i>
+              Add keyword
+            </button>
+          </form>
+
 				</div>
 				<div class="form-group">
 					<!-- You can add any html tag for vue, not styled yet, I'll do it afterwards -->
-					<div class="keyword">Keyword1</div>
-					<div class="keyword">Keyword2</div>
-					<div class="keyword">Keyword3</div>
+          <template v-for="keyword in keywords">
+            <div class="keyword">{{keyword}}</div>
+          </template>
 				</div>
 			</div>
 		</form>
@@ -75,9 +82,9 @@
 
     <div class="tweets wf-container" id="wf-container">
       <template v-for="entity in items">
-        <template v-for="handle in entity.filter(hasKeyword)">
+        <template v-for="handle in entity">
             <!--TWEET-->
-            <div class="wf-box twitter" v-if="handle.social_media === 'twitter'">
+            <div class="wf-box twitter" v-show="hasKeyword(handle)"v-if="handle.social_media === 'twitter'">
               <!-- BODY -->
               <div class="body">
                 <p>
@@ -131,6 +138,7 @@
         items: [],
         filteredItems: [],
         keyword: '',
+        keywords: [],
         isLoading: false
       }
     },
@@ -148,10 +156,24 @@
       }
     },
     methods: {
+      addKeyword: function(){
+        this.keywords.push(this.keyword)
+        this.keyword = ""
+      },
       hasKeyword: function(item){
-        return item.body.indexOf(this.keyword)!==-1
-        
-        this.updateWaterfall()
+        var bool = false
+        if(typeof(item.body)!=='undefined' && this.keywords.length!==0){
+          this.keywords.forEach(function(keyword){
+            if(item.body.indexOf(keyword)!==-1){bool=true}
+          })
+        }
+        else{
+          bool = true
+        }
+        return bool
+        setTimeout(function(){this.updateWaterfall()},10)
+        setTimeout(function(){this.updateWaterfall()},500)
+
       },
       hideFilters: function(e){
         var el = document.getElementById("filter")
@@ -209,7 +231,6 @@
       },
       updateWaterfall: _debounce(
         function() {
-          console.log(this.items)
           this.waterfall.compose(true)
           document.getElementById("wf-container").style.visibility = "visible"
 
