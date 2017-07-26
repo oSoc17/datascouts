@@ -33,7 +33,7 @@
 
 <script>
   import { bus } from '../../main'
-  import { saveActiveEntities, getActiveEntities, saveActiveHandles } from '../../utils/storageService'
+  import { saveActiveEntities, getActiveEntities, saveActiveHandles, getActiveHandles } from '../../utils/storageService'
 
 
   export default {
@@ -57,7 +57,7 @@
         // this.activeEntities = this.entities.filter(e => e.active).map(e => e.id)
       },
       activeEntities : function(){
-        saveActiveEntities(this.activeEntities);
+        //saveActiveEntities(this.activeEntities);
         this.updateLocalStorage()
         bus.$emit('UPDATE_ACTIVE_HANDLES', this.activeHandles)
       }
@@ -81,20 +81,27 @@
       updateLocalStorage: function() {
         console.log("updating local storage")
         var self = this
+        var handlesIDs = []
         this.activeEntities.forEach(function(entityID){
-          var handlesIDs = []
-          console.log("entity", entityID)
-          self.$http.get(`entities/${entityID}/handles`)
-              .then(res => {
-                bus.$emit('HANDLES_IS_EMPTY', res.data.length === 0)
-                res.data.forEach(function({id}){handlesIDs.push(id)})
-                saveActiveHandles(entityID, handlesIDs)
-                console.log(handlesIDs)
-                bus.$emit('FETCH_DATA')
-              })
-              .catch(console.error)
-
+          if(findIndex(this.getActiveEntities(), entityID)==-1){
+            self.$http.get(`entities/${entityID}/handles`)
+                .then(res => {
+                  bus.$emit('HANDLES_IS_EMPTY', res.data.length === 0)
+                  res.data.forEach(function({id}){handlesIDs.push(id)})
+                  saveActiveHandles(entityID, handlesIDs)
+                  console.log(handlesIDs)
+                  bus.$emit('FETCH_DATA')
+                }).catch(console.error)
+          }
         })
+        
+      },
+      findIndex: function(array, id) {
+        var index = -1
+        for(var i=0;i<array.length;i++){
+          if(id == array[i].id){index = i; break;}
+        }
+        return index
       },
       selectEntity: function (e,item) {
         console.log(e.target)
