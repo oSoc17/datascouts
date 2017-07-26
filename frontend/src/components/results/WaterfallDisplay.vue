@@ -59,24 +59,18 @@
 		</div>
 
 		<div class="empty-state empty-state-feed" v-show="entitiesIsEmpty">
-					<h2>What is a member?</h2>
-					<p>
-						Curabitur aliquet quam id dui posuere blandit.
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-						Curabitur aliquet quam id dui posuere blandit. Proin eget tortor risus.
-					</p>
-					<h2>How to add one?</h2>
-					<ul>
-						<li>Step 1</li>
-						<li>Step 2</li>
-						<li>Step 3</li>
-					</ul>
+					<h2>Visualise what your colleagues, friends, companies and competitors are talking about.</h2>
+					<ol>
+						<li>Add the name of your first company or person you want to follow. We call this a member.</li>
+						<li>Click on the member and add all social media channels for this member.</li>
+						<li>All done!</li>
+					</ol>
 				</div>
 
 		<div class="tweets wf-container" id="wf-container">
 			<template v-for="entity in items">
 				<template v-for="handle in entity">
-				
+
 					<!--TWITTER-->
 					<template v-if="handle.social_media === 'twitter'">
 					<div class="wf-box twitter">
@@ -126,7 +120,7 @@
 								<i class="fa fa-youtube-play"></i>
 							</a>
 						</div>
-						
+
 						<!-- VIDEO-IFRAME -->
 						<!-- <figure class="content-media content-media--video" id="featured-media">
 							<iframe class="content-media__object media" id="featured-video" v-bind:src='handle.link + "?enablejsapi=1&rel=0&showinfo=0&controls=0"' frameborder="0"></iframe>
@@ -169,7 +163,7 @@
 								<i class="fa fa-youtube-play"></i>
 							</a>
 						</div>
-						
+
 						<!-- VIDEO-IFRAME -->
 						<!-- <figure class="content-media content-media--video" id="featured-media">
 							<iframe class="content-media__object media" id="featured-video" v-bind:src='handle.link + "?enablejsapi=1&rel=0&showinfo=0&controls=0"' frameborder="0"></iframe>
