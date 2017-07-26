@@ -2884,6 +2884,7 @@ figure#featured-media {
 
 ul {
   max-height: calc(100vh - 300px);
+  min-height: calc(100vh - 300px);
   overflow: hidden;
   overflow-y: scroll; }
   ul.entities, ul.handles {
