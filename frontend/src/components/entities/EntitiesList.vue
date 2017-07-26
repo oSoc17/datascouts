@@ -60,6 +60,8 @@
     },
     watch: {
       entities : function () {
+        this.entitiesIsEmpty = (this.activeEntities.length === 0)
+        bus.$emit('ENTITIES_IS_EMPTY', this.entitiesIsEmpty)
         // this.activeEntities = this.entities.filter(e => e.active).map(e => e.id)
       },
       activeEntities : function(){
