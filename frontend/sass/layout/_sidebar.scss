@@ -1,6 +1,6 @@
 #sidebar_entities,
 #sidebar_handles,
-#sidebar_actions {
+#sidebar_handle_actions {
     position: relative;
     border-right: 1px solid $gray-lightest;
     min-height: calc(100vh - 40px);
@@ -10,7 +10,7 @@
 #sidebar_entities {
     width: 250px;
     background-color: $white;
-    z-index: 10;
+    z-index: 2;
     &:hover button.collapse {
         display: initial;
         transition: $trans;
@@ -41,7 +41,7 @@
     }
     form.slide-up#entity_form {
         position: fixed;
-        bottom: 0;
+        bottom: 15px;
         left: 0;
         width: calc(300px - 50px);
         border-top: 1px solid $gray-lightest;
@@ -89,5 +89,4 @@
     z-index: -2;
     width: 200px;
     background-color: $white;
-    margin-left: -201px;
 }
