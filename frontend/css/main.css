@@ -2611,6 +2611,17 @@ form .form-group {
     box-shadow: 0 0 5px 0 #f2acac; }
     .wf-box.youtube .metadata_2 .social_media {
       background-color: #cd201f; }
+    .wf-box.youtube .play-button {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%); }
+      .wf-box.youtube .play-button i {
+        text-shadow: 0 0 10px rgba(0, 0, 0, 0.35);
+        font-size: 50px !important;
+        color: white; }
+        .wf-box.youtube .play-button i:hover {
+          text-shadow: 0 0 10px black; }
     .wf-box.youtube:hover {
       box-shadow: 0 0 5px 2px #ec8080; }
   .wf-box:hover {
