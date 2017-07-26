@@ -25,16 +25,13 @@ return [
     
     'youtube' => [
         'api_key' => env('YOUTUBE_API_KEY'),
-        'client_id' => env('YOUTUBE_APP_ID'),
-        'client_secret' => env('YOUTUBE_APP_SECRET'),
-        'redirect' => env('YOUTUBE_APP_CALLBACK'),
     ],
 
     'vimeo' => [
         'client_id' => env('VIMEO_APP_ID'),
         'client_secret' => env('VIMEO_APP_SECRET'),
         'access_token' => env('VIMEO_APP_ACCESS_TOKEN'),
-        'default_scope' => ['public', 'private', 'purchased', 'interact'],
+        'default_scope' => ['public', 'private'],
         'redirect' => env('VIMEO_APP_CALLBACK'),
     ],
 
