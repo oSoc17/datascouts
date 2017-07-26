@@ -2,5 +2,5 @@
 .vscode
 test/e2e/mock-template-build
 *.log*
-dist/
+dist/*
 node_modules/

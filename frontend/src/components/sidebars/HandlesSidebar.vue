@@ -164,7 +164,7 @@
 
         // Check if that handle was active
         if(pos > -1) {
-          actives.split(pos, 1); // Remove that handle
+          actives.splice(pos, 1); // Remove that handle
           saveActiveHandles(this.entity.id, actives); // Store the new list
         }
 

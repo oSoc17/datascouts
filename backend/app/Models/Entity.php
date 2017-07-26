@@ -41,6 +41,21 @@ class Entity extends Model {
     public $visible = [];
 
 
+
+    // Booting
+
+    protected static function boot()
+    {
+        parent::boot();
+        
+        static::creating(function ($model) {
+            if (array_key_exists('url', $model->getAttributes()) && !isset($model->url)) {
+                $model->url = 'entity_' . str_slug($model->name, '-');
+            }
+        });
+    }
+
+
     // Relationships
 
     public function creator()
@@ -52,5 +67,10 @@ class Entity extends Model {
     {
         return $this->hasMany("App\Models\Handle");
     }
+
+
+
+
+
 
 }
