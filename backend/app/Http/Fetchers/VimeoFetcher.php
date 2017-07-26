@@ -31,31 +31,57 @@ class VimeoFetcher extends BaseFetcher
             'query' => urlencode($handle->name), 
             'direction' => 'DESC', // Show results in descending order
             'page' => 1,         // Show first page of results, 
-            'per_page' => 1,   // Set the number of items to show on each page to 50
+            'per_page' => 100,   // Set the number of items to show to 100 (max)
             'sort' => 'relevant', // Sort by relevance
             'filter' => 'CC' // Filter only Creative Commons License videos
         ]);
-        var_dump(array_keys($response));
-        // return array_map(array($this, 'filterData'), $data);
+        $body = array_shift($response);
+        // var_dump($body['data']);
+        return array_map(array($this, 'filterData'), $body['data']);
     }
 
-
-    private function filterData($ytb)
-    {
-        $type = explode('#', $ytb->id->kind)[1];
+    private function filterData($vimeo)
+    {        
         $res = [
             'service_name' => $this->fetcherType,
-            'type' => $type,
-            'id' => $ytb->id->{$type.'Id'},
-            'title' => $ytb->snippet->title,
-            'description' => $ytb->snippet->description,
-            'thumbnail' => $ytb->snippet->thumbnails->medium->url,
-            'channel' => $ytb->snippet->channelTitle
+            'id' => $vimeo['uri'],
+            'title' => $vimeo['name'],
+            'description' => $vimeo['description'],
+            'link' => $vimeo['link'],
+            'embed' => $vimeo['embed']['html'],
+            'language' => $vimeo['language'],
+            'created_at' => $vimeo['created_time'],
+            'played_count' => $vimeo['stats']['plays'],
+            'likes_count' => $vimeo['metadata']['connections']['likes']['total'],
+            'comments_count' => $vimeo['metadata']['connections']['comments']['total'],
         ];
-        
-        $res['link'] = 'https://vimeo.com/';
-        $res['link'] .= (($type=='video') ? 'embed' : $type).'/'.$res['id'];
+
+        $thumbnails  = $vimeo['pictures']['sizes'];
+        $res['thumbnail'] = array_pop($thumbnails)['link_with_play_button'];
+
+        $vimeoUser = $vimeo['user'];
+        $avatars = $vimeoUser['pictures']['sizes'];
+        $res['user'] = [
+            'id' => $vimeoUser['uri'],
+            'name' => $vimeoUser['name'],
+            'description' => $vimeoUser['bio'],
+            'from' => $vimeoUser['location'],   
+            'since' => $vimeoUser['created_time'],
+            'avatar' => (count($avatars) > 0  ? array_pop($avatars)['link'] : null ),
+            'videos_count' => $vimeoUser['metadata']['connections']['videos']['total'],
+            'likes_count' => $vimeoUser['metadata']['connections']['likes']['total'],
+            'shared_count' => $vimeoUser['metadata']['connections']['shared']['total'],
+            'followers_count' => $vimeoUser['metadata']['connections']['followers']['total'],
+            'following_count' => $vimeoUser['metadata']['connections']['following']['total'],
+        ];
+
+        $collectKeywords = function ($tag) {
+            return $tag['name'];
+        };
+        $res['keywords'] = array_map($collectKeywords, $vimeo['tags']);
         
         return $res;
     }
+
+
 }
