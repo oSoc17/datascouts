@@ -5,15 +5,17 @@
 		flex: 0 0 auto;
 	}
 }
+
 .column {
   	flex-direction: column;
 }
+
 .full-screen {
-  	display: flex;
-  	overflow: hidden;
+  display: flex;
+  overflow: hidden;
 	flex-direction: column;
 	* {
- 		flex: 0 0 auto;
+		flex: 0 0 auto;
 	}
 	.header {
 		height: 40px;
@@ -23,6 +25,7 @@
 		width: 100%;
 		z-index: 999;
 	}
+
 	.main {
 		flex: 1 1 auto;
 		display: flex;
@@ -31,21 +34,15 @@
 		* {
 			flex: 0 0 auto;
 		}
+
 		#content {
 			flex: 1 1 auto;
-			background: url(../assets/img/globe.png);
+			background: url(../assets/img/globe.svg);
 			background-repeat: no-repeat;
-			background-position: 100px 50px;
-			background-color: white;
-			animation: fadeIn 1s ease-in-out forwards;		
+			background-position: top 100px center;
+			background-color: whitesmoke;
+			background-size: 70%;
+			animation: fadeIn 1s ease-in-out forwards;
 		}
 	}
-}
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
 }
