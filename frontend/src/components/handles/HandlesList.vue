@@ -30,7 +30,7 @@
     },
     data () {
       return {
-        activeHandles : [],
+        activeHandles : this.actives,
         select : {},
         isSelected: false,
         handlesIsEmpty: false,
@@ -59,7 +59,7 @@
       activeHandles : function () {
         bus.$emit('CHANGE_ACTIVE_HANDLES', this.activeHandles)
         bus.$emit('FETCH_DATA')
-        
+
       }
 
     },

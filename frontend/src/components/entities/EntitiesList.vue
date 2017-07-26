@@ -6,8 +6,6 @@
 
     <template v-for="item in computedEntities">
 
-
-
       <li v-bind:class="[{ active: isSelected && currentEntity.id == item.id }, 'entity']">
         <div v-on:click="selectEntity($event,item)">
           <div class="image_entity">
@@ -16,7 +14,6 @@
           <p>{{item.name}}</p>
         </div>
         <input class="styled-checkbox checkbox" type="checkbox" :id="['styled-checkbox-entities-' + item.id]"
-          :click="toggleEntity()"
           :value="item.id" v-model="activeEntities">
           <label :for="['styled-checkbox-entities-' + item.id]"></label>
           <i class="fa fa-angle-right"></i>
@@ -36,7 +33,7 @@
 
 <script>
   import { bus } from '../../main'
-  import { saveActiveEntities, getActiveEntities } from '../../utils/storageService'
+  import { saveActiveEntities, getActiveEntities, saveActiveHandles } from '../../utils/storageService'
 
 
   export default {
@@ -44,6 +41,7 @@
       entities : Array,
       searchEntity : String,
       currentEntity: Object,
+      services: Object,
     },
     components:{},
     data () {
@@ -60,12 +58,13 @@
     },
     watch: {
       entities : function () {
+
         // this.activeEntities = this.entities.filter(e => e.active).map(e => e.id)
       },
       activeEntities : function(){
         saveActiveEntities(this.activeEntities);
+        this.updateLocalStorage()
         bus.$emit('UPDATE_ACTIVE_HANDLES', this.activeHandles)
-        bus.$emit('FETCH_DATA')
       }
     },
     computed: {
@@ -82,10 +81,33 @@
         }
         return found
       },
-
-
     },
     methods: {
+      updateLocalStorage: function() {
+        var self = this
+        this.activeEntities.forEach(function(entityID){
+          var list = []
+          console.log("entity", entityID)
+          self.$http.get(`entities/${entityID}/handles`)
+              .then(res => {
+                bus.$emit('HANDLES_IS_EMPTY', res.data.length === 0)
+
+                list = res.data.map(h => {
+                  const {id, name, url, service_id, fetched_at} = h
+                  const service = self.services[service_id] || {};
+                  return {
+                      id, name, url, service_id, fetched_at,
+                      'service' : service.name,
+                      'active' : true
+                    }
+                })
+                saveActiveHandles(entityID, list)
+                bus.$emit('FETCH_DATA')
+              })
+              .catch(console.error)
+
+        })
+      },
       selectEntity: function (e,item) {
         console.log(e.target)
         if(this.isSelected){ // Already, select a handle
@@ -101,9 +123,6 @@
       closeSideBar: function () {
         bus.$emit('CLOSE_HANDLES_SIDEBAR')
       },
-      toggleEntity: function () {
-
-      },
       updateEntities: function() {
         bus.$emit('UPDATE_ENTITIES')
       },
@@ -113,6 +132,7 @@
       },
       loadStoredActiveEntities : function () {
         this.activeEntities = getActiveEntities();
+        this.updateActiveHandles()
       }
       // updateSelectedEntities: _debounce( function() {
         // var entitiesHTML = document.getElementsByClassName("entity")

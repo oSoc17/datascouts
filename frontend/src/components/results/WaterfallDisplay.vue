@@ -196,11 +196,11 @@
         this.$http.post('fetch', {handles})
             .then(res => {this.items = res.data})
             .catch(console.error)
-        console.log(this.items)
+        //console.log(this.items)
       },
       updateWaterfall: _debounce(
         function() {
-          console.log(this.items)
+          //console.log(this.items)
           this.waterfall.compose(true)
           document.getElementById("wf-container").style.visibility = "visible"
 
