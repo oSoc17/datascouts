@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 use App\Models\Handle;
 use App\Jobs\ExampleJob;
 use App\Jobs\TwitterJob;
+use App\Jobs\VimeoJob;
 use App\Jobs\YoutubeJob;
 
 
@@ -50,8 +51,8 @@ class DataScoutsFetchHandles extends Command
         if($this->option('only')) {
             $handles = [Handle::findOrFail(intval($this->option('only')))];
         }else{
-            // $handles = Handle::fetchable()->isOutDated()->get();
-            $handles = Handle::all();
+            $handles = Handle::fetchable()->isOutDated()->get();
+            // $handles = Handle::all();
         }
         
         foreach ($handles as $handle) {
@@ -63,8 +64,8 @@ class DataScoutsFetchHandles extends Command
                     $fetcherJob = new TwitterJob($handle);
                     break;
 
-                case 'facebook':
-                    //  $fetcherJob = new FacebookJob($handle);
+                case 'vimeo':
+                     $fetcherJob = new VimeoJob($handle);
                     break;
                     
                 case 'youtube' :
