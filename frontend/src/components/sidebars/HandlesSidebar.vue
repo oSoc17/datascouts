@@ -70,7 +70,7 @@
       openSidebar : function() {
         const $elt = document.getElementById("sidebar_handles");
         $elt.style.transition = "all .25s ease"
-        $elt.style.marginLeft = "0px"
+        $elt.style.marginLeft = "250px"
         $elt.style.zIndex = 2
       },
 

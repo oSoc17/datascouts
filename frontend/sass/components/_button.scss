@@ -71,12 +71,11 @@ button {
     &.disabled {
         background-color: $gray-lightest;
         color: $gray-light;
-
+        &:hover {
+            cursor: not-allowed;
+        }
         i {
             color: $gray-light;
-            &:hover {
-                cursor: not-allowed;
-            }
         }
     }
     &.btn_filter {
