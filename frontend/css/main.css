@@ -2517,10 +2517,10 @@ button {
   .btn_crud.disabled {
     background-color: #eeeeee;
     color: #cecece; }
+    .btn_crud.disabled:hover {
+      cursor: not-allowed; }
     .btn_crud.disabled i {
       color: #cecece; }
-      .btn_crud.disabled i:hover {
-        cursor: not-allowed; }
   .btn_crud.btn_filter {
     border: none;
     background: #303240;
@@ -2878,6 +2878,8 @@ figure#featured-media {
       background-position: top 100px center;
       background-color: whitesmoke;
       background-size: 70%;
+      min-height: calc(100vh - 40px);
+      margin-left: 250px;
       animation: fadeIn 1s ease-in-out forwards; }
 
 ul.entities, ul.handles {
@@ -3060,7 +3062,7 @@ ul li.handle .icon-handle {
 #sidebar_entities,
 #sidebar_handles,
 #sidebar_handle_actions {
-  position: relative;
+  position: fixed;
   border-right: 1px solid #eeeeee;
   min-height: calc(100vh - 40px);
   transition: all 0.25s ease; }
@@ -3131,8 +3133,10 @@ ul li.handle .icon-handle {
 #sidebar_handle_actions {
   z-index: 2;
   width: 200px;
-  margin-left: -1px;
+  margin-left: 550px;
   background-color: #ffffff; }
+  #sidebar_handle_actions h1 {
+    margin-top: 70px; }
 
 .filters {
   position: relative;
