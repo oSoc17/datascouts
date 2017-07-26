@@ -49,7 +49,7 @@ class TwitterFetcher extends BaseFetcher
     private function filterData($tweet)
     {
         $res = [
-            'social_media' => 'twitter',
+            'service_name' => 'twitter',
             'id' => $tweet->id_str,
             'created_at' => $tweet->created_at,
             'body' => $tweet->text,
