@@ -5,16 +5,33 @@
     margin: 8px;
     background: $white;
     &.facebook {
-        box-shadow: 0 0 5px 0 lighten($facebook,35%); 
+        box-shadow: 0 0 5px 0 lighten($facebook,35%);
         .metadata_2 .social_media { background-color: $facebook; }
         &:hover { box-shadow: 0 0 5px 2px lighten($facebook,25%); }}
     &.twitter {
-        box-shadow: 0 0 5px 0 lighten($twitter,35%); 
+        box-shadow: 0 0 5px 0 lighten($twitter,35%);
+        // border: 1px solid $twitter;
         .metadata_2 .social_media { background-color: $twitter; }
         &:hover { box-shadow: 0 0 5px 2px lighten($twitter,25%); }}
     &.youtube {
         box-shadow: 0 0 5px 0 lighten($youtube,35%); 
-        .metadata_2 .social_media { background-color: $youtube; }
+        .metadata_2 .social_media {
+            background-color: $youtube;
+        }
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            i {
+                text-shadow: 0 0 10px rgba(0, 0, 0, .35);
+                font-size: 50px !important;
+                color: white;
+                &:hover {
+                    text-shadow: 0 0 10px rgba(0, 0, 0, 1);
+                }
+            }
+        }
         &:hover { box-shadow: 0 0 5px 2px lighten($youtube,25%); }}
     &:hover {
         transition: $trans;
