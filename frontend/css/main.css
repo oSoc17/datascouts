@@ -3213,9 +3213,15 @@ ul li.handle .icon-handle {
 .modal-mask .modal-container {
   position: relative; }
 
+.modal-mask .modal-header h2 {
+  border-bottom: 1px solid #cecece;
+  padding: 20px;
+  margin: 0; }
+
 .modal-mask .modal-body input {
   height: 24.69px;
-  width: calc(100% - 29px); }
+  width: calc(100% - 70px);
+  margin: 0 auto; }
 
 .modal-mask .modal-body select {
   width: 100%;
@@ -3224,7 +3230,19 @@ ul li.handle .icon-handle {
 
 .modal-mask .modal-body button.btn_sm {
   margin: 5px;
-  width: calc(33% - 10px); }
+  width: calc(33% - 19px); }
+  .modal-mask .modal-body button.btn_sm:nth-of-type(1) {
+    margin-left: 20px; }
+  .modal-mask .modal-body button.btn_sm:nth-of-type(3) {
+    margin-right: 20px; }
+
+.modal-mask .modal-body button.btn_primary.cancel-ok {
+  margin: 0;
+  width: calc(50% - 2px); }
+
+.modal-mask .modal-body label.form-label {
+  line-height: 2em;
+  padding-left: 20px; }
 
 .modal-mask .modal-footer .text-right {
   width: 100%; }
