@@ -3,12 +3,12 @@
     <div class="flashmessage">You succesfully created an entity called {{ entity }}</div>
 
     <div class="filters" id="filters">
-		<button class="btn_filter" v-on:click="showFilters()">
+		<button class="btn_primary btn_filter" v-on:click="showFilters()">
 			<!-- This source should be replaced with filtered.svg
 					IF any checkboxes are check
 					OR any keyword is added -->
-			<!--<img src="assets/font-awesome-svg/filtered.svg" alt="">-->
-			<img src="assets/font-awesome-svg/unfiltered.svg" alt="">
+			<!-- <i class="fa fa-filter fa-active"></i> -->
+      <i class="fa fa-filter"></i>
 			Filter
 		</button>
 		<form action="" id="filter" style="display: none;" class="">
