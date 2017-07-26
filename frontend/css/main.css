@@ -2560,10 +2560,10 @@ button {
     .btn_sm.vimeo:hover {
       background-color: #1ba7ff; }
 
-.btn_filter .fa-active {
+.btn_filter.fa-active {
   position: relative; }
 
-.btn_filter .fa-active:after {
+.btn_filter.fa-active:after {
   display: block;
   content: "";
   position: absolute;
@@ -2835,10 +2835,11 @@ figure#featured-media {
       flex: 0 0 auto; }
     .full-screen .main #content {
       flex: 1 1 auto;
-      background: url(../assets/img/globe.png);
+      background: url(../assets/img/globe.svg);
       background-repeat: no-repeat;
-      background-position: 100px 50px;
-      background-color: white;
+      background-position: top 100px center;
+      background-color: whitesmoke;
+      background-size: 70%;
       animation: fadeIn 1s ease-in-out forwards; }
 
 ul.entities, ul.handles {
@@ -3103,7 +3104,7 @@ ul li.handle .icon-handle {
     position: absolute;
     right: 16px;
     top: 0;
-    margin: 7px 0; }
+    margin: 5px 0; }
     .filters button.btn_filter img {
       margin-bottom: -5px; }
   .filters form#filter {

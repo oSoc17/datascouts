@@ -3,6 +3,7 @@
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 681.6 626.1" style="enable-background:new 0 0 681.6 626.1;" xml:space="preserve">
 <style type="text/css">
+	#globe{opacity:0.35;}
 	.st0{clip-path:url(#SVGID_2_);}
 	.st1{fill:#F6F6F6;}
 	.st2{fill:#CDCDCD;}
@@ -17,7 +18,7 @@
 	.st11{fill:#FFFFFF;stroke:#34DFBF;stroke-width:2;stroke-miterlimit:10;}
 	.st12{display:none;}
 </style>
-<g id="Layer_1">
+<g id="globe" width="50px">
 	<g>
 		<g>
 			<defs>

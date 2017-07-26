@@ -166,8 +166,10 @@
       },
       showFilters: function(e){
         var el = document.getElementById("filter")
+        var el2 = document.querySelector("button.btn_primary.btn_filter");
         el.style.display = el.style.display === 'none' ? 'initial' : 'none';
         el.classList.toggle("display-filter");
+        el2.classList.toggle("fa-active");
       },
       getAllActiveHandles : function (){
         const handles = [];

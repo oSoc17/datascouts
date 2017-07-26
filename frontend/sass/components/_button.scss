@@ -117,11 +117,11 @@ button {
     &.vimeo { background-color: $vimeo; &:hover { background-color: darken($vimeo,10%); }}
 }
 .btn_filter {
-    .fa-active {
+    &.fa-active {
         position: relative;
     }
 
-    .fa-active:after {
+    &.fa-active:after {
         display: block;
         content: "";
         position: absolute;
