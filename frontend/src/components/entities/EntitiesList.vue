@@ -11,7 +11,8 @@
       <li v-bind:class="[{ active: isSelected && currentEntity.id == item.id }, 'entity']">
         <div v-on:click="selectEntity($event,item)">
           <div class="image_entity">
-            <img v-bind:src="item.image" alt="Entity avatar">
+            <!--<img v-bind:src="item.image" alt="Entity avatar">-->
+            <i class="fa fa-users"></i>
           </div>
           <p>{{item.name}}</p>
         </div>

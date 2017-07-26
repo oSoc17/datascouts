@@ -15,11 +15,16 @@ ul {
             padding: 15px 20px;
             line-height: 30px;
         }
-        &:hover i {
-            transition: $trans;
-            display: initial;
+        &:hover {
+            i.fa.fa-angle-right {
+                transition: $trans;
+                display: initial;
+            }
+            i.fa.fa-users {
+                background-color: $primary;
+            }
         }
-        i {
+        i.fa.fa-angle-right {
             position: absolute;
             line-height: 60px;
         }
@@ -47,7 +52,7 @@ ul {
                 animation: list 300ms * $i ease-in-out forwards;
             }
         }
-        i {
+        i.fa.fa-angle-right {
             display: none;
             right: 15px;
             top: 0px;
@@ -57,11 +62,13 @@ ul {
             padding: 15px;
             height: 30px;
             width: 30px;
-            img {
-                height: 30px;
+            i {
+                line-height: 30px;
                 width: 30px;
-                // border: 1px solid $gray-light;
-                // border-radius: 50%;
+                border-radius: 50%;
+                text-align: center;
+                background-color: $gray;
+                color: $white;
             }
         }
     }

@@ -2855,12 +2855,15 @@ ul li.handle {
     margin: 0 0 0 45px;
     padding: 15px 20px;
     line-height: 30px; }
-  ul li.entity:hover i,
-  ul li.handle:hover i {
+  ul li.entity:hover i.fa.fa-angle-right,
+  ul li.handle:hover i.fa.fa-angle-right {
     transition: all 0.25s ease;
     display: initial; }
-  ul li.entity i,
-  ul li.handle i {
+  ul li.entity:hover i.fa.fa-users,
+  ul li.handle:hover i.fa.fa-users {
+    background-color: #1fdcb8; }
+  ul li.entity i.fa.fa-angle-right,
+  ul li.handle i.fa.fa-angle-right {
     position: absolute;
     line-height: 60px; }
   ul li.entity input[type="checkbox"],
@@ -2941,7 +2944,7 @@ ul li.entity:nth-child(19) {
 ul li.entity:nth-child(20) {
   animation: list 6000ms ease-in-out forwards; }
 
-ul li.entity i {
+ul li.entity i.fa.fa-angle-right {
   display: none;
   right: 15px;
   top: 0px; }
@@ -2951,9 +2954,13 @@ ul li.entity .image_entity {
   padding: 15px;
   height: 30px;
   width: 30px; }
-  ul li.entity .image_entity img {
-    height: 30px;
-    width: 30px; }
+  ul li.entity .image_entity i {
+    line-height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    text-align: center;
+    background-color: #818181;
+    color: #ffffff; }
 
 ul li.handle.active {
   box-shadow: inset 5px 0 #1fdcb8;
