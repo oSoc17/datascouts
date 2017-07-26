@@ -178,11 +178,11 @@
 						<!-- METADATA - likes/comments/views -->
 						<div class="metadata_1">
 							<i class="fa fa-views"></i> 50,000
-							<a v-bind:href="'https://www.youtube.com/watch?v=' + handle.id" target="_blank"><i class="fa fa-external-link"></i></a>
+							<a v-bind:href="'test'"><i class="fa fa-external-link"></i></a>
 						</div>
 						<div class="metadata_2">
 							<div class="image_avatar">
-								<img src="handle.user.profile_image_url_https" alt="" class="avatar">
+								<img src="test" alt="" class="avatar">
 							</div>
 							<div class="name">{{handle.channel}}</div>
 								<div class="social_media">
