@@ -15,10 +15,10 @@
 				<div class="arrow"></div>
 				<div class="filter-socialmedia">
 					<h2>Social media</h2>
-					<template v-for="item in socialMedia">
+					<template v-for="(item, index) in socialMedia">
 						<div class="form-group">
-							<input class="styled-checkbox" :id="'styled-checkbox-sm-1'+$index" type="checkbox" :value="item" v-model="activeSocialMedia">
-							<label for="styled-checkbox-sm-1">{{item}}</label>
+							<input class="styled-checkbox" :id="'styled-checkbox-sm-1'+index" type="checkbox" :value="item" v-model="activeSocialMedia">
+							<label :for="'styled-checkbox-sm-1'+index">{{item}}</label>
 						</div>
 					</template>
 				</div>
