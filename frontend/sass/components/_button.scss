@@ -112,9 +112,33 @@ button {
 .btn_sm {        
     color: $white;
     border: none;
-    &.twitter { background-color: $twitter; &:hover { background-color: darken($twitter,10%); }}
-    &.youtube { background-color: $youtube; &:hover { background-color: darken($youtube,10%); }}        
-    &.vimeo { background-color: $vimeo; &:hover { background-color: darken($vimeo,10%); }}
+    &.fa-active {
+        position: relative;        
+        &.twitter { background-color: $twitter; &:hover { background-color: darken($twitter,10%); }}
+        &.youtube { background-color: $youtube; &:hover { background-color: darken($youtube,10%); }}        
+        &.vimeo { background-color: $vimeo; &:hover { background-color: darken($vimeo,10%); }}
+    }
+
+    &.fa-active:after {
+        display: block;
+        content: "";
+        position: absolute;
+        top: -2px;
+        right: -2px;
+        width: 7px;
+        height: 7px;
+        border-radius: 100%;
+        border: 2px solid $blue-whale;
+        background-color: #f00;
+    }
+    &:hover {
+        &.twitter { background-color: $twitter; &:hover { background-color: $twitter; }}
+        &.youtube { background-color: $youtube; &:hover { background-color: $youtube }}        
+        &.vimeo { background-color: $vimeo; &:hover { background-color: $vimeo }}
+    }
+    &:hover .fa-active:after {
+        border-color: $primary;
+    }
 }
 .btn_filter {
     &.fa-active {
