@@ -196,7 +196,7 @@
         this.$http.post('fetch', {handles})
             .then(res => {this.items = res.data})
             .catch(console.error)
-        //console.log(this.items)
+        console.log("data:",this.items)
       },
       updateWaterfall: _debounce(
         function() {

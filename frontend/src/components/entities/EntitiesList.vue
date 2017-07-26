@@ -33,7 +33,7 @@
 
 <script>
   import { bus } from '../../main'
-  import { saveActiveEntities, getActiveEntities, saveActiveHandles, getActiveHandles } from '../../utils/storageService'
+  import {saveCurrentEntity, saveActiveEntities, getActiveEntities, saveActiveHandles, getActiveHandles, removeActiveHandles, removeActiveEntity } from '../../utils/storageService'
 
 
   export default {
@@ -80,22 +80,37 @@
     methods: {
       updateLocalStorage: function() {
         console.log("updating local storage")
-        var self = this
         var handlesIDs = []
-        const currentActives = getActiveEntities()
+        var self = this
         this.activeEntities.forEach(function(entityID){
-          if(self.findIndex(currentActives, entityID)==-1){
+          if(self.findIndex(getActiveEntities(), entityID)==-1){
             self.$http.get(`entities/${entityID}/handles`)
                 .then(res => {
                   bus.$emit('HANDLES_IS_EMPTY', res.data.length === 0)
                   res.data.forEach(function({id}){handlesIDs.push(id)})
+                  //saveCurrentEntity(entityID)
                   saveActiveHandles(entityID, handlesIDs)
-                  console.log(getActiveHandles())
                   bus.$emit('FETCH_DATA')
                 }).catch(console.error)
           }
         })
-
+        getActiveEntities().forEach(function(entityID){
+          if(self.findIndex(self.activeEntities, entityID)==-1){
+            removeActiveHandles(entityID)
+            //removeActiveEntity(entityID)
+          }
+        })
+        saveActiveEntities(self.activeEntities)
+        console.log("after update:",getActiveEntities())
+      },
+      getAllActiveHandles : function (){
+        const handles = [];
+        getActiveEntities().forEach(ent_id => {
+          const activeHandles = getActiveHandles(ent_id);
+          handles.push(... activeHandles);
+        })
+        console.log('Active Handles to fetch : ',handles);
+        return handles;
       },
       findIndex: function(array, id) {
         var index = -1
