@@ -1,0 +1,28 @@
+.modal-mask {
+    .modal-container {
+        position: relative;
+    }
+    .modal-body {
+        input {
+            height: 24.69px;
+            width: calc(100% - 29px);
+        }
+        select {
+            width: 100%; /*TEMPORARY*/
+            padding: 0.5em 1em;
+        }
+        button.btn_sm {
+            margin: 5px;
+            width: calc(33% - 10px);
+        }
+    }
+    .modal-footer {
+        .text-right {
+            width: 100%;
+            button {
+                margin: 0;
+                width: 100%;
+            }
+        }
+    }
+}
