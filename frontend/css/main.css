@@ -2726,7 +2726,8 @@ form .form-group {
       top: 0;
       right: 8px;
       color: #cecece;
-      font-weight: 300; }
+      font-weight: 300;
+      font-size: 12px; }
   .wf-box img.media,
   .wf-box video.media {
     display: block;
