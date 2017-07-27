@@ -54,12 +54,22 @@
 
 		<div class="empty-state empty-state-feed" v-show="entitiesIsEmpty">
 			<h2>Visualise what your colleagues, friends, companies and competitors are talking about.</h2>
+<<<<<<< HEAD
 			<ol>
 				<li>Add the name of your first company or person you want to follow. We call this a member.</li>
 				<li>Click on the member and add all social media channels for this member.</li>
 				<li>All done!</li>
 			</ol>
 			</div>
+=======
+			<ul>
+				<li>Add the name of your first company or person you want to follow. We call this a member.</li>
+				<li>Click on the member and add all social media channels for this member.</li>
+				<li>All done!</li>
+			</ul>
+					
+		</div>
+>>>>>>> 5e492662b63242982e86bdf5f677ec09ea50f7c2
 
 		<div class="tweets wf-container" id="wf-container">
 			<template v-for="item in items">

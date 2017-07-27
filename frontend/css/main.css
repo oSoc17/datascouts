@@ -2574,16 +2574,10 @@ button {
     background-color: #f00; }
   .btn_sm:hover.twitter {
     background-color: #1DA1F2; }
-    .btn_sm:hover.twitter:hover {
-      background-color: #1DA1F2; }
   .btn_sm:hover.youtube {
     background-color: #cd201f; }
-    .btn_sm:hover.youtube:hover {
-      background-color: #cd201f; }
   .btn_sm:hover.vimeo {
     background-color: #4EBBFF; }
-    .btn_sm:hover.vimeo:hover {
-      background-color: #4EBBFF; }
   .btn_sm:hover .fa-active:after {
     border-color: #1fdcb8; }
 
