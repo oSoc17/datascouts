@@ -1,7 +1,7 @@
 #sidebar_entities,
 #sidebar_handles,
 #sidebar_handle_actions {
-    position: relative;
+    position: fixed;
     border-right: 1px solid $gray-lightest;
     min-height: calc(100vh - 40px);
     transition: $trans;
@@ -41,10 +41,12 @@
     }
     form.slide-up#entity_form {
         position: fixed;
-        bottom: 15px;
+        bottom: 0;
         left: 0;
+        padding-bottom: 15px;
         width: calc(300px - 50px);
         border-top: 1px solid $gray-lightest;
+        background-color: $white;
         * {
             animation: slideUp 1s ease-in-out forwards;
         }
@@ -61,7 +63,6 @@
     background-color: $gray-lightest;
     z-index: -1;
     margin-left: -301px;
-    /*overflow-y: scroll;*/
     form.slide-up#handle_form {
         position: fixed;
         bottom: 0;
@@ -88,6 +89,9 @@
 #sidebar_handle_actions {
     z-index: 2;
     width: 200px;
-    margin-left: -1px;
+    margin-left: 550px;
     background-color: $white;
+    h1 {
+        margin-top: 70px;
+    }
 }

@@ -25,7 +25,8 @@
       </div>
     </form>
 
-    <entitiesList v-bind:entities="list" v-bind:currentEntity="currentEntity" v-bind:searchEntity="searchEntity"></entitiesList>
+    <entitiesList v-bind:entities="list" v-bind:currentEntity="currentEntity" v-bind:searchEntity="searchEntity"
+    v-bind:services="services"></entitiesList>
 
 
     <addEntity></addEntity>
@@ -44,7 +45,7 @@
   import { saveActiveEntities, getActiveEntities } from '../../utils/storageService'
 
   export default {
-    props : ['currentEntity'],
+    props : ['currentEntity', 'services'],
     components: {
       'entitiesList' : EntitiesList,
       'addEntity' : AddEntity,
@@ -76,7 +77,7 @@
         return this.$http.get('entities?fields=id,name,url')
             .then(res => {
 
-              bus.$emit('FETCH_DATA', true)
+              //bus.$emit('FETCH_DATA', true)
               // Already got a bunch of entities
               if(this.list.length !== 0){
                 res.data.forEach(entity => {
@@ -147,6 +148,6 @@
 </script>
 
 
-<style lang="scss">
+<style>
 
 </style>

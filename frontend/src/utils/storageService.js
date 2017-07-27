@@ -17,7 +17,7 @@ const KEY_FOR_CURRENT_HANDLE = 'CURRENT_HANDLES';
 
 
  /**
-  * ENTITIES 
+  * ENTITIES
   *
   */
 
@@ -34,7 +34,7 @@ const remove = (key) => localStorage.removeItem(key)
 
 
  /**
-  * ENTITIES 
+  * ENTITIES
   *
   */
 
@@ -56,11 +56,11 @@ export const saveActiveEntities = l => marshall(KEY_FOR_ACTIVE_ENTITIES, l)
 
 export const getActiveEntities = _ => unmarshall(KEY_FOR_ACTIVE_ENTITIES) || []
 
-export const removeActivEntity = k => remove(KEY_FOR_ACTIVE_ENTITIES)
+export const removeActiveEntity = k => remove(KEY_FOR_ACTIVE_ENTITIES)
 
 
  /**
-  * HANDLES 
+  * HANDLES
   * The entity ID is required for the last/actives Handle function.
   */
 
@@ -87,5 +87,3 @@ export const saveActiveHandles = (id, list) => {
 export const getActiveHandles = id => unmarshall(KEY_FOR_ACTIVE_HANDLES + id) || []
 
 export const removeActiveHandles = id => remove(KEY_FOR_ACTIVE_HANDLES + id)
-
-
