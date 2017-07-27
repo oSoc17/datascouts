@@ -135,7 +135,8 @@
               'active' : true
             })
             bus.$emit('ADD_ACTIVE_ENTITY', this.entity.id)
-            console.log("[HandleSidebar] New Entity added")
+            console.log("[HandleSidebar] New handle added")
+            bus.$emit('ADD_ACTIVE_HANDLE', id)
           }).then(_ => bus.$emit('FETCH_DATA'))
           .catch(err => console.error("[HandleSidebar] Failed to add handle\n",err))
       },
