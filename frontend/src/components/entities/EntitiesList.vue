@@ -49,6 +49,7 @@
     },
     created () {
       bus.$on('ENTITIES_IS_EMPTY', (bool) => this.entitiesIsEmpty = bool)
+      bus.$on('ADD_ACTIVE_ENTITY', this.addToActiveEntities)
       this.loadStoredActiveEntities()
     },
     watch: {
@@ -59,7 +60,7 @@
       activeEntities : function(){
         //saveActiveEntities(this.activeEntities);
         this.updateLocalStorage()
-        bus.$emit('UPDATE_ACTIVE_HANDLES', this.activeHandles)
+        //bus.$emit('UPDATE_ACTIVE_HANDLES', this.activeHandles)
       }
     },
     computed: {
@@ -78,30 +79,39 @@
       },
     },
     methods: {
+      addToActiveEntities: function(entityID) {
+        console.log("entityID", entityID)
+        this.activeEntities.push(entityID)
+      },
       updateLocalStorage: function() {
         console.log("updating local storage")
         var handlesIDs = []
         var self = this
+        var fetched = false
         this.activeEntities.forEach(function(entityID){
-          if(self.findIndex(getActiveEntities(), entityID)==-1){
+          //if(self.findIndex(getActiveEntities(), entityID)==-1){
+          if(getActiveHandles(entityID).length==0){
             self.$http.get(`entities/${entityID}/handles`)
                 .then(res => {
                   bus.$emit('HANDLES_IS_EMPTY', res.data.length === 0)
                   res.data.forEach(function({id}){handlesIDs.push(id)})
                   //saveCurrentEntity(entityID)
                   saveActiveHandles(entityID, handlesIDs)
+                  bus.$emit('UPDATE_ACTIVE_HANDLES')
                   bus.$emit('FETCH_DATA')
+                  fetched = true
                 }).catch(console.error)
           }
         })
-        getActiveEntities().forEach(function(entityID){
+        /*getActiveEntities().forEach(function(entityID){
           if(self.findIndex(self.activeEntities, entityID)==-1){
             removeActiveHandles(entityID)
             //removeActiveEntity(entityID)
           }
-        })
+        })*/
         saveActiveEntities(self.activeEntities)
         console.log("after update:",getActiveEntities())
+        if(!fetched){bus.$emit('FETCH_DATA')}
       },
       getAllActiveHandles : function (){
         const handles = [];

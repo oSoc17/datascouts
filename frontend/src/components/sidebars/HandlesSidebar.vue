@@ -55,6 +55,7 @@
     mounted () {
       // No need for this event, replace by the wath on entity
       // bus.$on('LOAD_HANDLES', this.loadHandlesForSelectedEntity)
+      bus.$on('UPDATE_ACTIVE_HANDLES', this.loadActiveHandles)
       bus.$on('UPDATE_ENTITY', this.updateEntity)
       bus.$on('DELETE_ENTITY', this.deleteEntity)
 
@@ -133,6 +134,7 @@
               'service' : service.name,
               'active' : true
             })
+            bus.$emit('ADD_ACTIVE_ENTITY', this.entity.id)
             console.log("[HandleSidebar] New Entity added")
           }).then(_ => bus.$emit('FETCH_DATA'))
           .catch(err => console.error("[HandleSidebar] Failed to add handle\n",err))
