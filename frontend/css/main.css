@@ -2938,6 +2938,7 @@ figure#featured-media {
       background-size: 70%;
       min-height: calc(100vh - 40px);
       margin-left: 250px;
+      margin-top: 50px;
       animation: fadeIn 1s ease-in-out forwards; }
 
 ul {
@@ -3177,8 +3178,12 @@ ul {
 .filters {
   position: relative;
   height: 51px;
-  width: 100%;
-  border-bottom: 1px solid #eeeeee; }
+  width: calc(100% - 250px);
+  border-bottom: 1px solid #eeeeee;
+  position: fixed;
+  top: 40px;
+  z-index: 10;
+  background-color: whitesmoke; }
   .filters button.btn_filter {
     position: absolute;
     right: 16px;

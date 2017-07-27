@@ -50,7 +50,7 @@
         var date = new Date(this.feed.created_at);
         var month = date.getMonth();
         var locale = "en-us";
-        var newMonth = date.toLocaleString(locale, { month: "long" });
+        var newMonth = date.toLocaleString(locale, { month: "short" });
 
         return  newMonth + ' ' + date.getDate();
       }
