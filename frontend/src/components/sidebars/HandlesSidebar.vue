@@ -4,7 +4,7 @@
     <editEntity v-bind:entity.sync="entity" v-cloak></editEntity>
 
     <h1>Social media accounts for {{entity.name}}</h1>
-    <handlesList v-bind:handles="list"></handlesList>
+    <handlesList v-bind:handles="list" v-bind:actives="activeHandles"></handlesList>
 
     <addHandle :services="services" :actives="activeHandles" v-cloak></addHandle>
   </div>
@@ -45,15 +45,17 @@
         this.entity = nEntity;
         if(typeof(this.entity.id) !== 'undefined'){
           this.loadHandlesForSelectedEntity();
+          this.loadActiveHandles()
         }
       }
     },
     created () {
-        this.loadActiveHandles();
+      this.loadActiveHandles();
     },
     mounted () {
       // No need for this event, replace by the wath on entity
       // bus.$on('LOAD_HANDLES', this.loadHandlesForSelectedEntity)
+      bus.$on('UPDATE_ACTIVE_HANDLES', this.loadActiveHandles)
       bus.$on('UPDATE_ENTITY', this.updateEntity)
       bus.$on('DELETE_ENTITY', this.deleteEntity)
 
@@ -61,6 +63,7 @@
       bus.$on('DELETE_LISTED_HANDLE', this.deleteHandle)
 
       bus.$on('CHANGE_ACTIVE_HANDLES', this.changeActiveHandles)
+
 
     },
 
@@ -78,7 +81,7 @@
         $elt.style.transition = "all .5s ease"
         $elt.style.zIndex = -1
 
-    },
+      },
 
       loadHandlesForSelectedEntity : function () {
         this.$http.get(`entities/${this.entity.id}/handles`)
@@ -130,7 +133,9 @@
               'service' : service.name,
               'active' : true
             })
-            console.log("[HandleSidebar] New Entity added")
+            bus.$emit('ADD_ACTIVE_ENTITY', this.entity.id)
+            console.log("[HandleSidebar] New handle added")
+            bus.$emit('ADD_ACTIVE_HANDLE', id)
           }).then(_ => bus.$emit('FETCH_DATA'))
           .catch(err => console.error("[HandleSidebar] Failed to add handle\n",err))
       },

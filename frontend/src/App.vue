@@ -9,7 +9,7 @@
 
     <div class="main">
       <transition name="slide-entities" appear>
-        <entitiesSidebar v-show="showEntitiesBar"  v-bind:currentEntity="current.entity"></entitiesSidebar>
+        <entitiesSidebar v-show="showEntitiesBar"  v-bind:currentEntity="current.entity" v-bind:services="services"></entitiesSidebar>
       </transition>
 
       <handlesSidebar v-show="showHandles" v-bind:entity="current.entity" v-bind:services="services"></handlesSidebar>
@@ -80,10 +80,26 @@
 
     },
     computed : {
-      updateEntities : function (){ }
+
     },
 
     methods: {
+      loadServices : function (){
+        if(localStorage.getItem('services')){
+          this.services = JSON.parse(localStorage.getItem('services'))
+        }else{
+          this.$http.get('services')
+              .then(({data}) => {
+                this.services = data.reduce((list,media) => {
+                  list[media.id] = media;
+                  return list
+                },{});
+                localStorage.setItem('services',JSON.stringify(this.services))
+              })
+              .catch(console.error)
+        }
+      },
+
       loadServices : function (){
         if(localStorage.getItem('services')){
           this.services = JSON.parse(localStorage.getItem('services'))
