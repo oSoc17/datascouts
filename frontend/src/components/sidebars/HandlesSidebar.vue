@@ -103,7 +103,6 @@
 
       loadActiveHandles : function (){
         this.activeHandles = getActiveHandles(this.entity.id);
-        console.log("actives:",this.activeHandles)
       },
 
       updateEntity: function(name) {
