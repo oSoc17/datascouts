@@ -80,6 +80,8 @@
             this.searchNotFound = false
           }
         }
+        this.entitiesIsEmpty = (found.length === 0)
+        bus.$emit('ENTITIES_IS_EMPTY', this.entitiesIsEmpty)
         return found
       },
 
@@ -121,7 +123,7 @@
   }
 </script>
 
-<style lang="scss">
+<style >
   .fade-enter-active, .fade-leave-active {
     transition: opacity .5s
   }
