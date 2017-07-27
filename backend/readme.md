@@ -1,21 +1,94 @@
-# Lumen PHP Framework
+# DataScouts API
 
-[![Build Status](https://travis-ci.org/laravel/lumen-framework.svg)](https://travis-ci.org/laravel/lumen-framework)
-[![Total Downloads](https://poser.pugx.org/laravel/lumen-framework/d/total.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/lumen-framework/v/stable.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/lumen-framework/v/unstable.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![License](https://poser.pugx.org/laravel/lumen-framework/license.svg)](https://packagist.org/packages/laravel/lumen-framework)
+API for Social Media Aggregator
 
-Laravel Lumen is a stunningly fast PHP micro-framework for building web applications with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Lumen attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as routing, database abstraction, queueing, and caching.
+## Introduction
 
-## Official Documentation
+Hello, welcome onboard.
 
-Documentation for the framework can be found on the [Lumen website](http://lumen.laravel.com/docs).
+This project design on [#oSoc17](2017.summerofcode.be/) is a little API to fetch data from different social media for specified entities. In short words, APi for Social Media Aggregator.
 
-## Security Vulnerabilities
+This purpose of this document is to give an orverview about this project and necessary steps before working on it.
 
-If you discover a security vulnerability within Lumen, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+## Table Of Contents
 
-## License
+- [Introduction](#introduction)
+- [Technologies](#Technologies)
+- [Laravel Packages](#laravel-packages)
+- [Requirements](#requirements)
+- [Installation](#getting-started)
+  - [Before Started](#before-started)
+  - [Get Started](#get-started)
+- [Routes](#routes)
+  - [Endpoints](#endpoints)
+- [Development](#dev)
+  - [Documentation](#dev-doc)
+  - [Hints - Guidelines](#dev-hints)
+  - [Enhancements](#dev-more)
+- [License](#license)
 
-The Lumen framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+## Technologies
+
+This API exploits the following technologies :
+
+| **Name** | **Description**| **More infos**|
+|------------|----------------|---------------|
+| [Lumen v5.3](https://lumen.laravel.com/)| Fast micro-framework by Laravel |[Site web](https://lumen.laravel.com/docs/5.4)|
+| [PHP Laravel v5.3](https://laravel.com/)| PHP FrameWork for Web Artisans | [Site web](https://laravel.com/docs/5.3/)|
+| [Composer v1.5](https://getcomposer.org/)| Dependency Manager for PHP | [Site web](https://getcomposer.org/doc/00-intro.md), [Download](https://getcomposer.org/download/)|
+
+## Laravel Packages
+
+| **Name** | **Description**| **More infos**|
+|------------|----------------|---------------|
+| [Lumen v5.3](https://lumen.laravel.com/)| Fast micro-framework by Laravel |[Site web](https://lumen.laravel.com/docs/5.4)|
+| [PHP Laravel v5.3](https://laravel.com/)| PHP FrameWork for Web Artisans | [Site web](https://laravel.com/docs/5.3/)|
+| [Composer v1.5](https://getcomposer.org/)| Dependency Manager for PHP | [Site web](https://getcomposer.org/doc/00-intro.md), [Download](https://getcomposer.org/download/)|
+
+## Requirements
+
+- All tecnhologies listed before the are necessary.
+- This project was build with PHP v7.1, your PHP environnement must set to it.
+- A connection to a DB.
+
+## Installation
+
+### Before Started
+
+### Get Started
+
+## Routes
+
+**Base url** : `/api/v1`
+
+**Short Notice about the routes** : `Yep`
+
+**[Formats of objet send and return by this API](./docs/formats.md)**
+
+### Endpoints
+
+#### [Entity Resources](../../wiki/DB/Entities)
+
+- **[`GET` entities](./docs/endpoints/entities/GET_entities.md)**
+- **[`GET` entities/:id](./docs/endpoints/entities/GET_entities_id.md)**
+
+#### [Handle Resources](../../wiki/DB/handles)
+
+- **[`GET` handles](./docs/endpoints/handles/GET_handles.md)**
+- **[`GET` handles/:id](./docs/endpoints/handles/GET_handles_id.md)**
+
+## Development
+
+### Documentation
+
+### Hints - Guidelines
+
+### Enhancements
+
+## Licence
+
+This project is licensed under the [MIT][info-license] license.
+
+Copyright &copy; 2017, DataScouts Team
+
+[info-license]: LICENSE
