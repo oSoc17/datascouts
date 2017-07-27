@@ -28,7 +28,7 @@
   import { bus } from '../../main'
 
   export default {
-    props:['handles', 'actives'],
+    props:['handles', 'actives', 'entity'],
     components:{
 
     },
@@ -38,6 +38,7 @@
         select : {},
         isSelected: false,
         handlesIsEmpty: false,
+        oldEntity: this.entity,
       }
     },
     created () {
@@ -64,7 +65,13 @@
       },
       activeHandles : function () {
         bus.$emit('CHANGE_ACTIVE_HANDLES', this.activeHandles)
-        bus.$emit('FETCH_DATA')
+        if(this.oldEntity === this.entity){
+          bus.$emit('FETCH_DATA')
+        }
+        else{
+          this.oldEntity = this.entity
+        }
+
 
       }
 

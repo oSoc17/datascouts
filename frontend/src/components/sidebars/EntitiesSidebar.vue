@@ -77,7 +77,7 @@
         return this.$http.get('entities?fields=id,name,url')
             .then(res => {
 
-              bus.$emit('FETCH_DATA', true)
+              //bus.$emit('FETCH_DATA', true)
               // Already got a bunch of entities
               if(this.list.length !== 0){
                 res.data.forEach(entity => {

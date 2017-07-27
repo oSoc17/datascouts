@@ -4,7 +4,7 @@
     <editEntity v-bind:entity.sync="entity" v-cloak></editEntity>
 
     <h1>Social media accounts for {{entity.name}}</h1>
-    <handlesList v-bind:handles="list" v-bind:actives="activeHandles"></handlesList>
+    <handlesList v-bind:entity="entity" v-bind:handles="list" v-bind:actives="activeHandles"></handlesList>
 
     <addHandle :services="services" :actives="activeHandles" v-cloak></addHandle>
   </div>

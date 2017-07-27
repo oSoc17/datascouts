@@ -175,7 +175,7 @@
 				console.log('Active Handles to fetch : ',handles);
 				return handles;
 			},
-			fetchData: function(){
+			fetchData: _debounce(function(){
 				console.log('fetching data')
 
 				//display load templates & adjust them to the screen, hide loading elements
@@ -194,7 +194,7 @@
 					.then(res => this.items = res.data)
 					.catch(console.error)
 				// console.log(this.items)
-			},
+			},300),
 			updateWaterfall: _debounce(
 				function() {
   				console.log(this.items)
