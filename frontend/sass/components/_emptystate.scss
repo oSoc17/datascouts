@@ -5,12 +5,12 @@
         margin-top: calc(50vh - (260px));
         margin-left: 16px;
         width: 100%;
-        max-width: 500px;
+        max-width: 720px;
         h2 {
             text-transform: uppercase;
             font-weight: 400;
-        }        
-        p, li { padding-left: 40px; }
+        }
+        p, li { padding-left: 10px; }
     }
     &.empty-state-entities,
     &.empty-state-handles {

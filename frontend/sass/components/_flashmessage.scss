@@ -20,36 +20,3 @@ $flashm-border: #d6e9c6;
     }
     &.succeed { background-color: $flashm-bg; border: 1px solid $flashm-border; }
 }
-
-@-webkit-keyframes flashmessage {
-  0%    { opacity: 0;
-          z-index: 999; }
-  30%   { opacity: 1; }
-  85%   { opacity: 1; }
-  100%  { opacity: 0;
-          z-index: -999; }
-}
-@-moz-keyframes flashmessage {
-  0%    { opacity: 0;
-          z-index: 999; }
-  30%   { opacity: 1; }
-  85%   { opacity: 1; }
-  100%  { opacity: 0;
-          z-index: -999; }
-}
-@-o-keyframes flashmessage {
-  0%    { opacity: 0;
-          z-index: 999; }
-  30%   { opacity: 1; }
-  85%   { opacity: 1; }
-  100%  { opacity: 0;
-          z-index: -999; }
-}
-@keyframes flashmessage {
-  0%    { opacity: 0;
-          z-index: 999; }
-  30%   { opacity: 1; }
-  85%   { opacity: 1; }
-  100%  { opacity: 0;
-          z-index: -999; }
-}

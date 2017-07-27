@@ -9,7 +9,8 @@
       <li v-bind:class="[{ active: isSelected && currentEntity.id == item.id }, 'entity']">
         <div v-on:click="selectEntity($event,item)">
           <div class="image_entity">
-            <img v-bind:src="item.image" alt="Entity avatar">
+            <!--<img v-bind:src="item.image" alt="Entity avatar">-->
+            <i class="fa fa-users"></i>
           </div>
           <p>{{item.name}}</p>
         </div>
@@ -75,6 +76,8 @@
             this.searchNotFound = false
           }
         }
+        this.entitiesIsEmpty = (found.length === 0)
+        bus.$emit('ENTITIES_IS_EMPTY', this.entitiesIsEmpty)
         return found
       },
     },
@@ -164,7 +167,7 @@
   }
 </script>
 
-<style lang="scss">
+<style >
   .fade-enter-active, .fade-leave-active {
     transition: opacity .5s
   }

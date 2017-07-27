@@ -26,6 +26,10 @@
 
 <script>
   import { bus } from './main'
+  import {
+    removeActiveHandles
+
+  } from './utils/storageService'
   import EntitiesSidebar  from './components/sidebars/EntitiesSidebar.vue'
   import HandlesSidebar  from './components/sidebars/HandlesSidebar.vue'
   import EditHandleSidebar  from './components/sidebars/EditHandleSidebar.vue'
@@ -121,9 +125,12 @@
         this.current.entity.name = newName
       },
 
-      deleteCurrentEntity : function (newName) {
-        this.showHandles = false
-        bus.$emit('DELETE_LISTED_ENTITY')
+      deleteCurrentEntity : function () {
+        this.showHandles = false // Hide the HandleSidebar
+        removeActiveHandles(this.current.entity.id);
+        bus.$emit('DELETE_LISTED_ENTITY') // Send Event to delete Entity from the list
+              
+
         this.current.entity = {}
 
       },

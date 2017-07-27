@@ -1,11 +1,11 @@
 <template>
     <modal :show.sync="show" :on-close="close">
-        <template slot="header">Delete Entity</template>
+        <template slot="header">Delete member</template>
 
         <article slot="body">
-          <p>This action will <b>DELETE</b> the selected entity. Are you sure ?</p>
-          <button @click="close">Cancel</button> 
-          <button @click="deleteEntity">OK</button>
+          <p>This action will <strong>DELETE</strong> the selected member. Are you sure ?</p>
+          <button class="btn_primary cancel-ok" @click="close">Cancel</button> 
+          <button class="btn_primary cancel-ok" @click="deleteEntity">OK</button>
         </article>
 
     </modal>
@@ -39,6 +39,6 @@
 </script>
 
 
-<style lang="scss">
+<style >
 
 </style>

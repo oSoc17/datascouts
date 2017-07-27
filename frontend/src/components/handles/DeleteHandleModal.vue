@@ -1,6 +1,6 @@
 <template>
     <modal :show.sync="show" :on-close="close">
-        <template slot="header">Delete Handle</template>
+        <template slot="header">Delete account</template>
 
         <article slot="body">
           <p>This action will <b>DELETE</b> the selected handle. Are you sure ?</p>
@@ -39,6 +39,6 @@
 </script>
 
 
-<style lang="scss">
+<style >
 
 </style>

@@ -4,20 +4,21 @@
 
         <div slot="body">
           <label class="form-label">
-              Account name : <input v-model.trim="name" class="form-control" placeholder="Insert new account name" autofocus>
+              Select source:
+              <div>          
+                  <button :class="['btn_sm', serv.name, {'fa-active' : (selectedService.id == serv.id)}]" v-for="serv in services"  @click="selectedService = serv">
+                    <i :class="['fa', 'fa-' + serv.name]"></i></button>
+              </div>
           </label>
 
           <label class="form-label">
-              Select source :
-              <select name="service" v-model='selectedService.id'>
-                <option v-for="serv in services" :value="serv.id">{{serv.name}}</option>
-              </select>
+              Account name: <input v-model.trim="name" class="form-control" placeholder="Insert new account name" autofocus>
           </label>
 
         </div>
 
         <div slot="footer" class="text-right">
-            <button class="modal-default-button" @click="addHandle()">
+            <button class="btn_primary modal-default-button" @click="addHandle()">
                 Save
             </button>
         </div>
@@ -64,6 +65,6 @@
 </script>
 
 
-<style lang="scss">
+<style >
 
 </style>
