@@ -2622,6 +2622,46 @@ form .form-group {
   float: left;
   margin: 8px;
   background: #ffffff; }
+  .wf-box:nth-child(1) {
+    animation: list 300ms ease-in-out forwards; }
+  .wf-box:nth-child(2) {
+    animation: list 600ms ease-in-out forwards; }
+  .wf-box:nth-child(3) {
+    animation: list 900ms ease-in-out forwards; }
+  .wf-box:nth-child(4) {
+    animation: list 1200ms ease-in-out forwards; }
+  .wf-box:nth-child(5) {
+    animation: list 1500ms ease-in-out forwards; }
+  .wf-box:nth-child(6) {
+    animation: list 1800ms ease-in-out forwards; }
+  .wf-box:nth-child(7) {
+    animation: list 2100ms ease-in-out forwards; }
+  .wf-box:nth-child(8) {
+    animation: list 2400ms ease-in-out forwards; }
+  .wf-box:nth-child(9) {
+    animation: list 2700ms ease-in-out forwards; }
+  .wf-box:nth-child(10) {
+    animation: list 3000ms ease-in-out forwards; }
+  .wf-box:nth-child(11) {
+    animation: list 3300ms ease-in-out forwards; }
+  .wf-box:nth-child(12) {
+    animation: list 3600ms ease-in-out forwards; }
+  .wf-box:nth-child(13) {
+    animation: list 3900ms ease-in-out forwards; }
+  .wf-box:nth-child(14) {
+    animation: list 4200ms ease-in-out forwards; }
+  .wf-box:nth-child(15) {
+    animation: list 4500ms ease-in-out forwards; }
+  .wf-box:nth-child(16) {
+    animation: list 4800ms ease-in-out forwards; }
+  .wf-box:nth-child(17) {
+    animation: list 5100ms ease-in-out forwards; }
+  .wf-box:nth-child(18) {
+    animation: list 5400ms ease-in-out forwards; }
+  .wf-box:nth-child(19) {
+    animation: list 5700ms ease-in-out forwards; }
+  .wf-box:nth-child(20) {
+    animation: list 6000ms ease-in-out forwards; }
   .wf-box.vimeo {
     box-shadow: 0 0 5px 0 white; }
     .wf-box.vimeo .metadata_2 .social_media {
@@ -2670,6 +2710,8 @@ form .form-group {
   .wf-box .body {
     width: 100%;
     position: relative; }
+    .wf-box .body > :first-child {
+      margin-right: 50px; }
     .wf-box .body h3 {
       margin: 8px; }
     .wf-box .body p {
@@ -2680,10 +2722,11 @@ form .form-group {
       margin: 8px; }
     .wf-box .body .date {
       text-align: right;
-      width: 50px;
       position: absolute;
-      top: 8px;
-      right: 8px; }
+      top: 0;
+      right: 8px;
+      color: #cecece;
+      font-weight: 300; }
   .wf-box img.media,
   .wf-box video.media {
     display: block;

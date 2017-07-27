@@ -2,13 +2,13 @@
 <div class="wf-box vimeo">
   <!-- BODY -->
   <div class="body">
-    <div class="date">{{newFormatDate()}}</div>
     <h3 class="title">
       {{ feed.title }}
     </h3>
     <p class="description">
       {{ feed.description }}
     </p>
+    <div class="date">{{newFormatDate()}}</div>
   </div>
 
   <!-- THUMBNAIL -->

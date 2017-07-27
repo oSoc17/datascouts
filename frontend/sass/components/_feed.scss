@@ -4,6 +4,11 @@
     float: left;
     margin: 8px;
     background: $white;
+    @for $i from 1 through 20 {
+            &:nth-child(#{$i}) {
+                animation: list 300ms * $i ease-in-out forwards;
+            }
+        }
     &.vimeo {
         box-shadow: 0 0 5px 0 lighten($vimeo,35%);
         .metadata_2 .social_media { 
@@ -55,6 +60,9 @@
     .body {
         width: 100%;
         position: relative;
+        &>:first-child {
+            margin-right: 50px;
+        }
         h3 { margin: 8px; }
         p { margin: 8px; }
         .text { 
@@ -64,10 +72,11 @@
         }
         .date {
             text-align: right;
-            width: 50px;
             position: absolute;
-            top: 8px;
+            top: 0;
             right: 8px;
+            color: $gray-light;
+            font-weight: 300;
         }
     }
     img.media,

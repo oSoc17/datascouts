@@ -5,6 +5,7 @@
       <p>
         {{ feed.body }}
       </p>
+      <div class="date">{{newFormatDate()}}</div>
     </div>
     <!-- IMAGE -->
     <img v-bind:src="feed.media" alt="" class="media">
@@ -45,8 +46,15 @@
 		watch: {
 		},
 		methods: {
-		}
-		
+      newFormatDate: function() {
+        var date = new Date(this.feed.created_at);
+        var month = date.getMonth();
+        var locale = "en-us";
+        var newMonth = date.toLocaleString(locale, { month: "long" });
+
+        return  newMonth + ' ' + date.getDate();
+      }
+		}		
 	}
 </script>
 
