@@ -18,7 +18,7 @@
         @close="closeEditHandleSidebar()"
       ></editHandleSidebar>
 
-      <WaterfallDisplay></WaterfallDisplay>
+      <WaterfallDisplay v-bind:services="services"></WaterfallDisplay>
 
     </div>
   </div>
@@ -52,7 +52,7 @@
           entity: {},
           handle: {}
         },
-        services: []
+        services: [],
       }
     },
     created () {
@@ -84,6 +84,21 @@
     },
 
     methods: {
+      loadServices : function (){
+        if(localStorage.getItem('services')){
+          this.services = JSON.parse(localStorage.getItem('services'))
+        }else{
+          this.$http.get('services')
+              .then(({data}) => {
+                this.services = data.reduce((list,media) => {
+                  list[media.id] = media;
+                  return list
+                },{});
+                localStorage.setItem('services',JSON.stringify(this.services))
+              })
+              .catch(console.error)
+        }
+      },
 
       loadServices : function (){
         if(localStorage.getItem('services')){

@@ -9,7 +9,6 @@ import App from './App.vue'
 
 export const bus = new Vue();
 
-console.log(Config)
 
 Vue.use(VueResource);
 Vue.http.options.root = Config.API_URL;
