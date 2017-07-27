@@ -28,7 +28,7 @@
 
 
   export default {
-    props: ['entity'],
+    props: ['entity', 'services'],
     components:{
       EditEntity,
       HandlesList,
@@ -38,7 +38,6 @@
       return {
         list : [],
         activeHandles : [],
-        services : []
       }
     },
     watch :{
@@ -50,7 +49,6 @@
       }
     },
     created () {
-        this.loadServices()
         this.loadActiveHandles();
     },
     mounted () {
@@ -70,7 +68,7 @@
       openSidebar : function() {
         const $elt = document.getElementById("sidebar_handles");
         $elt.style.transition = "all .25s ease"
-        $elt.style.marginLeft = "0px"
+        $elt.style.marginLeft = "250px"
         $elt.style.zIndex = 2
       },
 
@@ -102,22 +100,6 @@
 
       loadActiveHandles : function (){
         this.activeHandles = getActiveHandles(this.entity.id);
-      },
-
-      loadServices : function (){
-        if(localStorage.getItem('services')){
-          this.services = JSON.parse(localStorage.getItem('services'))
-        }else{
-          this.$http.get('services')
-              .then(({data}) => {
-                this.services = data.reduce((list,media) => {
-                  list[media.id] = media;
-                  return list
-                },{});
-                localStorage.setItem('services',JSON.stringify(this.services))
-              })
-              .catch(console.error)
-        }
       },
 
       updateEntity: function(name) {

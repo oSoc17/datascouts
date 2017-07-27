@@ -17,7 +17,6 @@
           <p>{{item.name}}</p>
         </div>
         <input class="styled-checkbox checkbox" type="checkbox" :id="['styled-checkbox-entities-' + item.id]"
-          :click="toggleEntity()"
           :value="item.id" v-model="activeEntities">
           <label :for="['styled-checkbox-entities-' + item.id]"></label>
           <i class="fa fa-angle-right"></i>
@@ -81,6 +80,8 @@
             this.searchNotFound = false
           }
         }
+        this.entitiesIsEmpty = (found.length === 0)
+        bus.$emit('ENTITIES_IS_EMPTY', this.entitiesIsEmpty)
         return found
       },
 
@@ -102,9 +103,6 @@
       closeSideBar: function () {
         bus.$emit('CLOSE_HANDLES_SIDEBAR')
       },
-      toggleEntity: function () {
-
-      },
       updateEntities: function() {
         bus.$emit('UPDATE_ENTITIES')
       },
@@ -125,7 +123,7 @@
   }
 </script>
 
-<style lang="scss">
+<style >
   .fade-enter-active, .fade-leave-active {
     transition: opacity .5s
   }

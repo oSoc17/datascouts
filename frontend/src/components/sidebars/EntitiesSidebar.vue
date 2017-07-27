@@ -76,7 +76,6 @@
         return this.$http.get('entities?fields=id,name,url')
             .then(res => {
 
-              bus.$emit('ENTITIES_IS_EMPTY', res.data.length === 0)
               bus.$emit('FETCH_DATA', true)
               // Already got a bunch of entities
               if(this.list.length !== 0){
@@ -148,6 +147,6 @@
 </script>
 
 
-<style lang="scss">
+<style>
 
 </style>

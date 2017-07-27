@@ -17,7 +17,7 @@ class TwitterFetcher extends BaseFetcher
      */
     public function __construct()
     {
-        parent::__construct('Twitter');
+        parent::__construct('twitter');
         $this->connection = new TwitterOAuth(
             config('services.twitter.client_id'),
             config('services.twitter.client_secret'),
@@ -49,7 +49,7 @@ class TwitterFetcher extends BaseFetcher
     private function filterData($tweet)
     {
         $res = [
-            'social_media' => 'twitter',
+            'service_name' => 'twitter',
             'id' => $tweet->id_str,
             'created_at' => $tweet->created_at,
             'body' => $tweet->text,
