@@ -33,7 +33,7 @@ class VimeoFetcher extends BaseFetcher
             'page' => 1,         // Show first page of results, 
             'per_page' => 100,   // Set the number of items to show to 100 (max)
             'sort' => 'relevant', // Sort by relevance
-            'filter' => 'CC' // Filter only Creative Commons License videos
+            // 'filter' => 'CC' // Filter only Creative Commons License videos
         ]);
         $body = array_shift($response);
         // var_dump($body['data']);

@@ -11,7 +11,7 @@ export const bus = new Vue();
 
 
 Vue.use(VueResource);
-Vue.http.options.root = 'https://osoc-2017-datascouts-akad1070.c9users.io/v1/';
+Vue.http.options.root = 'https://osoc-2017-datascouts-akad1070.c9users.io/api/v1/';
 
 new Vue({ // eslint-disable-line no-new
   el: '#app',

@@ -17,7 +17,7 @@ class YoutubeFetcher extends BaseFetcher
      */
     public function __construct()
     {
-        parent::__construct('Youtube');
+        parent::__construct('youtube');
         $this->ytbConnection = new Ytb([
             'key' => config('services.youtube.api_key')
         ]);
