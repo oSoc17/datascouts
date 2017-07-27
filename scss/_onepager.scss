@@ -1,0 +1,300 @@
+.background-green {
+	background: $ds-green;
+	background: linear-gradient(135deg, $ds-green 0%,darken($ds-green, 10%) 100%);
+
+	@include breakpoint(small) {
+		margin-bottom: 4rem;
+	}
+
+	@include breakpoint(medium) {
+		margin-bottom: 5rem;
+	}
+
+	@include breakpoint(large) {
+		margin-bottom: 7rem;
+	}
+}
+
+.background-light-gray {
+	background-color: $light-gray;
+}
+
+.background-dark {
+	background-color: darken($black, 5%);
+}
+
+.background-globe {
+	background: $light-gray;
+	// background: url('../img/globe-black.svg') no-repeat top left / 160%;
+	background:  url('../img/globe.svg'), white;
+	background-repeat: no-repeat;
+	background-position: 120% -10%;
+	background-size: 60%;
+
+	@include breakpoint(small) {
+		padding: 1rem;
+	}
+
+	@include breakpoint(medium) {
+		padding: 2rem;
+	}
+
+	@include breakpoint(large) {
+		padding: 4rem;
+	}
+}
+
+.hero-card {
+	position: relative;
+	box-shadow: 0 2px 20px rgba(mix($black, $ds-green, 90%), 0.1);
+	background-color: white;
+
+	@include breakpoint(small) {
+		top: 2rem;
+	}
+
+	@include breakpoint(medium) {
+		top: 2rem;
+	}
+
+	@include breakpoint(large) {
+		top: 3rem;
+	}
+}
+
+.logo {
+	width: 20rem;
+}
+
+.logo-subtitle {
+	font-weight: 300;
+	font-size: 1.3rem;
+	opacity: 0.8;
+	margin-top: 1rem;
+	color: mix($black, $ds-green, 30%);
+}
+
+/* buttons */
+
+a.button {
+	text-decoration: none;
+}
+
+.button.secondary {
+	color: $anchor-color;
+	background-color: $white;
+	border: 1px solid $light-gray;
+
+	&:hover {
+		background-color: darken($ds-green, 10%);
+		border-color: darken($ds-green, 10%);
+	}
+}
+
+.button.dark {
+	background-color: $ds-dark;
+
+	&:hover {
+		background-color: darken($ds-green, 10%);
+		color: $ds-dark;
+	}
+}
+
+.background-green {
+	.button.secondary {
+		border-color: $white;
+
+		&:hover {
+			border-color: darken($ds-green, 10%);
+		}
+	}
+}
+
+.big-button {
+	font-family: "Sofia Pro Light", sans-serif;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+}
+
+.cta-button {
+	font-family: "Sofia Pro Light", sans-serif;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	font-size: 1.3rem;
+}
+
+.project-picture-container {
+	border: 1px solid $ds-green;
+	padding: 1rem;
+	border-radius: 0.3rem;
+	position: relative;
+	margin-bottom: 2rem;
+
+	&:after {
+		content:" ";
+		width: 0.5rem;
+		height: 0.5rem;
+		display: block;
+		background-color: $light-gray;
+		border-radius: 100%;
+		position: absolute;
+		bottom: 0.2rem;
+		left: 50%;
+		right: 50%;
+	}
+}
+
+.project-picture {
+	border: 1px solid $light-gray;
+	border-radius: 0.1rem;
+}
+
+.test-image {
+	width: 100%;
+	height: 15rem;
+	background-color: red;
+}
+
+/* general */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	text-transform: uppercase;
+	letter-spacing: 2px;
+}
+
+p {
+	line-height: 1.8rem;
+}
+
+p.intro {
+	font-style: italic;
+}
+
+a {
+	text-decoration: underline;
+	font-weight: 500;
+}
+
+strong {
+	font-weight: 500;
+}
+
+.social-media-icons {
+	i {
+		margin: 0 1rem 3rem 0;
+	}
+}
+
+.fa-vimeo {
+	color: rgba(0, 173, 239, 1.00);
+}
+
+.fa-twitter {
+	color: rgba(29, 161, 242, 1.00);
+}
+
+.fa-youtube {
+	color: rgba(204, 24, 30, 1.00);
+}
+
+/* helpers */
+
+.align-right {
+	text-align: right;
+}
+
+.align-center {
+	text-align: center;
+}
+
+.text-white {
+	color: $body-background;
+}
+
+.margin-bl {
+	margin: 0 0 1rem 1rem;
+}
+
+.margin-tl {
+	margin: 1rem 0 0 1rem;
+}
+
+.margin-tb {
+	margin: 1rem 0;
+}
+
+.margin-l-tb {
+	margin: 3rem 0;
+}
+
+.margin-r {
+	margin: 0 1rem 0 0;
+}
+
+.margin-rb {
+	margin: 0 1rem 1rem 0;
+}
+
+.padding-xxs {
+	padding: 0.2rem;
+}
+
+.padding-xs {
+	padding: 0.5rem;
+}
+
+.padding-s {
+	padding: 1rem;
+}
+
+.padding-m {
+	padding: 2rem;
+}
+
+.padding-l {
+	padding: 3rem;
+}
+
+.padding-xl {
+	padding: 4rem;
+}
+
+.padding-xxl {
+	padding: 5rem;
+}
+
+
+
+
+.padding-top-xxs {
+	padding-top: 0.2rem;
+}
+
+.padding-top-xs {
+	padding-top: 0.5rem;
+}
+
+.padding-top-s {
+	padding-top: 1rem;
+}
+
+.padding-top-m {
+	padding-top: 2rem;
+}
+
+.padding-top-l {
+	padding-top: 3rem;
+}
+
+.padding-top-xl {
+	padding-top: 4rem;
+}
+
+.padding-top-xxl {
+	padding-top: 5rem;
+}
