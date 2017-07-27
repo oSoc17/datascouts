@@ -72,13 +72,13 @@
 				<template v-for="feed in item"> <!-- Make a v-for on socialMedia instead of  item -->
 
 					<!--TWITTER-->
-					<twitterFeed :feed="feed" v-if="feed.service_name == 'twitter'"></twitterFeed>
+					<twitterFeed :feed="feed" v-show="feed.service_name == 'twitter' && activeSocialMedia.indexOf('twitter')!==-1"></twitterFeed>
 
 					<!--YOUTUBE-->
-					<youtubeFeed :feed="feed" v-if="feed.service_name == 'youtube' "></youtubeFeed>
+					<youtubeFeed :feed="feed" v-show="feed.service_name == 'youtube' && activeSocialMedia.indexOf('youtube')!==-1"></youtubeFeed>
 
 					<!--VIMEO-->
-					<vimeoFeed :feed="feed" v-if="feed.service_name == 'vimeo' "></vimeoFeed>
+					<vimeoFeed :feed="feed" v-show="feed.service_name == 'vimeo' && activeSocialMedia.indexOf('vimeo')!==-1"></vimeoFeed>
 
 				</template>
 			</template>
@@ -138,6 +138,9 @@
 			}
 		},
 		methods: {
+			isSocialMediaActive: function(socialmedia){
+
+			},
 			hideFilters: function(e){
 				var el = document.getElementById("filter")
 				var filters = document.getElementById("filters")
@@ -197,7 +200,7 @@
   				console.log(this.items)
   				this.waterfall.compose(true)
   				document.getElementById("wf-container").style.visibility = "visible"
-  
+
   				//get waterfall variables to adjust loading templates.
   				//TO-DO(low-prior.): copy the width calc & columnsNum code from waterfall.js so
   				//that waterfall doesnt need to be rendered first to get the variables
@@ -205,7 +208,7 @@
   				this.loadingTemplatesWidth = "calc("+columns[columns.length-1].style.width+" - 30px)"
   				//console.log(this.loadingTemplatesWidth)
   				this.loadingTemplatesAmount = this.waterfall.getColumnsNum()
-  
+
   				this.isLoading = false
 				},
 			1)
