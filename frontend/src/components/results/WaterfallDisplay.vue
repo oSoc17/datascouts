@@ -53,19 +53,14 @@
 		</div>
 
 		<div class="empty-state empty-state-feed" v-show="entitiesIsEmpty">
-					<h2>What is a member?</h2>
-					<p>
-						Curabitur aliquet quam id dui posuere blandit.
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-						Curabitur aliquet quam id dui posuere blandit. Proin eget tortor risus.
-					</p>
-					<h2>How to add one?</h2>
-					<ul>
-						<li>Step 1</li>
-						<li>Step 2</li>
-						<li>Step 3</li>
-					</ul>
-				</div>
+			<h2>Visualise what your colleagues, friends, companies and competitors are talking about.</h2>
+			<ul>
+				<li>Add the name of your first company or person you want to follow. We call this a member.</li>
+				<li>Click on the member and add all social media channels for this member.</li>
+				<li>All done!</li>
+			</ul>
+					
+		</div>
 
 		<div class="tweets wf-container" id="wf-container">
 			<template v-for="item in items">
