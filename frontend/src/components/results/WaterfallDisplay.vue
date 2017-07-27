@@ -78,7 +78,7 @@
 					<youtubeFeed :feed="feed" v-show="feed.service_name == 'youtube' && activeSocialMedia.indexOf('youtube')!==-1"></youtubeFeed>
 
 					<!--VIMEO-->
-					<vimeoFeed :feed="feed" v-show="feed.service_name == 'vimeo' && activeSocialMedia.indexOf('vimeo')!==-1"></vimeoFeed>
+					<!-- <vimeoFeed :feed="feed" v-show="feed.service_name == 'vimeo' && activeSocialMedia.indexOf('vimeo')!==-1"></vimeoFeed> -->
 
 				</template>
 			</template>
