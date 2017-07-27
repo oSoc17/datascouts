@@ -2,9 +2,10 @@
 <div class="wf-box vimeo">
   <!-- BODY -->
   <div class="body">
-    <p class="title">
+    <div class="date">{{newFormatDate()}}</div>
+    <h3 class="title">
       {{ feed.title }}
-    </p>
+    </h3>
     <p class="description">
       {{ feed.description }}
     </p>
@@ -14,7 +15,7 @@
   <div style="position: relative;">
     <img v-bind:src="feed.thumbnail" alt="" class="media">
     <a href="" class="play-button">
-      <i class="fa fa-youtube-play"></i>
+      <i class="fa fa-play"></i>
     </a>
   </div>
 
@@ -27,14 +28,14 @@
 
   <!-- METADATA - likes/comments/views -->
   <div class="metadata_1">
-    <i class="fa fa-views"></i> {{feed.played_count}}
-    <a v-bind:href="'test'"><i class="fa fa-external-link">{{feed.link}}</i></a>
+    <i class="fa fa-eye"></i> {{feed.played_count}}
+    <a v-bind:href="feed.link"><i class="fa fa-external-link"></i></a>
   </div>
   <div class="metadata_2">
     <div class="image_avatar">
-      <img src="test" alt="" class="avatar">
+      <img v-bind:src="feed.user.avatar" alt="" class="avatar">
     </div>
-    <div class="name">{{feed.channel}}</div>
+    <div class="name">{{feed.user.name}}</div>
       <div class="social_media">
         <i class="fa fa-vimeo"></i>
       </div>
@@ -62,6 +63,14 @@
 		watch: {
 		},
 		methods: {
+      newFormatDate: function() {
+        var date = new Date(this.feed.created_at);
+        var month = date.getMonth();
+        var locale = "en-us";
+        var newMonth = date.toLocaleString(locale, { month: "long" });
+
+        return  newMonth + ' ' + date.getDate();
+      }
 		}
 		
 	}

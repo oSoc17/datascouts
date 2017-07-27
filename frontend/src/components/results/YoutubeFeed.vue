@@ -11,7 +11,7 @@
   </div>
 
   <!-- THUMBNAIL -->
-  <div style="position: relative;">
+  <div style="position: relative;margin-bottom:16px;">
     <img v-bind:src="feed.thumbnail" alt="" class="media">
     <a href="" class="play-button">
       <i class="fa fa-youtube-play"></i>
