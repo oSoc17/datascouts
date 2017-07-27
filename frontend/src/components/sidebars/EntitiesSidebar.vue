@@ -25,7 +25,8 @@
       </div>
     </form>
 
-    <entitiesList v-bind:entities="list" v-bind:currentEntity="currentEntity" v-bind:searchEntity="searchEntity"></entitiesList>
+    <entitiesList v-bind:entities="list" v-bind:currentEntity="currentEntity" v-bind:searchEntity="searchEntity"
+    v-bind:services="services"></entitiesList>
 
 
     <addEntity></addEntity>
@@ -44,7 +45,7 @@
   import { saveActiveEntities, getActiveEntities } from '../../utils/storageService'
 
   export default {
-    props : ['currentEntity'],
+    props : ['currentEntity', 'services'],
     components: {
       'entitiesList' : EntitiesList,
       'addEntity' : AddEntity,
