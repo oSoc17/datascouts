@@ -34,7 +34,7 @@
     },
     data () {
       return {
-        activeHandles : [],
+        activeHandles : this.actives,
         select : {},
         isSelected: false,
         handlesIsEmpty: false,
@@ -50,6 +50,7 @@
       bus.$on('handleNotSelected', () => {
         this.handleNotSelected()
       }),*/
+      bus.$on('ADD_ACTIVE_HANDLE', this.addToActiveHandles)
       bus.$on('HANDLES_IS_EMPTY', (bool) => this.handlesIsEmpty = bool)
       bus.$on('DESELECT_HANDLE', () => {console.log("nope")})
     },
@@ -69,6 +70,9 @@
 
     },
     methods: {
+      addToActiveHandles: function(handleID){
+        this.activeHandles.push(handleID)
+      },
       deselectHandle: function(){
         this.isSelected = false
         console.log(this.isSelected)

@@ -6,8 +6,6 @@
 
     <template v-for="item in computedEntities">
 
-
-
       <li v-bind:class="[{ active: isSelected && currentEntity.id == item.id }, 'entity']">
         <div v-on:click="selectEntity($event,item)">
           <div class="image_entity">
@@ -17,7 +15,6 @@
           <p>{{item.name}}</p>
         </div>
         <input class="styled-checkbox checkbox" type="checkbox" :id="['styled-checkbox-entities-' + item.id]"
-          :click="toggleEntity()"
           :value="item.id" v-model="activeEntities">
           <label :for="['styled-checkbox-entities-' + item.id]"></label>
           <i class="fa fa-angle-right"></i>
@@ -37,15 +34,11 @@
 
 <script>
   import { bus } from '../../main'
-  import { saveActiveEntities, getActiveEntities } from '../../utils/storageService'
+  import {saveCurrentEntity, saveActiveEntities, getActiveEntities, saveActiveHandles, getActiveHandles, removeActiveHandles, removeActiveEntity } from '../../utils/storageService'
 
 
   export default {
-    props: {
-      entities : Array,
-      searchEntity : String,
-      currentEntity: Object,
-    },
+    props: ['entities', 'searchEntity', 'currentEntity', 'services'],
     components:{},
     data () {
       return {
@@ -57,16 +50,18 @@
     },
     created () {
       bus.$on('ENTITIES_IS_EMPTY', (bool) => this.entitiesIsEmpty = bool)
+      bus.$on('ADD_ACTIVE_ENTITY', this.addToActiveEntities)
       this.loadStoredActiveEntities()
     },
     watch: {
       entities : function () {
+
         // this.activeEntities = this.entities.filter(e => e.active).map(e => e.id)
       },
       activeEntities : function(){
-        saveActiveEntities(this.activeEntities);
-        bus.$emit('UPDATE_ACTIVE_HANDLES', this.activeHandles)
-        bus.$emit('FETCH_DATA')
+        //saveActiveEntities(this.activeEntities);
+        this.updateLocalStorage()
+        //bus.$emit('UPDATE_ACTIVE_HANDLES', this.activeHandles)
       }
     },
     computed: {
@@ -85,10 +80,58 @@
         bus.$emit('ENTITIES_IS_EMPTY', this.entitiesIsEmpty)
         return found
       },
-
-
     },
     methods: {
+      addToActiveEntities: function(entityID) {
+        console.log("entityID", entityID)
+        this.activeEntities.push(entityID)
+      },
+      updateLocalStorage: function() {
+        console.log("updating local storage")
+        var handlesIDs = []
+        var self = this
+        var fetched = false
+        this.activeEntities.forEach(function(entityID){
+          //if(self.findIndex(getActiveEntities(), entityID)==-1){
+          if(getActiveHandles(entityID).length==0){
+            self.$http.get(`entities/${entityID}/handles`)
+                .then(res => {
+                  bus.$emit('HANDLES_IS_EMPTY', res.data.length === 0)
+                  res.data.forEach(function({id}){handlesIDs.push(id)})
+                  //saveCurrentEntity(entityID)
+                  saveActiveHandles(entityID, handlesIDs)
+                  bus.$emit('UPDATE_ACTIVE_HANDLES')
+                  bus.$emit('FETCH_DATA')
+                  fetched = true
+                }).catch(console.error)
+          }
+        })
+        /*getActiveEntities().forEach(function(entityID){
+          if(self.findIndex(self.activeEntities, entityID)==-1){
+            removeActiveHandles(entityID)
+            //removeActiveEntity(entityID)
+          }
+        })*/
+        saveActiveEntities(self.activeEntities)
+        console.log("after update:",getActiveEntities())
+        if(!fetched){bus.$emit('FETCH_DATA')}
+      },
+      getAllActiveHandles : function (){
+        const handles = [];
+        getActiveEntities().forEach(ent_id => {
+          const activeHandles = getActiveHandles(ent_id);
+          handles.push(... activeHandles);
+        })
+        console.log('Active Handles to fetch : ',handles);
+        return handles;
+      },
+      findIndex: function(array, id) {
+        var index = -1
+        for(var i=0;i<array.length;i++){
+          if(id == array[i].id){index = i; break;}
+        }
+        return index
+      },
       selectEntity: function (e,item) {
         console.log(e.target)
         if(this.isSelected){ // Already, select a handle
@@ -103,9 +146,6 @@
       },
       closeSideBar: function () {
         bus.$emit('CLOSE_HANDLES_SIDEBAR')
-      },
-      toggleEntity: function () {
-
       },
       updateEntities: function() {
         bus.$emit('UPDATE_ENTITIES')
