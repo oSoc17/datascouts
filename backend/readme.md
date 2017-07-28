@@ -6,9 +6,9 @@ API for Social Media Aggregator
 
 Hello, welcome onboard.
 
-This project design on [#oSoc17](2017.summerofcode.be/) is a little API to fetch data from different social media for specified entities. In short words, APi for Social Media Aggregator.
+This project design on [#oSoc17](2017.summerofcode.be/) is a little API to fetch data from different social media for specified handle. In short words, APi for Social Media Aggregator.
 
-This purpose of this document is to give an orverview about this project and necessary steps before working on it.
+This document purpose is to give an orverview about this project and necessary steps before working on it.
 
 ## Table Of Contents
 
@@ -84,11 +84,3 @@ This API exploits the following technologies :
 ### Hints - Guidelines
 
 ### Enhancements
-
-## Licence
-
-This project is licensed under the [MIT][info-license] license.
-
-Copyright &copy; 2017, DataScouts Team
-
-[info-license]: LICENSE
