@@ -19,7 +19,7 @@
   </div>
 
   <!-- VIDEO-IFRAME -->
-  <!--<figure class="content-media content-media--video" id="featured-media">
+  <!-- <figure class="content-media content-media--video" id="featured-media" v-if="isLoaded">
     <iframe class="content-media__object media" id="featured-video" v-bind:src='feed.link + "?enablejsapi=1&rel=0&showinfo=0&controls=0"' frameborder="0"></iframe>
   </figure> -->
 
@@ -44,7 +44,7 @@
 		},
 		data() {
 			return {
-        
+        isLoaded : false,
 			}
 		},
 		created() {
@@ -52,6 +52,7 @@
 		mounted() {
 		},
 		watch: {
+
 		},
 		methods: {
 		}

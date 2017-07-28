@@ -76,8 +76,6 @@
       loadEntities: function() {
         return this.$http.get('entities?fields=id,name,url')
             .then(res => {
-
-              //bus.$emit('FETCH_DATA', true)
               // Already got a bunch of entities
               if(this.list.length !== 0){
                 res.data.forEach(entity => {
@@ -95,7 +93,7 @@
 
               }
             })
-            .catch(console.log)
+            .catch(console.error)
 
       },
       closeSideBar: function() {
@@ -103,7 +101,6 @@
       },
       insertNewEntity : function(name){
         this.searchEntity = ""
-        console.log("adding entity ",name)
         this.$http.post('entities', {"name" : name || this.name})
           .then(({data}) => {
             this.searchEntity = ''
@@ -113,9 +110,8 @@
               'name' :data.name,
               'active' : true
             })
-            console.log("[EntitySidebar] New Entity added")
           })
-          .catch((err) => console.log("[EntitySidebar] Error Failed to add entity"))
+          .catch(console.error)
       },
 
       deleteEntity : function (){
@@ -125,8 +121,6 @@
         // Also need to delete this entity
         // Get that list of active entities
         const actives = getActiveEntities()
-        console.log("saved entities")
-        console.log(getActiveEntities())
         // Get the position of the specified entity on that list
         const pos = actives.findIndex(h_id => h_id == this.currentEntity.id)
 
@@ -135,8 +129,6 @@
           actives.splice(pos, 1); // Remove that entity
           saveActiveEntities(actives); // Store the new list
         }
-        console.log("saved entities")
-        console.log(getActiveEntities())
       },
 
       updateEntities: _debounce(function() {

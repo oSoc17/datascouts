@@ -42,15 +42,7 @@
       }
     },
     created () {
-      bus.$on('selectHandle', (handle, e) => {
-        this.selectHandle(handle, e)
-      }),
-      /*bus.$on('handleSelected', () => {
-        this.handleSelected()
-      }),
-      bus.$on('handleNotSelected', () => {
-        this.handleNotSelected()
-      }),*/
+      bus.$on('selectHandle', this.selectHandle),
       bus.$on('ADD_ACTIVE_HANDLE', this.addToActiveHandles)
       bus.$on('HANDLES_IS_EMPTY', (bool) => this.handlesIsEmpty = bool)
       bus.$on('DESELECT_HANDLE', () => {console.log("nope")})
@@ -95,10 +87,6 @@
         bus.$emit('CHANGE_CURRENT_HANDLE', this.select)
         this.isSelected = true
       },
-
-      // updateSelectedHandles: _debounce( function() {
-      //   this.fetchData()
-      // }, 1),
 
     }
   }

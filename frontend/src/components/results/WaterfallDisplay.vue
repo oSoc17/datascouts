@@ -114,11 +114,9 @@
 		}
 		},
 		created () {
-			console.log('Created WaterfallDisplay')
-			var i=1
+			let i = 1
 			while(typeof(this.services[i])!=='undefined'){
-				this.socialMedia.push(this.services[i].name)
-				i++
+				this.socialMedia.push(this.services[i++].name)
 			}
 			this.activeSocialMedia = this.socialMedia
 		},
@@ -133,19 +131,16 @@
 			}
 		},
 		methods: {
-			isSocialMediaActive: function(socialmedia){
-
-			},
 			hideFilters: function(e){
-				var el = document.getElementById("filter")
-				var filters = document.getElementById("filters")
+				const el = document.getElementById("filter")
+				const filters = document.getElementById("filters")
 				if(el.style.display !== 'none' && !this.isDescendant(filters, e.target)){
   				el.style.display = 'none';
   				el.classList.toggle("display-filter")
 				}
 			},
 			isDescendant: function (parent, child) {
-  			var node = child.parentNode;
+  			let node = child.parentNode;
   			while (node != null) {
   				if (node == parent) {
   					return true;
@@ -155,8 +150,8 @@
   			return false;
 			},
 			showFilters: function(e){
-				var el = document.getElementById("filter")
-				var el2 = document.querySelector("button.btn_primary.btn_filter");
+				const el = document.getElementById("filter")
+				const el2 = document.querySelector("button.btn_primary.btn_filter");
 				el.style.display = el.style.display === 'none' ? 'initial' : 'none';
 				el.classList.toggle("display-filter");
 				el2.classList.toggle("fa-active");
@@ -167,16 +162,14 @@
   				const activeHandles = getActiveHandles(ent_id);
   				handles.push(... activeHandles);
 				})
-				console.log('Active Handles to fetch : ',handles);
 				return handles;
 			},
+			
 			fetchData: _debounce(function(){
-				console.log('fetching data')
-
 				//display load templates & adjust them to the screen, hide loading elements
 				this.isLoading = true
 				document.getElementById("wf-container").style.visibility = "hidden"
-				var boxes = document.getElementsByClassName("template_box")
+				const boxes = document.getElementsByClassName("template_box")
 				this.$nextTick(function(){
   				for(var i=0;i<boxes.length;i++){
   					boxes[i].style.width = this.loadingTemplatesWidth
@@ -188,18 +181,17 @@
 				this.$http.post('fetch', {handles})
 					.then(res => this.items = res.data)
 					.catch(console.error)
-				// console.log(this.items)
 			},300),
+
 			updateWaterfall: _debounce(
 				function() {
-  				console.log(this.items)
   				this.waterfall.compose(true)
   				document.getElementById("wf-container").style.visibility = "visible"
 
   				//get waterfall variables to adjust loading templates.
   				//TO-DO(low-prior.): copy the width calc & columnsNum code from waterfall.js so
   				//that waterfall doesnt need to be rendered first to get the variables
-  				var columns = document.getElementsByClassName("wf-column")
+  				const columns = document.getElementsByClassName("wf-column")
   				this.loadingTemplatesWidth = "calc("+columns[columns.length-1].style.width+" - 30px)"
   				//console.log(this.loadingTemplatesWidth)
   				this.loadingTemplatesAmount = this.waterfall.getColumnsNum()
@@ -207,7 +199,7 @@
   				this.isLoading = false
 				},
 			1)
-			}
+		}
 	}
 	</script>
 

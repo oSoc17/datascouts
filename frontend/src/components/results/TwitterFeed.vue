@@ -41,7 +41,6 @@
 		created() {
 		},
 		mounted() {
-		  // console.log(this.feed)
 		},
 		watch: {
 		},

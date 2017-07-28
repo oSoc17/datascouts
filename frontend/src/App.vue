@@ -100,22 +100,6 @@
         }
       },
 
-      loadServices : function (){
-        if(localStorage.getItem('services')){
-          this.services = JSON.parse(localStorage.getItem('services'))
-        }else{
-          this.$http.get('services')
-              .then(({data}) => {
-                this.services = data.reduce((list,media) => {
-                  list[media.id] = media;
-                  return list
-                },{});
-                localStorage.setItem('services',JSON.stringify(this.services))
-              })
-              .catch(console.error)
-        }
-      },
-
       closeEditHandleSidebar : function (){
         this.showEditHandle = false
       },
@@ -142,19 +126,18 @@
 
       deleteCurrentEntity : function () {
         this.showHandles = false // Hide the HandleSidebar
-        removeActiveHandles(this.current.entity.id);
+        removeActiveHandles(this.current.entity.id); // Remove from the localStorage
         bus.$emit('DELETE_LISTED_ENTITY') // Send Event to delete Entity from the list
               
-
         this.current.entity = {}
-
       },
 
       changeCurrentHandle : function (select) {
+        // No current Handle or different handle
         if(!this.current.handle || select.id !== this.current.handle.id){
           this.current.handle = select
         }
-        this.showEditHandle = true
+        this.showEditHandle = true // Show the editHandle Sidebar
       },
 
       updateCurrentHandle : function (newName) {
@@ -162,8 +145,8 @@
       },
 
       deleteCurrentHandle : function () {
-        this.showEditHandle = false
-        bus.$emit('DELETE_LISTED_HANDLE')
+        this.showEditHandle = false // Close the editHandle Sidebar
+        bus.$emit('DELETE_LISTED_HANDLE') // Send to HandleList cmd to delete
         this.current.handle = {}
       },
 

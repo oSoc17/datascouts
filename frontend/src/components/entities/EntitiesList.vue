@@ -34,7 +34,16 @@
 
 <script>
   import { bus } from '../../main'
-  import {saveCurrentEntity, saveActiveEntities, getActiveEntities, saveActiveHandles, getActiveHandles, removeActiveHandles, removeActiveEntity } from '../../utils/storageService'
+  import {
+    saveCurrentEntity, 
+    saveActiveEntities, 
+    getActiveEntities, 
+    saveActiveHandles, 
+    getActiveHandles, 
+    removeActiveHandles, 
+    removeActiveEntity 
+    
+  } from '../../utils/storageService'
 
 
   export default {
@@ -55,7 +64,6 @@
     },
     watch: {
       entities : function () {
-
         // this.activeEntities = this.entities.filter(e => e.active).map(e => e.id)
       },
       activeEntities : function(){
@@ -70,9 +78,9 @@
           const name = entity.name.toLowerCase()
           return name.indexOf(this.searchEntity.toLowerCase()) !== -1
         });
-        this.searchNotFound = /*(found.length === 0) &&*/ (this.searchEntity.length !== 0);
-        for(var i=0;i<found.length;i++){
-          if(found[i].name===this.searchEntity){
+        this.searchNotFound = (this.searchEntity.length !== 0);
+        for(let i = 0; i < found.length; i++){
+          if(found[i].name === this.searchEntity){
             this.searchNotFound = false
           }
         }
@@ -87,18 +95,16 @@
         this.activeEntities.push(entityID)
       },
       updateLocalStorage: function() {
-        console.log("updating local storage")
         var handlesIDs = []
         var self = this
         var fetched = false
         this.activeEntities.forEach(function(entityID){
-          //if(self.findIndex(getActiveEntities(), entityID)==-1){
           if(getActiveHandles(entityID).length==0){
             self.$http.get(`entities/${entityID}/handles`)
                 .then(res => {
                   bus.$emit('HANDLES_IS_EMPTY', res.data.length === 0)
                   res.data.forEach(function({id}){handlesIDs.push(id)})
-                  //saveCurrentEntity(entityID)
+
                   saveActiveHandles(entityID, handlesIDs)
                   bus.$emit('UPDATE_ACTIVE_HANDLES')
                   bus.$emit('FETCH_DATA')
@@ -106,14 +112,7 @@
                 }).catch(console.error)
           }
         })
-        /*getActiveEntities().forEach(function(entityID){
-          if(self.findIndex(self.activeEntities, entityID)==-1){
-            removeActiveHandles(entityID)
-            //removeActiveEntity(entityID)
-          }
-        })*/
         saveActiveEntities(self.activeEntities)
-        console.log("after update:",getActiveEntities())
         if(!fetched){bus.$emit('FETCH_DATA')}
       },
       getAllActiveHandles : function (){
@@ -122,18 +121,10 @@
           const activeHandles = getActiveHandles(ent_id);
           handles.push(... activeHandles);
         })
-        console.log('Active Handles to fetch : ',handles);
         return handles;
       },
-      findIndex: function(array, id) {
-        var index = -1
-        for(var i=0;i<array.length;i++){
-          if(id == array[i].id){index = i; break;}
-        }
-        return index
-      },
+
       selectEntity: function (e,item) {
-        console.log(e.target)
         if(this.isSelected){ // Already, select a handle
           if(this.currentEntity.id == item.id) {
             this.isSelected = false
@@ -157,12 +148,6 @@
       loadStoredActiveEntities : function () {
         this.activeEntities = getActiveEntities();
       }
-      // updateSelectedEntities: _debounce( function() {
-        // var entitiesHTML = document.getElementsByClassName("entity")
-        // for(var i=0;i<this.entities.length;i++){
-        //   entitiesHTML[i].getElementsByClassName("checkbox")[0].checked = this.entities[i].active
-        // }
-      // }, 1),
     }
   }
 </script>

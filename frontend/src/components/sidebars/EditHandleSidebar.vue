@@ -83,7 +83,6 @@
         $elt.style.transition = "all .5s ease"
         $elt.style.zIndex = -2
         // document.querySelector('.handle').classList.remove("active")
-
       },
 
       closeDeleteModal : function(){
@@ -94,22 +93,18 @@
         if(this.newName && this.newName !== this.handle.name){
           this.$http.put('handles/' + this.handle.id, {"name": this.newName})
               .then(res => {
-                console.log("Handle updated")
                 bus.$emit('CLOSE_EDITHANDLE_SIDEBAR');
                 bus.$emit('UPDATE_CURRENT_HANDLE', this.newName)
                 this.newName = ''
               })
-              .catch(err => console.log("[EditHandleSidebar] Failed to update handle",err))
+              .catch(console.error)
         }
       },
 
       deleteHandle: function() {
         this.$http.delete('handles/' + this.handle.id)
-            .then(res => {
-              console.log("Handle deleted")
-              bus.$emit('DELETE_CURRENT_HANDLE')
-            })
-            .catch(err => console.log("[EditHandleSidebar] Failed to delete handle",err))
+            .then(res => bus.$emit('DELETE_CURRENT_HANDLE'))
+            .catch(console.error)
       },
     }
   }
