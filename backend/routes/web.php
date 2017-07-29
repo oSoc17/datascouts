@@ -12,10 +12,6 @@
 |
 */
 
-$app->get('/', function () use ($app) {
-    return $app->version();
-});
-
 // To generate the key for the .env
 // https://stackoverflow.com/questions/30344141/lumen-micro-framework-php-artisan-keygenerate
 $app->get('/key', function () {

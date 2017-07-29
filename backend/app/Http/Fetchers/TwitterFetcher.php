@@ -29,6 +29,7 @@ class TwitterFetcher extends BaseFetcher
     protected function handle(Handle $handle)
     {
         $data = $this->connection->get("statuses/user_timeline", [
+            "count" => '100', 
             "screen_name" => $handle->name,
             'exclude_replies' => true,
             'include_rts' => false
