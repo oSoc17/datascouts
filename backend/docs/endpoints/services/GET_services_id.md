@@ -32,11 +32,11 @@ All errors return an HTTP error response with a JSON Object as keys ``message`` 
 
 ``` json
     {
-        id: 3,
-        name: "vimeo",
-        link: "https://vimeo.com",
-        logo: null,
-        color: null
+        "id": 3,
+        "name": "vimeo",
+        "link": "https://vimeo.com",
+        "logo": null,
+        "color": null
     }
 
 ```
@@ -51,13 +51,13 @@ All errors return an HTTP error response with a JSON Object as keys ``message`` 
 
 ``` json
 {
-    message: "The requested object is not valid",
-    request: {
-    method: "GET",
-    path: "api/v1/services/999",
-    parameters: [ ]
+    "message": "The requested object is not valid",
+    "request": {
+    "method": "GET",
+    "path": "api/v1/services/999",
+    "parameters": [ ]
     },
-    data: [ ]
+    "data": [ ]
 }
 ```
 

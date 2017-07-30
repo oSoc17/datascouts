@@ -33,7 +33,7 @@ A JSON Object filled with an handle following the **[handle format][]**.
 
     PUT /handles/11
     {
-        name : "Lorem ipsum"
+        "name" : "Lorem ipsum"
     }
 
 ```
@@ -43,15 +43,15 @@ A JSON Object filled with an handle following the **[handle format][]**.
 ``` json
 [
     {
-        id: 11,
-        name: "Lorem ipsum",
-        url: "24_twitter_test",
-        created_at: "2017-07-29 00:00:00",
-        updated_at: "2017-07-29 00:00:00"
-        entity_id: 24,
-        service_id: 1,
-        is_fetching: 0,
-        fetched_at: "2017-07-29 00:05:00"
+        "id": 11,
+        "name": "Lorem ipsum",
+        "url": "24_twitter_test",
+        "created_at": "2017-07-29 00:00:00",
+        "updated_at": "2017-07-29 00:00:00",
+        "entity_id": 24,
+        "service_id": 1,
+        "is_fetching": 0,
+        "fetched_at": "2017-07-29 00:05:00"
     }
 ]
 ```

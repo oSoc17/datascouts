@@ -32,7 +32,7 @@ A JSON Object filled with an entity following the **[entity format][]**.
 
     PUT /entities/24
     {
-        name : "Lorem ipsum"
+        "name" : "Lorem ipsum"
     }
 
 ```
@@ -42,12 +42,12 @@ A JSON Object filled with an entity following the **[entity format][]**.
 ``` json
 [
     {
-        id: 24,
-        name: "Lorem ipsum",
-        url: "entity_test",
-        image: null,
-        created_at: "2017-07-29 00:00:00",
-        updated_at: "2017-07-29 00:00:00"
+        "id": 24,
+        "name": "Lorem ipsum",
+        "url": "entity_test",
+        "image": null,
+        "created_at": "2017-07-29 00:00:00",
+        "updated_at": "2017-07-29 00:00:00"
     }
 ]
 ```

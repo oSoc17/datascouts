@@ -32,25 +32,25 @@ None
 ``` json
 [
     {
-        id: 1,
-        name: "twitter",
-        link: "https://twitter.com",
-        logo: null,
-        color: null
+        "id": 1,
+        "name": "twitter",
+        "link": "https://twitter.com",
+        "logo": null,
+        "color": null
     },
     {
-        id: 2,
-        name: "youtube",
-        link: "https://youtube.com",
-        logo: null,
-        color: null
+        "id": 2,
+        "name": "youtube",
+        "link": "https://youtube.com",
+        "logo": null,
+        "color": null
     },
     {
-        id: 3,
-        name: "vimeo",
-        link: "https://vimeo.com",
-        logo: null,
-        color: null
+        "id": 3,
+        "name": "vimeo",
+        "link": "https://vimeo.com",
+        "logo": null,
+        "color": null
     }
 ]
 ```

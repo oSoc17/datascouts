@@ -32,15 +32,15 @@ All errors return an HTTP error response with a JSON Object as keys ``message`` 
 
 ``` json
     {
-        id: 7,
-        name: "openknowledgebe",
-        url: "12_twitter_openknowledgebe",
-        created_at: "2017-07-27 12:34:22",
-        updated_at: "2017-07-27 15:10:26",
-        entity_id: 12,
-        service_id: 1,
-        is_fetching: 0,
-        fetched_at: "2017-07-27 15:10:26"
+        "id": 7,
+        "name": "openknowledgebe",
+        "url": "12_twitter_openknowledgebe",
+        "created_at": "2017-07-27 12:34:22",
+        "updated_at": "2017-07-27 15:10:26",
+        "entity_id": 12,
+        "service_id": 1,
+        "is_fetching": 0,
+        "fetched_at": "2017-07-27 15:10:26"
     }
 
 ```
@@ -55,13 +55,13 @@ All errors return an HTTP error response with a JSON Object as keys ``message`` 
 
 ``` json
 {
-    message: "The requested object is not valid",
-    request: {
-    method: "GET",
-    path: "api/v1/handles/999",
-    parameters: [ ]
+    "message": "The requested object is not valid",
+    "request": {
+    "method": "GET",
+    "path": "api/v1/handles/999",
+    "parameters": [ ]
     },
-    data: [ ]
+    "data": [ ]
 }
 ```
 

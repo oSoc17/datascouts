@@ -33,8 +33,8 @@ A JSON Object filled with an handle following the **[handle format][]**.
 ``` json
     POST /handles/24
     {
-        name : "test",
-        service : 1
+        "name" : "test",
+        "service" : 1
     }
 ```
 
@@ -43,15 +43,15 @@ A JSON Object filled with an handle following the **[handle format][]**.
 ``` json
 [
     {
-        id: 11,
-        name: "test",
-        url: "24_twitter_test",
-        created_at: "2017-07-29 00:00:00",
-        updated_at: "2017-07-29 00:00:00"
-        entity_id: 24,
-        service_id: 1,
-        is_fetching: 0,
-        fetched_at: "2017-07-29 00:05:00"
+        "id": 11,
+        "name": "test",
+        "url": "24_twitter_test",
+        "created_at": "2017-07-29 00:00:00",
+        "updated_at": "2017-07-29 00:00:00",
+        "entity_id": 24,
+        "service_id": 1,
+        "is_fetching": 0,
+        "fetched_at": "2017-07-29 00:05:00"
     }
 ]
 ```

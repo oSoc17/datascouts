@@ -32,8 +32,8 @@ A JSON Object filled with an service following the **[service format][]**.
 ``` json
     POST /services
     {
-        name: "test",
-        link: "https://test.org",
+        "name": "test",
+        "link": "https://test.org",
 
     }
 ```
@@ -43,11 +43,11 @@ A JSON Object filled with an service following the **[service format][]**.
 ``` json
 [
     {
-        id: 4,
-        name: "test",
-        link: "https://test.com",
-        logo: null,
-        color: null
+        "id": 4,
+        "name": "test",
+        "link": "https://test.com",
+        "logo": null,
+        "color": null
     }
 ]
 ```

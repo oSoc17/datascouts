@@ -35,9 +35,9 @@ A JSON Object filled with an service following the **[service format][]**.
 
     PUT /services/4
     {
-        name: "petbook",
-        link: "https://petbook.org",
-        color: "SandyBrown"
+        "name": "petbook",
+        "link": "https://petbook.org",
+        "color": "SandyBrown"
     }
 
 ```
@@ -47,11 +47,11 @@ A JSON Object filled with an service following the **[service format][]**.
 ``` json
 [
     {
-        id: 4,
-        name: "petbook",
-        link: "https://petbook.org",
-        logo: null,
-        color: "SandyBrown"
+        "id": 4,
+        "name": "petbook",
+        "link": "https://petbook.org",
+        "logo": null,
+        "color": "SandyBrown"
     }
 ]
 ```
