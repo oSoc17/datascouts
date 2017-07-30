@@ -73,14 +73,23 @@ Open the .env file.
 
 #### Application key
 
-I strongly recommand to change your 'APP_KEY' to a random string. Typically, this string should be 32 characters long.  
+I strongly recommand to change your 'APP_KEY' to a random string. Typically, this string should be 32 characters long.
 **If the application key is not set, your user encrypted data will not be secure !**
 
 #### Database
 
-All
+All data required to make a sucessful connection to the database have to be input in the config at the corresponding .
 
-Finally, exexcute the following command to create the tables.
+```env
+
+    DB_HOST=
+    DB_PORT=
+    DB_DATABASE=
+    DB_USERNAME=
+    DB_PASSWORD=
+```
+
+Finally, execute the following command to create the tables.
 
 ```bash
     # Copy and rename the .env.example
@@ -96,6 +105,16 @@ Finally, exexcute the following command to create the tables.
 
 ### Run
 
+```bash
+    # Run localy at http://0.0.0.0:8080/api/v1/zen
+    $ php -S 0.0.0.0:8080 -t ./public/
+
+    # To run in production :
+    # On the Nginx file for the site dedicated to this APi,
+    # make sure to redirect to the folder public/index.php
+
+```
+
 ## Routes
 
 **Base url** : `/api/v1`
@@ -106,7 +125,7 @@ Finally, exexcute the following command to create the tables.
 
 ### Endpoints
 
-#### [Entity Resources](./docs/resources/entities.md)
+#### Entity Resource
 
 - **[`GET` entities](./docs/endpoints/entities/GET_entities.md)**
 - **[`GET` entities/:id](./docs/endpoints/entities/GET_entities_id.md)**
@@ -115,7 +134,7 @@ Finally, exexcute the following command to create the tables.
 - **[`PUT` entities/:id](./docs/endpoints/entities/PUT_entities_id.md)**
 - **[`DELETE` entities/:id](./docs/endpoints/entities/DELETE_entities_id.md)**
 
-#### [Handle Resources](./docs/resources/handles.md)
+#### Handle Resource
 
 - **[`GET` handles](./docs/endpoints/handles/GET_handles.md)**
 - **[`GET` handles/:id](./docs/endpoints/handles/GET_handles_id.md)**
@@ -125,7 +144,7 @@ Finally, exexcute the following command to create the tables.
 - **[`PUT` handles/:id](./docs/endpoints/handles/PUT_handles_id.md)**
 - **[`DELETE` handles/:id](./docs/endpoints/handles/DELETE_handles_id.md)**
 
-#### [Services Resources](./docs/resources/services.md)
+#### Services Resource
 
 - **[`GET` services](./docs/endpoints/services/GET_services.md)**
 - **[`GET` services/:id](./docs/endpoints/services/GET_services_id.md)**
@@ -133,18 +152,18 @@ Finally, exexcute the following command to create the tables.
 - **[`PUT` services/:id](./docs/endpoints/services/PUT_services_id.md)**
 - **[`DELETE` services/:id](./docs/endpoints/services/DELETE_services_id.md)**
 
-#### [Feed Resources](./docs/resources/feeds.md)
+#### Feed Resource
 
 - **[`POST` feeds](./docs/endpoints/feeds/POST_feeds.md)**
 
-#### [Providers Resources](./docs/resources/provides.md)
+#### Providers Resource
 
 - **[`GET` providers/:handle_id/login](./docs/endpoints/providers/GET_providers_login_by_handle.md)**
 - **[`GET` providers/:service_name/callback](./docs/endpoints/providers/GET_service_providers_callback.md)**
 
 ## Commands
 
-Two commands have been created for this project. All commands are only executabled on root path of the backend folder.
+Two commands have been created for this project. All commands can only be executed on root path of the backend folder.
 
 ### DataScoutsAddAdminUser : ``datascouts:add-admin``
 
