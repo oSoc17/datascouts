@@ -12,13 +12,13 @@ All errors return an HTTP error response with a JSON Object as keys ``message`` 
 
 ``` json
 {
-    message: "The requested object is not valid",
-    request: {
-      method: "GET",
-      path: "api/v1/handle/lorem-ipsum",
-      parameters: [ ]
+    "message": "The requested object is not valid",
+    "request": {
+      "method": "GET",
+      "path": "api/v1/handle/lorem-ipsum",
+      "parameters": [ ]
     },
-    data: [ ]
+    "data": [ ]
 }
 ```
 

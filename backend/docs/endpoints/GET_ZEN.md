@@ -30,6 +30,6 @@ A JSON Object filled with:
 
 ``` json
     {
-        joke: "Waiting for the joke. It' comming ...."
+        "joke": "Waiting for the joke. It' comming ...."
     }
 ```

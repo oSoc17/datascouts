@@ -28,7 +28,7 @@ None
 
     POST /fetch
     {
-        handles : [9, 10]
+        "handles" : [9, 10]
     }
 ```
 
@@ -36,8 +36,8 @@ None
 
 ``` json
 [
-    [{ TweetFeed}, { TweetFeed}, {TweetFeed}, {TweetFeed}],
-    [{ VimeoFeed}, {VimeoFeed}, {VimeoFeed}]
+    [{ "TweetFeed"}, { "TweetFeed"}, {"TweetFeed"}, {"TweetFeed"}],
+    [{ "VimeoFeed"}, {"VimeoFeed"}, {"VimeoFeed"}]
 ]
 ```
 
