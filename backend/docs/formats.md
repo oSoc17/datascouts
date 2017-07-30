@@ -4,8 +4,7 @@ This document details all resources retrievable via the API.
 
 ## Base
 
-All request for the API must be prefix by ``/api/v1``.
-
+All requests for the API must be prefix by ``/api/v1``.
 
 ## Error Format
 
@@ -29,16 +28,13 @@ List of the default service available.
 
 |ID | Name| Link | Logo |Color
 ---|----|-------|-------|--------
-|1 | Facebook| https://facebook.com| none| Blue
-|2 | Twitter | https://twitter.com| none| Cyan
-|3 | Youtube | https://youtube.com| none| Red
-|4 | Google+ | https://plus.google.com | none | White
-|5 | Instagram|https://instagram.com| none| Gray
-
+|1 | twitter | https://twitter.com| none| Cyan
+|2 | youtube | https://youtube.com| none| Red
+|3 | vimeo | https://vimeo.com | none | White
 
 ## User format
 
-A User is
+A User is visitor connected to the app via a social media account (FAcebook, Twitter, Intagram).
 
 The format of a User object includes the following data:
 
@@ -56,9 +52,9 @@ The format of a Entity object includes the following data:
 
 - **id** — [integer] ID of the entity,
 - **name** — [string] Name of the entity
-- **url** — [string] URL of the entity
-- **image** — [string] The visual represention of the entity. Upload or fetched from the 
-- **created_at** — [timestamp] Timestamp of time of entity creation
+- **url** — [string] URL of the entity. Composed with the ``entity_{the entity name}``.
+- **image** — [string] The visual represention of the entity. Upload or fetched from the social media.
+- **created_at** — [timestamp] Timestamp of time of entity creation.
 - **updated_at** — [timestamp] Timestamp of time of entity last update.
 
 ## Handle format
@@ -69,18 +65,17 @@ The format of a Handle object includes the following data:
 
 - **id** — [integer] ID of the handle,
 - **name** — [string] Name of the handle
-- **url** — [string] URL of the handle
+- **url** — [string] URL of the handle. Composed with the ``{entity ID}_{service name}_{handle name}``.
 - **created_at** — [timestamp] Timestamp of time of handle' creation
 - **updated_at** — [timestamp] Timestamp of time of handle' last update.
 - **fetched_at** — [timestamp] Timestamp of time of handle' last fetch.
-- **is_fetching** — [bit] Timestamp of time of handle last update.
+- **is_fetching** — [bit] Bool used to determine if this handle is fetched at the moment.
 - **entity_id** — [integer] The ID of the attached **[Entity][]**.
 - **service_id** — [integer] The ID of the attached **[Service][]**:
-- **provider_id** — [integer] The ID of the attached **[Provider][]**:
 
 ## Service format
 
-A Service is
+A Service is the social media handled by the application.
 
 The format of a Service object includes the following data:
 
@@ -88,12 +83,12 @@ The format of a Service object includes the following data:
 - **name** — [string] Name of the service.
 - **link** — [string] The link to website of the service.
 - **logo** — [string] The Link of the representing' logo of the service.
-- **color** — [string] The color assigned to this service for the rending. 
+- **color** — [string] The color assigned to this service for the rending.
 - **created_at** — [timestamp] Timestamp of time of service creation
 
 ## Provider format
 
-A Provider is
+A Provider is an connection/authorization to the user social media.
 
 The format of a Provider object includes the following data:
 
@@ -103,24 +98,19 @@ The format of a Provider object includes the following data:
 - **fullname** — [string] The surname and/or lastname of the user.
 - **username** — [string] The username of the user.
 
-## Fetcher format
+## Feed format
 
-A Fetcher is
+A Feed is a social media post. Can be a tweet, a youtube channel, youtube or vimeo video.
 
-The format of a Fetcher object includes the following data:
+The format of a Feed object includes the following data:
 
 - **id** — [integer] ID of the provider.
-- **data** — [json] The Data of the
+- **data** — [json] The Data of the feed.
 - **handle_id** — [integer] The ID of the attached **[Handle][]**.
-
-
-
 
 [entity]:[entity-format]
 [service]:[service-format]
 [handle]:[handle-format]
 [provider]:[provider-format]
 
-[Category]: https://github.com/500px/api-documentation/blob/master/basics/formats_and_terms.md#categories
 [gallery kind]: https://github.com/500px/api-documentation/blob/master/basics/formats_and_terms.md#gallery-kinds
-[License type]: https://github.com/500px/api-documentation/blob/master/basics/formats_and_terms.md#license_types

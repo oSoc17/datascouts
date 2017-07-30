@@ -34,7 +34,7 @@ None
     {
         id: 12,
         name: "osoc17",
-        url: "entities_osoc17",
+        url: "entity_osoc17",
         image: "http://2017.summerofcode.be/images/squarelogo-LI.png",
         created_at: "2017-07-16 16:04:10",
         updated_at: "2017-07-19 20:21:34"
@@ -42,7 +42,7 @@ None
     {
         id: 23,
         name: "crypto blockchain",
-        url: "entities-crypto-blockchain",
+        url: "entity_crypto-blockchain",
         image: null,
         created_at: "2017-07-01 16:35:18",
         updated_at: "2017-07-13 09:21:57"

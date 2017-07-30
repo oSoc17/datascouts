@@ -10,7 +10,6 @@ Returns a specified **[entity format][]**.
 
 - **id** — [integer] The id of the specified **[entity format][]**.
 
-
 ## Return format
 
 A JSON Object filled with an entity following the **[entity format][]**.
@@ -49,15 +48,15 @@ All errors return an HTTP error response with a JSON Object as keys ``message`` 
     GET /entities/abc
 ```
 
-### **Return**
+### **Error Response**
 
 ``` json
 {
     message: "The requested object is not valid",
     request: {
-    method: "GET",
-    path: "api/v1/entities/abc",
-    parameters: [ ]
+        method: "GET",
+        path: "api/v1/entities/abc",
+        parameters: [ ]
     },
     data: [ ]
 }
