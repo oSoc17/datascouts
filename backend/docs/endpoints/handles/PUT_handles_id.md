@@ -8,7 +8,8 @@ Update some data on a specified handle.
 
 ## Parameters
 
-The ID of the handle must be provided in the URL of the request. The following parameters are recognized in the POST request body.
+The ID of the handle must be provided in the URL of the request.
+The following parameters are recognized in the PUT request body.
 
 - **name** — [string] The new name of the handle.
 - **service** — [integer] The new service of the handle.
