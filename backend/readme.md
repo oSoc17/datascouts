@@ -135,7 +135,7 @@ Finally, exexcute the following command to create the tables.
 
 #### [Feed Resources](./docs/resources/feeds.md)
 
-- **[`GET` feeds](./docs/endpoints/feeds/GET_feeds.md)**
+- **[`POST` feeds](./docs/endpoints/feeds/POST_feeds.md)**
 
 #### [Providers Resources](./docs/resources/provides.md)
 
