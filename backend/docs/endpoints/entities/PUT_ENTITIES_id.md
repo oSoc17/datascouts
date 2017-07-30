@@ -21,7 +21,7 @@ A JSON Object filled with an entity following the **[entity format][]**.
 
 ## Errors
 
-- **4o4** — Entity Not Found. The specified entity by this ID is not in the DB.
+- **4o4** — Not Found. The specified entity by this ID is not in the DB.
 - **422** — Unprocessable Entity. The new name is already token.
 
 ## Example

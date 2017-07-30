@@ -14,11 +14,9 @@ The ID of the entity must be provided in the URL of the request.
 
 **Status 2o4** — No Content
 
-A JSON Object filled with an entity following the **[entity format][]**.
-
 ## Errors
 
-- **4o4** — Entity Not Found. The specified entity by this ID is not in the DB.
+- **4o4** — Not Found. The specified entity by this ID is not in the DB.
 
 ## Example
 
