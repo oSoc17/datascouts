@@ -22,8 +22,6 @@ class FetchController extends Controller
 
     public function getListOfHashtags(Request $request, $service)
     {
-        
-
         $list = $twitterFetcher->getTrendsHashtags();
 
         dd($list);

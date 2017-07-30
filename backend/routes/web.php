@@ -33,13 +33,6 @@ $app->group(['prefix' => 'api'], function ($app) {
 
     $app->group(['prefix' => 'v1'], function ($app) {
 
-        $app->get('/', function () use ($app) {
-            return response()->json([
-                'route'=>[
-                    'CRUD'  => 'entities/{id1,id2,id3}'
-                ]
-            ]);
-        });
         $app->get('/zen', function () use ($app) {
             return response()->json(['joke' => 'Waiting for the joke. It\' comming ....']);
         });
@@ -88,8 +81,7 @@ $app->group(['prefix' => 'api'], function ($app) {
             $app->get('/{handle}/login', 'ProvidersController@getLinkForLogin');
             
             $app->get('/{service}/callback', 'ProvidersController@handleCallback');
-            // $app->post('/{handle}/callback', 'ProvidersController@handleCallback');
-                        
+
         }); // prefix : /providers
 
 
@@ -98,7 +90,6 @@ $app->group(['prefix' => 'api'], function ($app) {
             $app->post('/', 'FetchController@fetch');
 
             $app->get('/{service}/trends', 'FetchController@getTrendsHashtags');
-
         });
 
 
