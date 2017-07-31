@@ -67,4 +67,4 @@ None
 ]
 ```
 
-[handle format]: ../../formats.md#short-format-handle
+[handle format]: ../../formats.md#handle-format

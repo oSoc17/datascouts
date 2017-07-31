@@ -32,4 +32,4 @@ The ID of the entity must be provided in the URL of the request.
 
 None
 
-[entity format]: ../../formats.md#short-format-entity
+[entity format]: ../../formats.md#entity-format

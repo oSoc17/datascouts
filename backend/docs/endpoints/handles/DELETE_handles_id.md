@@ -32,4 +32,4 @@ The ID of the handle must be provided in the URL of the request.
 
 None
 
-[handle format]: ../../formats.md#short-format-handle
+[handle format]: ../../formats.md#handle-format

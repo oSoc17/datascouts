@@ -33,28 +33,24 @@ A JSON Object filled with an handle following the **[handle format][]**.
 ### **Return**
 
 ``` json
-[
-    {
-        "id": 11,
-        "name": "Lorem ipsum",
-        "url": "24_twitter_test",
-        "created_at": "2017-07-29 00:00:00",
-        "updated_at": "2017-07-29 00:00:00",
-        "entity_id": 24,
-        "service_id": 1,
-        "is_fetching": 0,
-        "fetched_at": "2017-07-29 00:05:00"
-        "service" : {
-            "id": 4,
-            "name": "petbook",
-            "link": "https://petbook.org",
-            "logo": null,
-            "color": "SandyBrown"
-        }
+{
+    "id": 11,
+    "name": "Lorem ipsum",
+    "url": "24_twitter_test",
+    "created_at": "2017-07-29 00:00:00",
+    "updated_at": "2017-07-29 00:00:00",
+    "entity_id": 24,
+    "service_id": 1,
+    "is_fetching": 0,
+    "fetched_at": "2017-07-29 00:05:00"
+    "service" : {
+        "id": 4,
+        "name": "petbook",
+        "link": "https://petbook.org",
+        "logo": null,
+        "color": "SandyBrown"
     }
-
-    
-]
+}
 ```
 
-[handle format]: ../../formats.md#short-format-handle
+[handle format]: ../../formats.md#handle-format

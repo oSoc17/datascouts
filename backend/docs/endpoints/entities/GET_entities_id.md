@@ -63,4 +63,4 @@ All errors return an HTTP error response with a JSON Object as keys ``message`` 
 ```
 
 
-[entity format]: ../../formats.md#short-format-entity
+[entity format]: ../../formats.md#entity-format

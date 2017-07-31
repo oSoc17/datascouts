@@ -55,4 +55,4 @@ None
 ]
 ```
 
-[service format]: ../../formats.md#short-format-service
+[service format]: ../../formats.md#service-format

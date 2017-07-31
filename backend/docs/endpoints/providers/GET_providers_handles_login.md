@@ -22,4 +22,4 @@ None
 
 ### **Return**
 
-[provider format]: ../../formats.md#short-format-provider
+[provider format]: ../../formats.md#provider-format

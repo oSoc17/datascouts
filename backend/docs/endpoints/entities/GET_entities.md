@@ -50,4 +50,4 @@ None
 ]
 ```
 
-[entity format]: ../../formats.md#short-format-entity
+[entity format]: ../../formats.md#-format-entity

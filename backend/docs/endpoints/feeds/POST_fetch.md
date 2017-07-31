@@ -36,9 +36,9 @@ None
 
 ``` json
 [
-    [{ "TweetFeed"}, { "TweetFeed"}, {"TweetFeed"}, {"TweetFeed"}],
-    [{ "VimeoFeed"}, {"VimeoFeed"}, {"VimeoFeed"}]
+    [{ "TweetFeed"}, { "TweetFeed"}, {"TweetFeed"}, {"TweetFeed"}, ...],
+    [{ "VimeoFeed"}, {"VimeoFeed"}, {"VimeoFeed"}, ...]
 ]
 ```
 
-[feed format]: ../../formats.md#short-format-feed
+[feed format]: ../../formats.md#feed-format

@@ -32,4 +32,4 @@ The ID of the service must be provided in the URL of the request.
 
 None
 
-[service format]: ../../formats.md#short-format-service
+[service format]: ../../formats.md#service-format

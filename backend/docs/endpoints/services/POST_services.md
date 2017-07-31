@@ -41,15 +41,14 @@ A JSON Object filled with an service following the **[service format][]**.
 ### **Return**
 
 ``` json
-[
-    {
-        "id": 4,
-        "name": "test",
-        "link": "https://test.com",
-        "logo": null,
-        "color": null
-    }
-]
+{
+    "id": 4,
+    "name": "test",
+    "link": "https://test.com",
+    "logo": null,
+    "color": null
+}
+
 ```
 
-[service format]: ../../formats.md#short-format-service
+[service format]: ../../formats.md#service-format

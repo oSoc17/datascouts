@@ -36,16 +36,14 @@ A JSON Object filled with an entity following the **[entity format][]**.
 ### **Return**
 
 ``` json
-[
-    {
-        "id": 24,
-        "name": "test",
-        "url": "entity_test",
-        "image": null,
-        "created_at": "2017-07-29 00:00:00",
-        "updated_at": "2017-07-29 00:00:00"
-    }
-]
+{
+    "id": 24,
+    "name": "test",
+    "url": "entity_test",
+    "image": null,
+    "created_at": "2017-07-29 00:00:00",
+    "updated_at": "2017-07-29 00:00:00"
+}
 ```
 
-[entity format]: ../../formats.md#short-format-entity
+[entity format]: ../../formats.md#entity-format

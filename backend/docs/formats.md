@@ -22,38 +22,29 @@ All errors return an HTTP error response with a JSON Object as keys ``message`` 
 }
 ```
 
-## Default Service
-
-List of the default service available.
-
-|ID | Name| Link | Logo |Color
----|----|-------|-------|--------
-|1 | twitter | https://twitter.com| none| Cyan
-|2 | youtube | https://youtube.com| none| Red
-|3 | vimeo | https://vimeo.com | none | White
-
 ## User format
 
-A User is visitor connected to the app via a social media account (FAcebook, Twitter, Intagram).
+An User is visitor through a social media account (Facebook, Twitter, Intagram).
 
-The format of a User object includes the following data:
+The format of an User object includes the following data:
 
 - **id** — [integer] ID of the user.
 - **email** — [string] The email of the user.
 - **fullname** — [string] The surname and/or lastname of the user.
 - **username** — [string] The username of the user.
 - **type** — [enum(admin,**visitor**)] The username of the user.
+- **provider_id** — [integer] The ID of the attached **[Provider][]**:
 
 ## Entity format
 
-A Entity is used to group a set of handles.
+An Entity is used to group a set of handles.
 
-The format of a Entity object includes the following data:
+The format of an Entity object includes the following data:
 
 - **id** — [integer] ID of the entity,
 - **name** — [string] Name of the entity
 - **url** — [string] URL of the entity. Composed with the ``entity_{the entity name}``.
-- **image** — [string] The visual represention of the entity. Upload or fetched from the social media.
+- **image** — [string] The Link to an visual represention of the entity. Upload or fetched from the social media.
 - **created_at** — [timestamp] Timestamp of time of entity creation.
 - **updated_at** — [timestamp] Timestamp of time of entity last update.
 
@@ -75,7 +66,7 @@ The format of a Handle object includes the following data:
 
 ## Service format
 
-A Service is the social media handled by the application/handle/provider.
+A Service is the social media used by the application/handle/provider.
 
 The format of a Service object includes the following data:
 
@@ -86,6 +77,16 @@ The format of a Service object includes the following data:
 - **color** — [string] The color assigned to this service for the rending.
 - **created_at** — [timestamp] Timestamp of time of service creation
 
+### Default Service
+
+List of the default service available.
+
+|ID | Name| Link | Logo |Color
+---|----|-------|-------|--------
+|1 | twitter | https://twitter.com| none| Cyan
+|2 | youtube | https://youtube.com| none| Red
+|3 | vimeo | https://vimeo.com | none | White
+
 ## Provider format
 
 A Provider is an connection/authorization to the user social media.
@@ -93,24 +94,30 @@ A Provider is an connection/authorization to the user social media.
 The format of a Provider object includes the following data:
 
 - **id** — [integer] ID of the provider.
-- **social_id** — [string] The ID assigned on the social media 
+- **medium_id** — [string] The ID assigned on the social media.
+- **token** — [text] The token used to authenticate an API call to social media.
 - **email** — [string] The email of the user.
 - **fullname** — [string] The surname and/or lastname of the user.
-- **username** — [string] The username of the user.
+- **nickname** — [string] The pseudo of the user on the social media.
+- **avatar** — [string] The Link to the user avatar on the social media.
+- **user_id** — [integer] The ID of the attached **[User][]**:
+- **service_id** — [integer] The ID of the attached **[Service][]**:
+- **created_at** — [timestamp] Timestamp of time of provider creation.
 
 ## Feed format
 
-A Feed is a social media post. Can be a tweet, a youtube channel, youtube or vimeo video.
+A Feed is a social media publications. Can be a tweet, a youtube channel, youtube or vimeo video.
 
 The format of a Feed object includes the following data:
 
 - **id** — [integer] ID of the provider.
-- **data** — [json] The Data of the feed.
+- **data** — [text] The Stringified version of the JSON Data of the feed.
+- **medium_id** — [string] The ID assigned on the social media. 
 - **handle_id** — [integer] The ID of the attached **[Handle][]**.
+- **created_at** — [timestamp] Timestamp of time of feed creation.
 
-[entity]:[entity-format]
-[service]:[service-format]
-[handle]:[handle-format]
-[provider]:[provider-format]
-
-[gallery kind]: https://github.com/500px/api-documentation/blob/master/basics/formats_and_terms.md#gallery-kinds
+[user]:./formats.md#user-format
+[entity]:./formats.md#entity-format
+[service]:./formats.md#service-format
+[handle]:./formats.md#handle-format
+[provider]:./formats.md#provider-format

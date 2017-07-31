@@ -65,4 +65,4 @@ All errors return an HTTP error response with a JSON Object as keys ``message`` 
 }
 ```
 
-[handle format]: ../../formats.md#short-format-handle
+[handle format]: ../../formats.md#handle-format

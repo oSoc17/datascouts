@@ -131,6 +131,11 @@ In order to get an API Key, you will
 2. Add & Active [Youtube Data API v3](https://console.developers.google.com/apis/api/youtube.googleapis.com/overview).
 3. Finally, create credentials and generate API_KEY to access Youtube API 
 
+```env
+
+    YOUTUBE_API_KEY= {APi Key}
+
+```
 ### Run
 
 ```bash
