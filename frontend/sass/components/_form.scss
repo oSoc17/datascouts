@@ -1,0 +1,15 @@
+form {
+    .form-group {
+        padding: 15px;
+        position: relative;
+        label.hide {
+            position: absolute;
+            left: -100px;
+        }
+        input[type="text"] {
+            width: calc(100% - 30px - 4px);
+            height: 28px;
+            padding: 5px 15px;
+        }
+    }
+}

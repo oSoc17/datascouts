@@ -1,0 +1,10 @@
+.wf-container { 
+    padding: 8px;
+    .wf-column {
+        float: left;        
+        .wf-box {
+            margin: 10px 8px;
+            width: calc(100% - 20px);
+        }
+    }
+}

@@ -1,0 +1,22 @@
+.empty-state {
+    &.empty-state-feed {
+        line-height: 2em;
+        color: $gray;
+        margin-top: calc(50vh - (260px));
+        margin-left: 16px;
+        width: 100%;
+        max-width: 720px;
+        h2 {
+            text-transform: uppercase;
+            font-weight: 400;
+        }
+        p, li { padding-left: 10px; }
+    }
+    &.empty-state-entities,
+    &.empty-state-handles {
+        li {
+            padding-left: 15px;
+            width: calc(100% - 30px);
+        }
+    }
+}

@@ -1,0 +1,22 @@
+$duration: 5s;
+$flashm-text: #3c763d;
+$flashm-bg: #dff0d8;
+$flashm-border: #d6e9c6;
+
+.flashmessage {
+    opacity: 0;
+    position: absolute;
+    text-align: center;
+    width: calc(100% - 66px - 200px - 15px);
+    padding: 15px 0;
+    margin: 15px;
+    color: $flashm-text;
+    z-index: -999;
+    &.succeed {
+        -webkit-animation: flashmessage $duration ease-in; /* Safari 4+ */
+        -moz-animation: flashmessage $duration ease-in; /* Fx 5+ */
+        -o-animation: flashmessage $duration ease-in; /* Opera 12+ */
+        animation: flashmessage $duration ease-in; /* IE 10+, Fx 29+ */
+    }
+    &.succeed { background-color: $flashm-bg; border: 1px solid $flashm-border; }
+}
