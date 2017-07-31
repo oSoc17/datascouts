@@ -46,7 +46,7 @@ The format of a User object includes the following data:
 
 ## Entity format
 
-A Entity is
+A Entity is used to group a set of handles.
 
 The format of a Entity object includes the following data:
 
@@ -59,7 +59,7 @@ The format of a Entity object includes the following data:
 
 ## Handle format
 
-A Handle is
+A Handle is a name or username on a social media.
 
 The format of a Handle object includes the following data:
 
@@ -75,7 +75,7 @@ The format of a Handle object includes the following data:
 
 ## Service format
 
-A Service is the social media handled by the application.
+A Service is the social media handled by the application/handle/provider.
 
 The format of a Service object includes the following data:
 
