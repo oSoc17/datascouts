@@ -1,6 +1,6 @@
 # Project DATAScouts
 
-> This part concerns the visual presentation of the data retrievied from the backend. 
+> This part concerns the visual presentation of the data  from the backend. 
 
 ## Requirements
 
