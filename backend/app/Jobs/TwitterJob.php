@@ -12,12 +12,8 @@ use App\Models\Handle;
 use App\Http\Fetchers\TwitterFetcher;
 
 
-
-class TwitterJob extends Job
+class TwitterJob extends FetcherJob
 {
-    protected $handle;
-
-    protected $twitterFetcher;
 
     /**
      * Create a new job instance.
@@ -26,35 +22,8 @@ class TwitterJob extends Job
      */
     public function __construct(Handle $handle)
     {
-        $this->handle = $handle;
-        $this->twitterFetcher = new TwitterFetcher();
-    }
-
-    private function lockHandle(){
-        // Now, lock this handle
-        $this->handle->is_fetching = true;
-        $this->handle->fetched_at = Carbon::now()->toDateTimeString();
-        $this->handle->save();
-    }
-
-    private function unlock() {
-        $this->handle->is_fetching = false;
-        $this->handle->save();
+        parent::__construct($handle, new TwitterFetcher);
     }
 
 
-    /**
-     * Execute the job.
-     *
-     * @return void
-     */
-    public function handle()
-    {
-        // Act like a  Mutex
-        $this->lockHandle();
-
-        $this->twitterFetcher->fetch($this->handle);
-
-        $this->unlock();
-    }
 }

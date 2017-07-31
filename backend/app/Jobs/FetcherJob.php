@@ -17,7 +17,6 @@ abstract class FetcherJob extends Job
     
     protected function  __construct($handle, $fetcher){
         $this->handle = $handle;
-        
         $this->fetcher = $fetcher;
     }
 
@@ -51,5 +50,14 @@ abstract class FetcherJob extends Job
     }
 
 
-
+    /**
+     * The job failed to process.
+     *
+     * @param  Exception  $exception
+     * @return void
+     */
+    public function failed(Exception $exception)
+    {
+        $this->unlock();
+    }
 }

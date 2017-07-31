@@ -10,7 +10,6 @@ Returns a specified **[entity format][]**.
 
 - **id** — [integer] The id of the specified **[entity format][]**.
 
-
 ## Return format
 
 A JSON Object filled with an entity following the **[entity format][]**.
@@ -33,12 +32,12 @@ All errors return an HTTP error response with a JSON Object as keys ``message`` 
 
 ``` json
     {
-        id: 12,
-        name: "osoc17",
-        url: "entities_osoc17",
-        image: "http://2017.summerofcode.be/images/squarelogo-LI.png",
-        created_at: "2017-07-16 16:04:10",
-        updated_at: "2017-07-19 20:21:34"
+        "id": 12,
+        "name": "osoc17",
+        "url": "entities_osoc17",
+        "image": "http://2017.summerofcode.be/images/squarelogo-LI.png",
+        "created_at": "2017-07-16 16:04:10",
+        "updated_at": "2017-07-19 20:21:34"
     }
 
 ```
@@ -49,19 +48,19 @@ All errors return an HTTP error response with a JSON Object as keys ``message`` 
     GET /entities/abc
 ```
 
-### **Return**
+### **Error Response**
 
 ``` json
 {
-    message: "The requested object is not valid",
-    request: {
-    method: "GET",
-    path: "api/v1/entities/abc",
-    parameters: [ ]
+    "message": "The requested object is not valid",
+    "request": {
+        "method": "GET",
+        "path": "api/v1/entities/abc",
+        "parameters": [ ]
     },
-    data: [ ]
+    "data": [ ]
 }
 ```
 
 
-[entity format]: ../../formats.md#short-format-entity
+[entity format]: ../../formats.md#entity-format

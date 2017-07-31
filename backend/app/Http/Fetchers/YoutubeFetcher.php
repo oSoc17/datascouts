@@ -28,7 +28,7 @@ class YoutubeFetcher extends BaseFetcher
     {
         $data = $this->ytbConnection->searchAdvanced([
             'q'             => $handle->name,
-            'type'          => 'channel,video,playlist',
+            'type'          => 'channel,video',
             'part'          => 'id, snippet',
             'maxResults'    => 50
         ]);
@@ -41,13 +41,13 @@ class YoutubeFetcher extends BaseFetcher
         $type = explode('#',$ytb->id->kind)[1];
         $res = [
             'service_name' => $this->fetcherType,
-            'type' => $type,
-            'id' => $ytb->id->{$type.'Id'},
-            'title' => $ytb->snippet->title,
-            'description' => $ytb->snippet->description,
-            'thumbnail' => $ytb->snippet->thumbnails->medium->url,
-            'channel_id' => $ytb->snippet->channelId,
-            'channel' => $ytb->snippet->channelTitle
+            'type'         => $type,
+            'id'           => $ytb->id->{$type.'Id'},
+            'title'        => $ytb->snippet->title,
+            'description'  => $ytb->snippet->description,
+            'thumbnail'    => $ytb->snippet->thumbnails->medium->url,
+            'channel_id'   => $ytb->snippet->channelId,
+            'channel'      => $ytb->snippet->channelTitle
         ];
 
         $res['channel_link'] = 'https://youtube.com/channel/'.$res['channel_id'];

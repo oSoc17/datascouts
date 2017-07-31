@@ -17,9 +17,7 @@ class EntitiesController extends Controller {
 
     public function getHandles($entity_id)
     {
-
         $handles = Entity::findOrFail($entity_id)->handles;
-
 
         if (is_null($handles)) {
             $handles = [];

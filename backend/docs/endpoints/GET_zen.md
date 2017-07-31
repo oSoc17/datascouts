@@ -1,12 +1,14 @@
 # Zen
 
-    GET /api/v1/zen
+    GET /zen
 
 ## Description
 
 Returns an IT Joke. This endpoint is used to test the connectivity of the API.
 
 ## Parameters
+
+None
 
 ## Return format
 
@@ -16,6 +18,7 @@ A JSON Object filled with:
 
 ## Errors
 
+None
 
 ## Example
 
@@ -24,12 +27,13 @@ A JSON Object filled with:
 ``` json
 
     GET /api/v1/zen
+    
 ```
 
 ### **Return**
 
 ``` json
     {
-        joke: "Waiting for the joke. It' comming ...."
+        "joke": "Waiting for the joke. It' comming ...."
     }
 ```
