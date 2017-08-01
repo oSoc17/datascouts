@@ -1,4 +1,4 @@
-# Github Page for the Project DataScouts Social Media Aggregator on open Summer of code 2017
+# Github Page for the Project DataScouts Social Media Aggregator at open Summer of code 2017
 
 This is the github page for the Social Media Aggregator that has been built during open Summer of Code 2017 by the DataScouts team. It allows you to aggregate multiple social media. It provides a stream of aggregated posts across multiple social media sources.
 
