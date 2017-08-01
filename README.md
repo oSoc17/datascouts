@@ -2,9 +2,9 @@
 
 This is the github page for the Social Media Aggregator that has been built during open Summer of Code 2017 by the DataScouts team. It allows you to aggregate multiple social media. It provides a stream of aggregated posts across multiple social media sources.
 
-- [The Github Page](https://osoc17.github.io/datascouts/)
-- [The Social Media Aggregator](https://osoc.weconnectdata.com) 
-- [The Social Media Aggregator github code base](https://github.com/oSoc17/datascouts/tree/master) 
+- <a href="https://osoc17.github.io/datascouts/" target="_blank">The Github Page</a>
+- <a href="https://osoc.weconnectdata.com" target="_blank">The Social Media Aggregator</a>
+- <a href="https://github.com/oSoc17/datascouts/tree/master" target="_blank">The Social Media Aggregator github code base</a>
 
 ## Contributors
 Role				| Name
