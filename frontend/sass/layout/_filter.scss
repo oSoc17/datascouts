@@ -20,6 +20,7 @@
         background: $blue-whale;
         color: $white;
         z-index: 20;
+        max-width: 500px;
         &.display-filter {
             display: initial;
             animation:filter 300ms cubic-bezier(.07,.73,.87,.54);
@@ -48,6 +49,42 @@
             border-left: 1px solid $primary;
             .form-group {
                 padding: 16px 0;
+                input {
+                    width: calc(100% - 30px - 4px - 50px);
+                    float: left;
+                }
+                button {
+                    width: 50px;
+                    margin: 0;
+                    height: 40px;
+                    i {
+                        line-height: 25px;
+                    }
+                }
+            }
+            .radio-filter {
+                float: left;
+                background: $primary;
+                color: $blue-whale;
+                padding: 0 10px;
+                margin: 5px;
+                label {
+                    line-height: 40px;
+                }
+                input {
+                    margin: 0;
+                    vertical-align: middle;
+                }
+                button {
+                    padding: 0 5px;
+                    background: transparent;
+                    opacity: .5;
+                    &:hover {
+                        transition: $trans;
+                        opacity: 1;
+                        color: $error;
+                    }
+                }
             }
         }
         .filter-socialmedia {

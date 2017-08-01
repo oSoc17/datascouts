@@ -3114,7 +3114,8 @@ ul li.handle .icon-handle {
     top: 60px;
     background: #303240;
     color: #ffffff;
-    z-index: 20; }
+    z-index: 20;
+    max-width: 500px; }
     .filters form#filter.display-filter {
       display: initial;
       animation: filter 300ms cubic-bezier(0.07, 0.73, 0.87, 0.54); }
@@ -3140,6 +3141,34 @@ ul li.handle .icon-handle {
       border-left: 1px solid #1fdcb8; }
       .filters form#filter .filter-keywords .form-group {
         padding: 16px 0; }
+        .filters form#filter .filter-keywords .form-group input {
+          width: calc(100% - 30px - 4px - 50px);
+          float: left; }
+        .filters form#filter .filter-keywords .form-group button {
+          width: 50px;
+          margin: 0;
+          height: 40px; }
+          .filters form#filter .filter-keywords .form-group button i {
+            line-height: 25px; }
+      .filters form#filter .filter-keywords .radio-filter {
+        float: left;
+        background: #1fdcb8;
+        color: #303240;
+        padding: 0 10px;
+        margin: 5px; }
+        .filters form#filter .filter-keywords .radio-filter label {
+          line-height: 40px; }
+        .filters form#filter .filter-keywords .radio-filter input {
+          margin: 0;
+          vertical-align: middle; }
+        .filters form#filter .filter-keywords .radio-filter button {
+          padding: 0 5px;
+          background: transparent;
+          opacity: .5; }
+          .filters form#filter .filter-keywords .radio-filter button:hover {
+            transition: all 0.25s ease;
+            opacity: 1;
+            color: #fd5505; }
     .filters form#filter .filter-socialmedia .form-group {
       padding: 8px 16px; }
 
