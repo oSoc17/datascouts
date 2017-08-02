@@ -73,7 +73,7 @@
 					<youtubeFeed :feed="feed" v-if="feed.service_name == 'youtube' && activeSocialMedia.indexOf('youtube')!==-1"></youtubeFeed>
 
 					<!--VIMEO-->
-					<!-- <vimeoFeed :feed="feed" v-if="feed.service_name == 'vimeo' && activeSocialMedia.indexOf('vimeo')!==-1"></vimeoFeed> -->
+					<vimeoFeed :feed="feed" v-if="feed.service_name == 'vimeo' && activeSocialMedia.indexOf('vimeo')!==-1"></vimeoFeed>
 
 				</template>
 			</template>
@@ -164,7 +164,7 @@
 				})
 				return handles;
 			},
-			
+
 			fetchData: _debounce(function(){
 				//display load templates & adjust them to the screen, hide loading elements
 				this.isLoading = true
