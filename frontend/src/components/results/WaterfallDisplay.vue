@@ -67,13 +67,13 @@
 				<template v-for="feed in item"> <!-- Make a v-for on socialMedia instead of  item -->
 
 					<!--TWITTER-->
-					<twitterFeed :feed="feed" v-show="feed.service_name == 'twitter' && activeSocialMedia.indexOf('twitter')!==-1"></twitterFeed>
+					<twitterFeed :feed="feed" v-if="feed.service_name == 'twitter' && activeSocialMedia.indexOf('twitter')!==-1"></twitterFeed>
 
 					<!--YOUTUBE-->
-					<youtubeFeed :feed="feed" v-show="feed.service_name == 'youtube' && activeSocialMedia.indexOf('youtube')!==-1"></youtubeFeed>
+					<youtubeFeed :feed="feed" v-if="feed.service_name == 'youtube' && activeSocialMedia.indexOf('youtube')!==-1"></youtubeFeed>
 
 					<!--VIMEO-->
-					<!-- <vimeoFeed :feed="feed" v-show="feed.service_name == 'vimeo' && activeSocialMedia.indexOf('vimeo')!==-1"></vimeoFeed> -->
+					<!-- <vimeoFeed :feed="feed" v-if="feed.service_name == 'vimeo' && activeSocialMedia.indexOf('vimeo')!==-1"></vimeoFeed> -->
 
 				</template>
 			</template>
