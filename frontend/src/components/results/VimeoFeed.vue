@@ -1,14 +1,43 @@
 <template v-if="feed.service_name == 'vimeo' ">
-  <div class="wf-box vimeo" v-show="hasKeyword">
-    <!-- BODY -->
-    <div class="body">
-      <h3 class="title">
-        {{ feed.title }}
-      </h3>
-      <p class="description">
-        {{ feed.description }}
-      </p>
-      <div class="date">{{newFormatDate()}}</div>
+<div class="wf-box vimeo" v-show="hasKeyword">
+  <!-- BODY -->
+  <div class="body">
+    <h3 class="title">
+      {{ feed.title }}
+    </h3>
+    <div
+    <p class="description" v-if="feed.description !== null && needsTruncation(feed.description)">
+      {{ feed.description.substring(0, max_length) }}...
+    </p>
+    <p class="description" v-else>
+      {{ feed.description}}
+    </p>
+    <div class="date">{{newFormatDate()}}</div>
+  </div>
+
+  <!-- THUMBNAIL -->
+  <div style="position: relative;">
+    <img v-bind:src="feed.thumbnail" alt="" class="media">
+    <a href="" class="play-button">
+      <i class="fa fa-play"></i>
+    </a>
+  </div>
+
+  <!-- VIDEO-IFRAME -->
+  <!--  <figure class="content-media content-media--video" id="featured-media">
+  <iframe class="content-media__object media" id="featured-video"
+          v-bind:src=="'https://player.vimeo.com/'+feed.id?title=0&byline=0&badge=0&autopause=0&player_id=0">
+    </iframe>
+  </figure> -->
+
+  <!-- METADATA - likes/comments/views -->
+  <div class="metadata_1">
+    <i class="fa fa-eye"></i> {{feed.played_count}}
+    <a v-bind:href="feed.link"><i class="fa fa-external-link"></i></a>
+  </div>
+  <div class="metadata_2">
+    <div class="image_avatar">
+      <img v-bind:src="feed.user.avatar" alt="" class="avatar">
     </div>
   
     <!-- THUMBNAIL -->
@@ -47,11 +76,14 @@
 <script>
   import { bus } from '../../main'
 
+
 	export default {
 		props: ['feed', 'keyword'],
 		components: { },
 		data() {
-			return { }
+			return {
+        max_length: 140,
+			}
 		},
 		created() { },
 		mounted() {	},
@@ -78,9 +110,17 @@
         const newMonth = date.toLocaleString(locale, { month: "short" });
 
         return  newMonth + ' ' + date.getDate();
+      },
+      needsTruncation: function(string){
+        if(typeof(string)!=='undefined'){
+          return string.length > this.max_length
+        }
+        else{
+          return false
+        }
       }
 		}
-		
+
 	}
 </script>
 

@@ -131,18 +131,18 @@
 			}
 			this.activeSocialMedia = this.socialMedia
 		},
-  	mounted() {
-    	this.waterfall = new Waterfall(200)
-    	bus.$on('ENTITIES_IS_EMPTY', (bool) => this.entitiesIsEmpty = bool)
-    	bus.$on('UPDATE_WATERFALL', this.updateWaterfall)
-    	bus.$on('FETCH_DATA', this.fetchData)
-  	},
-  	watch: {
-    	items: function(updatingWfContainer){
-    		this.updateWaterfall()
-    	}
-  	},
-  	methods: {
+		mounted() {
+			this.waterfall = new Waterfall(200)
+			bus.$on('ENTITIES_IS_EMPTY', (bool) => this.entitiesIsEmpty = bool)
+      bus.$on('UPDATE_WATERFALL', this.updateWaterfall)
+			bus.$on('FETCH_DATA', this.fetchData)
+		},
+		watch: {
+			items: function(updatingWfContainer){
+				this.updateWaterfall()
+			}
+		},
+		methods: {
     	addKeyword: function(){
     		if(this.newKeyword && this.keywords.indexOf(this.newKeyword) == -1){
     		  this.keywords.push(this.newKeyword)
@@ -156,41 +156,40 @@
     		this.keywords.splice(i,1)
     	},
     	hideFilters: function(e){
-    		const el = document.getElementById("filter")
-    		const filters = document.getElementById("filters")
-    		if(el.style.display !== 'none' && !this.isDescendant(filters, e.target)){
-      		el.style.display = 'none';
-      		el.classList.toggle("display-filter")
-    		}
-    	},
-    	isDescendant: function (parent, child) {
-      	let node = child.parentNode;
-      	while (node != null) {
-      		if (node == parent) {
-      			return true;
-      		}
-      		node = node.parentNode;
-      	}
-      	return false;
-    	},
-    	showFilters: function(e){
-    		const el = document.getElementById("filter")
-    		const el2 = document.querySelector("button.btn_primary.btn_filter");
-    		el.style.display = el.style.display === 'none' ? 'initial' : 'none';
-    		el.classList.toggle("display-filter");
-    		el2.classList.toggle("fa-active");
-    	},
-    	getAllActiveHandles : function (){
-    		const handles = [];
-    		getActiveEntities().forEach(ent_id => {
-      		const activeHandles = getActiveHandles(ent_id);
-      		handles.push(... activeHandles);
-    		})
-    		console.log('Active Handles to fetch : ',handles);
-    		return handles;
-    	},
-    	
-    	fetchData: _debounce(function(){
+				const el = document.getElementById("filter")
+				const filters = document.getElementById("filters")
+				if(el.style.display !== 'none' && !this.isDescendant(filters, e.target)){
+  				el.style.display = 'none';
+  				el.classList.toggle("display-filter")
+				}
+			},
+			isDescendant: function (parent, child) {
+  			let node = child.parentNode;
+  			while (node != null) {
+  				if (node == parent) {
+  					return true;
+  				}
+  				node = node.parentNode;
+  			}
+  			return false;
+			},
+			showFilters: function(e){
+				const el = document.getElementById("filter")
+				const el2 = document.querySelector("button.btn_primary.btn_filter");
+				el.style.display = el.style.display === 'none' ? 'initial' : 'none';
+				el.classList.toggle("display-filter");
+				el2.classList.toggle("fa-active");
+			},
+			getAllActiveHandles : function (){
+				const handles = [];
+				getActiveEntities().forEach(ent_id => {
+  				const activeHandles = getActiveHandles(ent_id);
+  				handles.push(... activeHandles);
+				})
+				return handles;
+			},
+
+			fetchData: _debounce(function(){
 				//display load templates & adjust them to the screen, hide loading elements
     		this.isLoading = true
     		document.getElementById("wf-container").style.visibility = "hidden"
