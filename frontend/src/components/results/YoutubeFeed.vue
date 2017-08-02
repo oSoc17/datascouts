@@ -1,5 +1,5 @@
-<template v-if="feed.service_name == 'youtube'">
-  <div class="wf-box youtube" v-show="hasKeyword">
+<template>
+  <div class="wf-box youtube"  v-if="hasKeyword && activeSocialMedia.indexOf('youtube')!==-1">
     <!-- BODY -->
     <div class="body">
       <h3 class="title">
@@ -9,7 +9,7 @@
         {{ feed.description }}
       </p>
     </div>
-  
+
     <!-- THUMBNAIL -->
     <div style="position: relative;margin-bottom:16px;">
       <img v-bind:src="feed.thumbnail" alt="" class="media">
@@ -17,12 +17,12 @@
         <i class="fa fa-youtube-play"></i>
       </a>
     </div>
-  
+
     <!-- VIDEO-IFRAME -->
     <!-- <figure class="content-media content-media--video" id="featured-media" v-if="isLoaded">
       <iframe class="content-media__object media" id="featured-video" v-bind:src='feed.link + "?enablejsapi=1&rel=0&showinfo=0&controls=0"' frameborder="0"></iframe>
     </figure> -->
-  
+
     <!-- METADATA - likes/comments/views -->
     <div class="metadata_1">
       <a v-bind:href="'https://www.youtube.com/watch?v='+feed.id" target="_blank"><i class="fa fa-external-link"></i></a>
@@ -40,7 +40,7 @@
   import { bus } from '../../main'
 
 	export default {
-		props: ['feed', 'keyword'],
+		props: ['feed', 'keyword', 'activeSocialMedia'],
 		components: {
 		},
 		data() {
@@ -62,19 +62,19 @@
     		  // ? Contains the selected keyword
       		let  isIncluded = this.feed.description != null
       		isIncluded = isIncluded && this.feed.description.includes(this.keyword)
-      		if(isIncluded) setTimeout(() => bus.$emit('UPDATE_WATERFALL'), 100)
+      		if(isIncluded) setTimeout(() => bus.$emit('UPDATE_WATERFALL'), 10)
       		return isIncluded
     		}
     		// No keyword selected
   		  return true
-    		
+
     	}
 		},
 		methods: {
 		}
-		
+
 	}
-		
+
 </script>
 
 <style>

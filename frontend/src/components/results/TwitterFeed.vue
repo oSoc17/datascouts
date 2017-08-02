@@ -1,5 +1,5 @@
-<template v-if="feed.service_name === 'twitter' && hasKeyword ">
-  <div class="wf-box twitter" v-show="hasKeyword">
+<template>
+  <div class="wf-box twitter"  v-if="hasKeyword && activeSocialMedia.indexOf('twitter')!==-1">
     <!-- BODY -->
     <div class="body">
       <p>
@@ -31,7 +31,7 @@
   import { bus } from '../../main'
 
 	export default {
-		props: ['feed', 'keyword'],
+		props: ['feed', 'keyword', 'activeSocialMedia'],
 		components: {
 		},
 		data() {
@@ -54,12 +54,12 @@
       		let  isIncluded = this.feed.body != null
       		isIncluded = isIncluded && this.feed.body.includes(this.keyword)
 
-      		if(isIncluded) setTimeout(() => bus.$emit('UPDATE_WATERFALL'), 100)
+      		if(isIncluded) setTimeout(() => bus.$emit('UPDATE_WATERFALL'), 10)
       		return isIncluded
     		}
     		// No keyword selected
   		  return true
-    		
+
     	}
 		},
 		methods: {
@@ -67,9 +67,9 @@
         const date = new Date(this.feed.created_at);
         const newMonth = date.toLocaleString('en-us', { month: "short" });
         return  newMonth + ' ' + date.getDate();
-        
+
       }
-		}		
+		}
 	}
 </script>
 

@@ -1,7 +1,7 @@
 <template>
   <div id="content" v-on:click="hideFilters($event)">
   	<div class="flashmessage">You succesfully created an entity called {{ entity }}</div>
-  
+
   	<div class="filters" id="filters">
   		<button class="btn_primary btn_filter" v-on:click="showFilters()">
 				<!-- <i class="fa fa-filter fa-active"></i> -->
@@ -33,7 +33,7 @@
     				<input type="radio" id="noFilter" value="" v-model="selectedKeyword">
     				<label for="noFilter">no filter</label>
     			</div>
-    
+
     			<template v-for="keyword in keywords">
     				<div class="radio-filter">
     					<input type="radio" :id="keyword"  :value="keyword" v-model="selectedKeyword">
@@ -42,10 +42,10 @@
     				</div>
     			</template>
   			</div>
-  
+
   		</form>
   	</div>
-  
+
   	<div class="template" v-if="isLoading">
   		<h1>loading...</h1>
   		<template v-for="item in loadingTemplatesAmount">
@@ -53,14 +53,14 @@
     			<div class="template_image"></div>
     			<div class="template_text"></div>
     			<div class="template_text"></div>
-    
+
     			<div class="template_text"></div>
     			<div class="template_text"></div>
     			<div class="template_text"></div>
     		</div>
   		</template>
   	</div>
-  
+
 		<div class="empty-state empty-state-feed" v-show="entitiesIsEmpty">
 			<h2>Visualise what your colleagues, friends, companies and competitors are talking about.</h2>
 			<ol>
@@ -69,30 +69,30 @@
 				<li>All done!</li>
 			</ol>
 		</div>
-  
+
 		<div class="tweets wf-container" id="wf-container">
 			<template v-for="item in items">
 				<template v-for="feed in item"> <!-- Make a v-for on socialMedia instead of  item -->
 
 					<!--TWITTER-->
-					<twitterFeed :feed="feed" :keyword="selectedKeyword" v-if="feed.service_name == 'twitter' && activeSocialMedia.indexOf('twitter')!==-1"></twitterFeed>
+					<twitterFeed :feed="feed" :keyword="selectedKeyword" :activeSocialMedia="activeSocialMedia" v-if="feed.service_name == 'twitter'"></twitterFeed>
 
 					<!--YOUTUBE-->
-					<youtubeFeed :feed="feed" :keyword="selectedKeyword" v-if="feed.service_name == 'youtube' && activeSocialMedia.indexOf('youtube')!==-1"></youtubeFeed>
+					<youtubeFeed :feed="feed" :keyword="selectedKeyword" :activeSocialMedia="activeSocialMedia" v-if="feed.service_name == 'youtube'"></youtubeFeed>
 
 					<!--VIMEO-->
-					<vimeoFeed :feed="feed" :keyword="selectedKeyword" v-if="feed.service_name == 'vimeo' && activeSocialMedia.indexOf('vimeo')!==-1"></vimeoFeed>
+					<vimeoFeed :feed="feed" :keyword="selectedKeyword" :activeSocialMedia="activeSocialMedia" v-if="feed.service_name == 'vimeo'"></vimeoFeed>
 
 				</template>
 			</template>
 		</div>
-  
+
   </div>
 </template>
 
 <script>
   import _debounce  from 'lodash.debounce'
-  
+
 	import { bus } from '../../main'
 	import TwitterFeed  from './TwitterFeed.vue'
 	import VimeoFeed  from './VimeoFeed.vue'
@@ -100,10 +100,10 @@
   import {
   	getActiveEntities,
   	getActiveHandles,
-  
+
   } from '../../utils/storageService'
-  
-  
+
+
 	export default {
 		props: ['services'],
 		components : {
@@ -199,19 +199,19 @@
       			boxes[i].style.width = this.loadingTemplatesWidth
       		}
     		})
-    
+
     		const handles = this.getAllActiveHandles()
-    
+
 				this.$http.post('fetch', {handles})
 					.then(res => this.items = res.data)
 					.catch(console.error)
 			},300),
-			
+
     	updateWaterfall: _debounce(
     		function() {
       		this.waterfall.compose(true)
       		document.getElementById("wf-container").style.visibility = "visible"
-      
+
       		//get waterfall variables to adjust loading templates.
       		//TO-DO(low-prior.): copy the width calc & columnsNum code from waterfall.js so
       		//that waterfall doesnt need to be rendered first to get the variables
@@ -219,10 +219,10 @@
       		this.loadingTemplatesWidth = "calc("+columns[columns.length-1].style.width+" - 30px)"
       		//console.log(this.loadingTemplatesWidth)
       		this.loadingTemplatesAmount = this.waterfall.getColumnsNum()
-      
+
       		this.isLoading = false
     		},
-    	1)
+    	10)
   	}
   }
 </script>
