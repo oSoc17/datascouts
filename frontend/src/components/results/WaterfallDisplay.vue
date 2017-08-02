@@ -75,13 +75,13 @@
 				<template v-for="feed in item"> <!-- Make a v-for on socialMedia instead of  item -->
 
 					<!--TWITTER-->
-					<twitterFeed :feed="feed" v-if="feed.service_name == 'twitter' && activeSocialMedia.indexOf('twitter')!==-1"></twitterFeed>
+					<twitterFeed :feed="feed" :keyword="selectedKeyword" v-if="feed.service_name == 'twitter' && activeSocialMedia.indexOf('twitter')!==-1"></twitterFeed>
 
 					<!--YOUTUBE-->
-					<youtubeFeed :feed="feed" v-if="feed.service_name == 'youtube' && activeSocialMedia.indexOf('youtube')!==-1"></youtubeFeed>
+					<youtubeFeed :feed="feed" :keyword="selectedKeyword" v-if="feed.service_name == 'youtube' && activeSocialMedia.indexOf('youtube')!==-1"></youtubeFeed>
 
 					<!--VIMEO-->
-					<vimeoFeed :feed="feed" v-if="feed.service_name == 'vimeo' && activeSocialMedia.indexOf('vimeo')!==-1"></vimeoFeed>
+					<vimeoFeed :feed="feed" :keyword="selectedKeyword" v-if="feed.service_name == 'vimeo' && activeSocialMedia.indexOf('vimeo')!==-1"></vimeoFeed>
 
 				</template>
 			</template>
@@ -134,6 +134,7 @@
   	mounted() {
     	this.waterfall = new Waterfall(200)
     	bus.$on('ENTITIES_IS_EMPTY', (bool) => this.entitiesIsEmpty = bool)
+    	bus.$on('UPDATE_WATERFALL', this.updateWaterfall)
     	bus.$on('FETCH_DATA', this.fetchData)
   	},
   	watch: {
@@ -143,20 +144,11 @@
   	},
   	methods: {
     	addKeyword: function(){
-    	  console.log('nKeyword : ',this.newKeyword, this.keywords.length);
     		if(this.newKeyword && this.keywords.indexOf(this.newKeyword) == -1){
     		  this.keywords.push(this.newKeyword)
     		}
     		this.selectedKeyword = this.newKeyword
     		this.newKeyword = ""
-    	},
-    	hasKeyword: function(item){
-    		if(typeof(item.body)!=='undefined'){
-    		  return item.body.indexOf(keyword)!==-1
-    		}else{
-    		  return false
-    		}
-    		setTimeout(function(){this.updateWaterfall()},10)
     	},
     	deleteKeyword: function(keyword){
     		const i = this.keywords.findIndex(k => k === keyword)

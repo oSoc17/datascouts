@@ -1,66 +1,74 @@
 <template v-if="feed.service_name == 'vimeo' ">
-<div class="wf-box vimeo">
-  <!-- BODY -->
-  <div class="body">
-    <h3 class="title">
-      {{ feed.title }}
-    </h3>
-    <p class="description">
-      {{ feed.description }}
-    </p>
-    <div class="date">{{newFormatDate()}}</div>
-  </div>
-
-  <!-- THUMBNAIL -->
-  <div style="position: relative;">
-    <img v-bind:src="feed.thumbnail" alt="" class="media">
-    <a href="" class="play-button">
-      <i class="fa fa-play"></i>
-    </a>
-  </div>
-
-  <!-- VIDEO-IFRAME -->
-  <!--  <figure class="content-media content-media--video" id="featured-media">
-  <iframe class="content-media__object media" id="featured-video" 
-          v-bind:src=="'https://player.vimeo.com/'+feed.id?title=0&byline=0&badge=0&autopause=0&player_id=0">
-    </iframe>
-  </figure> -->
-
-  <!-- METADATA - likes/comments/views -->
-  <div class="metadata_1">
-    <i class="fa fa-eye"></i> {{feed.played_count}}
-    <a v-bind:href="feed.link"><i class="fa fa-external-link"></i></a>
-  </div>
-  <div class="metadata_2">
-    <div class="image_avatar">
-      <img v-bind:src="feed.user.avatar" alt="" class="avatar">
+  <div class="wf-box vimeo" v-show="hasKeyword">
+    <!-- BODY -->
+    <div class="body">
+      <h3 class="title">
+        {{ feed.title }}
+      </h3>
+      <p class="description">
+        {{ feed.description }}
+      </p>
+      <div class="date">{{newFormatDate()}}</div>
     </div>
-    <div class="name">{{feed.user.name}}</div>
-      <div class="social_media">
-        <i class="fa fa-vimeo"></i>
+  
+    <!-- THUMBNAIL -->
+    <div style="position: relative;">
+      <img v-bind:src="feed.thumbnail" alt="" class="media">
+      <a href="" class="play-button">
+        <i class="fa fa-play"></i>
+      </a>
+    </div>
+  
+    <!-- VIDEO-IFRAME -->
+    <!--  <figure class="content-media content-media--video" id="featured-media">
+    <iframe class="content-media__object media" id="featured-video" 
+            v-bind:src=="'https://player.vimeo.com/'+feed.id?title=0&byline=0&badge=0&autopause=0&player_id=0">
+      </iframe>
+    </figure> -->
+  
+    <!-- METADATA - likes/comments/views -->
+    <div class="metadata_1">
+      <i class="fa fa-eye"></i> {{feed.played_count}}
+      <a v-bind:href="feed.link"><i class="fa fa-external-link"></i></a>
+    </div>
+    <div class="metadata_2">
+      <div class="image_avatar">
+        <img v-bind:src="feed.user.avatar" alt="" class="avatar">
       </div>
-    </div>
+      <div class="name">{{feed.user.name}}</div>
+        <div class="social_media">
+          <i class="fa fa-vimeo"></i>
+        </div>
+      </div>
   </div>
 </template>
 
 
 <script>
-  
-	export default {
-		props: ['feed'],
-		components: {
-		},
-		data() {
-			return {
+  import { bus } from '../../main'
 
-			}
+	export default {
+		props: ['feed', 'keyword'],
+		components: { },
+		data() {
+			return { }
 		},
-		created() {
-		},
-		mounted() {
-		 // console.log(this.feed)
-		},
-		watch: {
+		created() { },
+		mounted() {	},
+		computed : {
+   	  hasKeyword: function(item){
+   	    console.log(this.keyword, item)
+    		if(this.keyword){
+    		  // ? Contains the selected keyword
+      		const isIncluded = this.feed.body.includes(this.keyword)
+      		
+      		if(isIncluded) setTimeout(() => bus.$emit('UPDATE_WATERFALL'), 100)
+      		
+      		return isIncluded
+    		}
+    		// No keyword selected
+  		  return true
+    	}
 		},
 		methods: {
       newFormatDate: function() {
