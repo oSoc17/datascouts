@@ -5,8 +5,12 @@
     <h3 class="title">
       {{ feed.title }}
     </h3>
-    <p class="description" v-if="feed.description !== null">
-      {{ feed.description.substring(0, 140) }}
+    <div
+    <p class="description" v-if="feed.description !== null && needsTruncation(feed.description)">
+      {{ feed.description.substring(0, max_length) }}...
+    </p>
+    <p class="description" v-else>
+      {{ feed.description}}
     </p>
     <div class="date">{{newFormatDate()}}</div>
   </div>
@@ -52,7 +56,7 @@
 		},
 		data() {
 			return {
-
+        max_length: 140,
 			}
 		},
 		created() {
@@ -70,6 +74,14 @@
         const newMonth = date.toLocaleString(locale, { month: "short" });
 
         return  newMonth + ' ' + date.getDate();
+      },
+      needsTruncation: function(string){
+        if(typeof(string)!=='undefined'){
+          return string.length > this.max_length
+        }
+        else{
+          return false
+        }
       }
 		}
 
