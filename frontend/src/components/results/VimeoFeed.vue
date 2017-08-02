@@ -5,8 +5,8 @@
     <h3 class="title">
       {{ feed.title }}
     </h3>
-    <p class="description">
-      {{ feed.description }}
+    <p class="description" v-if="feed.description !== null">
+      {{ feed.description.substring(0, 140) }}
     </p>
     <div class="date">{{newFormatDate()}}</div>
   </div>
@@ -21,7 +21,7 @@
 
   <!-- VIDEO-IFRAME -->
   <!--  <figure class="content-media content-media--video" id="featured-media">
-  <iframe class="content-media__object media" id="featured-video" 
+  <iframe class="content-media__object media" id="featured-video"
           v-bind:src=="'https://player.vimeo.com/'+feed.id?title=0&byline=0&badge=0&autopause=0&player_id=0">
     </iframe>
   </figure> -->
@@ -45,7 +45,7 @@
 
 
 <script>
-  
+
 	export default {
 		props: ['feed'],
 		components: {
@@ -72,7 +72,7 @@
         return  newMonth + ' ' + date.getDate();
       }
 		}
-		
+
 	}
 </script>
 
