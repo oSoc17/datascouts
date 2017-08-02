@@ -9,16 +9,16 @@
 
     <div class="main">
       <transition name="slide-entities" appear>
-        <entitiesSidebar v-show="showEntitiesBar"  v-bind:currentEntity="current.entity"></entitiesSidebar>
+        <entitiesSidebar v-show="showEntitiesBar"  v-bind:currentEntity="current.entity" v-bind:services="services"></entitiesSidebar>
       </transition>
 
-      <handlesSidebar v-show="showHandles" v-bind:entity="current.entity" ></handlesSidebar>
+      <handlesSidebar v-show="showHandles" v-bind:entity="current.entity" v-bind:services="services"></handlesSidebar>
 
       <editHandleSidebar v-show="showHandles && showEditHandle" v-bind:handle="current.handle"
         @close="closeEditHandleSidebar()"
       ></editHandleSidebar>
 
-      <WaterfallDisplay></WaterfallDisplay>
+      <WaterfallDisplay v-bind:services="services"></WaterfallDisplay>
 
     </div>
   </div>
@@ -26,6 +26,10 @@
 
 <script>
   import { bus } from './main'
+  import {
+    removeActiveHandles
+
+  } from './utils/storageService'
   import EntitiesSidebar  from './components/sidebars/EntitiesSidebar.vue'
   import HandlesSidebar  from './components/sidebars/HandlesSidebar.vue'
   import EditHandleSidebar  from './components/sidebars/EditHandleSidebar.vue'
@@ -48,9 +52,11 @@
           entity: {},
           handle: {}
         },
+        services: [],
       }
     },
     created () {
+      this.loadServices()
       // bus.$on('LOADED_ENTITIES', this.updateEntities)
 
       bus.$on('CHANGE_CURRENT_ENTITY', this.changeCurrentEntity)
@@ -74,10 +80,25 @@
 
     },
     computed : {
-      updateEntities : function (){ }
+
     },
 
     methods: {
+      loadServices : function (){
+        if(localStorage.getItem('services')){
+          this.services = JSON.parse(localStorage.getItem('services'))
+        }else{
+          this.$http.get('services')
+              .then(({data}) => {
+                this.services = data.reduce((list,media) => {
+                  list[media.id] = media;
+                  return list
+                },{});
+                localStorage.setItem('services',JSON.stringify(this.services))
+              })
+              .catch(console.error)
+        }
+      },
 
       closeEditHandleSidebar : function (){
         this.showEditHandle = false
@@ -103,18 +124,20 @@
         this.current.entity.name = newName
       },
 
-      deleteCurrentEntity : function (newName) {
-        this.showHandles = false
-        bus.$emit('DELETE_LISTED_ENTITY')
+      deleteCurrentEntity : function () {
+        this.showHandles = false // Hide the HandleSidebar
+        removeActiveHandles(this.current.entity.id); // Remove from the localStorage
+        bus.$emit('DELETE_LISTED_ENTITY') // Send Event to delete Entity from the list
+              
         this.current.entity = {}
-
       },
 
       changeCurrentHandle : function (select) {
+        // No current Handle or different handle
         if(!this.current.handle || select.id !== this.current.handle.id){
           this.current.handle = select
         }
-        this.showEditHandle = true
+        this.showEditHandle = true // Show the editHandle Sidebar
       },
 
       updateCurrentHandle : function (newName) {
@@ -122,8 +145,8 @@
       },
 
       deleteCurrentHandle : function () {
-        this.showEditHandle = false
-        bus.$emit('DELETE_LISTED_HANDLE')
+        this.showEditHandle = false // Close the editHandle Sidebar
+        bus.$emit('DELETE_LISTED_HANDLE') // Send to HandleList cmd to delete
         this.current.handle = {}
       },
 

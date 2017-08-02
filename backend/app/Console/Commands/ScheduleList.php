@@ -36,7 +36,6 @@ class ScheduleList extends Command
     public function handle()
     {
         $events = array_map(function ($event) {
-            // dd(($event->description));
             return [
                 'cron' => $event->expression,
                 'command' => static::fixupCommand($event->command),

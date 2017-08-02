@@ -1,15 +1,30 @@
 {
   "name": "frontend",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Social media aggregator",
+  "keywords": ["social media", "vuejs", "gulp", "babel", "browserify"],
+  "license": "AGPL-3.0",
   "author": "Maxime Van Driessche <van-driessche-maxime@hotmail.com>",
-  "private": true,
-  "scripts": {
-    "watchify": "watchify -vd -p browserify-hmr -e src/main.js -o dist/build.js",
-    "serve": "http-server -o -c 1 -p 8082",
-    "dev": "npm-run-all --parallel watchify serve",
-    "build": "cross-env NODE_ENV=production browserify -g envify -p [ vueify/plugins/extract-css -o dist/build.css ] -e src/main.js | uglifyjs -c warnings=false -m > dist/build.js"
+  "main": "dist/build.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:oSoc17/datascouts.git"
   },
+  "homepage": "https://osoc17.github.io/datascouts/",
+  "bugs": {
+    "url": "https://github.com/oSoc17/datascouts/issues"
+  },
+  "contributors": [{
+    "name": "Maxime Van Driessche",
+    "email": "van-driessche-maxime@hotmail.com",
+    "role": "Frontend Developer"
+    }, {
+    "name": "Ismail Kutlu",
+    "email": "ismail.kutlu94@gmail.com",
+    "url": "https://ismailkutlu.github.io/",
+    "role": "Designer && Front-end developer"
+  }
+  ],
   "browserify": {
     "transform": [
       "babelify",
@@ -18,6 +33,15 @@
   },
   "browser": {
     "vue": "vue/dist/vue.common.js"
+  },
+  "scripts": {
+    "postinstall": "cp ./src/config/index.example.js  ./src/config/index.js",
+    "prebuild": "rm -rf dist && mkdir dist",
+    "build": "cross-env NODE_ENV=production browserify -g envify -p [ vueify/plugins/extract-css -o dist/build.css ] -e src/main.js | uglifyjs -c warnings=false -m > dist/build.js",
+    "watchify": "watchify -vd -p browserify-hmr -e src/main.js -o dist/build.js",
+    "serve": "http-server -o -c 1 -p 8080",
+    "dev": "npm-run-all --parallel watchify serve",
+    "start": "npm install && npm run dev"
   },
   "dependencies": {
     "lodash.debounce": "^4.0.8",
@@ -44,8 +68,5 @@
     "uglify-js": "^2.5.0",
     "vueify": "^9.0.0",
     "watchify": "^3.4.0"
-  },
-  "main": "gulpfile.js",
-  "keywords": [],
-  "license": "ISC"
+  }
 }

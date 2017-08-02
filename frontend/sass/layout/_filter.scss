@@ -1,8 +1,12 @@
 .filters {
     position: relative;
     height: 51px;
-    width: 100%;
+    width: calc(100% - 250px);
     border-bottom: 1px solid $gray-lightest;
+    position: fixed;
+    top: 40px;
+    z-index: 10;
+    background-color: whitesmoke;
     button.btn_filter {
         position: absolute;
         right: 16px;

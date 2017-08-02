@@ -17,7 +17,7 @@ class TwitterFetcher extends BaseFetcher
      */
     public function __construct()
     {
-        parent::__construct('Twitter');
+        parent::__construct('twitter');
         $this->connection = new TwitterOAuth(
             config('services.twitter.client_id'),
             config('services.twitter.client_secret'),
@@ -29,9 +29,10 @@ class TwitterFetcher extends BaseFetcher
     protected function handle(Handle $handle)
     {
         $data = $this->connection->get("statuses/user_timeline", [
-            "screen_name" => $handle->name,
+            "count"           => '100', 
+            "screen_name"     => $handle->name,
             'exclude_replies' => true,
-            'include_rts' => false
+            'include_rts'     => false
         ]);
 
         return array_map(array($this, 'filterData'), $data);
@@ -49,25 +50,25 @@ class TwitterFetcher extends BaseFetcher
     private function filterData($tweet)
     {
         $res = [
-            'social_media' => 'twitter',
-            'id' => $tweet->id_str,
-            'created_at' => $tweet->created_at,
-            'body' => $tweet->text,
-            'link' => 'https://twitter.com/statuses/'.$tweet->id_str,
+            'service_name'   => 'twitter',
+            'id'             => $tweet->id_str,
+            'created_at'     => $tweet->created_at,
+            'body'           => $tweet->text,
+            'link'           => 'https://twitter.com/statuses/'.$tweet->id_str,
             'user_full_name' => $tweet->user->name,
-            'retweet_count' => $tweet->retweet_count,
+            'retweet_count'  => $tweet->retweet_count,
             'favorite_count' => $tweet->favorite_count,
         ];
         
         $res['user'] = [
-            'id' => $tweet->user->id_str,
-            'location' => $tweet->user->location,
-            'full_name' =>  $tweet->user->name,
-            'screen_name' => $tweet->user->screen_name,
-            'since' => $tweet->user->created_at,
-            'friends_count' => $tweet->user->friends_count,
-            'followers_count' => $tweet->user->followers_count,
-            'statuses_count' => $tweet->user->statuses_count,
+            'id'                      => $tweet->user->id_str,
+            'location'                => $tweet->user->location,
+            'full_name'               =>  $tweet->user->name,
+            'screen_name'             => $tweet->user->screen_name,
+            'since'                   => $tweet->user->created_at,
+            'friends_count'           => $tweet->user->friends_count,
+            'followers_count'         => $tweet->user->followers_count,
+            'statuses_count'          => $tweet->user->statuses_count,
             'profile_image_url_https' => $tweet->user->profile_image_url_https,
         ];
         

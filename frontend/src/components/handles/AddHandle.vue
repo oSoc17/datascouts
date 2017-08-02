@@ -1,9 +1,7 @@
 <template>
   <div>
   <form action="" class="slide-up" id="handle_form">
-    <transition-group  class="form-group hidden"
-      name='popup' tag="div"
-    >
+    <transition-group  class="form-group hidden" name='popup' tag="div">
 
       <!--<button class="btn_primary social_media"
           v-bind:key="service.id"
@@ -74,6 +72,6 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style >
 
 </style>

@@ -1,13 +1,13 @@
 <template>
-<transition name="slide-handles" @enter="openSidebar" @leave="closeSideBar">
-  <div id="sidebar_handles">
-    <editEntity v-bind:entity.sync="entity" v-cloak></editEntity>
-
-    <h1>Social media accounts for {{entity.name}}</h1>
-    <handlesList v-bind:handles="list"></handlesList>
-
-    <addHandle :services="services" :actives="activeHandles" v-cloak></addHandle>
-  </div>
+  <transition name="slide-handles" @enter="openSidebar" @leave="closeSideBar">
+    <div id="sidebar_handles">
+      <editEntity v-bind:entity.sync="entity" v-cloak></editEntity>
+  
+      <h1>Social media accounts for {{entity.name}}</h1>
+      <handlesList v-bind:entity="entity" v-bind:handles="list" v-bind:actives="activeHandles"></handlesList>
+  
+      <addHandle :services="services" :actives="activeHandles" v-cloak></addHandle>
+    </div>
   </transition>
 </template>
 
@@ -28,7 +28,7 @@
 
 
   export default {
-    props: ['entity'],
+    props: ['entity', 'services'],
     components:{
       EditEntity,
       HandlesList,
@@ -38,7 +38,6 @@
       return {
         list : [],
         activeHandles : [],
-        services : []
       }
     },
     watch :{
@@ -46,16 +45,15 @@
         this.entity = nEntity;
         if(typeof(this.entity.id) !== 'undefined'){
           this.loadHandlesForSelectedEntity();
+          this.loadActiveHandles()
         }
       }
     },
     created () {
-        this.loadServices()
-        this.loadActiveHandles();
+      this.loadActiveHandles();
     },
     mounted () {
-      // No need for this event, replace by the wath on entity
-      // bus.$on('LOAD_HANDLES', this.loadHandlesForSelectedEntity)
+      bus.$on('UPDATE_ACTIVE_HANDLES', this.loadActiveHandles)
       bus.$on('UPDATE_ENTITY', this.updateEntity)
       bus.$on('DELETE_ENTITY', this.deleteEntity)
 
@@ -63,14 +61,13 @@
       bus.$on('DELETE_LISTED_HANDLE', this.deleteHandle)
 
       bus.$on('CHANGE_ACTIVE_HANDLES', this.changeActiveHandles)
-
     },
 
     methods : {
       openSidebar : function() {
         const $elt = document.getElementById("sidebar_handles");
         $elt.style.transition = "all .25s ease"
-        $elt.style.marginLeft = "0px"
+        $elt.style.marginLeft = "250px"
         $elt.style.zIndex = 2
       },
 
@@ -80,7 +77,7 @@
         $elt.style.transition = "all .5s ease"
         $elt.style.zIndex = -1
 
-    },
+      },
 
       loadHandlesForSelectedEntity : function () {
         this.$http.get(`entities/${this.entity.id}/handles`)
@@ -104,27 +101,11 @@
         this.activeHandles = getActiveHandles(this.entity.id);
       },
 
-      loadServices : function (){
-        if(localStorage.getItem('services')){
-          this.services = JSON.parse(localStorage.getItem('services'))
-        }else{
-          this.$http.get('services')
-              .then(({data}) => {
-                this.services = data.reduce((list,media) => {
-                  list[media.id] = media;
-                  return list
-                },{});
-                localStorage.setItem('services',JSON.stringify(this.services))
-              })
-              .catch(console.error)
-        }
-      },
-
       updateEntity: function(name) {
         if(name && name !== this.entity.name){
           this.$http.put('entities/' + this.entity.id,{name})
               .then(res => bus.$emit('UPDATE_CURRENT_ENTITY', name))
-              .catch(response => console.error)
+              .catch(console.error)
         }
       },
 
@@ -135,12 +116,9 @@
       },
 
       insertNewHandle : function (handle) {
-        console.log("adding ",handle.name," to ",this.entity.name )
-        console.log(handle)
         this.$http.post('handles/'+ this.entity.id, handle)
           .then(({data}) => {
             const {id, name, url, service_id, fetched_at} = data
-
             const service = data.service || {}
             // Add on the top of the list
             this.list.unshift({
@@ -148,9 +126,10 @@
               'service' : service.name,
               'active' : true
             })
-            console.log("[HandleSidebar] New Entity added")
+            bus.$emit('ADD_ACTIVE_ENTITY', this.entity.id)
+            bus.$emit('ADD_ACTIVE_HANDLE', id)
           }).then(_ => bus.$emit('FETCH_DATA'))
-          .catch(err => console.error("[HandleSidebar] Failed to add handle\n",err))
+          .catch(console.error)
       },
 
       deleteHandle : function (id){

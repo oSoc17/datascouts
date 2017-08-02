@@ -17,7 +17,7 @@ class YoutubeFetcher extends BaseFetcher
      */
     public function __construct()
     {
-        parent::__construct('Youtube');
+        parent::__construct('youtube');
         $this->ytbConnection = new Ytb([
             'key' => config('services.youtube.api_key')
         ]);
@@ -28,7 +28,7 @@ class YoutubeFetcher extends BaseFetcher
     {
         $data = $this->ytbConnection->searchAdvanced([
             'q'             => $handle->name,
-            'type'          => 'channel,video,playlist',
+            'type'          => 'channel,video',
             'part'          => 'id, snippet',
             'maxResults'    => 50
         ]);
@@ -41,17 +41,32 @@ class YoutubeFetcher extends BaseFetcher
         $type = explode('#',$ytb->id->kind)[1];
         $res = [
             'service_name' => $this->fetcherType,
-            'type' => $type,
-            'id' => $ytb->id->{$type.'Id'},
-            'title' => $ytb->snippet->title,
-            'description' => $ytb->snippet->description,
-            'thumbnail' => $ytb->snippet->thumbnails->medium->url,
-            'channel' => $ytb->snippet->channelTitle
+            'type'         => $type,
+            'id'           => $ytb->id->{$type.'Id'},
+            'title'        => $ytb->snippet->title,
+            'description'  => $ytb->snippet->description,
+            'thumbnail'    => $ytb->snippet->thumbnails->medium->url,
+            'channel_id'   => $ytb->snippet->channelId,
+            'channel'      => $ytb->snippet->channelTitle
         ];
-        
-        $res['link'] = 'https://youtube.com/';
-        $res['link'] .= (($type=='video') ? 'embed' : $type).'/'.$res['id'];
-        
+
+        $res['channel_link'] = 'https://youtube.com/channel/'.$res['channel_id'];
+
+        $res['link'] = 'https://youtube.com/';        
+        switch ($type) {
+            case 'video':
+                $res['link'] .= 'embed/' . $res['id'];
+                break;
+
+            case 'playlist':
+                $res['link'] .= 'playlist?list=' . $res['id'];
+                break;
+
+            default:
+                $res['link'] = null;
+                break;
+        }
+
         return $res;
     }
 }

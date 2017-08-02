@@ -13,8 +13,12 @@
             </div>
             <p >{{handle.name}}</p>
           </div>
-          <input type="checkbox" class="checkbox" name="checkbox"
+          <input class="styled-checkbox checkbox" type="checkbox"
+            :id="['styled-checkbox-handles-' + handle.id]"
             :value="handle.id" v-model="activeHandles">
+            <label :for="['styled-checkbox-handles-' + handle.id]"></label>
+          <!-- <input type="checkbox" class="checkbox" name="checkbox"
+            :value="handle.id" v-model="activeHandles"> -->
       </li>
     </template>
   </ul>
@@ -24,46 +28,50 @@
   import { bus } from '../../main'
 
   export default {
-    props:['handles', 'actives'],
+    props:['handles', 'actives', 'entity'],
     components:{
 
     },
     data () {
       return {
-        activeHandles : [],
+        activeHandles : this.actives,
         select : {},
         isSelected: false,
         handlesIsEmpty: false,
+        oldEntity: this.entity,
       }
     },
     created () {
-      bus.$on('selectHandle', (handle, e) => {
-        this.selectHandle(handle, e)
-      }),
-      /*bus.$on('handleSelected', () => {
-        this.handleSelected()
-      }),
-      bus.$on('handleNotSelected', () => {
-        this.handleNotSelected()
-      }),*/
+      bus.$on('selectHandle', this.selectHandle),
+      bus.$on('ADD_ACTIVE_HANDLE', this.addToActiveHandles)
       bus.$on('HANDLES_IS_EMPTY', (bool) => this.handlesIsEmpty = bool)
       bus.$on('DESELECT_HANDLE', () => {console.log("nope")})
     },
     watch : {
       handles : function (){
-        this.activeHandles = this.handles.filter(h => h.active).map(h => h.id)
+        // this.activeHandles = this.handles.filter(h => h.active).map(h => h.id)
+        this.handlesIsEmpty = this.handles.length == 0
       },
       actives : function () {
         this.activeHandles = this.actives
       },
       activeHandles : function () {
         bus.$emit('CHANGE_ACTIVE_HANDLES', this.activeHandles)
-        bus.$emit('FETCH_DATA')
-        
+        if(this.oldEntity === this.entity){
+          bus.$emit('FETCH_DATA')
+        }
+        else{
+          this.oldEntity = this.entity
+        }
+
+
       }
 
     },
     methods: {
+      addToActiveHandles: function(handleID){
+        this.activeHandles.push(handleID)
+      },
       deselectHandle: function(){
         this.isSelected = false
         console.log(this.isSelected)
@@ -80,14 +88,10 @@
         this.isSelected = true
       },
 
-      // updateSelectedHandles: _debounce( function() {
-      //   this.fetchData()
-      // }, 1),
-
     }
   }
 </script>
 
-<style lang="scss">
+<style >
 
 </style>

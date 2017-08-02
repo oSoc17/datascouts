@@ -5,8 +5,11 @@
         <div slot="body">
           <label class="form-label">
               Select source:
+
               <div>          
-                  <button :class="'btn_sm ' + serv.name" v-for="serv in services" :value="serv.id"><i :class="'fa fa-' + serv.name"></i></button>
+
+                  <button :class="['btn_sm', serv.name, {'fa-active' : (selectedService.id == serv.id)}]" v-for="serv in services"  @click="selectedService = serv">
+                    <i :class="['fa', 'fa-' + serv.name]"></i></button>
               </div>
           </label>
 
@@ -64,6 +67,6 @@
 </script>
 
 
-<style lang="scss">
+<style >
 
 </style>

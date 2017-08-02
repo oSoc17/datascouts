@@ -41,6 +41,7 @@ trait RESTActions
     {
         $m = self::MODEL;
         $this->validate($request, $m::$rules);
+
         
         $model = $m::findOrFail($id);
 

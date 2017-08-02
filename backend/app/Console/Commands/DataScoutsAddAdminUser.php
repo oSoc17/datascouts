@@ -49,7 +49,7 @@ class DataScoutsAddAdminUser extends Command
         // No password input ?
         if(($password = $this->option('password')) == null){
             // No password auto-generated ?
-            if (!$this->confirm('Let system generate password for you ? ')) {
+            if (!$this->confirm('Let system generate a password for you ? ')) {
                 $password = $this->secret('So, Please enter your new password (Hidden input) : ');
             } else {
                 $password = str_random(16);
