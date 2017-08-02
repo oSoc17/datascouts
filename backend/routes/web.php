@@ -12,10 +12,6 @@
 |
 */
 
-$app->get('/', function () use ($app) {
-    return $app->version();
-});
-
 // To generate the key for the .env
 // https://stackoverflow.com/questions/30344141/lumen-micro-framework-php-artisan-keygenerate
 $app->get('/key', function () {
@@ -37,13 +33,6 @@ $app->group(['prefix' => 'api'], function ($app) {
 
     $app->group(['prefix' => 'v1'], function ($app) {
 
-        $app->get('/', function () use ($app) {
-            return response()->json([
-                'route'=>[
-                    'CRUD'  => 'entities/{id1,id2,id3}'
-                ]
-            ]);
-        });
         $app->get('/zen', function () use ($app) {
             return response()->json(['joke' => 'Waiting for the joke. It\' comming ....']);
         });
@@ -92,8 +81,7 @@ $app->group(['prefix' => 'api'], function ($app) {
             $app->get('/{handle}/login', 'ProvidersController@getLinkForLogin');
             
             $app->get('/{service}/callback', 'ProvidersController@handleCallback');
-            // $app->post('/{handle}/callback', 'ProvidersController@handleCallback');
-                        
+
         }); // prefix : /providers
 
 
@@ -102,7 +90,6 @@ $app->group(['prefix' => 'api'], function ($app) {
             $app->post('/', 'FetchController@fetch');
 
             $app->get('/{service}/trends', 'FetchController@getTrendsHashtags');
-
         });
 
 

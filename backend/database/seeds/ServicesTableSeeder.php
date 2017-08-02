@@ -15,7 +15,6 @@ class ServicesTableSeeder extends Seeder
             ['name' => 'twitter', "link" => "https://twitter.com" ],
             ['name' => 'youtube', "link" => "https://youtube.com" ],
             ['name' => 'vimeo', "link" => "https://vimeo.com" ],
-            ['name' => 'github', "link" => "https://github.com" ],
         ];
 
 

@@ -10,16 +10,15 @@ class CreateProvidersTable extends Migration
     {
         Schema::create('providers', function(Blueprint $table) {
             $table->increments('id');
-            $table->string('social_id');
+            $table->string('medium_id');
             $table->text('token');
             $table->string('email');
             $table->string('nickname')->nullable();
-            $table->string('name')->nullable();
+            $table->string('fullname')->nullable();
             $table->string('avatar')->nullable();
             
             // F.K
             $table->unsignedInteger('user_id')->nullable();
-            $table->unsignedInteger('handle_id');
             $table->unsignedInteger('service_id');
             
             // Constraints declaration

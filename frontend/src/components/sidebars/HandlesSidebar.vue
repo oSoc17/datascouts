@@ -1,13 +1,13 @@
 <template>
-<transition name="slide-handles" @enter="openSidebar" @leave="closeSideBar">
-  <div id="sidebar_handles">
-    <editEntity v-bind:entity.sync="entity" v-cloak></editEntity>
-
-    <h1>Social media accounts for {{entity.name}}</h1>
-    <handlesList v-bind:entity="entity" v-bind:handles="list" v-bind:actives="activeHandles"></handlesList>
-
-    <addHandle :services="services" :actives="activeHandles" v-cloak></addHandle>
-  </div>
+  <transition name="slide-handles" @enter="openSidebar" @leave="closeSideBar">
+    <div id="sidebar_handles">
+      <editEntity v-bind:entity.sync="entity" v-cloak></editEntity>
+  
+      <h1>Social media accounts for {{entity.name}}</h1>
+      <handlesList v-bind:entity="entity" v-bind:handles="list" v-bind:actives="activeHandles"></handlesList>
+  
+      <addHandle :services="services" :actives="activeHandles" v-cloak></addHandle>
+    </div>
   </transition>
 </template>
 
@@ -53,8 +53,6 @@
       this.loadActiveHandles();
     },
     mounted () {
-      // No need for this event, replace by the wath on entity
-      // bus.$on('LOAD_HANDLES', this.loadHandlesForSelectedEntity)
       bus.$on('UPDATE_ACTIVE_HANDLES', this.loadActiveHandles)
       bus.$on('UPDATE_ENTITY', this.updateEntity)
       bus.$on('DELETE_ENTITY', this.deleteEntity)
@@ -63,8 +61,6 @@
       bus.$on('DELETE_LISTED_HANDLE', this.deleteHandle)
 
       bus.$on('CHANGE_ACTIVE_HANDLES', this.changeActiveHandles)
-
-
     },
 
     methods : {
@@ -109,7 +105,7 @@
         if(name && name !== this.entity.name){
           this.$http.put('entities/' + this.entity.id,{name})
               .then(res => bus.$emit('UPDATE_CURRENT_ENTITY', name))
-              .catch(response => console.error)
+              .catch(console.error)
         }
       },
 
@@ -120,12 +116,9 @@
       },
 
       insertNewHandle : function (handle) {
-        console.log("adding ",handle.name," to ",this.entity.name )
-        console.log(handle)
         this.$http.post('handles/'+ this.entity.id, handle)
           .then(({data}) => {
             const {id, name, url, service_id, fetched_at} = data
-
             const service = data.service || {}
             // Add on the top of the list
             this.list.unshift({
@@ -134,10 +127,9 @@
               'active' : true
             })
             bus.$emit('ADD_ACTIVE_ENTITY', this.entity.id)
-            console.log("[HandleSidebar] New handle added")
             bus.$emit('ADD_ACTIVE_HANDLE', id)
           }).then(_ => bus.$emit('FETCH_DATA'))
-          .catch(err => console.error("[HandleSidebar] Failed to add handle\n",err))
+          .catch(console.error)
       },
 
       deleteHandle : function (id){

@@ -64,10 +64,10 @@
 		},
 		methods: {
       newFormatDate: function() {
-        var date = new Date(this.feed.created_at);
-        var month = date.getMonth();
-        var locale = "en-us";
-        var newMonth = date.toLocaleString(locale, { month: "short" });
+        const date = new Date(this.feed.created_at);
+        // const month = date.getMonth();
+        const locale = "en-us";
+        const newMonth = date.toLocaleString(locale, { month: "short" });
 
         return  newMonth + ' ' + date.getDate();
       }

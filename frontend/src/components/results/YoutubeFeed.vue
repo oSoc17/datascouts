@@ -13,19 +13,19 @@
   <!-- THUMBNAIL -->
   <div style="position: relative;margin-bottom:16px;">
     <img v-bind:src="feed.thumbnail" alt="" class="media">
-    <a href="" class="play-button">
+    <a v-bind:href="'https://www.youtube.com/watch?v='+feed.id" target="_blank" class="play-button">
       <i class="fa fa-youtube-play"></i>
     </a>
   </div>
 
   <!-- VIDEO-IFRAME -->
-  <!--<figure class="content-media content-media--video" id="featured-media">
+  <!-- <figure class="content-media content-media--video" id="featured-media" v-if="isLoaded">
     <iframe class="content-media__object media" id="featured-video" v-bind:src='feed.link + "?enablejsapi=1&rel=0&showinfo=0&controls=0"' frameborder="0"></iframe>
   </figure> -->
 
   <!-- METADATA - likes/comments/views -->
   <div class="metadata_1">
-    <a v-bind:href="'https://www.youtube.com/v/'+feed.id" target="_blank"><i class="fa fa-external-link"></i></a>
+    <a v-bind:href="'https://www.youtube.com/watch?v='+feed.id" target="_blank"><i class="fa fa-external-link"></i></a>
   </div>
   <div class="metadata_2">
     <div class="name">{{feed.channel}}</div>
@@ -44,7 +44,7 @@
 		},
 		data() {
 			return {
-        
+        isLoaded : false,
 			}
 		},
 		created() {
@@ -52,6 +52,7 @@
 		mounted() {
 		},
 		watch: {
+
 		},
 		methods: {
 		}

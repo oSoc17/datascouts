@@ -63,7 +63,7 @@ class ProvidersController extends Controller
     public function handleCallback(Request $request, $service)
     {
         $state = explode(DELEIMITER, $request->input('state'));
-        dd($state);
+        // dd($state);
         // Explode the input(state)
         $handle = $state[0];
         $redirectURI = $state[1];
@@ -83,7 +83,7 @@ class ProvidersController extends Controller
             $provider->token = $providedUser->token;
             $provider->handle()->associate($handleDb);
 
-            dd($providedUser, $provider);
+            // dd($providedUser, $provider);
         }
 
         // Create a JWT Token with the auth or provider created.
