@@ -52,11 +52,16 @@
 		},
 		mounted() {
 		},
+		destroyed() {
+      console.log(this) // There's practically nothing here!
+
+    },
 		computed : {
    	  hasKeyword: function(item){
     		if(this.keyword){
     		  // ? Contains the selected keyword
-      		const isIncluded = this.feed.description.includes(this.keyword)
+      		let  isIncluded = this.feed.description != null
+      		isIncluded = isIncluded && this.feed.description.includes(this.keyword)
       		if(isIncluded) setTimeout(() => bus.$emit('UPDATE_WATERFALL'), 100)
       		return isIncluded
     		}
