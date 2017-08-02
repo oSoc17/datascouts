@@ -1,5 +1,5 @@
-<template v-if="feed.service_name === 'twitter' " >
-  <div class="wf-box twitter">
+<template v-if="feed.service_name === 'twitter' && hasKeyword ">
+  <div class="wf-box twitter" v-show="hasKeyword">
     <!-- BODY -->
     <div class="body">
       <p>
@@ -28,9 +28,10 @@
 </template>
 
 <script>
-  
+  import { bus } from '../../main'
+
 	export default {
-		props: ['feed'],
+		props: ['feed', 'keyword'],
 		components: {
 		},
 		data() {
@@ -42,16 +43,31 @@
 		},
 		mounted() {
 		},
-		watch: {
+		destroyed() {
+      console.log(this) // There's practically nothing here!
+
+    },
+		computed : {
+   	  hasKeyword: function(item){
+    		if(this.keyword){
+    		  // ? Contains the selected keyword
+      		let  isIncluded = this.feed.body != null
+      		isIncluded = isIncluded && this.feed.body.includes(this.keyword)
+
+      		if(isIncluded) setTimeout(() => bus.$emit('UPDATE_WATERFALL'), 100)
+      		return isIncluded
+    		}
+    		// No keyword selected
+  		  return true
+    		
+    	}
 		},
 		methods: {
       newFormatDate: function() {
-        var date = new Date(this.feed.created_at);
-        var month = date.getMonth();
-        var locale = "en-us";
-        var newMonth = date.toLocaleString(locale, { month: "short" });
-
+        const date = new Date(this.feed.created_at);
+        const newMonth = date.toLocaleString('en-us', { month: "short" });
         return  newMonth + ' ' + date.getDate();
+        
       }
 		}		
 	}
