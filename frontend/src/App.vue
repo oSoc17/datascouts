@@ -52,7 +52,7 @@
           entity: {},
           handle: {}
         },
-        services: [],
+        services: {},
       }
     },
     created () {
