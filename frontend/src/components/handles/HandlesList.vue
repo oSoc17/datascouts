@@ -60,13 +60,10 @@
         if(this.oldEntity === this.entity){
           bus.$emit('FETCH_DATA')
         }
-        else{
-          this.oldEntity = this.entity
-        }
-
-
+      },
+      entity: function() {
+        this.oldEntity = this.entity
       }
-
     },
     methods: {
       addToActiveHandles: function(handleID){

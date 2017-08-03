@@ -1,5 +1,5 @@
-<template v-if="feed.service_name == 'vimeo' ">
-  <div class="wf-box vimeo" v-show="hasKeyword">
+<template>
+  <div class="wf-box vimeo"  v-show="hasKeyword && active">
     <!-- BODY -->
     <div class="body">
       <h3 class="title">
@@ -14,8 +14,8 @@
       </p>
       <div class="date">{{newFormatDate()}}</div>
     </div>
-  
-    
+
+
     <!-- THUMBNAIL -->
     <div style="position: relative;">
       <img v-bind:src="feed.thumbnail" alt="" class="media">
@@ -23,14 +23,14 @@
         <i class="fa fa-play"></i>
       </a>
     </div>
-    
+
     <!-- VIDEO-IFRAME -->
     <!--  <figure class="content-media content-media--video" id="featured-media">
-    <iframe class="content-media__object media" id="featured-video" 
+    <iframe class="content-media__object media" id="featured-video"
             v-bind:src=="'https://player.vimeo.com/'+feed.id?title=0&byline=0&badge=0&autopause=0&player_id=0">
       </iframe>
     </figure> -->
-    
+
     <!-- METADATA - likes/comments/views -->
     <div class="metadata_1">
       <i class="fa fa-eye"></i> {{feed.played_count}}
@@ -54,7 +54,7 @@
 
 
 	export default {
-		props: ['feed', 'keyword'],
+		props: ['feed', 'keyword', 'active'],
 		components: { },
 		data() {
 			return {
@@ -69,9 +69,9 @@
     		  // ? Contains the selected keyword
       		let  isIncluded = this.feed.description != null
       		isIncluded = isIncluded && this.feed.description.includes(this.keyword)
-      		
-      		if(isIncluded) setTimeout(() => bus.$emit('UPDATE_WATERFALL'), 100)
-      		
+
+      		if(isIncluded) setTimeout(() => bus.$emit('UPDATE_WATERFALL'), 10)
+
       		return isIncluded
     		}
     		// No keyword selected
