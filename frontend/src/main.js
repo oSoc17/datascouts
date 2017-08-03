@@ -3,18 +3,24 @@
 // This is done with the browser options. For the config, see package.json
 import Vue from 'vue'
 import VueResource from 'vue-resource'
+import Vue2Filters from 'vue2-filters'
 
 import Config from './config/'
+import filters from './utils/filters'
 import App from './App.vue'
+
+
 
 export const bus = new Vue();
 
 
 Vue.use(VueResource);
-Vue.http.options.root = Config.API_URL;
+Vue.http.options.root = Config.API_URL
 
-new Vue({ // eslint-disable-line no-new
+Vue.use(Vue2Filters)
+
+new Vue({
   el: '#app',
+  filters,
   render: (h) => h(App),
-
-})
+})    

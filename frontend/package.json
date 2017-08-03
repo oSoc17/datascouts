@@ -2,7 +2,13 @@
   "name": "frontend",
   "version": "1.0.0",
   "description": "Social media aggregator",
-  "keywords": ["social media", "vuejs", "gulp", "babel", "browserify"],
+  "keywords": [
+    "social media",
+    "vuejs",
+    "gulp",
+    "babel",
+    "browserify"
+  ],
   "license": "AGPL-3.0",
   "author": "Maxime Van Driessche <van-driessche-maxime@hotmail.com>",
   "main": "dist/build.js",
@@ -14,16 +20,18 @@
   "bugs": {
     "url": "https://github.com/oSoc17/datascouts/issues"
   },
-  "contributors": [{
-    "name": "Maxime Van Driessche",
-    "email": "van-driessche-maxime@hotmail.com",
-    "role": "Frontend Developer"
-    }, {
-    "name": "Ismail Kutlu",
-    "email": "ismail.kutlu94@gmail.com",
-    "url": "https://ismailkutlu.github.io/",
-    "role": "Designer && Front-end developer"
-  }
+  "contributors": [
+    {
+      "name": "Maxime Van Driessche",
+      "email": "van-driessche-maxime@hotmail.com",
+      "role": "Frontend Developer"
+    },
+    {
+      "name": "Ismail Kutlu",
+      "email": "ismail.kutlu94@gmail.com",
+      "url": "https://ismailkutlu.github.io/",
+      "role": "Designer && Front-end developer"
+    }
   ],
   "browserify": {
     "transform": [
@@ -46,7 +54,8 @@
   "dependencies": {
     "lodash.debounce": "^4.0.8",
     "vue": "^2.4.2",
-    "vue-resource": "^1.3.4"
+    "vue-resource": "^1.3.4",
+    "vue2-filters": "^0.1.9"
   },
   "devDependencies": {
     "babel-core": "^6.0.0",
