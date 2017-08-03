@@ -30,12 +30,16 @@
 
     <!-- METADATA - likes/comments/views -->
     <div class="metadata_1">
-      <i class="fa fa-eye"></i> {{feed.played_count}}
-      <a v-bind:href="feed.link"><i class="fa fa-external-link"></i></a>
+      <i class="fa fa-eye" title="Views count" v-if="feed.played_count"></i> {{feed.played_count}}
+      <i class="fa fa-low-vision" title="No played" v-if="!feed.played_count"></i> | 
+      <i class="fa fa-heart"  title="Likes count"></i> {{feed.likes_count}}
+      <a v-bind:href="feed.link" alt="Watch on Vimeo" title="Watch on Vimeo" target='_blank'>
+        <i class="fa fa-external-link"></i>
+      </a>
     </div>
     <div class="metadata_2">
       <div class="image_avatar">
-        <img v-bind:src="feed.user.avatar" alt="" class="avatar">
+        <img v-bind:src="feed.user.avatar" alt="Vimeo User Avatar" class="avatar">
       </div>
       <div class="name">{{feed.user.name}}</div>
       <div class="social_media">
@@ -50,7 +54,6 @@
   import Config  from '../../config/'
   import { bus } from '../../main'
   
-  console.log(Config);
 
 	export default {
 		props: ['feed', 'keyword', 'active'],
