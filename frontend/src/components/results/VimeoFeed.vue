@@ -6,8 +6,8 @@
         {{ feed.title }}
       </h3>
       <div
-      <p class="description" v-if="feed.description != null">
-        {{ feed.description | truncate }}
+      <p class="description">
+        {{ feed.description | truncate(maxLength) }}
       </p>
       <div class="date">{{newFormatDate}}</div>
     </div>
@@ -23,7 +23,7 @@
 
     <!-- VIDEO-IFRAME -->
     <!--  <figure class="content-media content-media--video" id="featured-media">
-    <iframe class="content-media__object media" id="featured-video"
+    <iframe class="content-media_object media" id="featured-video"
             v-bind:src=="'https://player.vimeo.com/'+feed.id?title=0&byline=0&badge=0&autopause=0&player_id=0">
       </iframe>
     </figure> -->
@@ -47,14 +47,17 @@
 
 
 <script>
+  import Config  from '../../config/'
   import { bus } from '../../main'
-
+  
+  console.log(Config);
 
 	export default {
 		props: ['feed', 'keyword', 'active'],
 		components: { },
 		data() {
 			return {
+			  maxLength : Config.TRUNCATE_MAX_LENGTH
 			}
 		},
 		created() { },
