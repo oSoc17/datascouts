@@ -6,13 +6,10 @@
         {{ feed.title }}
       </h3>
       <div
-      <p class="description" v-if="feed.description !== null && needsTruncation(feed.description)">
-        {{ feed.description.substring(0, max_length) }}...
+      <p class="description" v-if="feed.description != null">
+        {{ feed.description | truncate }}
       </p>
-      <p class="description" v-else>
-        {{ feed.description}}
-      </p>
-      <div class="date">{{newFormatDate()}}</div>
+      <div class="date">{{newFormatDate}}</div>
     </div>
 
 
@@ -58,12 +55,19 @@
 		components: { },
 		data() {
 			return {
-        max_length: 140,
 			}
 		},
 		created() { },
 		mounted() {	},
 		computed : {
+      newFormatDate: function() {
+        const date = new Date(this.feed.created_at);
+        // const month = date.getMonth();
+        const locale = "en-us";
+        const newMonth = date.toLocaleString(locale, { month: "short" });
+
+        return  newMonth + ' ' + date.getDate();
+      },
    	  hasKeyword: function(item){
     		if(this.keyword){
     		  // ? Contains the selected keyword
@@ -79,22 +83,7 @@
     	}
 		},
 		methods: {
-      newFormatDate: function() {
-        const date = new Date(this.feed.created_at);
-        // const month = date.getMonth();
-        const locale = "en-us";
-        const newMonth = date.toLocaleString(locale, { month: "short" });
-
-        return  newMonth + ' ' + date.getDate();
-      },
-      needsTruncation: function(string){
-        if(typeof(string)!=='undefined'){
-          return string.length > this.max_length
-        }
-        else{
-          return false
-        }
-      }
+      
 		}
 
 	}
