@@ -14,19 +14,22 @@
 
 
     <!-- THUMBNAIL -->
-    <div style="position: relative;">
-      <img v-bind:src="feed.thumbnail" alt="" class="media">
-      <a href="" class="play-button">
+    <div style="position: relative;" v-show="!isLoaded"  >
+      <img v-bind:src="feed.thumbnail" alt="Thumbnail" class="media">
+      <span href="" class="play-button"  
+        v-if="!isLoaded" @click="isLoaded = true"
+      >
         <i class="fa fa-play"></i>
-      </a>
+      </span>
     </div>
 
     <!-- VIDEO-IFRAME -->
-    <!--  <figure class="content-media content-media--video" id="featured-media">
-    <iframe class="content-media_object media" id="featured-video"
-            v-bind:src=="'https://player.vimeo.com/'+feed.id?title=0&byline=0&badge=0&autopause=0&player_id=0">
-      </iframe>
-    </figure> -->
+    <figure class="content-media content-media--video featured-media" v-if="isLoaded">
+      <iframe class="content-media_object media featured-video"
+              frameborder="0" :title="feed.title"
+              v-bind:src="generateIframeSrc"
+      ></iframe>
+    </figure>
 
     <!-- METADATA - likes/comments/views -->
     <div class="metadata_1">
@@ -60,7 +63,8 @@
 		components: { },
 		data() {
 			return {
-			  maxLength : Config.TRUNCATE_MAX_LENGTH
+			  maxLength : Config.TRUNCATE_MAX_LENGTH,
+			  isLoaded : false,
 			}
 		},
 		created() { },
@@ -86,6 +90,12 @@
     		}
     		// No keyword selected
   		  return true
+    	},
+    	generateIframeSrc : function (){
+    	  let src = 'https://player.vimeo.com/video/'
+    	  src += this.feed.id.split('/').pop()
+    	  src +='?title=0&byline=0&portrait=0&badge=0&autoplay=1&autopause=1&api=1'
+    	  return src
     	}
 		},
 		methods: {
@@ -96,5 +106,12 @@
 </script>
 
 <style>
+
+
+
+
+.play-button {
+  cursor : pointer;
+}
 
 </style>
