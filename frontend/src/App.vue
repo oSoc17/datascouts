@@ -18,7 +18,7 @@
         @close="closeEditHandleSidebar()"
       ></editHandleSidebar>
 
-      <WaterfallDisplay v-bind:services="services"></WaterfallDisplay>
+      <WaterfallDisplay></WaterfallDisplay>
 
     </div>
   </div>
@@ -27,7 +27,9 @@
 <script>
   import { bus } from './main'
   import {
-    removeActiveHandles
+    removeActiveHandles,
+    getServices,
+    saveServices,
 
   } from './utils/storageService'
   import EntitiesSidebar  from './components/sidebars/EntitiesSidebar.vue'
@@ -52,7 +54,6 @@
           entity: {},
           handle: {}
         },
-        services: {},
       }
     },
     created () {
@@ -85,16 +86,15 @@
 
     methods: {
       loadServices : function (){
-        if(localStorage.getItem('services')){
-          this.services = JSON.parse(localStorage.getItem('services'))
-        }else{
+        const isCached = Object.keys(getServices()).length > 0
+        if(!isCached){
           this.$http.get('services')
               .then(({data}) => {
-                this.services = data.reduce((list,media) => {
+                const services = data.reduce((list,media) => {
                   list[media.id] = media;
                   return list
                 },{});
-                localStorage.setItem('services',JSON.stringify(this.services))
+                saveServices(services)
               })
               .catch(console.error)
         }
