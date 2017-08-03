@@ -1,5 +1,5 @@
 <template>
-  <div class="wf-box youtube"  v-if="hasKeyword && activeSocialMedia.indexOf('youtube')!==-1">
+  <div class="wf-box youtube"  v-show="hasKeyword && active">
     <!-- BODY -->
     <div class="body">
       <h3 class="title">
@@ -40,7 +40,7 @@
   import { bus } from '../../main'
 
 	export default {
-		props: ['feed', 'keyword', 'activeSocialMedia'],
+		props: ['feed', 'keyword', 'active'],
 		components: {
 		},
 		data() {

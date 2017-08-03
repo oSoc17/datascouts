@@ -1,5 +1,5 @@
 <template>
-  <div class="wf-box twitter"  v-if="hasKeyword && activeSocialMedia.indexOf('twitter')!==-1">
+  <div class="wf-box twitter"  v-show="hasKeyword && active">
     <!-- BODY -->
     <div class="body">
       <p>
@@ -8,7 +8,7 @@
       <div class="date">{{newFormatDate()}}</div>
     </div>
     <!-- IMAGE -->
-    <img v-bind:src="feed.media" alt="" class="media">
+    <img v-bind:src="feed.media" alt="Tweet Media" class="media">
 
     <!-- METADATA - likes/comments/views -->
     <div class="metadata_1">
@@ -17,7 +17,7 @@
     </div>
     <div class="metadata_2">
       <div class="image_avatar">
-        <img v-bind:src="feed.user.profile_image_url_https" alt="" class="avatar">
+        <img v-bind:src="feed.user.profile_image_url_https" :alt="feed.user.screen_name + ' Avatar' " class="avatar">
       </div>
       <div class="name">{{feed.user_full_name}}</div>
       <div class="social_media">
@@ -31,7 +31,7 @@
   import { bus } from '../../main'
 
 	export default {
-		props: ['feed', 'keyword', 'activeSocialMedia'],
+		props: ['feed', 'keyword', 'active'],
 		components: {
 		},
 		data() {
@@ -43,10 +43,6 @@
 		},
 		mounted() {
 		},
-		destroyed() {
-      console.log(this) // There's practically nothing here!
-
-    },
 		computed : {
    	  hasKeyword: function(item){
     		if(this.keyword){

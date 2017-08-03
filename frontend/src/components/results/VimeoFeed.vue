@@ -1,5 +1,5 @@
 <template>
-  <div class="wf-box vimeo"  v-if="hasKeyword && activeSocialMedia.indexOf('vimeo')!==-1">
+  <div class="wf-box vimeo"  v-show="hasKeyword && active">
     <!-- BODY -->
     <div class="body">
       <h3 class="title">
@@ -54,7 +54,7 @@
 
 
 	export default {
-		props: ['feed', 'keyword', 'activeSocialMedia'],
+		props: ['feed', 'keyword', 'active'],
 		components: { },
 		data() {
 			return {
