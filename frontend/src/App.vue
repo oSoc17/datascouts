@@ -12,7 +12,7 @@
         <entitiesSidebar v-show="showEntitiesBar"  v-bind:currentEntity="current.entity" v-bind:services="services"></entitiesSidebar>
       </transition>
 
-      <handlesSidebar v-show="showHandles" v-bind:entity="current.entity" v-bind:services="services"></handlesSidebar>
+      <handlesSidebar v-show="showHandles" v-bind:entity="current.entity" ></handlesSidebar>
 
       <editHandleSidebar v-show="showHandles && showEditHandle" v-bind:handle="current.handle"
         @close="closeEditHandleSidebar()"
