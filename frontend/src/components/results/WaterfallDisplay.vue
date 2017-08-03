@@ -1,5 +1,5 @@
 <template>
-  <div id="content" @click.self.prevent.stop="displayFilterPopup = false">
+  <div id="content" @click.self.stop="displayFilterPopup = false">
   	<div class="flashmessage">You succesfully created an entity called {{ entity }}</div>
 
   	<filters :active="displayFilterPopup"
@@ -103,12 +103,9 @@
 			}
 		},
 		methods: {
-      toggleFilterPopup : function (){
-        this.displayFilterPopup = true
-        	    console.log('filter popup')
-
-      },
-      
+		  out : function () {
+		    this.displayFilterPopup = false
+		  },
 			getAllActiveHandles : function (){
 				const handles = [];
 				getActiveEntities().forEach(ent_id => {
