@@ -6,7 +6,6 @@ import VueResource from 'vue-resource'
 import Vue2Filters from 'vue2-filters'
 
 import Config from './config/'
-import filters from './utils/filters'
 import App from './App.vue'
 
 
@@ -21,6 +20,5 @@ Vue.use(Vue2Filters)
 
 new Vue({
   el: '#app',
-  filters,
   render: (h) => h(App),
 })    
