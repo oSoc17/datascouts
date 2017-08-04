@@ -20,3 +20,5 @@ Homestead.json
 .rocketeer/
 
 .DS_Store
+
+composer.lock
