@@ -8,7 +8,7 @@
       <div class="date">{{newFormatDate()}}</div>
     </div>
     <!-- IMAGE -->
-    <img v-bind:src="feed.media" alt="Tweet Media" class="media">
+    <img v-if="feed.media" v-bind:src="feed.media" alt="Tweet Media" class="media">
 
     <!-- METADATA - likes/comments/views -->
     <div class="metadata_1">
