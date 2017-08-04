@@ -1,56 +1,28 @@
-	<template>
-	<div id="content" v-on:click="hideFilters($event)">
-		<div class="flashmessage">You succesfully created an entity called {{ entity }}</div>
+<template>
+  <div id="content" @click.self.stop="displayFilterPopup = false">
+  	<div class="flashmessage">You succesfully created an entity called {{ entity }}</div>
 
-		<div class="filters" id="filters">
-			<button class="btn_primary btn_filter" v-on:click="showFilters()">
-				<!-- This source should be replaced with filtered.svg
-						IF any checkboxes are check
-						OR any keyword is added -->
-				<!-- <i class="fa fa-filter fa-active"></i> -->
-				<i class="fa fa-filter"></i>
-				Filter
-			</button>
-			<form action="" id="filter" style="display: none;" class="">
-				<div class="arrow"></div>
-				<div class="filter-socialmedia">
-					<h2>Social media</h2>
-					<template v-for="(item, index) in socialMedia">
-						<div class="form-group">
-							<input class="styled-checkbox" :id="'styled-checkbox-sm-1'+index" type="checkbox" :value="item" v-model="activeSocialMedia">
-							<label :for="'styled-checkbox-sm-1'+index">{{item}}</label>
-						</div>
-					</template>
-				</div>
-				<div class="filter-keywords">
-					<h2>Keywords</h2>
-					<div class="form-group">
-						<input type="text" placeholder="Keyword">
-					</div>
-					<div class="form-group">
-						<!-- You can add any html tag for vue, not styled yet, I'll do it afterwards -->
-						<div class="keyword">Keyword1</div>
-						<div class="keyword">Keyword2</div>
-						<div class="keyword">Keyword3</div>
-					</div>
-				</div>
-			</form>
-		</div>
+  	<filters :active="displayFilterPopup"
+  	    @toggle:popup="displayFilterPopup = !displayFilterPopup " 
+  	    @select:keyword="k => selectedKeyword = k"
+  	    @select:social_media="media => activeSocialMedia = media"
+    >
+  	</filters>
 
-		<div class="template" v-if="isLoading">
-			<h1>loading...</h1>
-			<template v-for="item in loadingTemplatesAmount">
-			<div class="template_box">
-				<div class="template_image"></div>
-				<div class="template_text"></div>
-				<div class="template_text"></div>
+  	<div class="template" v-if="isLoading">
+  		<h1>Loading...</h1>
+  		<template v-for="item in loadingTemplatesAmount">
+    		<div class="template_box">
+    			<div class="template_image"></div>
+    			<div class="template_text"></div>
+    			<div class="template_text"></div>
 
-				<div class="template_text"></div>
-				<div class="template_text"></div>
-				<div class="template_text"></div>
-			</div>
-			</template>
-		</div>
+    			<div class="template_text"></div>
+    			<div class="template_text"></div>
+    			<div class="template_text"></div>
+    		</div>
+  		</template>
+  	</div>
 
 		<div class="empty-state empty-state-feed" v-show="entitiesIsEmpty">
 			<h2>Visualise what your colleagues, friends, companies and competitors are talking about.</h2>
@@ -59,70 +31,70 @@
 				<li>Click on the member and add all social media channels for this member.</li>
 				<li>All done!</li>
 			</ol>
-			</div>
-
+		</div>
 
 		<div class="tweets wf-container" id="wf-container">
 			<template v-for="item in items">
 				<template v-for="feed in item"> <!-- Make a v-for on socialMedia instead of  item -->
 
-					<!--TWITTER-->
-					<twitterFeed :feed="feed" v-show="feed.service_name == 'twitter' && activeSocialMedia.indexOf('twitter')!==-1"></twitterFeed>
+					<twitterFeed :feed="feed" :keyword="selectedKeyword" :active="activeSocialMedia.indexOf('twitter')!==-1" 
+					              v-if="feed.service_name == 'twitter'">
+					</twitterFeed>
 
-					<!--YOUTUBE-->
-					<youtubeFeed :feed="feed" v-show="feed.service_name == 'youtube' && activeSocialMedia.indexOf('youtube')!==-1"></youtubeFeed>
+					<youtubeFeed :feed="feed" :keyword="selectedKeyword" :active="activeSocialMedia.indexOf('youtube')!==-1" 
+					              v-if="feed.service_name == 'youtube'">
+					</youtubeFeed>
 
-					<!--VIMEO-->
-					<!-- <vimeoFeed :feed="feed" v-show="feed.service_name == 'vimeo' && activeSocialMedia.indexOf('vimeo')!==-1"></vimeoFeed> -->
+					<vimeoFeed :feed="feed" :keyword="selectedKeyword" :active="activeSocialMedia.indexOf('vimeo')!==-1" 
+					              v-if="feed.service_name == 'vimeo'">
+					</vimeoFeed>
 
 				</template>
 			</template>
 		</div>
 
-	</div>
-	</template>
+  </div>
+</template>
 
-	<script>
-	import _debounce  from 'lodash.debounce'
+<script>
+  import _debounce  from 'lodash.debounce'
 
 	import { bus } from '../../main'
+	import Filters  from './Filters.vue'
 	import TwitterFeed  from './TwitterFeed.vue'
 	import VimeoFeed  from './VimeoFeed.vue'
 	import YoutubeFeed  from './YoutubeFeed.vue'
+  import {
+  	getActiveEntities,
+  	getActiveHandles,
 
-	import {
-		getActiveEntities,
-		getActiveHandles,
-
-	} from '../../utils/storageService'
+  } from '../../utils/storageService'
 
 
 	export default {
-		props: ['services'],
+		props: [],
 		components : {
+		  Filters,
 			TwitterFeed,
 			VimeoFeed,
 			YoutubeFeed,
 		},
-		data () {
-		return {
-			entitiesIsEmpty: false,
-			items: [],
-			isLoading: false,
-			socialMedia: [],
-			activeSocialMedia: [],
-		}
-		},
-		created () {
-			let i = 1
-			while(typeof(this.services[i])!=='undefined'){
-				this.socialMedia.push(this.services[i++].name)
-			}
-			this.activeSocialMedia = this.socialMedia
+  	data () {
+    	return {
+    	  displayFilterPopup : false,
+    		entitiesIsEmpty: false,
+    		items: [],
+    		isLoading: false,
+    		activeSocialMedia: [],
+    		selectedKeyword: '',
+    	}
+  	},
+  	created () {
 		},
 		mounted() {
 			this.waterfall = new Waterfall(200)
 			bus.$on('ENTITIES_IS_EMPTY', (bool) => this.entitiesIsEmpty = bool)
+      bus.$on('UPDATE_WATERFALL', this.updateWaterfall)
 			bus.$on('FETCH_DATA', this.fetchData)
 		},
 		watch: {
@@ -131,31 +103,9 @@
 			}
 		},
 		methods: {
-			hideFilters: function(e){
-				const el = document.getElementById("filter")
-				const filters = document.getElementById("filters")
-				if(el.style.display !== 'none' && !this.isDescendant(filters, e.target)){
-  				el.style.display = 'none';
-  				el.classList.toggle("display-filter")
-				}
-			},
-			isDescendant: function (parent, child) {
-  			let node = child.parentNode;
-  			while (node != null) {
-  				if (node == parent) {
-  					return true;
-  				}
-  				node = node.parentNode;
-  			}
-  			return false;
-			},
-			showFilters: function(e){
-				const el = document.getElementById("filter")
-				const el2 = document.querySelector("button.btn_primary.btn_filter");
-				el.style.display = el.style.display === 'none' ? 'initial' : 'none';
-				el.classList.toggle("display-filter");
-				el2.classList.toggle("fa-active");
-			},
+		  out : function () {
+		    this.displayFilterPopup = false
+		  },
 			getAllActiveHandles : function (){
 				const handles = [];
 				getActiveEntities().forEach(ent_id => {
@@ -164,45 +114,45 @@
 				})
 				return handles;
 			},
-			
+
 			fetchData: _debounce(function(){
 				//display load templates & adjust them to the screen, hide loading elements
-				this.isLoading = true
-				document.getElementById("wf-container").style.visibility = "hidden"
-				const boxes = document.getElementsByClassName("template_box")
-				this.$nextTick(function(){
-  				for(var i=0;i<boxes.length;i++){
-  					boxes[i].style.width = this.loadingTemplatesWidth
-  				}
-				})
+    		this.isLoading = true
+    		document.getElementById("wf-container").style.visibility = "hidden"
+    		const boxes = document.getElementsByClassName("template_box")
+    		this.$nextTick(function(){
+      		for(var i=0;i<boxes.length;i++){
+      			boxes[i].style.width = this.loadingTemplatesWidth
+      		}
+    		})
 
-				const handles = this.getAllActiveHandles()
+    		const handles = this.getAllActiveHandles()
 
 				this.$http.post('fetch', {handles})
 					.then(res => this.items = res.data)
 					.catch(console.error)
 			},300),
 
-			updateWaterfall: _debounce(
-				function() {
-  				this.waterfall.compose(true)
-  				document.getElementById("wf-container").style.visibility = "visible"
+    	updateWaterfall: _debounce(
+    		function() {
+      		this.waterfall.compose(true)
+      		document.getElementById("wf-container").style.visibility = "visible"
 
-  				//get waterfall variables to adjust loading templates.
-  				//TO-DO(low-prior.): copy the width calc & columnsNum code from waterfall.js so
-  				//that waterfall doesnt need to be rendered first to get the variables
-  				const columns = document.getElementsByClassName("wf-column")
-  				this.loadingTemplatesWidth = "calc("+columns[columns.length-1].style.width+" - 30px)"
-  				//console.log(this.loadingTemplatesWidth)
-  				this.loadingTemplatesAmount = this.waterfall.getColumnsNum()
+      		//get waterfall variables to adjust loading templates.
+      		//TO-DO(low-prior.): copy the width calc & columnsNum code from waterfall.js so
+      		//that waterfall doesnt need to be rendered first to get the variables
+      		var columns = document.getElementsByClassName("wf-column")
+      		this.loadingTemplatesWidth = "calc("+columns[columns.length-1].style.width+" - 30px)"
+      		//console.log(this.loadingTemplatesWidth)
+      		this.loadingTemplatesAmount = this.waterfall.getColumnsNum()
 
-  				this.isLoading = false
-				},
-			1)
-		}
-	}
-	</script>
+      		this.isLoading = false
+    		},
+    	10)
+  	}
+  }
+</script>
 
-	<style>
+<style>
 
-	</style>
+</style>

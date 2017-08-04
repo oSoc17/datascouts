@@ -15,11 +15,8 @@ const KEY_FOR_LAST_HANDLE    = 'LAST_HANDLES_FOR_ENTITY_';
 const KEY_FOR_ACTIVE_HANDLES = 'ACTIVE_HANDLE_FOR_ENTITY_';
 const KEY_FOR_CURRENT_HANDLE = 'CURRENT_HANDLES';
 
+const KEY_FOR_SERVICES = 'services';
 
- /**
-  * ENTITIES
-  *
-  */
 
 /**
  * Same process to cache/retrieve some object into/from the localStorage
@@ -87,3 +84,12 @@ export const saveActiveHandles = (id, list) => {
 export const getActiveHandles = id => unmarshall(KEY_FOR_ACTIVE_HANDLES + id) || []
 
 export const removeActiveHandles = id => remove(KEY_FOR_ACTIVE_HANDLES + id)
+
+
+ /**
+  * SERVICES
+  *
+  */
+export const getServices = _ => unmarshall(KEY_FOR_SERVICES) || {}
+
+export const saveServices = list => marshall(KEY_FOR_SERVICES, list)

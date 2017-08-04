@@ -1,5 +1,5 @@
-<template v-if="feed.service_name === 'twitter' " >
-  <div class="wf-box twitter">
+<template>
+  <div class="wf-box twitter"  v-show="hasKeyword && active">
     <!-- BODY -->
     <div class="body">
       <p>
@@ -8,7 +8,7 @@
       <div class="date">{{newFormatDate()}}</div>
     </div>
     <!-- IMAGE -->
-    <img v-bind:src="feed.media" alt="" class="media">
+    <img v-bind:src="feed.media" alt="Tweet Media" class="media">
 
     <!-- METADATA - likes/comments/views -->
     <div class="metadata_1">
@@ -17,7 +17,7 @@
     </div>
     <div class="metadata_2">
       <div class="image_avatar">
-        <img v-bind:src="feed.user.profile_image_url_https" alt="" class="avatar">
+        <img v-bind:src="feed.user.profile_image_url_https" :alt="feed.user.screen_name + ' Avatar' " class="avatar">
       </div>
       <div class="name">{{feed.user_full_name}}</div>
       <div class="social_media">
@@ -28,9 +28,10 @@
 </template>
 
 <script>
-  
+  import { bus } from '../../main'
+
 	export default {
-		props: ['feed'],
+		props: ['feed', 'keyword', 'active'],
 		components: {
 		},
 		data() {
@@ -42,18 +43,29 @@
 		},
 		mounted() {
 		},
-		watch: {
+		computed : {
+   	  hasKeyword: function(item){
+    		if(this.keyword){
+    		  // ? Contains the selected keyword
+      		let  isIncluded = this.feed.body != null
+      		isIncluded = isIncluded && this.feed.body.includes(this.keyword)
+
+      		if(isIncluded) setTimeout(() => bus.$emit('UPDATE_WATERFALL'), 10)
+      		return isIncluded
+    		}
+    		// No keyword selected
+  		  return true
+
+    	}
 		},
 		methods: {
       newFormatDate: function() {
-        var date = new Date(this.feed.created_at);
-        var month = date.getMonth();
-        var locale = "en-us";
-        var newMonth = date.toLocaleString(locale, { month: "short" });
-
+        const date = new Date(this.feed.created_at);
+        const newMonth = date.toLocaleString('en-us', { month: "short" });
         return  newMonth + ' ' + date.getDate();
+
       }
-		}		
+		}
 	}
 </script>
 

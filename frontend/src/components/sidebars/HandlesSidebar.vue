@@ -19,6 +19,7 @@
     saveActiveHandles,
     getActiveHandles,
     removeActiveHandles,
+    getServices,
 
   } from '../../utils/storageService'
   import { bus } from '../../main'
@@ -28,7 +29,7 @@
 
 
   export default {
-    props: ['entity', 'services'],
+    props: ['entity'],
     components:{
       EditEntity,
       HandlesList,
@@ -36,6 +37,7 @@
     },
     data () {
       return {
+        services : getServices(),
         list : [],
         activeHandles : [],
       }
