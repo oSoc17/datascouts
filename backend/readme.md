@@ -6,10 +6,16 @@ API for Social Media Aggregator
 
 Hello, welcome onboard.
 
+<<<<<<< HEAD
 This project designed on [#oSoc17](2017.summerofcode.be/) is a little API to fetch data from different social medias for specific handles.
 In short words, APi for Social Media Aggregator.
 
 This document purpose is to give an overview about this project and all basic steps before use or work on it.
+=======
+This project design on [#oSoc17](2017.summerofcode.be/) is a little API to fetch data from different social media for specified handle. In short words, APi for Social Media Aggregator.
+
+This document purpose is to give an orverview about this project and necessary steps before working on it.
+>>>>>>> 4bd3f12871579427fa6bb824cbe9dc12a2fcaf55
 
 ## Table of contents
 

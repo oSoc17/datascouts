@@ -9,7 +9,6 @@
         "laravel/lumen-framework": "5.4.*",
         "vlucas/phpdotenv": "~2.2",
         "abraham/twitteroauth": "^0.7.4",
-        "socialiteproviders/facebook": "^3.0",
         "socialiteproviders/google": "^3.0",
         "socialiteproviders/twitter": "^3.0",
         "socialiteproviders/youtube": "^3.0",

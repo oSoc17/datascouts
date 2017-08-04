@@ -41,12 +41,15 @@ abstract class FetcherJob extends Job
      */
     public function handle()
     {
-        // Act like a  Mutex
-        $this->lockHandle();
-
-        $this->fetcher->fetch($this->handle);
-
-        $this->unlock();
+        try {
+            // Act like a  Mutex
+            $this->lockHandle();
+    
+            $this->fetcher->fetch($this->handle);
+    
+        } finally {
+            $this->unlock();
+        }
     }
 
 
