@@ -26,13 +26,14 @@
     </div>
 
     <!-- VIDEO-IFRAME -->
-    <figure class="content-media"  ref="media">
+    <figure ref="ytb_media"  class="content-media">
       <youtube  v-if="feed.type == 'video' && isLoaded" 
-                ref="ytb_vid" 
+                ref="ytb_vid" :class="classList"
                 :videoId="feed.id"
                 :player-vars="{ autoplay: 1, controls: 0,  showinfo: 0, rel: 0 }" 
-                @ready="ready" 
+                @ready="initStickyFloat" 
                 @playing="playing" 
+                @paused="paused"
                 @error="error"
       ></youtube>
 
@@ -41,12 +42,12 @@
     <!-- METADATA - likes/comments/views -->
     <div class="metadata_2">
       <div class="name">
-        <a target="_blank"  v-bind:href="feed.channel_link" :alt="feed.channel +' Channel'" :title="feed.channel +' Channel'">
+        <a target="_blank"  :href="feed.channel_link" :alt="feed.channel +' Channel'" :title="feed.channel +' Channel'">
           {{feed.channel}}
         </a>
       </div>
       <div class="social_media">
-        <a target="_blank" v-bind:href="'https://www.youtube.com/watch?v='+feed.id" alt="Go to Youtube" title="Go to Youtube">
+        <a target="_blank" :href="'https://www.youtube.com/watch?v='+feed.id" alt="Go to Youtube" title="Go to Youtube">
           <i class="fa fa-youtube-play"></i>
         </a>
       </div>
@@ -58,30 +59,40 @@
   import _throttle from 'lodash.throttle'
   
   import Vue from 'vue'
-  import VueYouTubeEmbed from 'vue-youtube-embed'
 
-  import { bus, app } from '../../main'
+  import { bus } from '../../main'
   
-  
-  // app.use(VueYouTubeEmbed, { global: false })
-
 
 	export default {
-		props: ['feed', 'keyword', 'active'],
-		components: {VueYouTubeEmbed },
+		props: ['feed', 'keyword', 'active', 'scroll'],
+		components: { },
 		data() {
 			return {
+			  classList : {'is-playing':false, 'is-paused':false, 'is-sticky' : false},
         isLoaded : false,
-        ids : {
-          media : 'media-'+this.feed.id,
-          video : 'video-'+this.feed.id,
-        },
-        player : {}
+        player : {},
 			}
 		},
 		created() { },
-		mounted() { },
-		watch : { },
+		mounted() { 
+		  bus.$on('RESIZE', function (){
+		    if(this.player.isPlaying)
+		      this.calcOffset()
+		  })
+		  // bus.$on('SCROLLING', this.float)
+		},
+		watch : { 
+		  scroll : function (scroll){
+	      this.player.scroll = scroll
+		    if(this.classList['is-playing']){
+          const state = this.classList['is-playing'] && (scroll-50) > this.player.offset
+          console.log(this.feed.id, ' => SCROLLED\n',
+                scroll, this.player.offset ,'isSticky : ', state);
+                
+          this.classList['is-sticky'] = state
+		    }
+      },
+		},
 		computed : {
    	  hasKeyword: function(item){
     		if(this.keyword){
@@ -98,104 +109,50 @@
     	  link += '?enablejsapi=1&autoplay=1&controls=0&rel=1&showinfo=0'
     	  return link
     	},
+    	
 		},
 		methods: {
-		
-		  onPlayerStateChange : function(e) {
-        console.log('Yep', e.data);
-        switch (e.data) {
-            case YT.PlayerState.PLAYING:
-                this.player.$featuredVideo.removeClass("is-paused");
-                this.player.$featuredVideo.toggleClass("is-playing");
-                break;
-
-            case YT.PlayerState.PAUSED:
-                // this.player.$featuredVideo.removeClass("is-playing");
-                // this.player.$featuredVideo.toggleClass("is-paused");
-                break;
-
-            case YT.PlayerState.ENDED:
-                this.player.$featuredVideo.removeClass("is-playing", "is-paused");
-                break;
-
-            default:
-                break;
-        }
-    },
-		  
-		  initStickyFloat : function (e){
-		    console.log('? isLoaded ?');
-		    
-		    if(!this.isLoaded) return
-
-        const $featuredMedia = this.$el.querySelector('#'+this.ids.media); // Container.
-        const $featuredVideo = $featuredMedia.querySelector('#'+this.ids.video); // Actual Video.
-        
-        console.log($featuredMedia, '#'+this.ids.video ,$featuredVideo, this.$refs.video);
-        
-        // this.player = {
-        //   top : $featuredMedia.offset().top,
-        //   offset : Math.floor(top + ($featuredMedia.outerHeight() / 2)),
-        //   $featuredMedia, $featuredVideo
-        // };
-        
-        // window.onYouTubeIframeAPIReady = function() {
-        //   player = new YT.Player("featured-video-2", {
-        //       events: {
-        //           "onStateChange": this.onPlayerStateChange
-        //       }
-        //   });
-        // };
-  
-        // $window
-        //   .on("resize", _throttle(function() {
-        //       top = this.player.$featuredMedia.offset().top;
-        //       offset = Math.floor(top + (this.player.$featuredMedia.outerHeight() / 2));
-        //   }, 150))
-        //   .on("scroll", _throttle(function() {
-        //       this.player.$featuredVideo.toggleClass("is-sticky",
-        //           $window.scrollTop() > offset && this.player.$featuredVideo.hasClass("is-playing")
-        //       );
-        //   }, 350)); 
+		  calcOffset : function (){
+		    console.log('CALC OFFSET');
+		    this.player.top = this.$refs.ytb_media.offsetTop
+        this.player.offset = Math.floor(
+          this.player.top + (this.$refs.ytb_media.offsetHeight / 2)
+        )
 		  },
-		  
-		  ready (player) {
+		  initStickyFloat : function (player) {
 		    console.log(this.feed.id + ' => READY');
-        this.player = player
-        
-      },
-      playing (player) {
-		    console.log(this.feed.id + ' => PLAYING');
-        // The player is playing a video.
-      },
-
-      stop () {
-		    console.log(this.feed.id + ' => STOPPED');
-        this.player.stopVideo()
-      },
-      pause () {
-		    console.log(this.feed.id + ' => PAUSED');
-        this.player.pauseVideo()
+		    this.player = player
+        this.calcOffset()
       },
       
-      error (err) {
+      playing : function (player) {
+		    console.log(this.feed.id + ' => PLAYING');
+		    this.player = player
+        this.classList['is-playing'] = true
+        this.classList['is-paused'] = false
+      },
+      paused : function (player) {
+		    console.log(this.feed.id + ' => PAUSED');
+        this.classList['is-paused'] = true
+        this.classList['is-playing'] = true
+      },
+      stop : function() {
+		    console.log(this.feed.id + ' => STOPPED');
+        this.player.stopVideo()
+        this.player['is-playing'] = false
+      },
+
+      error : function(err) {
 		    console.log(this.feed.id + ' => ERROR', err);
         
       },
-		}
+    },
 
 	}
 
 </script>
 
 <style>
-  .content-media iframe {
-    top: 0;
-    left: 0;
-    height:100%;
-    width: 100%;
-  }
-  
   
   .play-button {
     cursor : pointer;
@@ -210,29 +167,38 @@
     color : #FFF;
   }
   
-  .content-media-video {
+  
+  .content-media iframe {
+    top: 0;
+    left: 0;
+    height:100%;
+    width: 100%;
+  }
+  
+  .content-media {
       transition: width .2s ease-in-out, height .2s ease-in-out, transform .38s ease-in-out;
   }
-  /** Use .sticky */
   
+  /** Use .sticky */
   
   .is-sticky {
       position: fixed;
-      top: 15px;
+      top: 45px;
       right: 0;
-      min-width: 480px;
-      min-height: 270pc;
+      max-width: 350px;
+      max-height: 250px;
   }
+        
   
   @media screen and (min-width: 1120px) {
-      .content-media-video .is-sticky {
-          transform: translateX(-30%);
+      .is-sticky {
+          transform: translateX(-80%);
       }
   }
   
   @media screen and (min-width: 1300px) {
-      .content-media-video .is-sticky {
-          transform: translateX(-75%);
+      .is-sticky {
+          transform: translateX(-115%);
       }
   }
 </style>
