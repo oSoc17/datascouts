@@ -69,6 +69,7 @@
     		selectedKeyword: '',
     		newKeyword: '',
     		keywords: [],
+
     		activeSocialMedia: [],
     	}
   	},
