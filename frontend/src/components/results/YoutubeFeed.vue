@@ -83,12 +83,13 @@
 		},
 		watch : { 
 		  scroll : function (scroll){
-	      this.player.scroll = scroll
 		    if(this.classList['is-playing']){
           const state = this.classList['is-playing'] && (scroll-50) > this.player.offset
           console.log(this.feed.id, ' => SCROLLED\n',
                 scroll, this.player.offset ,'isSticky : ', state);
-                
+          
+          this.$refs.ytb_vid.$el.style.top = (this.player.offset  + scroll) +'px'
+          
           this.classList['is-sticky'] = state
 		    }
       },
@@ -184,9 +185,12 @@
   .is-sticky {
       position: fixed;
       top: 45px;
-      right: 0;
+      left: 100px;
+      width: 280px;
+      height: 158px;
       max-width: 350px;
       max-height: 250px;
+      box-shadow: 0 0 5px 2px #ec8080;
   }
         
   
