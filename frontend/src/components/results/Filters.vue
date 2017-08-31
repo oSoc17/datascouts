@@ -14,7 +14,7 @@
 				<h2>Social media</h2>
 				<template v-for="service in services">
 					<div class="form-group">
-						<input class="styled-checkbox"  type="checkbox"
+						<input class="styled-checkboxx"  type="checkbox"
 						      :id="'styled-checkbox-sm-1'+service.id" 
 						      :value="service.name" 
 						      v-model="activeSocialMedia"
