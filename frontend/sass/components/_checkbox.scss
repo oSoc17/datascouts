@@ -1,7 +1,30 @@
+.styled-checkboxx {
+	position: absolute;
+	opacity: 0;
+	& + label:before {
+		content: '';
+		margin-right: 10px;
+		display: inline-block;
+		vertical-align: text-top;
+		width: 20px;
+		height: 20px;
+		background-color: $white;
+		background-size: 20px;
+	}
+	&:checked + label:before {
+		background-color: $primary;
+		background: url('../assets/img/checked.svg');
+		background-size: 20px;
+	}
+	&:hover + label:before {
+		transition: $trans;
+		opacity: 0.5;
+		cursor: pointer;
+	}
+}
 .styled-checkbox {
-position: absolute; // take it out of document flow
-opacity: 0; // hide it
-
+	position: absolute;
+	opacity: 0;
 	& + label {
 		position: relative;
 		cursor: pointer;
@@ -25,6 +48,7 @@ opacity: 0; // hide it
 		background: url('../assets/font-awesome-svg/eye-hover.svg');
 		background-size: 20px;
 		transition: $trans;
+		opacity: 0.5;
 	}
 	
 	// Box focus
