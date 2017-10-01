@@ -1,5 +1,5 @@
 <template>
-  <div id="content" @click.self.stop="displayFilterPopup = false">
+  <div id="content" @click.self.stop="displayFilterPopup = false" @scroll="handleScroll">
   	<div class="flashmessage">You succesfully created an entity called {{ entity }}</div>
 
   	<filters :active="displayFilterPopup"
@@ -42,6 +42,7 @@
 					</twitterFeed>
 
 					<youtubeFeed :feed="feed" :keyword="selectedKeyword" :active="activeSocialMedia.indexOf('youtube')!==-1" 
+					              :scroll="scroll"
 					              v-if="feed.service_name == 'youtube'">
 					</youtubeFeed>
 
@@ -87,6 +88,7 @@
     		isLoading: false,
     		activeSocialMedia: [],
     		selectedKeyword: '',
+    		scroll : 0,
     	}
   	},
   	created () {
@@ -96,6 +98,8 @@
 			bus.$on('ENTITIES_IS_EMPTY', (bool) => this.entitiesIsEmpty = bool)
       bus.$on('UPDATE_WATERFALL', this.updateWaterfall)
 			bus.$on('FETCH_DATA', this.fetchData)
+			
+			window.addEventListener("scroll", _ => this.scroll = window.scrollY);
 		},
 		watch: {
 			items: function(updatingWfContainer){
@@ -103,6 +107,9 @@
 			}
 		},
 		methods: {
+		  handleScroll : function ($event) {
+		    bus.$emit('SCROLLING', window.scrollY)
+		  },
 		  out : function () {
 		    this.displayFilterPopup = false
 		  },
