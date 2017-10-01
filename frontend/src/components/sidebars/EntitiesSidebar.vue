@@ -9,19 +9,27 @@
       <div class="form-group">
         <label class="hide" for="">Entity</label>
         <div class="search-entity">
-          <input type="text" placeholder="Search for a member" v-model="searchEntity"/>
+          <input 
+            name="name"
+            type="text"
+            placeholder="Search for a member"
+            v-model="searchEntity"
+            v-validate="'min:3'"
+            data-vv-validate-on="none"/>
           <div class="input-icon">
             <i class="fa fa-search"></i>
           </div>
         </div>
-        <div class="validation-error">
+
+        <div class="validation-error" v-show="errors.has('name')">
           <div class="error-icon">
             <i class="fa fa-exclamation "></i>
           </div>
           <ul>
-            <li>You need at least 3 characters.</li>
+            <li>{{errors.first('name')}}</li>
           </ul>
         </div>
+
       </div>
     </form>
 
@@ -65,12 +73,23 @@
       bus.$on('ADD_NEW_ENTITY_FROM_SEARCH',this.insertNewEntity)
       bus.$on('DELETE_LISTED_ENTITY',this.deleteEntity)
       bus.$on('UPDATE_ENTITIES',this.updateEntities)
+      bus.$on('VALIDATE_CREATE_ENTITY', this.validateCreateEntity)
     },
     watch: {
-
+       searchEntity : function () {
+        if(this.errors.any()){
+          this.errors.clear()
+        }  
+      }
     },
     methods: {
-      findEntity : function (entity) {
+      validateCreateEntity: function(){
+        this.$validator.validateAll();
+        if (this.errors.any()) {
+          bus.$emit('ERROR_CREATE_ENTITY')
+        }
+      },
+      findEntity: function (entity) {
         return this.list.find(e => e.id === entity.id);
       },
       loadEntities: function() {

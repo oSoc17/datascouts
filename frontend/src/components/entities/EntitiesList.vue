@@ -22,10 +22,10 @@
       </li>
     </template>
     <transition name="slide-fade">
-      <button type="button" class="btn_primary action"
+      <button type="button"
+              class="btn_primary action"
               v-on:click.prevent="addEntityFromSearch(searchEntity)"
-              v-show="searchNotFound"
-      >
+              v-show="searchNotFound">
         Create {{searchEntity}}
       </button>
     </transition>
@@ -55,12 +55,18 @@
         isSelected: false,
         searchNotFound : false,
         entitiesIsEmpty: false,
+        hasError : false
       }
     },
     created () {
       bus.$on('ENTITIES_IS_EMPTY', (bool) => this.entitiesIsEmpty = bool)
       bus.$on('ADD_ACTIVE_ENTITY', this.addToActiveEntities)
       this.loadStoredActiveEntities()
+    },
+    mounted () {
+      bus.$on('ERROR_CREATE_ENTITY', (errors) => {
+        this.hasError = true
+      })
     },
     watch: {
       entities : function () {
@@ -142,8 +148,12 @@
         bus.$emit('UPDATE_ENTITIES')
       },
       addEntityFromSearch: function(name){
-        console.log('[EntitiesList] Add new entity from button create')
-        bus.$emit('ADD_NEW_ENTITY_FROM_SEARCH', name)
+        bus.$emit('VALIDATE_CREATE_ENTITY')
+        if(!this.hasError){
+          console.log('[EntitiesList] Add new entity from button create')
+          bus.$emit('ADD_NEW_ENTITY_FROM_SEARCH', name)
+        }
+        this.hasError = false
       },
       loadStoredActiveEntities : function () {
         this.activeEntities = getActiveEntities();

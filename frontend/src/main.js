@@ -4,6 +4,7 @@
 import Vue from 'vue'
 import VueResource from 'vue-resource'
 import Vue2Filters from 'vue2-filters'
+import VeeValidate from 'vee-validate'
 
 import Config from './config/'
 import App from './App.vue'
@@ -17,6 +18,8 @@ Vue.use(VueResource);
 Vue.http.options.root = Config.API_URL
 
 Vue.use(Vue2Filters)
+
+Vue.use(VeeValidate)
 
 new Vue({
   el: '#app',
